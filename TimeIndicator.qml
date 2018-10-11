@@ -111,16 +111,16 @@ Item {
         root.movable = false
 
     }
-//    onToMsChanged: {
-//        indicator.x = (root.position - root.fromMs) * (root.width/ Math.abs(root.toMs - root.fromMs))
-//        if(root.position < root.fromMs || root.position > root.toMs)
-//        {
-//            indicator.visible = false
-//        }
-//        else
-//        {
-//            indicator.visible = true
-//        }
-//        root.movable = false
-//    }
+    onToMsChanged: {
+        indicator.x = (root.position - root.fromMs) * (root.width/ Math.abs(root.toMs - root.fromMs))
+        if(root.position < root.fromMs || root.position > root.toMs)
+        {
+            indicator.visible = false
+        }
+        else
+        {
+            indicator.visible = true
+        }
+        root.movable = false
+    }
 }

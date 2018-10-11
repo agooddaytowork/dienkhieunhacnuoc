@@ -79,6 +79,7 @@ ApplicationWindow {
                 width: parent.width / 10 * 9
                 anchors.left: parent.left
                 anchors.leftMargin: parent.width/10
+                anchors.top: parent.top
                 anchors.topMargin: 5
                 z:3
                 fromMs: root.fromMs
@@ -164,7 +165,7 @@ ApplicationWindow {
 
                 id: timeIndicatorForScrollBar
 
-                height: parent.height / 10
+                height: (parent.height -5) / 11
                 width: parent.width / 10 * 9
                 anchors.left: parent.left
                 anchors.leftMargin: parent.width/10
@@ -178,10 +179,6 @@ ApplicationWindow {
 
 
             }
-
-
-
-
         }
         Rectangle{
 
