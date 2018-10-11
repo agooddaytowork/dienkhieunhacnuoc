@@ -22,16 +22,29 @@ ApplicationWindow {
             Button
             {
              text: "Button 1"
+
+             onClicked: {
+                 timeIndicator.position = 5000
+             }
             }
 
             Button
             {
              text: "Button 1"
+
+             onClicked: {
+                 mainTimer.start()
+             }
             }
 
             Button
             {
              text: "Button 1"
+             onClicked: {
+                 mainTimer.stop()
+             }
+
+
             }
 
             Button
@@ -53,6 +66,29 @@ ApplicationWindow {
             color: "yellow"
             width: root.width-500
             height: root.height
+
+
+            TimeIndicator{
+
+                id: timeIndicator
+
+                height: parent.height
+                width: parent.width / 10 * 9
+                anchors.left: parent.left
+                anchors.leftMargin: parent.width/10
+                z:2
+                fromMs: root.fromMs
+                toMs: root.toMs
+                duration: root.duration
+                position: 0
+
+                onTimeIndicatorPositionChanged:
+                {
+                    console.log("position 2: " + timeIndicator.position)
+                    timeIndicator.position = position
+                }
+
+            }
 
 
             TimeLegend{
@@ -139,5 +175,18 @@ ApplicationWindow {
                }
            }
         }
+    }
+
+    Timer{
+        id: mainTimer
+        interval: 50
+        repeat: true
+        running: false
+        triggeredOnStart: true
+
+        onTriggered: {
+            timeIndicator.position += 50
+        }
+
     }
 }

@@ -8,5 +8,6 @@
         <file>Timeline.qml</file>
         <file>TimeLineScroll.qml</file>
         <file>GroupControlPanel.qml</file>
+        <file>TimeIndicator.qml</file>
     </qresource>
 </RCC>

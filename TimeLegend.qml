@@ -17,6 +17,7 @@ Item {
 
 
 
+
     function tickLabel(tickIndex)
     {
         var duration = Math.abs(root.toMs - root.fromMs)
