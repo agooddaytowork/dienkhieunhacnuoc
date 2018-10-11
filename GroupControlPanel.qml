@@ -9,6 +9,7 @@ Item {
     property int  groupIndex: 0
     property int  fromMs: 0
     property int  toMs: 0
+    property int  duration: 0
     property int  infoGroupWidth: root.width/10
     signal changeFromAndToMoment(int from, int to)
 
@@ -33,6 +34,8 @@ Item {
             height: root.height
             fromMs: root.fromMs
             toMs: root.toMs
+            duration: root.duration
+
 
             onChangeFromAndToMoment: {
                 root.changeFromAndToMoment(from,to)

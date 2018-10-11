@@ -19,6 +19,7 @@ ApplicationWindow {
     property int  buttonSize: 40
 
 
+
     header: ToolBar{
 
 
@@ -65,9 +66,16 @@ ApplicationWindow {
                 icon.height: root.buttonSize
                 icon.width: root.buttonSize
                 onClicked: {
-                    mainTimer.start()
+                    //                    mainTimer.start()
                     timeIndicator.autoPlay = true
+                    audioPlayer.play()
                     timeIndicator.movable = false
+                    root.duration = audioPlayer.duration
+                    root.toMs = audioPlayer.duration
+
+                    console.log("root duration: " + root.duration)
+                    console.log("root toMs: " + root.toMs)
+
                 }
 
             }
@@ -82,8 +90,9 @@ ApplicationWindow {
                 icon.height: root.buttonSize
                 icon.width: root.buttonSize
                 onClicked: {
+                    audioPlayer.pause()
                     timeIndicator.autoPlay = false
-                    mainTimer.stop()
+                    //                    mainTimer.stop()
 
                 }
 
@@ -100,9 +109,9 @@ ApplicationWindow {
                 icon.width: root.buttonSize
                 onClicked: {
                     timeIndicator.autoPlay = false
-                    mainTimer.stop()
+                    //                    mainTimer.stop()
                     root.currentPosition = 0
-
+                    audioPlayer.stop()
                 }
 
             }
@@ -153,6 +162,7 @@ ApplicationWindow {
 
 
             TimeLegend{
+                id: timeLegend
                 width: parent.width / 10 * 9
                 anchors.left: parent.left
                 anchors.leftMargin: parent.width/10
@@ -164,6 +174,23 @@ ApplicationWindow {
                 tick: 15
                 fromMs: root.fromMs
                 toMs: root.toMs
+
+                Connections
+                {
+                    target: root
+
+                    onFromMsChanged:
+                    {
+                        timeLegend.fromMs = root.fromMs
+                    }
+
+                    onToMsChanged:
+                    {
+                        timeLegend.toMs = root.toMs
+                    }
+
+                }
+
 
             }
             Column{
@@ -183,6 +210,7 @@ ApplicationWindow {
                         height: (parent.height -40 - 2*9)/9
                         fromMs: root.fromMs
                         toMs: root.toMs
+                        duration: root.duration
 
                         onChangeFromAndToMoment:
                         {
@@ -227,8 +255,6 @@ ApplicationWindow {
                 toMs: root.duration
                 duration: root.duration
                 position: root.currentPosition
-
-
 
             }
         }
@@ -278,6 +304,21 @@ ApplicationWindow {
     Audio{
         id: audioPlayer
 
+        autoLoad: true
+        notifyInterval: 50
+        property int  previousPosition: 0
+        onPositionChanged: {
+
+            console.log("delta " + (audioPlayer.position - previousPosition))
+
+
+
+            root.currentPosition = audioPlayer.position
+            timeIndicator.deltaFromPreviousPosition = audioPlayer.position - audioPlayer.previousPosition
+
+            audioPlayer.previousPosition = audioPlayer.position
+
+        }
     }
 
     FileDialog{
@@ -290,7 +331,15 @@ ApplicationWindow {
 
             console.log("file URL" +  fileUrl)
             audioPlayer.source = fileUrl
-            audioPlayer.play()
+
+
+
+            //            audioPlayer.play()
+            //            console.log("audio duration" + audioPlayer.duration)
+            //            console.log("audio Position" + audioPlayer.position)
+
+
+
         }
     }
 

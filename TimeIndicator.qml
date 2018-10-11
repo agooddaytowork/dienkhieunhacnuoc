@@ -11,6 +11,7 @@ Item {
     signal timeIndicatorPositionChanged(int mYposition)
     property bool  movable: false
     property bool  autoPlay: false
+    property int  deltaFromPreviousPosition: 0
 
 
     Rectangle{
@@ -89,7 +90,7 @@ Item {
         {
             if((root.position - root.fromMs) / Math.abs(root.toMs - root.fromMs) >= 0.8 && root.toMs != root.duration)
             {
-                root.changeFromAndToMoment(root.fromMs+50, root.toMs + 50)
+                root.changeFromAndToMoment(root.fromMs+ root.deltaFromPreviousPosition, root.toMs + root.deltaFromPreviousPosition)
             }
         }
 
