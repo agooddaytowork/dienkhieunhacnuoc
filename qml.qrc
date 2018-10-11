@@ -9,5 +9,8 @@
         <file>TimeLineScroll.qml</file>
         <file>GroupControlPanel.qml</file>
         <file>TimeIndicator.qml</file>
+        <file>icons/pause.png</file>
+        <file>icons/play.png</file>
+        <file>icons/stop.png</file>
     </qresource>
 </RCC>

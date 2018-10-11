@@ -1,6 +1,8 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
+import QtMultimedia 5.9
+import QtQuick.Dialogs 1.2
 
 
 ApplicationWindow {
@@ -9,50 +11,100 @@ ApplicationWindow {
     visible: true
     width: 1366
     height: 768
-    title: qsTr("Hello World")
+    title: qsTr("Nhạc nước Tiền Giang")
     property int  fromMs: 0
     property int toMs: 60000
     property int  duration: 240000
     property int  currentPosition: 0
+    property int  buttonSize: 40
 
 
     header: ToolBar{
+
+
+
         Row{
             anchors.fill: parent
 
+
+            ToolButton{
+                text: "File"
+
+                onClicked: {
+                    fileMenu.open()
+                }
+
+                Menu{
+                    id: fileMenu
+                    y: parent.height
+
+                    MenuItem{
+
+                        text: "Open music"
+                        onClicked: {
+                            theFileDialog.open()
+                        }
+                    }
+                }
+
+            }
+
+            ToolSeparator
+            {
+
+            }
+
+
             Button
             {
-             text: "Button 1"
-
+                icon.name: "Play"
+                icon.source: "icons/play.png"
+                width: root.buttonSize
+                height: root.buttonSize
+                icon.color: "transparent"
+                icon.height: root.buttonSize
+                icon.width: root.buttonSize
+                onClicked: {
+                    mainTimer.start()
+                    timeIndicator.autoPlay = true
+                    timeIndicator.movable = false
+                }
 
             }
 
             Button
             {
-             text: "Button 1"
+                icon.name: "Pause"
+                icon.source: "icons/pause.png"
+                width:  root.buttonSize
+                height: root.buttonSize
+                icon.color: "transparent"
+                icon.height: root.buttonSize
+                icon.width: root.buttonSize
+                onClicked: {
+                    timeIndicator.autoPlay = false
+                    mainTimer.stop()
 
-             onClicked: {
-                 mainTimer.start()
-                timeIndicator.autoPlay = true
-                  timeIndicator.movable = false
-             }
-            }
-
-            Button
-            {
-             text: "Button 1"
-             onClicked: {
-                timeIndicator.autoPlay = false
-                 mainTimer.stop()
-                 timeIndicator.movable = false
-             }
-
+                }
 
             }
 
             Button
             {
-             text: "Button 1"
+                icon.name: "Stop"
+                icon.source: "icons/stop.png"
+                width:  root.buttonSize
+                height: root.buttonSize
+                icon.color: "transparent"
+                icon.height: root.buttonSize
+                icon.width: root.buttonSize
+                onClicked: {
+                    timeIndicator.autoPlay = false
+                    mainTimer.stop()
+                    root.currentPosition = 0
+
+                }
+
             }
         }
     }
@@ -67,7 +119,7 @@ ApplicationWindow {
         Rectangle{
             id: controlTimeLineBGRec
             color: "yellow"
-            width: root.width-500
+            width: root.width-400
             height: root.height
 
 
@@ -182,22 +234,31 @@ ApplicationWindow {
         }
         Rectangle{
 
-           id: presenterBGRec
-           color: "grey"
-           border.width: 1
-           border.color: "black"
-           width: 500
-           height: root.height
+            id: presenterBGRec
+            color: "grey"
+            border.width: 1
+            border.color: "black"
+            width: 400
+            height: root.height
 
-           Repeater{
-               model: 9
-               delegate: MusicPresenterGroup{
-                   id: theGroup
-                   property int groupIndex: index
-                   groupID: index
-                   scale: 1
-               }
-           }
+            Rectangle{
+                width: parent.width
+                anchors.top: parent.top
+                anchors.left: parent.left
+                height: 400
+                Repeater{
+                    model: 9
+                    delegate: MusicPresenterGroup{
+                        id: theGroup
+                        property int groupIndex: index
+                        groupID: index
+                        scale: 1
+
+                    }
+                }
+            }
+
+
         }
     }
 
@@ -213,4 +274,24 @@ ApplicationWindow {
         }
 
     }
+
+    Audio{
+        id: audioPlayer
+
+    }
+
+    FileDialog{
+        id: theFileDialog
+        folder: shortcuts.home
+        selectMultiple: false
+        selectFolder: false
+        nameFilters: ["Music (*.mp3 *.wav)"]
+        onAccepted: {
+
+            console.log("file URL" +  fileUrl)
+            audioPlayer.source = fileUrl
+            audioPlayer.play()
+        }
+    }
+
 }
