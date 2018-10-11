@@ -49,12 +49,9 @@ Item {
 
                 if(root.movable)
                 {
-                     console.log("DMMMs_____________________")
-                        console.log("MOUSE X: " + mouseX)
-                       console.log("current Duration on time Indicator: " + (root.toMs - root.fromMs))
 //                    console.log("timeIndicat or fromMs: " + root.fromMs)
 //                    console.log("timeIndicator toMs: " + root.toMs)
-                      console.log("initial indicator X: " + indicator.x)
+
 
                     var newX = 0
                     newX = indicator.x + mouseArea.mouseX
@@ -71,10 +68,7 @@ Item {
     onPositionChanged: {
 
 
-        console.log("position 1 :" +  root.position)
         indicator.x = (root.position - root.fromMs) * (root.width/ Math.abs(root.toMs - root.fromMs))
-        console.log("On position change indicator X: " + indicator.x)
-        console.log("position changed, new X: " + indicator.x)
 
             if(root.position < root.fromMs || root.position > root.toMs)
             {
@@ -98,10 +92,7 @@ Item {
 
     onFromMsChanged: {
 
-        console.log("dm position co doi khong: " + root.position)
-
         indicator.x = (root.position - root.fromMs) * (root.width/ Math.abs(root.toMs - root.fromMs))
-        console.log("INDICATOR X CHANGE: " + indicator.x)
         if(root.position < root.fromMs || root.position > root.toMs)
         {
             indicator.visible = false

@@ -24,10 +24,7 @@ ApplicationWindow {
             {
              text: "Button 1"
 
-             onClicked: {
-                 timeIndicator.position = 5000
 
-             }
             }
 
             Button
@@ -91,9 +88,6 @@ ApplicationWindow {
 
                 onTimeIndicatorPositionChanged:
                 {
-//                    console.log("main FromMs: " + root.fromMs)
-//                    console.log("main toMs: " + root.toMs)
-                    console.log("position 2: " + mYposition)
                     root.currentPosition = mYposition
                 }
                 onChangeFromAndToMoment: {
