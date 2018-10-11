@@ -49,15 +49,21 @@ Item {
 
                 if(root.movable)
                 {
-//                    console.log("timeIndicat or fromMs: " + root.fromMs)
-//                    console.log("timeIndicator toMs: " + root.toMs)
-
 
                     var newX = 0
                     newX = indicator.x + mouseArea.mouseX
-                    root.timeIndicatorPositionChanged(parseInt(newX * Math.abs(root.toMs - root.fromMs) / root.width) + root.fromMs)
+                    var newPosition = parseInt(newX * Math.abs(root.toMs - root.fromMs) / root.width) + root.fromMs
 
-                    //                    root.position = indicator.x * Math.abs(root.toMs - root.fromMs) / root.width
+                    if(newPosition < 0)
+                    {
+                        newPosition = 0
+                    }
+                    if(newPosition > root.duration)
+                    {
+                        newPosition = root.duration
+                    }
+
+                    root.timeIndicatorPositionChanged(newPosition)
 
                 }
             }
@@ -70,7 +76,7 @@ Item {
 
         indicator.x = (root.position - root.fromMs) * (root.width/ Math.abs(root.toMs - root.fromMs))
 
-            if(root.position < root.fromMs || root.position > root.toMs)
+            if(root.position < root.fromMs || root.position > root.toMs && root.position > 0 && root.position < root.duration)
             {
                 indicator.visible = false
             }
