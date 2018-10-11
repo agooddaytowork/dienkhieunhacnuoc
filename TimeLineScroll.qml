@@ -59,6 +59,8 @@ Item {
                     theSlider.movable = false
                 }
                 onMouseXChanged: {
+
+                    console.log("current duration on timeLineScroll : " + sliderMouseArea.currentDuration)
                     if(theSlider.movable )
                     {
                         if(mouseX > sliderMouseArea.initialX)
@@ -81,8 +83,9 @@ Item {
                             theSlider.x = root.width - theSlider.width
                         }
 
+                        var newFromMs = theSlider.x * duration/root.width
 
-                        root.changeFromAndToMoment(theSlider.x * duration/root.width,root.fromMs + sliderMouseArea.currentDuration )
+                        root.changeFromAndToMoment(newFromMs, newFromMs + sliderMouseArea.currentDuration )
 
 //                        root.fromMs = theSlider.x * duration/root.width
 //                        root.toMs = root.fromMs + sliderMouseArea.currentDuration
@@ -90,7 +93,7 @@ Item {
                         if(root.toMs > root.duration)
                         {
 //                            root.toMs = root.duration
-                             root.changeFromAndToMoment(root.fromMs, root.duration)
+                             root.changeFromAndToMoment(newFromMs, root.duration)
                         }
                         if(root.fromMs < 0)
                         {

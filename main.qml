@@ -13,6 +13,7 @@ ApplicationWindow {
     property int  fromMs: 0
     property int toMs: 60000
     property int  duration: 240000
+    property int  currentPosition: 0
 
 
     header: ToolBar{
@@ -25,6 +26,7 @@ ApplicationWindow {
 
              onClicked: {
                  timeIndicator.position = 5000
+
              }
             }
 
@@ -34,6 +36,8 @@ ApplicationWindow {
 
              onClicked: {
                  mainTimer.start()
+                timeIndicator.autoPlay = true
+                  timeIndicator.movable = false
              }
             }
 
@@ -41,7 +45,9 @@ ApplicationWindow {
             {
              text: "Button 1"
              onClicked: {
+                timeIndicator.autoPlay = false
                  mainTimer.stop()
+                 timeIndicator.movable = false
              }
 
 
@@ -72,23 +78,31 @@ ApplicationWindow {
 
                 id: timeIndicator
 
-                height: parent.height
+                height: parent.height / 10 * 9
                 width: parent.width / 10 * 9
                 anchors.left: parent.left
                 anchors.leftMargin: parent.width/10
-                z:2
+                anchors.topMargin: 5
+                z:3
                 fromMs: root.fromMs
                 toMs: root.toMs
                 duration: root.duration
-                position: 0
+                position: root.currentPosition
 
                 onTimeIndicatorPositionChanged:
                 {
-                    console.log("position 2: " + timeIndicator.position)
-                    timeIndicator.position = position
+//                    console.log("main FromMs: " + root.fromMs)
+//                    console.log("main toMs: " + root.toMs)
+                    console.log("position 2: " + mYposition)
+                    root.currentPosition = mYposition
+                }
+                onChangeFromAndToMoment: {
+                    root.fromMs = from
+                    root.toMs = to
                 }
 
             }
+
 
 
             TimeLegend{
@@ -142,7 +156,7 @@ ApplicationWindow {
                 duration: root.duration
                 fromMs: root.fromMs
                 toMs: root.toMs
-                z:3
+                z:2
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 30
                 onChangeFromAndToMoment:
@@ -150,6 +164,25 @@ ApplicationWindow {
                     root.fromMs = from
                     root.toMs = to
                 }
+            }
+
+            TimeIndicator{
+
+                id: timeIndicatorForScrollBar
+
+                height: parent.height / 10
+                width: parent.width / 10 * 9
+                anchors.left: parent.left
+                anchors.leftMargin: parent.width/10
+                anchors.bottom: parent.bottom
+                z:3
+                fromMs:0
+                toMs: root.duration
+                duration: root.duration
+                position: root.currentPosition
+
+
+
             }
 
 
@@ -185,7 +218,7 @@ ApplicationWindow {
         triggeredOnStart: true
 
         onTriggered: {
-            timeIndicator.position += 50
+            root.currentPosition += 50
         }
 
     }
