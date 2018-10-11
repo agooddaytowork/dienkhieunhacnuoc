@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>MusicPresensterElement.qml</file>
+        <file>MusicPresensterFrame.qml</file>
+        <file>MusicPresenterGroup.qml</file>
+        <file>TimeLegend.qml</file>
+        <file>Timeline.qml</file>
+        <file>TimeLineScroll.qml</file>
+        <file>GroupControlPanel.qml</file>
+    </qresource>
+</RCC>
