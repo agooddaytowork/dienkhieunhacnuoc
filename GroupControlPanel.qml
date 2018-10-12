@@ -12,6 +12,12 @@ Item {
     property int  duration: 0
     property int  infoGroupWidth: root.width/10
     signal changeFromAndToMoment(int from, int to)
+    signal timeLineSelected(int groupIndex)
+    property bool  selected: false
+
+    onSelectedChanged: {
+        timeLine.selected = selected
+    }
 
     Row
     {
@@ -52,15 +58,21 @@ Item {
 
         }
         Timeline{
+            id: timeLine
             width: root.width/10 * 9
             height: root.height
             fromMs: root.fromMs
             toMs: root.toMs
             duration: root.duration
+            selected: root.selected
 
 
             onChangeFromAndToMoment: {
                 root.changeFromAndToMoment(from,to)
+            }
+
+            onTimeLineSelect: {
+                root.timeLineSelected(root.groupIndex)
             }
         }
     }

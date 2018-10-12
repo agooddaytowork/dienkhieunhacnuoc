@@ -9,6 +9,15 @@ Item {
     property int toMs: 60000
     property int  duration: 240000
     signal changeFromAndToMoment(int from, int to)
+    signal timeLineSelect()
+    property bool selected: false
+
+    onSelectedChanged: {
+        if(!root.selected)
+        {
+            selectRec.visible = false
+        }
+    }
 
     Rectangle
     {
@@ -48,8 +57,8 @@ Item {
 
                     if(root.toMs >= root.duration)
                     {
-//                        root.fromMs = 0
-//                        root.toMs = root.duration
+                        //                        root.fromMs = 0
+                        //                        root.toMs = root.duration
 
                         root.changeFromAndToMoment(0, root.duration)
 
@@ -57,14 +66,14 @@ Item {
 
                     else if(root.toMs < root.duration)
                     {
-//                        root.toMs = root.toMs + theMsZoomStep
+                        //                        root.toMs = root.toMs + theMsZoomStep
                         root.changeFromAndToMoment(root.fromMs, root.toMs + theMsZoomStep)
 
                     }
                     else
                     {
-                         root.changeFromAndToMoment(root.fromMs, root.duration)
-//                        root.toMs = root.duration
+                        root.changeFromAndToMoment(root.fromMs, root.duration)
+                        //                        root.toMs = root.duration
 
                     }
 
@@ -74,7 +83,7 @@ Item {
 
                     if(Math.abs(root.toMs - root.fromMs) > 500)
                     {
-//                        root.toMs = root.toMs - theMsZoomStep
+                        //                        root.toMs = root.toMs - theMsZoomStep
                         root.changeFromAndToMoment(root.fromMs, root.toMs - theMsZoomStep)
                     }
                 }
@@ -82,6 +91,7 @@ Item {
             }
 
             onPressed: {
+                root.timeLineSelect()
                 selectRec.width = 1
                 selectRec.height = root.height
                 selectRec.visible = true
@@ -90,18 +100,32 @@ Item {
 
                 timeLineMainMouseArea.initialX = mouseX
 
+
             }
 
             onMouseXChanged: {
-                if(mouseX > selectRec.x) // ben phai
+
+
+
+                if(mouseX > selectRec.x && selectRec.x >= 0) // ben phai
                 {
                     selectRec.width = mouseX - selectRec.x
                 }
-                else
+                else if(mouseX < selectRec.x && selectRec.x > 0)
                 {
                     selectRec.x = mouseX
                     selectRec.width = Math.abs(mouseX - timeLineMainMouseArea.initialX)
                 }
+                if((selectRec.x + selectRec.width) >= root.width)
+                {
+                    selectRec.width = root.width - selectRec.x
+
+                }
+                if(selectRec.x <= 0)
+                {
+                    selectRec.x = 0
+                }
+
 
             }
 
@@ -110,7 +134,6 @@ Item {
             }
 
             onWheel: {
-                console.log("Wheel X: " + wheel.angleDelta.x + " - Wheel Y: " + wheel.angleDelta.y)
                 timeLineMainMouseArea.zoomTimeLine(wheel.angleDelta.y)
 
             }

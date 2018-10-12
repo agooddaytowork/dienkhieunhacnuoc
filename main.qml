@@ -229,6 +229,9 @@ ApplicationWindow {
 
 
                 Repeater{
+                    id: groupControlPanelRepeater
+                    property int  currentGroupIndex: 0
+
                     model: 9
                     delegate: GroupControlPanel{
                         id: groupControlPanelDelegate
@@ -238,11 +241,24 @@ ApplicationWindow {
                         fromMs: root.fromMs
                         toMs: root.toMs
                         duration: root.duration
+                        selected: {
+                            if(groupControlPanelRepeater.currentGroupIndex === groupControlPanelDelegate.groupIndex)
+                            {
+                                true
+                            }
+                            else
+                            {
+                                false
+                            }
+                        }
 
                         onChangeFromAndToMoment:
                         {
                             root.fromMs = from
                             root.toMs = to
+                        }
+                        onTimeLineSelected: {
+                            groupControlPanelRepeater.currentGroupIndex = groupIndex
                         }
 
                     }
