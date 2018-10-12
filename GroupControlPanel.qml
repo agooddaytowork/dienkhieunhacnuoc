@@ -20,11 +20,33 @@ Item {
             height: root.height
 
             radius: 10
-            Label{
-                anchors.centerIn: parent
-                text: "Kiểu " + (root.groupIndex + 1)
-                rotation: 90
+            Column{
+                anchors.fill: parent
+                Label{
+                    text: "Kiểu " + (root.groupIndex + 1)
+                    height: root.height/3
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    topPadding: 8
+                    font.bold: true
+                }
+
+                    Switch{
+                        id: valveCheckBox
+                        text: "Valve"
+                        height: root.height/3
+                        scale: 0.7
+
+                    }
+                    Switch{
+                        id: ledCheckBox
+                        text: "LED"
+                        height: root.height/3
+                         scale: 0.7
+                    }
+
             }
+
+
 
 
 

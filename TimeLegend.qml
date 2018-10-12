@@ -13,6 +13,8 @@ Item {
     property int fromMs: 0
     property int  toMs: 5000
 
+    signal requestTimeIndicatorPosition(int position)
+
 
 
 
@@ -50,6 +52,15 @@ Item {
         width: root.width
         height: root.height
         color: "transparent"
+
+        MouseArea{
+            id: mouseArea
+            anchors.fill: parent
+
+            onClicked: {
+                root.requestTimeIndicatorPosition(mouseX/root.width * Math.abs(root.toMs - root.fromMs) + root.fromMs)
+            }
+        }
 
         Rectangle{
 

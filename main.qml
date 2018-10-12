@@ -20,6 +20,7 @@ ApplicationWindow {
 
 
 
+
     header: ToolBar{
 
 
@@ -68,10 +69,12 @@ ApplicationWindow {
                 onClicked: {
                     //                    mainTimer.start()
                     timeIndicator.autoPlay = true
+                    audioPlayer.seek(root.currentPosition)
                     audioPlayer.play()
+
                     timeIndicator.movable = false
                     root.duration = audioPlayer.duration
-                    root.toMs = audioPlayer.duration
+//                    root.toMs = audioPlayer.duration
 
                     console.log("root duration: " + root.duration)
                     console.log("root toMs: " + root.toMs)
@@ -150,7 +153,16 @@ ApplicationWindow {
 
                 onTimeIndicatorPositionChanged:
                 {
-                    root.currentPosition = mYposition
+
+
+                    if(audioPlayer.playbackState == Audio.PlayingState)
+                    {
+                        audioPlayer.seek(mYposition)
+                    }
+                    else
+                    {
+                       root.currentPosition = mYposition
+                    }
                 }
                 onChangeFromAndToMoment: {
                     root.fromMs = from
@@ -174,6 +186,21 @@ ApplicationWindow {
                 tick: 15
                 fromMs: root.fromMs
                 toMs: root.toMs
+
+
+                onRequestTimeIndicatorPosition: {
+
+
+                    if(audioPlayer.playbackState == Audio.PlayingState)
+                    {
+                        audioPlayer.seek(position)
+                    }
+                    else
+                    {
+                         root.currentPosition = position
+                    }
+
+                }
 
                 Connections
                 {
@@ -255,6 +282,8 @@ ApplicationWindow {
                 toMs: root.duration
                 duration: root.duration
                 position: root.currentPosition
+
+
 
             }
         }
