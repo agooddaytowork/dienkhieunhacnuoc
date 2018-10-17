@@ -1,6 +1,6 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
-
+import TimeLine 1.0
 
 Item {
 
@@ -36,19 +36,19 @@ Item {
                     font.bold: true
                 }
 
-                    Switch{
-                        id: valveCheckBox
-                        text: "Valve"
-                        height: root.height/3
-                        scale: 0.7
+                Switch{
+                    id: valveCheckBox
+                    text: "Valve"
+                    height: root.height/3
+                    scale: 0.7
 
-                    }
-                    Switch{
-                        id: ledCheckBox
-                        text: "LED"
-                        height: root.height/3
-                         scale: 0.7
-                    }
+                }
+                Switch{
+                    id: ledCheckBox
+                    text: "LED"
+                    height: root.height/3
+                    scale: 0.7
+                }
 
             }
 
@@ -73,6 +73,73 @@ Item {
 
             onTimeLineSelect: {
                 root.timeLineSelected(root.groupIndex)
+            }
+
+            onNewTimeSlot: {
+                if(root.groupIndex == 0)
+                {
+                    testList.appendItem(root.groupIndex,from,to)
+                }
+
+            }
+
+            Repeater{
+
+
+                model:TimeSlotModel{
+                    list: if(root.groupIndex == 0 )
+                          {
+                              testList
+                          }
+                          else
+                          {
+                              0
+                          }
+
+                }
+
+                delegate: Rectangle{
+                    id: theTimeSlot
+                    property int  xOffsetValue: 0
+                    height: parent.height
+                    width: {
+                        var newWidth = Math.abs(ToMs - FromMs) / Math.abs(root.toMs - root.fromMs) * timeLine.width
+                        var newPos =  (FromMs - root.fromMs) / Math.abs(root.toMs - root.fromMs) * timeLine.width
+
+                        if(newPos <0 && Math.abs(newPos) <= newWidth)
+                        {
+                            newWidth = newWidth + newPos
+                        }
+                        else if(newPos <0 && Math.abs(newPos) > newWidth)
+                        {
+                            0
+                        }
+                        else if(newPos+newWidth >= timeLine.width)
+                        {
+                            newWidth = newWidth - Math.abs(newPos+newWidth-timeLine.width)
+                        }
+                        else
+                        {
+                            newWidth
+                        }
+                    }
+
+                    x:{
+                        var newPos =  (FromMs - root.fromMs) / Math.abs(root.toMs - root.fromMs) * timeLine.width
+
+                        if(newPos <0)
+                        {
+                            0
+                        }
+                        else
+                        {
+                            newPos
+                        }
+                    }
+
+                    color: "black"
+
+                }
             }
         }
     }

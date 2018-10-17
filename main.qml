@@ -5,6 +5,8 @@ import QtMultimedia 5.9
 import QtQuick.Dialogs 1.2
 
 
+
+
 ApplicationWindow {
 
     id: root
@@ -120,6 +122,7 @@ ApplicationWindow {
             }
         }
     }
+
 
     GridLayout{
         id: mainGrid
@@ -350,7 +353,7 @@ ApplicationWindow {
         id: audioPlayer
 
         autoLoad: true
-        notifyInterval: 50
+        notifyInterval: 45
         property int  previousPosition: 0
         onPositionChanged: {
 

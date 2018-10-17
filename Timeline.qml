@@ -9,6 +9,7 @@ Item {
     property int toMs: 60000
     property int  duration: 240000
     signal changeFromAndToMoment(int from, int to)
+    signal newTimeSlot(int from, int to)
     signal timeLineSelect()
     property bool selected: false
 
@@ -26,13 +27,12 @@ Item {
         height: root.height
         color: "grey"
 
-
-
         MouseArea
         {
             id: timeLineMainMouseArea
             anchors.fill: parent
             property int  initialX: 0
+            acceptedButtons: Qt.RightButton | Qt.LeftButton
 
             function zoomTimeLine(angleDelta)
             {
@@ -91,40 +91,74 @@ Item {
             }
 
             onPressed: {
-                root.timeLineSelect()
-                selectRec.width = 1
-                selectRec.height = root.height
-                selectRec.visible = true
-                selectRec.x = timeLineMainMouseArea.mouseX
-                selectRec.y = timeLineMainMouseArea.mouseY
 
-                timeLineMainMouseArea.initialX = mouseX
+                if(pressedButtons & Qt.LeftButton)
+                {
+
+                    root.timeLineSelect()
+                    selectRec.width = 1
+                    selectRec.height = root.height
+                    selectRec.visible = true
+                    selectRec.x = timeLineMainMouseArea.mouseX
+                    selectRec.y = timeLineMainMouseArea.mouseY
+                    timeLineMainMouseArea.initialX = mouseX
+                }
+                if(pressedButtons & Qt.RightButton && root.selected)
+                {
+                    componentContextMenu.x = mouseX
+                    componentContextMenu.open()
+
+                }
+
+
+
+            }
+
+            Menu
+            {
+                id: componentContextMenu
+
+                MenuItem{
+                    id: componentDeleteMenuItem
+                    text: qsTr("New")
+
+                    onClicked: {
+                        var selectedFromMs = (selectRec.x / timelineBG.width * Math.abs(root.toMs - root.fromMs) ) + root.fromMs
+                        var selectedToMs = ((selectRec.width + selectRec.x )/ timelineBG.width * Math.abs(root.toMs - root.fromMs) ) + root.fromMs
+
+                        root.newTimeSlot(selectedFromMs,selectedToMs)
+                    }
+
+                }
 
 
             }
 
             onMouseXChanged: {
 
+                if(pressedButtons & Qt.LeftButton)
+                {
+                    if(mouseX > selectRec.x && selectRec.x >= 0) // ben phai
+                    {
+                        selectRec.width = mouseX - selectRec.x
+                    }
+                    else if(mouseX < selectRec.x && selectRec.x > 0)
+                    {
+                        selectRec.x = mouseX
+                        selectRec.width = Math.abs(mouseX - timeLineMainMouseArea.initialX)
+                    }
+                    if((selectRec.x + selectRec.width) >= root.width)
+                    {
+                        selectRec.width = root.width - selectRec.x
+
+                    }
+                    if(selectRec.x <= 0)
+                    {
+                        selectRec.x = 0
+                    }
+                }
 
 
-                if(mouseX > selectRec.x && selectRec.x >= 0) // ben phai
-                {
-                    selectRec.width = mouseX - selectRec.x
-                }
-                else if(mouseX < selectRec.x && selectRec.x > 0)
-                {
-                    selectRec.x = mouseX
-                    selectRec.width = Math.abs(mouseX - timeLineMainMouseArea.initialX)
-                }
-                if((selectRec.x + selectRec.width) >= root.width)
-                {
-                    selectRec.width = root.width - selectRec.x
-
-                }
-                if(selectRec.x <= 0)
-                {
-                    selectRec.x = 0
-                }
 
 
             }
@@ -152,14 +186,6 @@ Item {
             border.width: 1
         }
     }
-
-
-
-
-
-
-
-
 
 
 }
