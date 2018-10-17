@@ -110,7 +110,14 @@ Item {
 
                 }
 
+            }
 
+            onReleased: {
+                if (selectRec.width ==1)
+                {
+                    selectRec.width = 0
+                    selectRec.visible = false
+                }
 
             }
 

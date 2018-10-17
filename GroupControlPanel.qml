@@ -52,10 +52,6 @@ Item {
 
             }
 
-
-
-
-
         }
         Timeline{
             id: timeLine
@@ -101,6 +97,30 @@ Item {
                 delegate: Rectangle{
                     id: theTimeSlot
                     property int  xOffsetValue: 0
+                    z:2
+                    MouseArea{
+                        anchors.fill: parent
+                        acceptedButtons: Qt.LeftButton | Qt.RightButton
+
+                        onPressed:
+                        {
+                            if(pressedButtons & Qt.RightButton)
+                            {
+                                theTimeSlotMenu.open()
+                            }
+                        }
+                    }
+                    Menu
+                    {
+                        id: theTimeSlotMenu
+                        MenuItem{
+                            text: qsTr("Delete")
+                            onClicked: {
+                                testList.removeItems(theId)
+                            }
+                        }
+                    }
+
                     height: parent.height
                     width: {
                         var newWidth = Math.abs(ToMs - FromMs) / Math.abs(root.toMs - root.fromMs) * timeLine.width
