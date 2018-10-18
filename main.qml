@@ -22,7 +22,6 @@ ApplicationWindow {
 
 
 
-
     header: ToolBar{
 
 

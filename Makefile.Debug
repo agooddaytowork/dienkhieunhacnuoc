@@ -13,7 +13,7 @@ CC            = gcc
 CXX           = g++
 DEFINES       = -DUNICODE -D_UNICODE -DWIN32 -DQT_DEPRECATED_WARNINGS -DQT_QUICK_LIB -DQT_GUI_LIB -DQT_QML_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_NEEDS_QMAIN
 CFLAGS        = -fno-keep-inline-dllexport -g -Wall -W -Wextra $(DEFINES)
-CXXFLAGS      = -fno-keep-inline-dllexport -g -std=gnu++11 -Wall -W -Wextra -fexceptions -mthreads $(DEFINES)
+CXXFLAGS      = -fno-keep-inline-dllexport -g -std=gnu++1z -Wall -W -Wextra -fexceptions -mthreads $(DEFINES)
 INCPATH       = -I. -I..\..\Qt\5.11.1\mingw53_32\include -I..\..\Qt\5.11.1\mingw53_32\include\QtQuick -I..\..\Qt\5.11.1\mingw53_32\include\QtGui -I..\..\Qt\5.11.1\mingw53_32\include\QtANGLE -I..\..\Qt\5.11.1\mingw53_32\include\QtQml -I..\..\Qt\5.11.1\mingw53_32\include\QtNetwork -I..\..\Qt\5.11.1\mingw53_32\include\QtCore -Idebug -I..\..\Qt\5.11.1\mingw53_32\mkspecs\win32-g++ 
 LINKER      =        g++
 LFLAGS        =        -Wl,-subsystem,windows -mthreads
@@ -124,7 +124,7 @@ compiler_moc_predefs_make_all: debug/moc_predefs.h
 compiler_moc_predefs_clean:
 	-$(DEL_FILE) debug\moc_predefs.h
 debug/moc_predefs.h: ../../Qt/5.11.1/mingw53_32/mkspecs/features/data/dummy.cpp
-	g++ -fno-keep-inline-dllexport -g -std=gnu++11 -Wall -W -Wextra -dM -E -o debug\moc_predefs.h ..\..\Qt\5.11.1\mingw53_32\mkspecs\features\data\dummy.cpp
+	g++ -fno-keep-inline-dllexport -g -std=gnu++1z -Wall -W -Wextra -dM -E -o debug\moc_predefs.h ..\..\Qt\5.11.1\mingw53_32\mkspecs\features\data\dummy.cpp
 
 compiler_moc_header_make_all: debug/moc_timeslotlist.cpp debug/moc_timeslotmodel.cpp
 compiler_moc_header_clean:

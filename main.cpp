@@ -14,35 +14,16 @@ int main(int argc, char *argv[])
                                              QStringLiteral("ToDoList should not be created in QML"));
 
 
-    timeSlotList group0_list;
-    timeSlotList group1_list;
-    timeSlotList group2_list;
-    timeSlotList group3_list;
-    timeSlotList group4_list;
-    timeSlotList group5_list;
-    timeSlotList group6_list;
-    timeSlotList group7_list;
-    timeSlotList group8_list;
-
-
-
+    timeSlotList dataList[9];
 
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
 
-
-    engine.rootContext()->setContextProperty("timeSlotList_0" ,&group0_list);
-    engine.rootContext()->setContextProperty("timeSlotList_1" ,&group1_list);
-    engine.rootContext()->setContextProperty("timeSlotList_2" ,&group2_list);
-    engine.rootContext()->setContextProperty("timeSlotList_3" ,&group3_list);
-    engine.rootContext()->setContextProperty("timeSlotList_4" ,&group4_list);
-    engine.rootContext()->setContextProperty("timeSlotList_5" ,&group5_list);
-    engine.rootContext()->setContextProperty("timeSlotList_6" ,&group6_list);
-    engine.rootContext()->setContextProperty("timeSlotList_7" ,&group7_list);
-    engine.rootContext()->setContextProperty("timeSlotList_8" ,&group8_list);
-
-
+    for (int i = 0; i < 9; i++)
+    {
+        engine.rootContext()->setContextProperty("timeSlotList_" + QString::number(i) ,&dataList[i]);
+    }
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())

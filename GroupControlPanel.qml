@@ -19,6 +19,41 @@ Item {
         timeLine.selected = selected
     }
 
+    function returnTimeSlotList()
+    {
+        switch(root.groupIndex)
+        {
+          case 0:
+               return timeSlotList_0
+
+          case 1:
+               return timeSlotList_1
+
+          case 2:
+               return timeSlotList_2
+
+          case 3:
+               return timeSlotList_3
+
+          case 4:
+                return timeSlotList_4
+
+          case 5:
+               return timeSlotList_5
+
+          case 6:
+               return timeSlotList_6
+
+          case 7:
+               return timeSlotList_7
+
+          case 8:
+               return timeSlotList_8
+
+        }
+    }
+
+
     Row
     {
         Rectangle{
@@ -72,10 +107,10 @@ Item {
             }
 
             onNewTimeSlot: {
-                if(root.groupIndex == 0)
-                {
-                    testList.appendItem(root.groupIndex,from,to)
-                }
+                var list = returnTimeSlotList()
+
+                    list.appendItem(root.groupIndex,from,to)
+
 
             }
 
@@ -83,14 +118,16 @@ Item {
 
 
                 model:TimeSlotModel{
-                    list: if(root.groupIndex == 0 )
-                          {
-                              testList
-                          }
-                          else
-                          {
-                              0
-                          }
+                    //                    list: if(root.groupIndex == 0 )
+                    //                          {
+                    //                              testList
+                    //                          }
+                    //                          else
+                    //                          {
+                    //                              0
+                    //                          }
+
+                    list: root.returnTimeSlotList()
 
                 }
 
@@ -116,7 +153,10 @@ Item {
                         MenuItem{
                             text: qsTr("Delete")
                             onClicked: {
-                                testList.removeItems(theId)
+
+                                var list = root.returnTimeSlotList()
+
+                                list.removeItems(theId)
                             }
                         }
                     }
