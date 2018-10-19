@@ -26,10 +26,14 @@ class timeSlotList : public QObject
 
     QVector<timeSlotItem> mItems;
     quint32 mCurrentIndex;
+
+    timeSlotItem getTimeSlotItem(const quint32 &id);
 public:
     explicit timeSlotList(QObject *parent = nullptr);
     QVector<timeSlotItem> items() const;
     bool setItemAt(int index, const timeSlotItem &item);
+    Q_INVOKABLE quint32 timeSlotCollisionCheck(const quint32 &id);
+
 signals:
     void preItemAppended();
     void postItemAppended();

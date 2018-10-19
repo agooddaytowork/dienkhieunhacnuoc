@@ -101,3 +101,41 @@ void timeSlotList::removeItems(const quint32 &id)
         }
     }
 }
+
+timeSlotItem timeSlotList::getTimeSlotItem(const quint32 &id)
+{
+    for (int i = 0; i < mItems.size(); i++)
+    {
+        if(mItems.at(i).id == id)
+        {
+            return mItems.at(i);
+        }
+    }
+
+    return timeSlotItem();
+}
+
+quint32 timeSlotList::timeSlotCollisionCheck(const quint32 &id)
+{
+
+    timeSlotItem theTimeSlot = getTimeSlotItem(id);
+
+    for(int i = 0; i < mItems.count(); i++ )
+    {
+        if(mItems.at(i).id != theTimeSlot.id)
+        {
+            if(theTimeSlot.fromMs >= mItems.at(i).fromMs && theTimeSlot.fromMs <= mItems.at(i).toMs)
+            {
+                return mItems.at(i).toMs;
+            }
+            else if(theTimeSlot.toMs >= mItems.at(i).fromMs && theTimeSlot.toMs <= mItems.at(i).toMs)
+            {
+                return mItems.at(i).fromMs - (theTimeSlot.toMs - theTimeSlot.fromMs);
+            }
+
+        }
+
+    }
+    return 0;
+//    return false;
+}

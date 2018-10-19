@@ -19,36 +19,44 @@ Item {
         timeLine.selected = selected
     }
 
+    function collisionCheck(timeSlotId)
+    {
+        var theList = returnTimeSlotList()
+
+
+    }
+
+
     function returnTimeSlotList()
     {
         switch(root.groupIndex)
         {
-          case 0:
-               return timeSlotList_0
+        case 0:
+            return timeSlotList_0
 
-          case 1:
-               return timeSlotList_1
+        case 1:
+            return timeSlotList_1
 
-          case 2:
-               return timeSlotList_2
+        case 2:
+            return timeSlotList_2
 
-          case 3:
-               return timeSlotList_3
+        case 3:
+            return timeSlotList_3
 
-          case 4:
-                return timeSlotList_4
+        case 4:
+            return timeSlotList_4
 
-          case 5:
-               return timeSlotList_5
+        case 5:
+            return timeSlotList_5
 
-          case 6:
-               return timeSlotList_6
+        case 6:
+            return timeSlotList_6
 
-          case 7:
-               return timeSlotList_7
+        case 7:
+            return timeSlotList_7
 
-          case 8:
-               return timeSlotList_8
+        case 8:
+            return timeSlotList_8
 
         }
     }
@@ -109,7 +117,7 @@ Item {
             onNewTimeSlot: {
                 var list = returnTimeSlotList()
 
-                    list.appendItem(root.groupIndex,from,to)
+                list.appendItem(root.groupIndex,from,to)
 
 
             }
@@ -126,6 +134,7 @@ Item {
                 delegate: Rectangle{
                     id: theTimeSlot
                     property int  xOffsetValue: 0
+
                     z:2
 
                     function refreshWidth()
@@ -139,7 +148,7 @@ Item {
                         }
                         else if(newPos <0 && Math.abs(newPos) > newWidth)
                         {
-                           return 0
+                            return 0
                         }
                         else if(newPos+newWidth >= timeLine.width)
                         {
@@ -161,7 +170,7 @@ Item {
                         }
                         else
                         {
-                           return newPos
+                            return newPos
                         }
                     }
 
@@ -170,6 +179,8 @@ Item {
                         anchors.fill: parent
                         acceptedButtons: Qt.LeftButton | Qt.RightButton
                         property int  mouseOffset: 0
+                        property bool  selected: false
+
                         onPressed:
                         {
                             if(pressedButtons & Qt.RightButton)
@@ -179,23 +190,41 @@ Item {
                             if(pressedButtons & Qt.LeftButton)
                             {
                                 timeSlotMouseArea.mouseOffset = mouseX
+                                timeSlotMouseArea.selected = true
                             }
+
+                        }
+                        onReleased: {
+                            timeSlotMouseArea.selected = false
                         }
 
                         onMouseXChanged: {
-                            if(pressedButtons & Qt.LeftButton)
+                            if(pressedButtons & Qt.LeftButton && timeSlotMouseArea.selected)
                             {
 
                                 var timeSlotDuration = Math.abs(FromMs - ToMs)
                                 FromMs = (theTimeSlot.x - timeSlotMouseArea.mouseOffset +mouseX) /  timeLine.width * Math.abs(root.toMs - root.fromMs) + root.fromMs
                                 ToMs = FromMs + timeSlotDuration
+                                var theList = root.returnTimeSlotList()
 
-                                console.log("new FromMs: " + FromMs + " - new ToMs: " + ToMs)
+                                var colliedOffset = theList.timeSlotCollisionCheck(theId)
 
-                               theTimeSlot.refreshWidth()
+                                if(colliedOffset !== 0)
+                                {
+                                    FromMs = colliedOffset
+                                    ToMs = FromMs + timeSlotDuration
+
+                                }
+
+
+                                theTimeSlot.refreshWidth()
                                 theTimeSlot.refreshX()
 
                             }
+                        }
+
+                        onClicked: {
+                            // implement shit here
                         }
                     }
                     Menu
