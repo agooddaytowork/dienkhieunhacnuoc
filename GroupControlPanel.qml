@@ -132,45 +132,58 @@ Item {
                 }
 
                 delegate: TimeLineSlot{
-                        id: theTimeLineSlot
-                        z: 2
-                        width: theTimeLineSlot.refreshWidth()
-                        x: theTimeLineSlot.refreshX()
-                        height: timeLine.height
-                        timeLineFromMs: root.fromMs
-                        timeLineToMs: root.toMs
-                        timeSlotFromMs: FromMs
-                        timeSlotToMs: ToMs
-                        timeLineWidth:  timeLine.width
-                        duration: root.duration
+                    id: theTimeLineSlot
+                    z: 2
+                    //                        width: theTimeLineSlot.refreshWidth()
+                    //                        x: theTimeLineSlot.refreshX()
+                    height: timeLine.height
+                    timeLineFromMs: root.fromMs
+                    timeLineToMs: root.toMs
+//                    timeSlotFromMs: FromMs
+//                    timeSlotToMs: ToMs
+                    timeLineWidth:  timeLine.width
+                    duration: root.duration
 
-                        onDeleteTimeSlot: {
-                            var list = root.returnTimeSlotList()
+                    onDeleteTimeSlot: {
+                        var list = root.returnTimeSlotList()
 
-                            list.removeItems(theId)
-                        }
+                        list.removeItems(theId)
+                    }
 
-                        onTimeSlotFromMsChanged:
+                    Component.onCompleted: {
+                        timeSlotFromMs = FromMs
+                        timeSlotToMs = ToMs
+                    }
+
+                    onTimeSlotFromMsChanged:
+                    {
+                        FromMs = timeSlotFromMs
+                    }
+                    onTimeSlotToMsChanged:
+                    {
+                        ToMs = timeSlotToMs
+                    }
+
+
+
+                    onCheckCollision: {
+
+//                        FromMs = theTimeLineSlot.timeSlotFromMs
+//                        ToMs = theTimeLineSlot.timeLineToMs
+                        var list = root.returnTimeSlotList()
+                        var colliedOffset = list.timeSlotCollisionCheck(theId)
+
+                        if(colliedOffset !== 0)
                         {
-                            var list = root.returnTimeSlotList()
-                           var colliedOffset = list.timeSlotCollisionCheck(theId)
+                           theTimeLineSlot.timeSlotFromMs = colliedOffset
+                           theTimeLineSlot.timeSlotToMs = FromMs + theTimeLineSlot.slotDuration
 
-                           if(colliedOffset !== 0)
-                           {
-                               FromMs = colliedOffset
-                               ToMs = FromMs + theTimeLineSlot.slotDuration
-
-                           }
-
-//                           theTimeLineSlot.width = theTimeLineSlot.refreshWidth()
-//                           theTimeLineSlot.x = theTimeLineSlot.refreshX()
+//                            theTimeLineSlot.timeSlotFromMs = FromMs
+//                            theTimeLineSlot.timeSlotToMs = ToMs
+                            console.log("collision")
                         }
+                    }
 
-
-                        onTimeSlotToMsChanged:
-                        {
-
-                        }
                 }
             }
         }

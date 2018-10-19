@@ -12,6 +12,17 @@ Item {
     property int  duration: 0
     property int  slotDuration: 0
     signal deleteTimeSlot()
+    signal checkCollision()
+
+    x: root.refreshX()
+    width: root.refreshWidth()
+
+    function refreshPosition()
+    {
+
+        root.x = refreshPosition()
+        root.width = refreshWidth()
+    }
 
     function refreshWidth()
     {
@@ -87,13 +98,14 @@ Item {
                     root.slotDuration = Math.abs(root.timeSlotFromMs - root.timeSlotToMs)
                     root.timeSlotFromMs = (root.x - timeSlotMouseArea.mouseOffset +mouseX) /  root.timeLineWidth * Math.abs(root.timeLineToMs - root.timeLineFromMs) + root.timeLineFromMs
 
-                    console.log("timeSlotFromMs: " + root.timeSlotFromMs)
+
                     if(root.timeSlotFromMs <0)
                     {
-                        console.log("co xuat hien ko")
                         root.timeSlotFromMs = 0
                     }
                     root.timeSlotToMs = root.timeSlotFromMs + root.slotDuration
+
+                    root.checkCollision()
                 }
             }
 
@@ -113,6 +125,8 @@ Item {
             }
         }
         color: "black"
+        border.width: 1
+        border.color: "white"
 
     }
 }
