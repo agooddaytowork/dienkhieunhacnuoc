@@ -118,14 +118,6 @@ Item {
 
 
                 model:TimeSlotModel{
-                    //                    list: if(root.groupIndex == 0 )
-                    //                          {
-                    //                              testList
-                    //                          }
-                    //                          else
-                    //                          {
-                    //                              0
-                    //                          }
 
                     list: root.returnTimeSlotList()
 
@@ -135,15 +127,74 @@ Item {
                     id: theTimeSlot
                     property int  xOffsetValue: 0
                     z:2
+
+                    function refreshWidth()
+                    {
+                        var newWidth = Math.abs(ToMs - FromMs) / Math.abs(root.toMs - root.fromMs) * timeLine.width
+                        var newPos =  (FromMs - root.fromMs) / Math.abs(root.toMs - root.fromMs) * timeLine.width
+
+                        if(newPos <0 && Math.abs(newPos) <= newWidth)
+                        {
+                            return newWidth = newWidth + newPos
+                        }
+                        else if(newPos <0 && Math.abs(newPos) > newWidth)
+                        {
+                           return 0
+                        }
+                        else if(newPos+newWidth >= timeLine.width)
+                        {
+                            return newWidth = newWidth - Math.abs(newPos+newWidth-timeLine.width)
+                        }
+                        else
+                        {
+                            return newWidth
+                        }
+                    }
+
+                    function refreshX()
+                    {
+                        var newPos =  (FromMs - root.fromMs) / Math.abs(root.toMs - root.fromMs) * timeLine.width
+
+                        if(newPos <0)
+                        {
+                            return 0
+                        }
+                        else
+                        {
+                           return newPos
+                        }
+                    }
+
                     MouseArea{
+                        id: timeSlotMouseArea
                         anchors.fill: parent
                         acceptedButtons: Qt.LeftButton | Qt.RightButton
-
+                        property int  mouseOffset: 0
                         onPressed:
                         {
                             if(pressedButtons & Qt.RightButton)
                             {
                                 theTimeSlotMenu.open()
+                            }
+                            if(pressedButtons & Qt.LeftButton)
+                            {
+                                timeSlotMouseArea.mouseOffset = mouseX
+                            }
+                        }
+
+                        onMouseXChanged: {
+                            if(pressedButtons & Qt.LeftButton)
+                            {
+
+                                var timeSlotDuration = Math.abs(FromMs - ToMs)
+                                FromMs = (theTimeSlot.x - timeSlotMouseArea.mouseOffset +mouseX) /  timeLine.width * Math.abs(root.toMs - root.fromMs) + root.fromMs
+                                ToMs = FromMs + timeSlotDuration
+
+                                console.log("new FromMs: " + FromMs + " - new ToMs: " + ToMs)
+
+                               theTimeSlot.refreshWidth()
+                                theTimeSlot.refreshX()
+
                             }
                         }
                     }
@@ -162,40 +213,11 @@ Item {
                     }
 
                     height: parent.height
-                    width: {
-                        var newWidth = Math.abs(ToMs - FromMs) / Math.abs(root.toMs - root.fromMs) * timeLine.width
-                        var newPos =  (FromMs - root.fromMs) / Math.abs(root.toMs - root.fromMs) * timeLine.width
+                    width: theTimeSlot.refreshWidth()
 
-                        if(newPos <0 && Math.abs(newPos) <= newWidth)
-                        {
-                            newWidth = newWidth + newPos
-                        }
-                        else if(newPos <0 && Math.abs(newPos) > newWidth)
-                        {
-                            0
-                        }
-                        else if(newPos+newWidth >= timeLine.width)
-                        {
-                            newWidth = newWidth - Math.abs(newPos+newWidth-timeLine.width)
-                        }
-                        else
-                        {
-                            newWidth
-                        }
-                    }
 
-                    x:{
-                        var newPos =  (FromMs - root.fromMs) / Math.abs(root.toMs - root.fromMs) * timeLine.width
 
-                        if(newPos <0)
-                        {
-                            0
-                        }
-                        else
-                        {
-                            newPos
-                        }
-                    }
+                    x:theTimeSlot.refreshX()
 
                     color: "black"
 
