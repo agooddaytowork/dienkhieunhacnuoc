@@ -110,6 +110,7 @@ release/qrc_qml.cpp: qml.qrc \
 		TimeLegend.qml \
 		MusicPresenterGroup.qml \
 		TimeIndicator.qml \
+		TimeLineSlot.qml \
 		Timeline.qml \
 		MusicPresensterFrame.qml \
 		main.qml \

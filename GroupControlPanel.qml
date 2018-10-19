@@ -131,125 +131,46 @@ Item {
 
                 }
 
-                delegate: Rectangle{
-                    id: theTimeSlot
-                    property int  xOffsetValue: 0
+                delegate: TimeLineSlot{
+                        id: theTimeLineSlot
+                        z: 2
+                        width: theTimeLineSlot.refreshWidth()
+                        x: theTimeLineSlot.refreshX()
+                        height: timeLine.height
+                        timeLineFromMs: root.fromMs
+                        timeLineToMs: root.toMs
+                        timeSlotFromMs: FromMs
+                        timeSlotToMs: ToMs
+                        timeLineWidth:  timeLine.width
+                        duration: root.duration
 
-                    z:2
+                        onDeleteTimeSlot: {
+                            var list = root.returnTimeSlotList()
 
-                    function refreshWidth()
-                    {
-                        var newWidth = Math.abs(ToMs - FromMs) / Math.abs(root.toMs - root.fromMs) * timeLine.width
-                        var newPos =  (FromMs - root.fromMs) / Math.abs(root.toMs - root.fromMs) * timeLine.width
+                            list.removeItems(theId)
+                        }
 
-                        if(newPos <0 && Math.abs(newPos) <= newWidth)
+                        onTimeSlotFromMsChanged:
                         {
-                            return newWidth = newWidth + newPos
+                            var list = root.returnTimeSlotList()
+                           var colliedOffset = list.timeSlotCollisionCheck(theId)
+
+                           if(colliedOffset !== 0)
+                           {
+                               FromMs = colliedOffset
+                               ToMs = FromMs + theTimeLineSlot.slotDuration
+
+                           }
+
+//                           theTimeLineSlot.width = theTimeLineSlot.refreshWidth()
+//                           theTimeLineSlot.x = theTimeLineSlot.refreshX()
                         }
-                        else if(newPos <0 && Math.abs(newPos) > newWidth)
+
+
+                        onTimeSlotToMsChanged:
                         {
-                            return 0
-                        }
-                        else if(newPos+newWidth >= timeLine.width)
-                        {
-                            return newWidth = newWidth - Math.abs(newPos+newWidth-timeLine.width)
-                        }
-                        else
-                        {
-                            return newWidth
-                        }
-                    }
-
-                    function refreshX()
-                    {
-                        var newPos =  (FromMs - root.fromMs) / Math.abs(root.toMs - root.fromMs) * timeLine.width
-
-                        if(newPos <0)
-                        {
-                            return 0
-                        }
-                        else
-                        {
-                            return newPos
-                        }
-                    }
-
-                    MouseArea{
-                        id: timeSlotMouseArea
-                        anchors.fill: parent
-                        acceptedButtons: Qt.LeftButton | Qt.RightButton
-                        property int  mouseOffset: 0
-                        property bool  selected: false
-
-                        onPressed:
-                        {
-                            if(pressedButtons & Qt.RightButton)
-                            {
-                                theTimeSlotMenu.open()
-                            }
-                            if(pressedButtons & Qt.LeftButton)
-                            {
-                                timeSlotMouseArea.mouseOffset = mouseX
-                                timeSlotMouseArea.selected = true
-                            }
 
                         }
-                        onReleased: {
-                            timeSlotMouseArea.selected = false
-                        }
-
-                        onMouseXChanged: {
-                            if(pressedButtons & Qt.LeftButton && timeSlotMouseArea.selected)
-                            {
-
-                                var timeSlotDuration = Math.abs(FromMs - ToMs)
-                                FromMs = (theTimeSlot.x - timeSlotMouseArea.mouseOffset +mouseX) /  timeLine.width * Math.abs(root.toMs - root.fromMs) + root.fromMs
-                                ToMs = FromMs + timeSlotDuration
-                                var theList = root.returnTimeSlotList()
-
-                                var colliedOffset = theList.timeSlotCollisionCheck(theId)
-
-                                if(colliedOffset !== 0)
-                                {
-                                    FromMs = colliedOffset
-                                    ToMs = FromMs + timeSlotDuration
-
-                                }
-
-
-                                theTimeSlot.refreshWidth()
-                                theTimeSlot.refreshX()
-
-                            }
-                        }
-
-                        onClicked: {
-                            // implement shit here
-                        }
-                    }
-                    Menu
-                    {
-                        id: theTimeSlotMenu
-                        MenuItem{
-                            text: qsTr("Delete")
-                            onClicked: {
-
-                                var list = root.returnTimeSlotList()
-
-                                list.removeItems(theId)
-                            }
-                        }
-                    }
-
-                    height: parent.height
-                    width: theTimeSlot.refreshWidth()
-
-
-
-                    x:theTimeSlot.refreshX()
-
-                    color: "black"
-
                 }
             }
         }
