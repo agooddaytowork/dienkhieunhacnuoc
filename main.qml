@@ -123,12 +123,15 @@ ApplicationWindow {
     }
 
 
-    GridLayout{
+    Grid{
         id: mainGrid
 
         rows: 1
         columns: 2
         anchors.fill: parent
+        rowSpacing: 1
+        columnSpacing: 1
+
 
         Rectangle{
             id: controlTimeLineBGRec

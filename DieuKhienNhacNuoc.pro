@@ -15,7 +15,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
     timeslotlist.cpp \
-    timeslotmodel.cpp
+    timeslotmodel.cpp \
+    musicpresentermodel.cpp
 
 RESOURCES += qml.qrc
 
@@ -33,4 +34,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     timeslot.h \
     timeslotlist.h \
-    timeslotmodel.h
+    timeslotmodel.h \
+    musicpresentermodel.h
