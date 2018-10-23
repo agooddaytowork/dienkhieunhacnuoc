@@ -34,6 +34,8 @@ public:
     bool setItemAt(int index, const timeSlotItem &item);
     Q_INVOKABLE quint32 timeSlotCollisionCheck(const quint32 &id);
 
+    ~timeSlotList();
+
 signals:
     void preItemAppended();
     void postItemAppended();

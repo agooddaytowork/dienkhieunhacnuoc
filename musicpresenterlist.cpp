@@ -1,23 +1,24 @@
-#include "timeslotlist.h"
+#include "musicpresenterlist.h"
 
-timeSlotList::timeSlotList(QObject *parent) : QObject(parent), mCurrentIndex(0)
+MusicPresenterList::MusicPresenterList(QObject *parent): QObject(parent), mCurrentIndex(0)
 {
 
 }
 
-timeSlotList::~timeSlotList()
+MusicPresenterList::~MusicPresenterList()
 {
 
 }
 
 
-QVector<timeSlotItem> timeSlotList::items() const
+
+QVector<MusicPresenterItem> MusicPresenterList::items() const
 {
     return mItems;
 }
 
 
-bool timeSlotList::setItemAt(int index, const timeSlotItem &item)
+bool MusicPresenterList::setItemAt(int index, const MusicPresenterItem &item)
 {
     if (index < 0 || index >= mItems.size())
         return false;
@@ -26,20 +27,62 @@ bool timeSlotList::setItemAt(int index, const timeSlotItem &item)
     return true;
 }
 
-
-void timeSlotList::appendItem(const quint8 &group, const quint32 &fromMs, const quint32 &toMs)
+void MusicPresenterList::appenItemGroup6(bool odd, int xPos, int yPos)
 {
     emit preItemAppended();
-    timeSlotItem item;
+
+    MusicPresenterItem item;
 
     item.id = mCurrentIndex;
-    item.fromMs = fromMs;
-    item.toMs = toMs;
+    item.group = 5;
     item.ValveOnOff = false;
     item.LedOnOff = false;
-    item.LedMode = 0;
+    item.LedColor = "grey";
     item.InverterLevel = 0;
-    item.Inverter = false;
+    item.XPos = xPos;
+    item.YPos = yPos;
+    item.LedChannels = 12;
+    item.Inverter = true;
+    item.ValveChannels = 2;
+    item.odd = odd;
+
+
+    mItems.append(item);
+    mCurrentIndex++;
+
+    emit postItemAppended();
+}
+
+void MusicPresenterList::clear()
+{
+    for (int i = 0; i < mItems.size(); ) {
+            emit preItemRemoved(i);
+
+            mItems.removeAt(i);
+
+            emit postItemRemoved();
+
+
+    }
+}
+
+void MusicPresenterList::appendItem(const quint8 &group, int xPos, int yPos)
+{
+    emit preItemAppended();
+
+    MusicPresenterItem item;
+
+    item.id = mCurrentIndex;
+    item.group = group;
+    item.ValveOnOff = false;
+    item.LedOnOff = false;
+    item.LedColor = "grey";
+    item.InverterLevel = 0;
+    item.XPos = xPos;
+    item.YPos = yPos;
+    item.odd = false;
+
+
     switch(group)
     {
     case 0:
@@ -90,8 +133,10 @@ void timeSlotList::appendItem(const quint8 &group, const quint32 &fromMs, const 
     emit postItemAppended();
 }
 
-void timeSlotList::removeItems(const quint32 &id)
+
+void MusicPresenterList::removeItems(const quint32 &id)
 {
+
     for (int i = 0; i < mItems.size(); ) {
         if (mItems.at(i).id == id) {
             emit preItemRemoved(i);
@@ -105,42 +150,4 @@ void timeSlotList::removeItems(const quint32 &id)
             ++i;
         }
     }
-}
-
-timeSlotItem timeSlotList::getTimeSlotItem(const quint32 &id)
-{
-    for (int i = 0; i < mItems.size(); i++)
-    {
-        if(mItems.at(i).id == id)
-        {
-            return mItems.at(i);
-        }
-    }
-
-    return timeSlotItem();
-}
-
-quint32 timeSlotList::timeSlotCollisionCheck(const quint32 &id)
-{
-
-    timeSlotItem theTimeSlot = getTimeSlotItem(id);
-
-    for(int i = 0; i < mItems.count(); i++ )
-    {
-        if(mItems.at(i).id != theTimeSlot.id)
-        {
-            if(theTimeSlot.fromMs >= mItems.at(i).fromMs && theTimeSlot.fromMs <= mItems.at(i).toMs)
-            {
-                return mItems.at(i).toMs;
-            }
-            else if(theTimeSlot.toMs >= mItems.at(i).fromMs && theTimeSlot.toMs <= mItems.at(i).toMs)
-            {
-                return mItems.at(i).fromMs - (theTimeSlot.toMs - theTimeSlot.fromMs);
-            }
-
-        }
-
-    }
-    return 0;
-//    return false;
 }

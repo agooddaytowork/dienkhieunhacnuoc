@@ -16,7 +16,9 @@ SOURCES += \
         main.cpp \
     timeslotlist.cpp \
     timeslotmodel.cpp \
-    musicpresentermodel.cpp
+    musicpresentermodel.cpp \
+    musicpresenterlist.cpp \
+    presenterframelist.cpp
 
 RESOURCES += qml.qrc
 
@@ -35,4 +37,6 @@ HEADERS += \
     timeslot.h \
     timeslotlist.h \
     timeslotmodel.h \
-    musicpresentermodel.h
+    musicpresentermodel.h \
+    musicpresenterlist.h \
+    presenterframelist.h

@@ -135,6 +135,7 @@ QHash<int, QByteArray> timeSlotModel::roleNames() const
     names[LEDChannelsRole] = "LEDChannels";
     names[ValveChannelsRole] = "ValveChannels";
 
+
     return names;
 
 }

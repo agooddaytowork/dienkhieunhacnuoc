@@ -1,0 +1,12 @@
+INPUT(
+./release\main.o
+./release\timeslotlist.o
+./release\timeslotmodel.o
+./release\musicpresentermodel.o
+./release\musicpresenterlist.o
+./release\qrc_qml.o
+./release\moc_timeslotlist.o
+./release\moc_timeslotmodel.o
+./release\moc_musicpresentermodel.o
+./release\moc_musicpresenterlist.o
+);

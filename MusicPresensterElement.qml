@@ -1,4 +1,5 @@
 import QtQuick 2.9
+import QtQuick.Controls 2.2
 
 Item {
 
@@ -13,9 +14,7 @@ Item {
     property int  ledMode: 0
     property double scale : 1.0
     property int edgePixelLength: 8
-
-
-
+    property bool  odd: false
 
 
     Rectangle
@@ -27,5 +26,6 @@ Item {
         color: "white"
         border.width:  2
         border.color: ledColor
+
     }
 }

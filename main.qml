@@ -119,6 +119,25 @@ ApplicationWindow {
                 }
 
             }
+
+//            Slider{
+//                id: p4Slider
+//                width: 400
+//                from: 0
+//                to: 3.14
+//                value: 0.8160478478227146
+//                onValueChanged: {
+//                    p4textfield.text = value
+//                }
+
+
+//            }
+
+//            TextField{
+//                id: p4textfield
+
+
+//            }
         }
     }
 
@@ -311,28 +330,30 @@ ApplicationWindow {
         Rectangle{
 
             id: presenterBGRec
-            color: "grey"
+            color: "#474747"
             border.width: 1
             border.color: "black"
             width: 400
             height: root.height
-
-            Rectangle{
-                width: parent.width
-                anchors.top: parent.top
-                anchors.left: parent.left
-                height: 400
-                Repeater{
-                    model: 9
-                    delegate: MusicPresenterGroup{
-                        id: theGroup
-                        property int groupIndex: index
-                        groupID: index
-                        scale: 1
-
-                    }
+            Repeater{
+                model: 9
+                delegate: MusicPresenterGroup{
+                    id: theGroup
+                    property int groupIndex: index
+                    groupID: index
+                    scale: 1
                 }
             }
+
+//            Rectangle{
+//                width: parent.width
+//                anchors.top: parent.top
+//                anchors.left: parent.left
+//                height: 400
+//                color: "grey"
+
+
+//            }
 
 
         }

@@ -2,12 +2,14 @@
 #define MUSICPRESENTERMODEL_H
 
 #include <QAbstractListModel>
+#include "musicpresenterlist.h"
 
 class MusicPresenterModel : public QAbstractListModel
 {
     Q_OBJECT
-
+    Q_PROPERTY(MusicPresenterList *list READ list WRITE setList)
 public:
+     ~MusicPresenterModel() override;
     explicit MusicPresenterModel(QObject *parent = nullptr);
 
     enum{
@@ -19,7 +21,10 @@ public:
         LedColorRole,
         InverterLevelRole,
         LEDChannelsRole,
-        ValveChannelsRole
+        ValveChannelsRole,
+        XPosRole,
+        YPosRole,
+        OddRole
 
     };
 
@@ -35,7 +40,12 @@ public:
     Qt::ItemFlags flags(const QModelIndex& index) const override;
 
     virtual QHash<int, QByteArray> roleNames() const override;
+
+
+    MusicPresenterList *list() const;
+    void setList(MusicPresenterList *list);
 private:
+     MusicPresenterList *mList;
 
 };
 
