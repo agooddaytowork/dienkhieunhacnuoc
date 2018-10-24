@@ -5,6 +5,10 @@
 #include "timeslotmodel.h"
 #include "musicpresenterlist.h"
 #include "musicpresentermodel.h"
+#include "presenterframelist.h"
+#include "theinterfacegod.h"
+
+#include <QThread>
 #include <QVector>
 
 
@@ -23,6 +27,21 @@ int main(int argc, char *argv[])
 
     timeSlotList dataList[9];
     MusicPresenterList presenterList[9];
+    PresenterFrameList presenterFrameLists[9];
+    theInterfaceGod theGod;
+
+    QThread backendThread;
+
+
+    for(int i = 0; i < 9; i++)
+    {
+        QObject::connect(&dataList[i],&timeSlotList::timeSlotItemChanged,&presenterFrameLists[i],&PresenterFrameList::timeSlotChanged);
+        QObject::connect(&dataList[i],&timeSlotList::timeSlotItemRemoved,&presenterFrameLists[i],&PresenterFrameList::timeSlotRemoved);
+        QObject::connect(&theGod,&theInterfaceGod::SIG_regenerateFrameList,&presenterFrameLists[i],&PresenterFrameList::regenerateFrameList);
+
+        dataList[i].moveToThread(&backendThread);
+
+    }
 
 
 
@@ -38,6 +57,11 @@ int main(int argc, char *argv[])
         engine.rootContext()->setContextProperty("timeSlotList_" + QString::number(i) ,&dataList[i]);
         engine.rootContext()->setContextProperty("presenterList_" + QString::number(i) ,&presenterList[i]);
     }
+    engine.rootContext()->setContextProperty("theInterfaceGod", &theGod);
+
+
+      backendThread.start();
+
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())

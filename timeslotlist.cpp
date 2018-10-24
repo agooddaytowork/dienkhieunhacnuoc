@@ -87,7 +87,9 @@ void timeSlotList::appendItem(const quint8 &group, const quint32 &fromMs, const 
     mItems.append(item);
     mCurrentIndex++;
 
+
     emit postItemAppended();
+    emit timeSlotItemChanged(item);
 }
 
 void timeSlotList::removeItems(const quint32 &id)
@@ -95,10 +97,11 @@ void timeSlotList::removeItems(const quint32 &id)
     for (int i = 0; i < mItems.size(); ) {
         if (mItems.at(i).id == id) {
             emit preItemRemoved(i);
-
+            emit timeSlotItemRemoved(mItems.at(i));
             mItems.removeAt(i);
 
             emit postItemRemoved();
+
 
             return;
         } else {

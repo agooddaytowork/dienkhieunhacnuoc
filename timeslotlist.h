@@ -28,6 +28,7 @@ class timeSlotList : public QObject
     quint32 mCurrentIndex;
 
     timeSlotItem getTimeSlotItem(const quint32 &id);
+
 public:
     explicit timeSlotList(QObject *parent = nullptr);
     QVector<timeSlotItem> items() const;
@@ -42,7 +43,8 @@ signals:
 
     void preItemRemoved(int index);
     void postItemRemoved();
-
+    void timeSlotItemChanged(const timeSlotItem &item);
+    void timeSlotItemRemoved(const timeSlotItem &item);
 public slots:
 
     void appendItem(const quint8 &group,const quint32 &fromMs, const quint32 &toMs);

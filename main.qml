@@ -378,6 +378,13 @@ ApplicationWindow {
         autoLoad: true
         notifyInterval: 45
         property int  previousPosition: 0
+
+        onDurationChanged: {
+            console.log("changed DURATION ASLKDJALSDJSKLAJDKLSAJJD: " + duration)
+
+            theInterfaceGod.regenerateFrameList(duration, 50)
+        }
+
         onPositionChanged: {
 
             console.log("delta " + (audioPlayer.position - previousPosition))
