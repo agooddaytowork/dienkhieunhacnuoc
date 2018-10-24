@@ -1,5 +1,5 @@
 #include "presenterframelist.h"
-
+#include <QDebug>
 PresenterFrameList::PresenterFrameList(QObject *parent) : QObject(parent),  mDuration(0), mFrameDuration(0),mFrameNo(0)
 {
 
@@ -42,6 +42,8 @@ void PresenterFrameList::regenerateFrameList(const quint32 &Duration, const quin
         }
     }
     clearList();
+
+
 }
 
 quint32  PresenterFrameList::getFrameDuration() const
@@ -74,6 +76,7 @@ PresenterFrame PresenterFrameList::getFrame(const quint32 &frameNo)
 
 void PresenterFrameList::timeSlotChanged(const timeSlotItem &timeSlot)
 {
+    qDebug() << "Time SLot Changed";
     int fromFrame = findFrameFromMs(timeSlot.fromMs);
     int toFrame = findFrameFromMs(timeSlot.toMs);
 

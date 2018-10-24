@@ -23,6 +23,8 @@ bool timeSlotList::setItemAt(int index, const timeSlotItem &item)
         return false;
 
     mItems[index] = item;
+
+    emit timeSlotItemChanged(item);
     return true;
 }
 

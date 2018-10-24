@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.7.0, 2018-10-24T16:48:05. -->
+<!-- Written by QtCreator 4.7.0, 2018-10-24T17:27:48. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -295,6 +295,7 @@
     <value type="bool" key="QmakeProjectManager.QmakeRunConfiguration.UseLibrarySearchPath">true</value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.CommandLineArguments"></value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.ProFile">DieuKhienNhacNuoc.pro</value>
+    <value type="bool" key="Qt4ProjectManager.Qt4RunConfiguration.UseTerminal">true</value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.UserWorkingDirectory"></value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.UserWorkingDirectory.default">C:/Workspace/DieuKhienNhacNuoc</value>
     <value type="uint" key="RunConfiguration.QmlDebugServerPort">3768</value>

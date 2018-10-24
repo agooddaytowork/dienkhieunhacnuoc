@@ -1,4 +1,5 @@
 #include "timeslotmodel.h"
+#include <QDebug>
 
 timeSlotModel::timeSlotModel(QObject *parent)
     : QAbstractListModel(parent), mList(nullptr)
@@ -59,6 +60,7 @@ QVariant timeSlotModel::data(const QModelIndex &index, int role) const
 
 bool timeSlotModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
+
     if (!mList)
         return false;
 
@@ -94,7 +96,7 @@ bool timeSlotModel::setData(const QModelIndex &index, const QVariant &value, int
         item.fileBinPath = value.toString();
         break;
     case LEDValuesListRole:
-          item.LedValuesList = value.toString();
+        item.LedValuesList = value.toString();
         break;
     case LEDChannelsRole:
         item.LedChannels = static_cast<quint8>(value.toUInt());
@@ -105,6 +107,7 @@ bool timeSlotModel::setData(const QModelIndex &index, const QVariant &value, int
 
     if (mList->setItemAt(index.row(), item)) {
         emit dataChanged(index, index, QVector<int>() << role);
+        qDebug() << "setData";
         return true;
     }
     return false;

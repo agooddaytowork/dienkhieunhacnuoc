@@ -157,6 +157,7 @@ Item {
 
                     onTimeSlotFromMsChanged:
                     {
+                        console.log("dmmm")
                         FromMs = timeSlotFromMs
                     }
                     onTimeSlotToMsChanged:

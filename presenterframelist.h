@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QVector>
 #include "timeslotlist.h"
+#include "anlogger.h"
 
 
 struct PresenterFrame{
