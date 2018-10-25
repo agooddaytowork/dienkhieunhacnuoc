@@ -26,10 +26,14 @@ class PresenterFrameList : public QObject
     int mDuration;
     int mFrameDuration;
     int mFrameNo;
+
+
     QVector<PresenterFrame> frameList;
 
     PresenterFrame setFramePerGroup(const timeSlotItem &timeSlot,  PresenterFrame aFrame) const;
+    PresenterFrame createEmptyFramePerGroup(const int &group) const;
 public:
+    int mGroup;
     explicit PresenterFrameList(QObject *parent = nullptr);
 
     void clearList();

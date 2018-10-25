@@ -160,19 +160,24 @@ void MusicPresenterList::removeItems(const int &id)
 
 void MusicPresenterList::frameChangedHandler(const PresenterFrame &frame)
 {
-        MusicPresenterItem theItem = mItems.at(0);
-        if(frame.LedOnOff.count() != 0)
-        {
-            theItem.LedOnOff = frame.LedOnOff.at(0);
-        }
-        if(frame.ValveOnOff.count() != 0)
-        {
-            theItem.ValveOnOff = frame.ValveOnOff.at(0);
-        }
 
-        mItems[0] = theItem;
+    for(int ii = 0; ii < mItems.count();ii++)
+    {
+        MusicPresenterItem theItem = mItems.at(ii);
 
-        emit itemChangedFromBackend(0);
+        for(int i = 0; i < frame.LedOnOff.count();i++)
+        {
+            theItem.LedOnOff = frame.LedOnOff.at(i);
+
+        }
+        for(int i = 0; i < frame.ValveOnOff.count();i++)
+        {
+            theItem.ValveOnOff = frame.ValveOnOff.at(i);
+        }
+        mItems[ii] = theItem;
+    }
+
+        emit itemChangedFromBackend();
 
 
 

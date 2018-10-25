@@ -161,19 +161,12 @@ void MusicPresenterModel::setList(MusicPresenterList *list)
             endRemoveRows();
         });
 
-        connect(mList,&MusicPresenterList::itemChangedFromBackend,this,[=](int index){
-            emit dataChanged(createIndex(index,index),createIndex(index,index), QVector<int>() );
+        connect(mList,&MusicPresenterList::itemChangedFromBackend,this,[=](){
+            emit dataChanged(createIndex(0,rowCount()-1),createIndex(0,rowCount()-1), QVector<int>() );
         });
     }
 
     endResetModel();
-}
-
-
-void MusicPresenterModel::emitDataChanged(int index)
-{
-
-
 }
 
 

@@ -36,6 +36,9 @@ int main(int argc, char *argv[])
 
     for(int i = 0; i < 9; i++)
     {
+        presenterFrameLists[i].mGroup = i;
+        presenterList[i].mGroup = static_cast<quint8>(i);
+
         QObject::connect(&dataList[i],&timeSlotList::timeSlotItemChanged,&presenterFrameLists[i],&PresenterFrameList::timeSlotChanged);
         QObject::connect(&dataList[i],&timeSlotList::timeSlotItemRemoved,&presenterFrameLists[i],&PresenterFrameList::timeSlotRemoved);
         QObject::connect(&theGod,&theInterfaceGod::SIG_regenerateFrameList,&presenterFrameLists[i],&PresenterFrameList::regenerateFrameList);

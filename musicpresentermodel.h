@@ -49,7 +49,7 @@ public:
     void setList(MusicPresenterList *list);
 
 
-    void emitDataChanged(int index);
+
 private:
      MusicPresenterList *mList;
 

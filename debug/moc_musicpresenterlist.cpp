@@ -80,21 +80,21 @@ static const uint qt_meta_data_MusicPresenterList[] = {
        3,    0,   65,    2, 0x06 /* Public */,
        4,    1,   66,    2, 0x06 /* Public */,
        6,    0,   69,    2, 0x06 /* Public */,
-       7,    1,   70,    2, 0x06 /* Public */,
+       7,    0,   70,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       8,    3,   73,    2, 0x0a /* Public */,
-      12,    3,   80,    2, 0x0a /* Public */,
-      14,    1,   87,    2, 0x0a /* Public */,
-      16,    0,   90,    2, 0x0a /* Public */,
-      17,    1,   91,    2, 0x0a /* Public */,
+       8,    3,   71,    2, 0x0a /* Public */,
+      12,    3,   78,    2, 0x0a /* Public */,
+      14,    1,   85,    2, 0x0a /* Public */,
+      16,    0,   88,    2, 0x0a /* Public */,
+      17,    1,   89,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int,    5,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,    5,
+    QMetaType::Void,
 
  // slots: parameters
     QMetaType::Void, QMetaType::UChar, QMetaType::Int, QMetaType::Int,    9,   10,   11,
@@ -116,7 +116,7 @@ void MusicPresenterList::qt_static_metacall(QObject *_o, QMetaObject::Call _c, i
         case 1: _t->postItemAppended(); break;
         case 2: _t->preItemRemoved((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 3: _t->postItemRemoved(); break;
-        case 4: _t->itemChangedFromBackend((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 4: _t->itemChangedFromBackend(); break;
         case 5: _t->appendItem((*reinterpret_cast< const quint8(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3]))); break;
         case 6: _t->appenItemGroup6((*reinterpret_cast< bool(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3]))); break;
         case 7: _t->removeItems((*reinterpret_cast< const int(*)>(_a[1]))); break;
@@ -155,7 +155,7 @@ void MusicPresenterList::qt_static_metacall(QObject *_o, QMetaObject::Call _c, i
             }
         }
         {
-            using _t = void (MusicPresenterList::*)(int );
+            using _t = void (MusicPresenterList::*)();
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&MusicPresenterList::itemChangedFromBackend)) {
                 *result = 4;
                 return;
@@ -226,10 +226,9 @@ void MusicPresenterList::postItemRemoved()
 }
 
 // SIGNAL 4
-void MusicPresenterList::itemChangedFromBackend(int _t1)
+void MusicPresenterList::itemChangedFromBackend()
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 4, _a);
+    QMetaObject::activate(this, &staticMetaObject, 4, nullptr);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

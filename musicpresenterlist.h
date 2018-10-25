@@ -27,11 +27,12 @@ class MusicPresenterList: public QObject
 
     QVector<MusicPresenterItem> mItems;
     int mCurrentIndex;
-    quint8 mGroup;
+
 
 public:
     explicit MusicPresenterList(QObject *parent = nullptr);
     ~MusicPresenterList();
+    quint8 mGroup;
 
     QVector<MusicPresenterItem> items() const;
     bool setItemAt(int index, const MusicPresenterItem &item);
@@ -42,7 +43,7 @@ signals:
 
     void preItemRemoved(int index);
     void postItemRemoved();
-    void itemChangedFromBackend(int index);
+    void itemChangedFromBackend();
 
 public slots:
 
