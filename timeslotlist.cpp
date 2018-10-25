@@ -29,7 +29,7 @@ bool timeSlotList::setItemAt(int index, const timeSlotItem &item)
 }
 
 
-void timeSlotList::appendItem(const quint8 &group, const quint32 &fromMs, const quint32 &toMs)
+void timeSlotList::appendItem(const quint8 &group, const int &fromMs, const int &toMs)
 {
     emit preItemAppended();
     timeSlotItem item;
@@ -37,8 +37,8 @@ void timeSlotList::appendItem(const quint8 &group, const quint32 &fromMs, const 
     item.id = mCurrentIndex;
     item.fromMs = fromMs;
     item.toMs = toMs;
-    item.ValveOnOff = false;
-    item.LedOnOff = false;
+    item.ValveOnOff = true;
+    item.LedOnOff = true;
     item.LedMode = 0;
     item.InverterLevel = 0;
     item.Inverter = false;
@@ -94,7 +94,7 @@ void timeSlotList::appendItem(const quint8 &group, const quint32 &fromMs, const 
     emit timeSlotItemChanged(item);
 }
 
-void timeSlotList::removeItems(const quint32 &id)
+void timeSlotList::removeItems(const int &id)
 {
     for (int i = 0; i < mItems.size(); ) {
         if (mItems.at(i).id == id) {
@@ -112,7 +112,7 @@ void timeSlotList::removeItems(const quint32 &id)
     }
 }
 
-timeSlotItem timeSlotList::getTimeSlotItem(const quint32 &id)
+timeSlotItem timeSlotList::getTimeSlotItem(const int &id)
 {
     for (int i = 0; i < mItems.size(); i++)
     {
@@ -125,7 +125,7 @@ timeSlotItem timeSlotList::getTimeSlotItem(const quint32 &id)
     return timeSlotItem();
 }
 
-quint32 timeSlotList::timeSlotCollisionCheck(const quint32 &id)
+int timeSlotList::timeSlotCollisionCheck(const int &id)
 {
 
     timeSlotItem theTimeSlot = getTimeSlotItem(id);

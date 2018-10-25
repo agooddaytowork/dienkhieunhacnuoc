@@ -1,6 +1,6 @@
 #include "musicpresenterlist.h"
 
-MusicPresenterList::MusicPresenterList(QObject *parent): QObject(parent), mCurrentIndex(0)
+MusicPresenterList::MusicPresenterList(QObject *parent): QObject(parent), mCurrentIndex(0), mGroup(0)
 {
 
 }
@@ -56,11 +56,11 @@ void MusicPresenterList::appenItemGroup6(bool odd, int xPos, int yPos)
 void MusicPresenterList::clear()
 {
     for (int i = 0; i < mItems.size(); ) {
-            emit preItemRemoved(i);
+        emit preItemRemoved(i);
 
-            mItems.removeAt(i);
+        mItems.removeAt(i);
 
-            emit postItemRemoved();
+        emit postItemRemoved();
 
 
     }
@@ -69,6 +69,11 @@ void MusicPresenterList::clear()
 void MusicPresenterList::appendItem(const quint8 &group, int xPos, int yPos)
 {
     emit preItemAppended();
+
+    if(mGroup != group)
+    {
+        mGroup = group;
+    }
 
     MusicPresenterItem item;
 
@@ -134,7 +139,7 @@ void MusicPresenterList::appendItem(const quint8 &group, int xPos, int yPos)
 }
 
 
-void MusicPresenterList::removeItems(const quint32 &id)
+void MusicPresenterList::removeItems(const int &id)
 {
 
     for (int i = 0; i < mItems.size(); ) {
@@ -150,4 +155,26 @@ void MusicPresenterList::removeItems(const quint32 &id)
             ++i;
         }
     }
+}
+
+
+void MusicPresenterList::frameChangedHandler(const PresenterFrame &frame)
+{
+        MusicPresenterItem theItem = mItems.at(0);
+        if(frame.LedOnOff.count() != 0)
+        {
+            theItem.LedOnOff = frame.LedOnOff.at(0);
+        }
+        if(frame.ValveOnOff.count() != 0)
+        {
+            theItem.ValveOnOff = frame.ValveOnOff.at(0);
+        }
+
+        mItems[0] = theItem;
+
+        emit itemChangedFromBackend(0);
+
+
+
+
 }

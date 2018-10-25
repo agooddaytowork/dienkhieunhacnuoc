@@ -17,15 +17,30 @@ Item {
     property bool  odd: false
 
 
+    onValveONChanged: {
+        console.log("Valve ON CHANGEDDDD" + valveON);
+    }
+
     Rectangle
     {
         id: theElement
         width: root.edgePixelLength * scale
         height: root.edgePixelLength * scale
         radius: (root.edgePixelLength * scale) /2
-        color: "white"
-        border.width:  2
-        border.color: ledColor
+        color: root.valveON == true ? "black" : "white"
 
+        border.width:  2
+        border.color: {
+            if(!root.ledON)
+            {
+                "grey"
+            }
+            else
+            {
+                root.ledColor
+            }
+        }
     }
+
 }
+

@@ -3,9 +3,10 @@
 
 #include <QObject>
 #include <QVector>
+#include "presenterframelist.h"
 
 struct MusicPresenterItem{
-    quint32 id;
+    int id;
     quint8 group;
     bool ValveOnOff;
     bool LedOnOff;
@@ -25,7 +26,8 @@ class MusicPresenterList: public QObject
     Q_OBJECT
 
     QVector<MusicPresenterItem> mItems;
-    quint32 mCurrentIndex;
+    int mCurrentIndex;
+    quint8 mGroup;
 
 public:
     explicit MusicPresenterList(QObject *parent = nullptr);
@@ -40,13 +42,15 @@ signals:
 
     void preItemRemoved(int index);
     void postItemRemoved();
+    void itemChangedFromBackend(int index);
 
 public slots:
 
     void appendItem(const quint8 &group, int xPos, int yPos);
     void appenItemGroup6(bool odd, int xPos, int yPos);
-    void removeItems(const quint32 &id);
+    void removeItems(const int &id);
     void clear();
+    void frameChangedHandler(const PresenterFrame &frame);
 };
 
 #endif // MUSICPRESENTERLIST_H

@@ -9,10 +9,12 @@ class theInterfaceGod : public QObject
 public:
     explicit theInterfaceGod(QObject *parent = nullptr);
 
-    Q_INVOKABLE void regenerateFrameList(const quint32 &duration, const quint32 &frameDuration);
+    Q_INVOKABLE void regenerateFrameList(const int &duration, const int &frameDuration);
+    Q_INVOKABLE void playFrame(const int &frameNo);
 
 signals:
-    void SIG_regenerateFrameList(const quint32 &duration, const quint32 &frameDuration);
+    void SIG_regenerateFrameList(const int &duration, const int &frameDuration);
+    void SIG_playFrame(const int &frameNo);
 
 public slots:
 };

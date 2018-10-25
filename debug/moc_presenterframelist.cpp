@@ -83,8 +83,8 @@ static const uint qt_meta_data_PresenterFrameList[] = {
  // slots: parameters
     QMetaType::Void, 0x80000000 | 6,    7,
     QMetaType::Void, 0x80000000 | 6,    7,
-    QMetaType::Void, QMetaType::UInt,   10,
-    QMetaType::Void, QMetaType::UInt, QMetaType::UInt,   12,   13,
+    QMetaType::Void, QMetaType::Int,   10,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int,   12,   13,
 
        0        // eod
 };
@@ -98,8 +98,8 @@ void PresenterFrameList::qt_static_metacall(QObject *_o, QMetaObject::Call _c, i
         case 0: _t->notifyFrameChanged((*reinterpret_cast< const PresenterFrame(*)>(_a[1]))); break;
         case 1: _t->timeSlotChanged((*reinterpret_cast< const timeSlotItem(*)>(_a[1]))); break;
         case 2: _t->timeSlotRemoved((*reinterpret_cast< const timeSlotItem(*)>(_a[1]))); break;
-        case 3: _t->playFrame((*reinterpret_cast< const quint32(*)>(_a[1]))); break;
-        case 4: _t->regenerateFrameList((*reinterpret_cast< const quint32(*)>(_a[1])),(*reinterpret_cast< const quint32(*)>(_a[2]))); break;
+        case 3: _t->playFrame((*reinterpret_cast< const int(*)>(_a[1]))); break;
+        case 4: _t->regenerateFrameList((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const int(*)>(_a[2]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {

@@ -5,9 +5,9 @@
 #include <QVector>
 
 struct timeSlotItem{
-    quint32 id;
-    quint32 fromMs;
-    quint32 toMs;
+    int id;
+    int fromMs;
+    int toMs;
     quint8 group;
     bool ValveOnOff;
     bool LedOnOff;
@@ -25,15 +25,15 @@ class timeSlotList : public QObject
     Q_OBJECT
 
     QVector<timeSlotItem> mItems;
-    quint32 mCurrentIndex;
+    int mCurrentIndex;
 
-    timeSlotItem getTimeSlotItem(const quint32 &id);
+    timeSlotItem getTimeSlotItem(const int &id);
 
 public:
     explicit timeSlotList(QObject *parent = nullptr);
     QVector<timeSlotItem> items() const;
     bool setItemAt(int index, const timeSlotItem &item);
-    Q_INVOKABLE quint32 timeSlotCollisionCheck(const quint32 &id);
+    Q_INVOKABLE int timeSlotCollisionCheck(const int &id);
 
     ~timeSlotList();
 
@@ -47,8 +47,8 @@ signals:
     void timeSlotItemRemoved(const timeSlotItem &item);
 public slots:
 
-    void appendItem(const quint8 &group,const quint32 &fromMs, const quint32 &toMs);
-    void removeItems(const quint32 &id);
+    void appendItem(const quint8 &group,const int &fromMs, const int &toMs);
+    void removeItems(const int &id);
 
 };
 

@@ -10,13 +10,13 @@ void PresenterFrameList::clearList()
 {
     frameList.clear();
 
-    for(quint32 i = 0; i < mFrameNo; i++)
+    for(int i = 0; i < mFrameNo; i++)
     {
         frameList.append(PresenterFrame());
     }
 }
 
-void PresenterFrameList::regenerateFrameList(const quint32 &Duration, const quint32 &FrameDuration)
+void PresenterFrameList::regenerateFrameList(const int &Duration, const int &FrameDuration)
 {
 
     bool isAnyThingChanged = false;
@@ -34,7 +34,7 @@ void PresenterFrameList::regenerateFrameList(const quint32 &Duration, const quin
 
     if(isAnyThingChanged)
     {
-        mFrameNo = static_cast<quint32>(Duration/FrameDuration);
+        mFrameNo = static_cast<int>(Duration/FrameDuration);
 
         if(Duration%FrameDuration != 0)
         {
@@ -43,35 +43,43 @@ void PresenterFrameList::regenerateFrameList(const quint32 &Duration, const quin
     }
     clearList();
 
+    qDebug() << "Frame List ---------";
+    qDebug() << "total Frame: " + QString::number(mFrameNo);
+    qDebug() << "frame list count: " + QString::number(frameList.count());
+
 
 }
 
-quint32  PresenterFrameList::getFrameDuration() const
+int  PresenterFrameList::getFrameDuration() const
 {
     return mFrameDuration;
 }
 
-quint32 PresenterFrameList::getDuration() const
+int PresenterFrameList::getDuration() const
 {
 
     return mDuration;
 }
 
-quint32 PresenterFrameList::getFrameNo() const
+int PresenterFrameList::getFrameNo() const
 {
     return mFrameNo;
 }
 
 
-void PresenterFrameList::playFrame(const quint32 &frameNo)
+void PresenterFrameList::playFrame(const int &frameNo)
 {
-    emit notifyFrameChanged(getFrame(frameNo));
+    if(frameNo <= this->mFrameNo)
+    {
+        emit notifyFrameChanged(getFrame(frameNo));
+    }
+
 }
 
 
-PresenterFrame PresenterFrameList::getFrame(const quint32 &frameNo)
+PresenterFrame PresenterFrameList::getFrame(const int &frameNo)
 {
-    return frameList.at(static_cast<int>(frameNo));
+    return frameList.at(frameNo);
 }
 
 void PresenterFrameList::timeSlotChanged(const timeSlotItem &timeSlot)
@@ -89,7 +97,7 @@ void PresenterFrameList::timeSlotChanged(const timeSlotItem &timeSlot)
 
 }
 
-int PresenterFrameList::findFrameFromMs(const quint32 &timePoint)
+int PresenterFrameList::findFrameFromMs(const int &timePoint)
 {
     return static_cast<int>(timePoint/this->mFrameDuration);
 }

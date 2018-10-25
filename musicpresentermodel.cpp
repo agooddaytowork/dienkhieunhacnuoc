@@ -71,7 +71,7 @@ bool MusicPresenterModel::setData(const QModelIndex &index, const QVariant &valu
     MusicPresenterItem item = mList->items().at(index.row());
     switch (role) {
     case IDRole:
-        item.id = static_cast<quint32>(value.toUInt());
+        item.id = static_cast<int>(value.toUInt());
         break;
     case GroupRole:
         item.group = static_cast<quint8>(value.toUInt());
@@ -143,7 +143,12 @@ void MusicPresenterModel::setList(MusicPresenterList *list)
     if (mList) {
         connect(mList, &MusicPresenterList::preItemAppended, this, [=]() {
             const int index = mList->items().size();
-            beginInsertRows(QModelIndex(), index, index);
+
+            QModelIndex theModelIndex;
+            beginInsertRows(theModelIndex, index, index);
+            test.append(theModelIndex);
+
+
         });
         connect(mList, &MusicPresenterList::postItemAppended, this, [=]() {
             endInsertRows();
@@ -155,12 +160,21 @@ void MusicPresenterModel::setList(MusicPresenterList *list)
         connect(mList, &MusicPresenterList::postItemRemoved, this, [=]() {
             endRemoveRows();
         });
+
+        connect(mList,&MusicPresenterList::itemChangedFromBackend,this,[=](int index){
+            emit dataChanged(createIndex(index,index),createIndex(index,index), QVector<int>() );
+        });
     }
 
     endResetModel();
 }
 
 
+void MusicPresenterModel::emitDataChanged(int index)
+{
+
+
+}
 
 
 QHash<int, QByteArray> MusicPresenterModel::roleNames() const

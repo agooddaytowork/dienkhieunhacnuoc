@@ -21,6 +21,10 @@ ApplicationWindow {
     property int  buttonSize: 40
 
 
+    onCurrentPositionChanged:
+    {
+
+    }
 
     header: ToolBar{
 
@@ -187,6 +191,11 @@ ApplicationWindow {
                     {
                        root.currentPosition = mYposition
                     }
+
+                    var frameNo = mYposition/  50
+
+                    console.log("frame Point: " + frameNo)
+                    theInterfaceGod.playFrame(parseInt(frameNo))
                 }
                 onChangeFromAndToMoment: {
                     root.fromMs = from
@@ -194,8 +203,6 @@ ApplicationWindow {
                 }
 
             }
-
-
 
             TimeLegend{
                 id: timeLegend

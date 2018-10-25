@@ -454,6 +454,8 @@ Item {
                 x: XPos
                 y: YPos
                 odd: Odd
+                valveON: ValveOnOff
+                ledON: LedOnOff
                 ledColor:{
                     if(root.groupID ==5 )
                     {

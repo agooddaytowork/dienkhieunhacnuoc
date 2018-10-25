@@ -3,11 +3,14 @@
 
 #include <QAbstractListModel>
 #include "musicpresenterlist.h"
+#include <QVector>
+#include <QModelIndex>
 
 class MusicPresenterModel : public QAbstractListModel
 {
     Q_OBJECT
     Q_PROPERTY(MusicPresenterList *list READ list WRITE setList)
+    QVector<QModelIndex> test;
 public:
      ~MusicPresenterModel() override;
     explicit MusicPresenterModel(QObject *parent = nullptr);
@@ -44,6 +47,9 @@ public:
 
     MusicPresenterList *list() const;
     void setList(MusicPresenterList *list);
+
+
+    void emitDataChanged(int index);
 private:
      MusicPresenterList *mList;
 

@@ -8,7 +8,7 @@
 
 
 struct PresenterFrame{
-    quint32 frameNo;
+    int frameNo;
     bool Inverter;
     QList<QString> LedColors;
     QList<bool> ValveOnOff;
@@ -23,9 +23,9 @@ class PresenterFrameList : public QObject
 {
     Q_OBJECT
 
-    quint32 mDuration;
-    quint32 mFrameDuration;
-    quint32 mFrameNo;
+    int mDuration;
+    int mFrameDuration;
+    int mFrameNo;
     QVector<PresenterFrame> frameList;
 
     PresenterFrame setFramePerGroup(const timeSlotItem &timeSlot,  PresenterFrame aFrame) const;
@@ -34,11 +34,11 @@ public:
 
     void clearList();
 
-    quint32 getFrameDuration() const;
-    quint32 getDuration() const;
-    quint32 getFrameNo() const;
-    PresenterFrame getFrame(const quint32 &frameNo);
-    int findFrameFromMs(const quint32 &timePoint);
+    int getFrameDuration() const;
+    int getDuration() const;
+    int getFrameNo() const;
+    PresenterFrame getFrame(const int &frameNo);
+    int findFrameFromMs(const int &timePoint);
 
 
 
@@ -48,8 +48,8 @@ signals:
 public slots:
     void timeSlotChanged(const timeSlotItem &timeSlot);
     void timeSlotRemoved(const timeSlotItem &timeSlot);
-    void playFrame(const quint32 &frameNo);
-    void regenerateFrameList(const quint32 &Duration, const quint32 &FrameDuration);
+    void playFrame(const int &frameNo);
+    void regenerateFrameList(const int &Duration, const int &FrameDuration);
 
 
 };

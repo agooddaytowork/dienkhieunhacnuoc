@@ -97,11 +97,11 @@ static const uint qt_meta_data_timeSlotList[] = {
     QMetaType::Void, 0x80000000 | 8,    9,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::UChar, QMetaType::UInt, QMetaType::UInt,   12,   13,   14,
-    QMetaType::Void, QMetaType::UInt,   16,
+    QMetaType::Void, QMetaType::UChar, QMetaType::Int, QMetaType::Int,   12,   13,   14,
+    QMetaType::Void, QMetaType::Int,   16,
 
  // methods: parameters
-    QMetaType::UInt, QMetaType::UInt,   16,
+    QMetaType::Int, QMetaType::Int,   16,
 
        0        // eod
 };
@@ -118,10 +118,10 @@ void timeSlotList::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         case 3: _t->postItemRemoved(); break;
         case 4: _t->timeSlotItemChanged((*reinterpret_cast< const timeSlotItem(*)>(_a[1]))); break;
         case 5: _t->timeSlotItemRemoved((*reinterpret_cast< const timeSlotItem(*)>(_a[1]))); break;
-        case 6: _t->appendItem((*reinterpret_cast< const quint8(*)>(_a[1])),(*reinterpret_cast< const quint32(*)>(_a[2])),(*reinterpret_cast< const quint32(*)>(_a[3]))); break;
-        case 7: _t->removeItems((*reinterpret_cast< const quint32(*)>(_a[1]))); break;
-        case 8: { quint32 _r = _t->timeSlotCollisionCheck((*reinterpret_cast< const quint32(*)>(_a[1])));
-            if (_a[0]) *reinterpret_cast< quint32*>(_a[0]) = std::move(_r); }  break;
+        case 6: _t->appendItem((*reinterpret_cast< const quint8(*)>(_a[1])),(*reinterpret_cast< const int(*)>(_a[2])),(*reinterpret_cast< const int(*)>(_a[3]))); break;
+        case 7: _t->removeItems((*reinterpret_cast< const int(*)>(_a[1]))); break;
+        case 8: { int _r = _t->timeSlotCollisionCheck((*reinterpret_cast< const int(*)>(_a[1])));
+            if (_a[0]) *reinterpret_cast< int*>(_a[0]) = std::move(_r); }  break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {

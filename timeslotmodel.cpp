@@ -67,7 +67,7 @@ bool timeSlotModel::setData(const QModelIndex &index, const QVariant &value, int
     timeSlotItem item = mList->items().at(index.row());
     switch (role) {
     case IDRole:
-        item.id = static_cast<quint32>(value.toUInt());
+        item.id = static_cast<int>(value.toUInt());
         break;
     case GroupRole:
         item.group = static_cast<quint8>(value.toUInt());
@@ -82,10 +82,10 @@ bool timeSlotModel::setData(const QModelIndex &index, const QVariant &value, int
         item.Inverter = value.toBool();
         break;
     case FromMsRole:
-        item.fromMs = static_cast<quint32>(value.toUInt());
+        item.fromMs = static_cast<int>(value.toUInt());
         break;
     case ToMsRole:
-        item.toMs = static_cast<quint32>(value.toUInt());
+        item.toMs = static_cast<int>(value.toUInt());
     case LedModeRole:
         item.LedMode = static_cast<quint8>(value.toUInt());
         break;
