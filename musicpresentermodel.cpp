@@ -162,7 +162,7 @@ void MusicPresenterModel::setList(MusicPresenterList *list)
         });
 
         connect(mList,&MusicPresenterList::itemChangedFromBackend,this,[=](){
-            emit dataChanged(createIndex(0,rowCount()-1),createIndex(0,rowCount()-1), QVector<int>() );
+            emit dataChanged(createIndex(0,0),createIndex(rowCount()-1,0), QVector<int>() );
         });
     }
 

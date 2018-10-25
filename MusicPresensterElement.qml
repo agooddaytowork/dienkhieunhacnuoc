@@ -30,16 +30,7 @@ Item {
         color: root.valveON == true ? "black" : "white"
 
         border.width:  2
-        border.color: {
-            if(!root.ledON)
-            {
-                "grey"
-            }
-            else
-            {
-                root.ledColor
-            }
-        }
+        border.color: root.ledON ? root.ledColor:"grey"
     }
 
 }

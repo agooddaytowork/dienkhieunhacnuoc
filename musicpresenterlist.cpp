@@ -165,15 +165,18 @@ void MusicPresenterList::frameChangedHandler(const PresenterFrame &frame)
     {
         MusicPresenterItem theItem = mItems.at(ii);
 
-        for(int i = 0; i < frame.LedOnOff.count();i++)
-        {
-            theItem.LedOnOff = frame.LedOnOff.at(i);
+//        for(int i = 0; i < frame.LedOnOff.count();i++)
+//        {
+//            theItem.LedOnOff = frame.LedOnOff.at(i);
 
-        }
-        for(int i = 0; i < frame.ValveOnOff.count();i++)
-        {
-            theItem.ValveOnOff = frame.ValveOnOff.at(i);
-        }
+//        }
+//        for(int i = 0; i < frame.ValveOnOff.count();i++)
+//        {
+//            theItem.ValveOnOff = frame.ValveOnOff.at(i);
+//        }
+
+        theItem.LedOnOff = frame.LedOnOff.at(0);
+        theItem.ValveOnOff = frame.ValveOnOff.at(0);
         mItems[ii] = theItem;
     }
 

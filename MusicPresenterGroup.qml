@@ -470,7 +470,7 @@ Item {
                     }
                     else
                     {
-                        "grey"
+                        "red"
                     }
                 }
             }
