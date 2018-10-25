@@ -1,5 +1,6 @@
 #include "presenterframelist.h"
 #include <QDebug>
+#include <QString>
 PresenterFrameList::PresenterFrameList(QObject *parent) : QObject(parent),  mDuration(0), mFrameDuration(0),mFrameNo(0),mGroup(0)
 {
 
@@ -84,10 +85,37 @@ PresenterFrame PresenterFrameList::getFrame(const int &frameNo)
 
 void PresenterFrameList::timeSlotChanged(const timeSlotItem &timeSlot)
 {
+
+
     qDebug() << "Time SLot Changed";
     int fromFrame = findFrameFromMs(timeSlot.fromMs);
     int toFrame = findFrameFromMs(timeSlot.toMs);
 
+    int previousFrameIndex = timeSlotExistInList(timeSlot.id);
+    if(previousFrameIndex >= 0)
+    {
+        PreviousFrame thePreviousFrame = timeSlotShortVerList[previousFrameIndex];
+
+        int PreFromFrame = thePreviousFrame.FromFrame;
+        int PreToFrame = thePreviousFrame.ToFrame;
+
+        while(PreFromFrame <= PreToFrame)
+        {
+            frameList[PreFromFrame] = createEmptyFramePerGroup(mGroup);
+
+            PreFromFrame++;
+        }
+    }
+    else
+    {
+        PreviousFrame aTimeSlotShort;
+
+        aTimeSlotShort.FromFrame = fromFrame;
+        aTimeSlotShort.ToFrame = toFrame;
+        aTimeSlotShort.id = timeSlot.id;
+
+        timeSlotShortVerList.append(aTimeSlotShort);
+    }
 
     while(fromFrame <= toFrame)
     {
@@ -99,14 +127,23 @@ void PresenterFrameList::timeSlotChanged(const timeSlotItem &timeSlot)
 
 int PresenterFrameList::findFrameFromMs(const int &timePoint)
 {
-    return static_cast<int>(timePoint/this->mFrameDuration);
+    qDebug() << "timePoint: " + QString::number(timePoint);
+    if(timePoint<0)
+    {
+        return  0;
+    }
+    else if(timePoint > mDuration)
+    {
+        return mDuration/mFrameDuration;
+    }
+    return static_cast<int>(timePoint/mFrameDuration);
 }
 
 PresenterFrame PresenterFrameList::setFramePerGroup( const timeSlotItem &timeSlot, PresenterFrame aFrame) const
 {
-    aFrame.ValveOnOff.clear();
     aFrame.LedOnOff.clear();
-    aFrame.LedColors.clear();
+    aFrame.ValveOnOff.clear();
+
     for(int i = 0; i < timeSlot.ValveChannels; i++)
     {
         aFrame.ValveOnOff.append(timeSlot.ValveOnOff);
@@ -203,8 +240,32 @@ void PresenterFrameList::timeSlotRemoved(const timeSlotItem &timeSlot)
 
     while(fromFrame <= toFrame)
     {
-        frameList[fromFrame] = PresenterFrame();
+        frameList[fromFrame] = createEmptyFramePerGroup(mGroup);
         fromFrame++;
+    }
+
+    for(int i = 0; i < timeSlotShortVerList.count(); i++)
+    {
+        if(timeSlotShortVerList[i].id == timeSlot.id)
+        {
+            timeSlotShortVerList.removeAt(i);
+            return;
+        }
     }
 }
 
+
+int PresenterFrameList::timeSlotExistInList(const int &id)
+{
+    if(timeSlotShortVerList.count() > 0)
+    {
+        for(int i = 0; i < timeSlotShortVerList.count(); i++)
+        {
+            if(timeSlotShortVerList[i].id == id)
+            {
+                return i;
+            }
+        }
+    }
+    return -1;
+}

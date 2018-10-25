@@ -231,6 +231,12 @@ ApplicationWindow {
                          root.currentPosition = position
                     }
 
+                    var frameNo = mYposition/  50
+
+                    console.log("frame Point: " + frameNo)
+                    theInterfaceGod.playFrame(parseInt(frameNo))
+
+
                 }
 
                 Connections
@@ -402,6 +408,11 @@ ApplicationWindow {
             timeIndicator.deltaFromPreviousPosition = audioPlayer.position - audioPlayer.previousPosition
 
             audioPlayer.previousPosition = audioPlayer.position
+
+            var frameNo = audioPlayer.position/  50
+
+            console.log("frame Point: " + frameNo)
+            theInterfaceGod.playFrame(parseInt(frameNo))
 
         }
     }

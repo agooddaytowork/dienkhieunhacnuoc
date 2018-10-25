@@ -19,6 +19,12 @@ struct PresenterFrame{
 
 };
 
+struct PreviousFrame{
+    int id;
+    int FromFrame;
+    int ToFrame;
+};
+
 class PresenterFrameList : public QObject
 {
     Q_OBJECT
@@ -29,9 +35,13 @@ class PresenterFrameList : public QObject
 
 
     QVector<PresenterFrame> frameList;
+    QVector<PreviousFrame> timeSlotShortVerList;
 
     PresenterFrame setFramePerGroup(const timeSlotItem &timeSlot,  PresenterFrame aFrame) const;
     PresenterFrame createEmptyFramePerGroup(const int &group) const;
+
+
+    int timeSlotExistInList(const int &id);
 public:
     int mGroup;
     explicit PresenterFrameList(QObject *parent = nullptr);

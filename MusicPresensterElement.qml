@@ -17,10 +17,6 @@ Item {
     property bool  odd: false
 
 
-    onValveONChanged: {
-        console.log("Valve ON CHANGEDDDD" + valveON);
-    }
-
     Rectangle
     {
         id: theElement
