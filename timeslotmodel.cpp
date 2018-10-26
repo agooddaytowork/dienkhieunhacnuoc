@@ -107,7 +107,7 @@ bool timeSlotModel::setData(const QModelIndex &index, const QVariant &value, int
 
     if (mList->setItemAt(index.row(), item)) {
         emit dataChanged(index, index, QVector<int>() << role);
-        qDebug() << "setData";
+//        qDebug() << "setData";
         return true;
     }
     return false;

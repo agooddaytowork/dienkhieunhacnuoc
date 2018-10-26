@@ -166,7 +166,7 @@ Item {
                     else
                     {
                         var previousToMs = root.timeSlotToMs
-                         previousTimeSlotDuration = root.slotDuration
+                        previousTimeSlotDuration = root.slotDuration
 
                         root.timeSlotToMs  =  (root.x  +mouseX) /  root.timeLineWidth * Math.abs(root.timeLineToMs - root.timeLineFromMs) + root.timeLineFromMs
 
@@ -184,7 +184,7 @@ Item {
 
 
                     }
-                     root.checkCollision()
+                    root.checkCollision()
 
 
                 }

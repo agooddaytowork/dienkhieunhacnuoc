@@ -139,8 +139,8 @@ Item {
                     height: timeLine.height
                     timeLineFromMs: root.fromMs
                     timeLineToMs: root.toMs
-//                    timeSlotFromMs: FromMs
-//                    timeSlotToMs: ToMs
+                    //                    timeSlotFromMs: FromMs
+                    //                    timeSlotToMs: ToMs
                     timeLineWidth:  timeLine.width
                     duration: root.duration
 
@@ -168,20 +168,31 @@ Item {
 
                     onCheckCollision: {
 
-//                        FromMs = theTimeLineSlot.timeSlotFromMs
-//                        ToMs = theTimeLineSlot.timeLineToMs
+                        //                        FromMs = theTimeLineSlot.timeSlotFromMs
+                        //                        ToMs = theTimeLineSlot.timeLineToMs
                         var list = root.returnTimeSlotList()
                         var colliedOffset = list.timeSlotCollisionCheck(theId)
 
                         if(colliedOffset !== 0)
                         {
-                           theTimeLineSlot.timeSlotFromMs = colliedOffset
-                           theTimeLineSlot.timeSlotToMs = FromMs + theTimeLineSlot.slotDuration
-
-//                            theTimeLineSlot.timeSlotFromMs = FromMs
-//                            theTimeLineSlot.timeSlotToMs = ToMs
                             theTimeLineSlot.collided = true
                             theTimeLineSlot.rightCollision = list.getCollisionSide()
+
+                            if(theTimeLineSlot.rightCollision)
+                            {
+                                theTimeLineSlot.timeSlotToMs = FromMs + theTimeLineSlot.slotDuration
+                            }
+                            else
+                            {
+                                theTimeLineSlot.timeSlotFromMs = colliedOffset
+                            }
+
+
+
+
+                            //                            theTimeLineSlot.timeSlotFromMs = FromMs
+                            //                            theTimeLineSlot.timeSlotToMs = ToMs
+
 
                         }
                         else
