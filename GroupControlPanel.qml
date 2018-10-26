@@ -157,7 +157,6 @@ Item {
 
                     onTimeSlotFromMsChanged:
                     {
-                        console.log("dmmm")
                         FromMs = timeSlotFromMs
                     }
                     onTimeSlotToMsChanged:
@@ -181,8 +180,8 @@ Item {
 
 //                            theTimeLineSlot.timeSlotFromMs = FromMs
 //                            theTimeLineSlot.timeSlotToMs = ToMs
-                            console.log("collision")
                             theTimeLineSlot.collided = true
+                            theTimeLineSlot.rightCollision = list.getCollisionSide()
 
                         }
                         else

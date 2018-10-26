@@ -14,6 +14,7 @@ Item {
     signal deleteTimeSlot()
     signal checkCollision()
     property bool collided: false
+    property bool rightCollision: false
 
     x: root.refreshX()
     width: root.refreshWidth()
@@ -41,7 +42,6 @@ Item {
         }
         else if((newPos+newWidth) >= root.timeLineWidth)
         {
-            console.log("timeLineWidth" + root.timeLineWidth)
             return newWidth = newWidth - Math.abs(newPos+newWidth-root.timeLineWidth)
         }
         else
@@ -106,6 +106,8 @@ Item {
             }
 
             onMouseXChanged: {
+
+                // SLIDE FUNCTION
                 if(pressedButtons & Qt.LeftButton && timeSlotMouseArea.selected)
                 {
                     root.slotDuration = Math.abs(root.timeSlotFromMs - root.timeSlotToMs)
@@ -120,7 +122,7 @@ Item {
 
                     root.checkCollision()
                 }
-
+                // SLOT EDGE DETECTION
                 if(Math.abs(mouseX) <= 3 )
                 {
                     timeSlotMouseArea.cursorShape = Qt.IBeamCursor
@@ -140,17 +142,18 @@ Item {
                 if(timeSlotMouseArea.edgeSelected)
                 {
 
-                    root.checkCollision()
+
                     if(timeSlotMouseArea.fromEdge)
                     {
                         var previousFromMs = root.timeSlotFromMs
-
+                        var previousTimeSlotDuration = root.slotDuration
                         root.timeSlotFromMs = (root.x  +mouseX) /  root.timeLineWidth * Math.abs(root.timeLineToMs - root.timeLineFromMs) + root.timeLineFromMs
-                        if(collided)
+                        if(collided && !root.rightCollision)
                         {
                             if(previousFromMs > root.timeSlotFromMs)
                             {
-                                root.timeSlotFromMs = previousFromMs
+                                root.timeSlotFromMs = previousFromMs - 1
+                                root.slotDuration = previousTimeSlotDuration
                             }
 
                         }
@@ -163,13 +166,15 @@ Item {
                     else
                     {
                         var previousToMs = root.timeSlotToMs
+                         previousTimeSlotDuration = root.slotDuration
 
                         root.timeSlotToMs  =  (root.x  +mouseX) /  root.timeLineWidth * Math.abs(root.timeLineToMs - root.timeLineFromMs) + root.timeLineFromMs
 
-                        if(collided)
+                        if(collided && root.rightCollision)
                         {
                             if(previousToMs < root.timeSlotToMs){
-                                root.timeSlotToMs = previousToMs
+                                root.timeSlotToMs = previousToMs + 1
+                                root.slotDuration = previousTimeSlotDuration
                             }
                         }
                         else
@@ -179,6 +184,7 @@ Item {
 
 
                     }
+                     root.checkCollision()
 
 
                 }

@@ -1,6 +1,6 @@
 #include "timeslotlist.h"
 
-timeSlotList::timeSlotList(QObject *parent) : QObject(parent), mCurrentIndex(0)
+timeSlotList::timeSlotList(QObject *parent) : QObject(parent), mCurrentIndex(0), mCollisionSide(false)
 {
 
 }
@@ -125,6 +125,11 @@ timeSlotItem timeSlotList::getTimeSlotItem(const int &id)
     return timeSlotItem();
 }
 
+bool timeSlotList::getCollisionSide()
+{
+    return mCollisionSide;
+}
+
 int timeSlotList::timeSlotCollisionCheck(const int &id)
 {
 
@@ -136,10 +141,12 @@ int timeSlotList::timeSlotCollisionCheck(const int &id)
         {
             if(theTimeSlot.fromMs >= mItems.at(i).fromMs && theTimeSlot.fromMs <= mItems.at(i).toMs)
             {
+                mCollisionSide = false;
                 return mItems.at(i).toMs;
             }
             else if(theTimeSlot.toMs >= mItems.at(i).fromMs && theTimeSlot.toMs <= mItems.at(i).toMs)
             {
+                mCollisionSide = true;
                 return mItems.at(i).fromMs - (theTimeSlot.toMs - theTimeSlot.fromMs);
             }
 

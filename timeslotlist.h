@@ -26,6 +26,7 @@ class timeSlotList : public QObject
 
     QVector<timeSlotItem> mItems;
     int mCurrentIndex;
+    bool mCollisionSide;
 
     timeSlotItem getTimeSlotItem(const int &id);
 
@@ -34,6 +35,7 @@ public:
     QVector<timeSlotItem> items() const;
     bool setItemAt(int index, const timeSlotItem &item);
     Q_INVOKABLE int timeSlotCollisionCheck(const int &id);
+    Q_INVOKABLE bool getCollisionSide();
 
     ~timeSlotList();
 

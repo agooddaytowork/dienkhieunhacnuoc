@@ -44,9 +44,9 @@ void PresenterFrameList::regenerateFrameList(const int &Duration, const int &Fra
     }
     clearList();
 
-    qDebug() << "Frame List ---------";
-    qDebug() << "total Frame: " + QString::number(mFrameNo);
-    qDebug() << "frame list count: " + QString::number(frameList.count());
+//    qDebug() << "Frame List ---------";
+//    qDebug() << "total Frame: " + QString::number(mFrameNo);
+//    qDebug() << "frame list count: " + QString::number(frameList.count());
 
 
 }
@@ -87,14 +87,14 @@ void PresenterFrameList::timeSlotChanged(const timeSlotItem &timeSlot)
 {
 
 
-    qDebug() << "Time SLot Changed";
+//    qDebug() << "Time SLot Changed";
     int fromFrame = findFrameFromMs(timeSlot.fromMs);
     int toFrame = findFrameFromMs(timeSlot.toMs);
 
     int previousFrameIndex = timeSlotExistInList(timeSlot.id);
     if(previousFrameIndex >= 0)
     {
-         qDebug() << "previous Frame Found";
+//         qDebug() << "previous Frame Found";
         PreviousFrame thePreviousFrame = timeSlotShortVerList[previousFrameIndex];
 
 
@@ -128,7 +128,7 @@ void PresenterFrameList::timeSlotChanged(const timeSlotItem &timeSlot)
 
 int PresenterFrameList::findFrameFromMs(const int &timePoint)
 {
-    qDebug() << "timePoint: " + QString::number(timePoint);
+//    qDebug() << "timePoint: " + QString::number(timePoint);
     if(timePoint<0)
     {
         return  0;
@@ -246,14 +246,14 @@ void PresenterFrameList::emptyFrameCleanUp()
 
     for(int i =0; i < timeSlotShortVerList.count(); i++)
     {
-        qDebug() << "fromFrame: " + QString::number(timeSlotShortVerList[i].FromFrame) << "frameCnt: " + QString::number(frameCnt);
+//        qDebug() << "fromFrame: " + QString::number(timeSlotShortVerList[i].FromFrame) << "frameCnt: " + QString::number(frameCnt);
         while(frameCnt < timeSlotShortVerList[i].FromFrame)
         {
          frameList[frameCnt]= createEmptyFramePerGroup(mGroup);
             frameCnt++;
         }
         frameCnt = timeSlotShortVerList[i].ToFrame + 1;
-          qDebug() << "frameCnt after: " + QString::number(frameCnt);
+//          qDebug() << "frameCnt after: " + QString::number(frameCnt);
     }
 
     while(frameCnt < mFrameNo)

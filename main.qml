@@ -81,8 +81,8 @@ ApplicationWindow {
                     root.duration = audioPlayer.duration
 //                    root.toMs = audioPlayer.duration
 
-                    console.log("root duration: " + root.duration)
-                    console.log("root toMs: " + root.toMs)
+                    // console.log("root duration: " + root.duration)
+                    // console.log("root toMs: " + root.toMs)
 
                 }
 
@@ -194,7 +194,7 @@ ApplicationWindow {
 
                     var frameNo = mYposition/  50
 
-                    console.log("frame Point: " + frameNo)
+                    // console.log("frame Point: " + frameNo)
                     theInterfaceGod.playFrame(parseInt(frameNo))
                 }
                 onChangeFromAndToMoment: {
@@ -233,7 +233,7 @@ ApplicationWindow {
 
                     var frameNo = position/  50
 
-                    console.log("frame Point: " + frameNo)
+                    // console.log("frame Point: " + frameNo)
                     theInterfaceGod.playFrame(parseInt(frameNo))
 
 
@@ -393,14 +393,14 @@ ApplicationWindow {
         property int  previousPosition: 0
 
         onDurationChanged: {
-            console.log("changed DURATION ASLKDJALSDJSKLAJDKLSAJJD: " + duration)
+            // console.log("changed DURATION ASLKDJALSDJSKLAJDKLSAJJD: " + duration)
 
             theInterfaceGod.regenerateFrameList(duration, 50)
         }
 
         onPositionChanged: {
 
-            console.log("delta " + (audioPlayer.position - previousPosition))
+            // console.log("delta " + (audioPlayer.position - previousPosition))
 
 
 
@@ -411,7 +411,7 @@ ApplicationWindow {
 
             var frameNo = audioPlayer.position/  50
 
-            console.log("frame Point: " + frameNo)
+            // console.log("frame Point: " + frameNo)
             theInterfaceGod.playFrame(parseInt(frameNo))
 
         }
@@ -425,14 +425,14 @@ ApplicationWindow {
         nameFilters: ["Music (*.mp3 *.wav)"]
         onAccepted: {
 
-            console.log("file URL" +  fileUrl)
+            // console.log("file URL" +  fileUrl)
             audioPlayer.source = fileUrl
 
 
 
             //            audioPlayer.play()
-            //            console.log("audio duration" + audioPlayer.duration)
-            //            console.log("audio Position" + audioPlayer.position)
+            //            // console.log("audio duration" + audioPlayer.duration)
+            //            // console.log("audio Position" + audioPlayer.position)
 
 
 

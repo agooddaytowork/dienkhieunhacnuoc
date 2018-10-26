@@ -60,7 +60,6 @@ Item {
                 }
                 onMouseXChanged: {
 
-                    console.log("current duration on timeLineScroll : " + sliderMouseArea.currentDuration)
                     if(theSlider.movable )
                     {
                         if(mouseX > sliderMouseArea.initialX)
