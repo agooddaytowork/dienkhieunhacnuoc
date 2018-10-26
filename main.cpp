@@ -67,7 +67,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("theInterfaceGod", &theGod);
 
 
-      backendThread.start();
+    backendThread.start();
 
 
 

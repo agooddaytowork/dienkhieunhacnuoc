@@ -182,6 +182,12 @@ Item {
 //                            theTimeLineSlot.timeSlotFromMs = FromMs
 //                            theTimeLineSlot.timeSlotToMs = ToMs
                             console.log("collision")
+                            theTimeLineSlot.collided = true
+
+                        }
+                        else
+                        {
+                            theTimeLineSlot.collided = false
                         }
                     }
 

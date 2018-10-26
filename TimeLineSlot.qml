@@ -13,6 +13,7 @@ Item {
     property int  slotDuration: 0
     signal deleteTimeSlot()
     signal checkCollision()
+    property bool collided: false
 
     x: root.refreshX()
     width: root.refreshWidth()
@@ -74,6 +75,9 @@ Item {
             acceptedButtons: Qt.LeftButton | Qt.RightButton
             property int  mouseOffset: 0
             property bool  selected: false
+            property bool edgeSelected: false
+            property bool fromEdge: false // only valid when edgeSelected = true
+            hoverEnabled: true
 
             onPressed:
             {
@@ -81,15 +85,24 @@ Item {
                 {
                     theTimeSlotMenu.open()
                 }
-                if(pressedButtons & Qt.LeftButton)
+                if(pressedButtons & Qt.LeftButton && timeSlotMouseArea.cursorShape === Qt.ArrowCursor)
                 {
                     timeSlotMouseArea.mouseOffset = mouseX
                     timeSlotMouseArea.selected = true
+                    timeSlotMouseArea.edgeSelected = false
+                }
+                else
+                {
+                    timeSlotMouseArea.mouseOffset = mouseX
+                    timeSlotMouseArea.edgeSelected = true
+                    timeSlotMouseArea.selected = false
                 }
 
             }
             onReleased: {
+
                 timeSlotMouseArea.selected = false
+                timeSlotMouseArea.edgeSelected = false
             }
 
             onMouseXChanged: {
@@ -107,6 +120,69 @@ Item {
 
                     root.checkCollision()
                 }
+
+                if(Math.abs(mouseX) <= 3 )
+                {
+                    timeSlotMouseArea.cursorShape = Qt.IBeamCursor
+                    timeSlotMouseArea.fromEdge = true
+                }
+                else if(Math.abs(mouseX) >= theTimeSlot.width-3)
+                {
+                    timeSlotMouseArea.cursorShape = Qt.IBeamCursor
+                    timeSlotMouseArea.fromEdge = false
+                }
+
+                else
+                {
+                    timeSlotMouseArea.cursorShape = Qt.ArrowCursor
+                }
+
+                if(timeSlotMouseArea.edgeSelected)
+                {
+
+                    root.checkCollision()
+                    if(timeSlotMouseArea.fromEdge)
+                    {
+                        var previousFromMs = root.timeSlotFromMs
+
+                        root.timeSlotFromMs = (root.x  +mouseX) /  root.timeLineWidth * Math.abs(root.timeLineToMs - root.timeLineFromMs) + root.timeLineFromMs
+                        if(collided)
+                        {
+                            if(previousFromMs > root.timeSlotFromMs)
+                            {
+                                root.timeSlotFromMs = previousFromMs
+                            }
+
+                        }
+                        else
+                        {
+                            root.slotDuration = Math.abs(root.timeSlotToMs - root.timeSlotFromMs)
+                        }
+
+                    }
+                    else
+                    {
+                        var previousToMs = root.timeSlotToMs
+
+                        root.timeSlotToMs  =  (root.x  +mouseX) /  root.timeLineWidth * Math.abs(root.timeLineToMs - root.timeLineFromMs) + root.timeLineFromMs
+
+                        if(collided)
+                        {
+                            if(previousToMs < root.timeSlotToMs){
+                                root.timeSlotToMs = previousToMs
+                            }
+                        }
+                        else
+                        {
+                            root.slotDuration = Math.abs(root.timeSlotToMs - root.timeSlotFromMs)
+                        }
+
+
+                    }
+
+
+                }
+
             }
 
             onClicked: {

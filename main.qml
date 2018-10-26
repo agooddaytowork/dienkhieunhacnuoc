@@ -231,7 +231,7 @@ ApplicationWindow {
                          root.currentPosition = position
                     }
 
-                    var frameNo = mYposition/  50
+                    var frameNo = position/  50
 
                     console.log("frame Point: " + frameNo)
                     theInterfaceGod.playFrame(parseInt(frameNo))
