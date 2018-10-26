@@ -5,6 +5,7 @@
 #include <QVector>
 #include "timeslotlist.h"
 #include "anlogger.h"
+#include <QMap>
 
 
 struct PresenterFrame{
@@ -39,6 +40,8 @@ class PresenterFrameList : public QObject
 
     PresenterFrame setFramePerGroup(const timeSlotItem &timeSlot,  PresenterFrame aFrame) const;
     PresenterFrame createEmptyFramePerGroup(const int &group) const;
+    void emptyFrameCleanUp();
+
 
 
     int timeSlotExistInList(const int &id);

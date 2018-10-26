@@ -94,17 +94,14 @@ void PresenterFrameList::timeSlotChanged(const timeSlotItem &timeSlot)
     int previousFrameIndex = timeSlotExistInList(timeSlot.id);
     if(previousFrameIndex >= 0)
     {
+         qDebug() << "previous Frame Found";
         PreviousFrame thePreviousFrame = timeSlotShortVerList[previousFrameIndex];
 
-        int PreFromFrame = thePreviousFrame.FromFrame;
-        int PreToFrame = thePreviousFrame.ToFrame;
 
-        while(PreFromFrame <= PreToFrame)
-        {
-            frameList[PreFromFrame] = createEmptyFramePerGroup(mGroup);
+        thePreviousFrame.FromFrame = fromFrame;
+        thePreviousFrame.ToFrame = toFrame;
+        timeSlotShortVerList[previousFrameIndex] = thePreviousFrame;
 
-            PreFromFrame++;
-        }
     }
     else
     {
@@ -122,6 +119,10 @@ void PresenterFrameList::timeSlotChanged(const timeSlotItem &timeSlot)
         frameList[fromFrame] = setFramePerGroup(timeSlot, frameList.at(fromFrame));
         fromFrame++;
     }
+
+    emptyFrameCleanUp();
+
+
 
 }
 
@@ -232,26 +233,65 @@ PresenterFrame PresenterFrameList::createEmptyFramePerGroup(const int &group) co
 
 }
 
+
+
+ bool operator<(const PreviousFrame& a, const PreviousFrame& b) { return a.FromFrame < b.FromFrame; }
+
+void PresenterFrameList::emptyFrameCleanUp()
+{
+    int frameCnt = 0;
+
+
+    std::sort(timeSlotShortVerList.begin(),timeSlotShortVerList.end());
+
+    for(int i =0; i < timeSlotShortVerList.count(); i++)
+    {
+        qDebug() << "fromFrame: " + QString::number(timeSlotShortVerList[i].FromFrame) << "frameCnt: " + QString::number(frameCnt);
+        while(frameCnt < timeSlotShortVerList[i].FromFrame)
+        {
+         frameList[frameCnt]= createEmptyFramePerGroup(mGroup);
+            frameCnt++;
+        }
+        frameCnt = timeSlotShortVerList[i].ToFrame + 1;
+          qDebug() << "frameCnt after: " + QString::number(frameCnt);
+    }
+
+    while(frameCnt < mFrameNo)
+    {
+        frameList[frameCnt]= createEmptyFramePerGroup(mGroup);
+        frameCnt++;
+    }
+
+
+}
+
 void PresenterFrameList::timeSlotRemoved(const timeSlotItem &timeSlot)
 {
-    int fromFrame = findFrameFromMs(timeSlot.fromMs);
-    int toFrame = findFrameFromMs(timeSlot.toMs);
 
 
-    while(fromFrame <= toFrame)
+
+    int index = timeSlotExistInList(timeSlot.id);
+
+    if(index >= 0)
     {
-        frameList[fromFrame] = createEmptyFramePerGroup(mGroup);
-        fromFrame++;
+        timeSlotShortVerList.remove(index);
     }
 
-    for(int i = 0; i < timeSlotShortVerList.count(); i++)
-    {
-        if(timeSlotShortVerList[i].id == timeSlot.id)
-        {
-            timeSlotShortVerList.removeAt(i);
-            return;
-        }
-    }
+    emptyFrameCleanUp();
+//    while(fromFrame <= toFrame)
+//    {
+//        frameList[fromFrame] = createEmptyFramePerGroup(mGroup);
+//        fromFrame++;
+//    }
+
+//    for(int i = 0; i < timeSlotShortVerList.count(); i++)
+//    {
+//        if(timeSlotShortVerList[i].id == timeSlot.id)
+//        {
+//            timeSlotShortVerList.remove(timeSlotShortVerList[i].FromFrame);
+//            return;
+//        }
+//    }
 }
 
 

@@ -91,7 +91,7 @@ void timeSlotList::appendItem(const quint8 &group, const int &fromMs, const int 
 
 
     emit postItemAppended();
-    emit timeSlotItemChanged(item);
+//    emit timeSlotItemChanged(item);
 }
 
 void timeSlotList::removeItems(const int &id)
