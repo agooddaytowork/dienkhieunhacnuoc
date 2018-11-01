@@ -15,9 +15,14 @@ Item {
     signal checkCollision()
     property bool collided: false
     property bool rightCollision: false
+    property bool  edgeSelected: false
+    property bool timeSlotSelected: false
+    signal timeSlotSelect()
 
     x: root.refreshX()
     width: root.refreshWidth()
+
+
 
     function refreshPosition()
     {
@@ -75,8 +80,7 @@ Item {
             acceptedButtons: Qt.LeftButton | Qt.RightButton
             property int  mouseOffset: 0
             property bool  selected: false
-            property bool edgeSelected: false
-            property bool fromEdge: false // only valid when edgeSelected = true
+            property bool fromEdge: false // only valid when root.edgeSelected = true
             hoverEnabled: true
 
             onPressed:
@@ -89,12 +93,12 @@ Item {
                 {
                     timeSlotMouseArea.mouseOffset = mouseX
                     timeSlotMouseArea.selected = true
-                    timeSlotMouseArea.edgeSelected = false
+                    root.edgeSelected = false
                 }
                 else
                 {
                     timeSlotMouseArea.mouseOffset = mouseX
-                    timeSlotMouseArea.edgeSelected = true
+                    root.edgeSelected = true
                     timeSlotMouseArea.selected = false
                 }
 
@@ -102,7 +106,7 @@ Item {
             onReleased: {
 
                 timeSlotMouseArea.selected = false
-                timeSlotMouseArea.edgeSelected = false
+                root.edgeSelected = false
             }
 
             onMouseXChanged: {
@@ -139,7 +143,7 @@ Item {
                     timeSlotMouseArea.cursorShape = Qt.ArrowCursor
                 }
 
-                if(timeSlotMouseArea.edgeSelected)
+                if(root.edgeSelected)
                 {
 
 
@@ -166,7 +170,7 @@ Item {
                     else
                     {
                         var previousToMs = root.timeSlotToMs
-                        previousTimeSlotDuration = root.slotDuration
+                         previousTimeSlotDuration = root.slotDuration
 
                         root.timeSlotToMs  =  (root.x  +mouseX) /  root.timeLineWidth * Math.abs(root.timeLineToMs - root.timeLineFromMs) + root.timeLineFromMs
 
@@ -184,15 +188,14 @@ Item {
 
 
                     }
-                    root.checkCollision()
-
-
+                      root.checkCollision()
                 }
 
             }
 
             onClicked: {
                 // implement shit here
+                root.timeSlotSelect()
             }
         }
         Menu
@@ -206,7 +209,7 @@ Item {
                 }
             }
         }
-        color: "black"
+        color:  root.timeSlotSelected ? "grey":"black"
         border.width: 1
         border.color: "white"
 

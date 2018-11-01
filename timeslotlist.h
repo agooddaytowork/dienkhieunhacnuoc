@@ -31,6 +31,7 @@ class timeSlotList : public QObject
     timeSlotItem getTimeSlotItem(const int &id);
 
 public:
+    int mGroup;
     explicit timeSlotList(QObject *parent = nullptr);
     QVector<timeSlotItem> items() const;
     bool setItemAt(int index, const timeSlotItem &item);

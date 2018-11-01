@@ -1,6 +1,6 @@
 #include "timeslotlist.h"
 
-timeSlotList::timeSlotList(QObject *parent) : QObject(parent), mCurrentIndex(0), mCollisionSide(false)
+timeSlotList::timeSlotList(QObject *parent) : QObject(parent), mCurrentIndex(0), mCollisionSide(false), mGroup(0)
 {
 
 }

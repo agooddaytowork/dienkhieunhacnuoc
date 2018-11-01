@@ -288,6 +288,10 @@ ApplicationWindow {
                                 false
                             }
                         }
+                        onTimeSlotSelect:
+                        {
+                            groupControlPanelRepeater.currentGroupIndex = groupControlPanelDelegate.groupIndex
+                        }
 
                         onChangeFromAndToMoment:
                         {
@@ -348,25 +352,34 @@ ApplicationWindow {
             border.color: "black"
             width: 400
             height: root.height
-            Repeater{
-                model: 9
-                delegate: MusicPresenterGroup{
-                    id: theGroup
-                    property int groupIndex: index
-                    groupID: index
-                    scale: 1
+
+
+            Rectangle{
+                width: parent.width
+                anchors.top: parent.top
+                anchors.left: parent.left
+                height: 400
+                color: "#474747"
+                border.width: 1
+                border.color: "black"
+                Repeater{
+                    model: 9
+                    delegate: MusicPresenterGroup{
+                        id: theGroup
+                        property int groupIndex: index
+                        groupID: index
+                        scale: 1
+                    }
                 }
+
             }
+            TimeLineSlotControlBox{
+                width: parent.width
+                height: root.height-400
+                anchors.bottom: parent.bottom
+                anchors.left: parent.left
 
-//            Rectangle{
-//                width: parent.width
-//                anchors.top: parent.top
-//                anchors.left: parent.left
-//                height: 400
-//                color: "grey"
-
-
-//            }
+            }
 
 
         }

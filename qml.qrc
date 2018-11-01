@@ -13,5 +13,6 @@
         <file>icons/play.png</file>
         <file>icons/stop.png</file>
         <file>TimeLineSlot.qml</file>
+        <file>TimeLineSlotControlBox.qml</file>
     </qresource>
 </RCC>

@@ -36,6 +36,7 @@ int main(int argc, char *argv[])
 
     for(int i = 0; i < 9; i++)
     {
+        dataList[i].mGroup = i;
         presenterFrameLists[i].mGroup = i;
         presenterList[i].mGroup = static_cast<quint8>(i);
 

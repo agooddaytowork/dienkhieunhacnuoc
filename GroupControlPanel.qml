@@ -13,11 +13,12 @@ Item {
     property int  infoGroupWidth: root.width/10
     signal changeFromAndToMoment(int from, int to)
     signal timeLineSelected(int groupIndex)
+    signal timeSlotSelect()
     property bool  selected: false
 
-    onSelectedChanged: {
-        timeLine.selected = selected
-    }
+//    onSelectedChanged: {
+//        timeLine.selected = selected
+//    }
 
     function collisionCheck(timeSlotId)
     {
@@ -123,6 +124,7 @@ Item {
             }
 
             Repeater{
+                id: timeSlotRepeater
 
 
                 model:TimeSlotModel{
@@ -131,11 +133,14 @@ Item {
 
                 }
 
+                property int  timeSlotSelectedIndex: -1
+
                 delegate: TimeLineSlot{
                     id: theTimeLineSlot
                     z: 2
                     //                        width: theTimeLineSlot.refreshWidth()
                     //                        x: theTimeLineSlot.refreshX()
+                    property int  timeSlotIndex: index
                     height: timeLine.height
                     timeLineFromMs: root.fromMs
                     timeLineToMs: root.toMs
@@ -164,6 +169,30 @@ Item {
                         ToMs = timeSlotToMs
                     }
 
+                    onTimeSlotSelect:
+                    {
+                        timeSlotRepeater.timeSlotSelectedIndex = theTimeLineSlot.timeSlotIndex
+                        root.timeSlotSelect()
+                    }
+
+                    timeSlotSelected:{
+
+                        if(root.selected)
+                        {
+                            if(theTimeLineSlot.timeSlotIndex == timeSlotRepeater.timeSlotSelectedIndex)
+                            {
+                                true
+                            }
+                            else
+                            {
+                                false
+                            }
+                        }
+                        else
+                        {
+                            false
+                        }
+                    }
 
 
                     onCheckCollision: {
@@ -178,21 +207,23 @@ Item {
                             theTimeLineSlot.collided = true
                             theTimeLineSlot.rightCollision = list.getCollisionSide()
 
-                            if(theTimeLineSlot.rightCollision)
+                            if(theTimeLineSlot.edgeSelected)
                             {
-                                theTimeLineSlot.timeSlotToMs = FromMs + theTimeLineSlot.slotDuration
+                                if(theTimeLineSlot.rightCollision)
+                                {
+                                    theTimeLineSlot.timeSlotToMs = FromMs + theTimeLineSlot.slotDuration
+                                }
+                                else
+                                {
+                                    theTimeLineSlot.timeSlotFromMs = colliedOffset
+                                }
+
                             }
                             else
                             {
                                 theTimeLineSlot.timeSlotFromMs = colliedOffset
+                                theTimeLineSlot.timeSlotToMs = FromMs + theTimeLineSlot.slotDuration
                             }
-
-
-
-
-                            //                            theTimeLineSlot.timeSlotFromMs = FromMs
-                            //                            theTimeLineSlot.timeSlotToMs = ToMs
-
 
                         }
                         else
