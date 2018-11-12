@@ -13,7 +13,7 @@ Item {
     property int  infoGroupWidth: root.width/10
     signal changeFromAndToMoment(int from, int to)
     signal timeLineSelected(int groupIndex)
-    signal timeSlotSelect()
+    signal timeSlotSelect(int timeSlotIndex)
     property bool  selected: false
 
 //    onSelectedChanged: {
@@ -135,6 +135,7 @@ Item {
 
                 property int  timeSlotSelectedIndex: -1
 
+
                 delegate: TimeLineSlot{
                     id: theTimeLineSlot
                     z: 2
@@ -172,7 +173,7 @@ Item {
                     onTimeSlotSelect:
                     {
                         timeSlotRepeater.timeSlotSelectedIndex = theTimeLineSlot.timeSlotIndex
-                        root.timeSlotSelect()
+                        root.timeSlotSelect(theTimeLineSlot.timeSlotIndex)
                     }
 
                     timeSlotSelected:{

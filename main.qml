@@ -79,10 +79,6 @@ ApplicationWindow {
 
                     timeIndicator.movable = false
                     root.duration = audioPlayer.duration
-//                    root.toMs = audioPlayer.duration
-
-                    // console.log("root duration: " + root.duration)
-                    // console.log("root toMs: " + root.toMs)
 
                 }
 
@@ -124,24 +120,6 @@ ApplicationWindow {
 
             }
 
-//            Slider{
-//                id: p4Slider
-//                width: 400
-//                from: 0
-//                to: 3.14
-//                value: 0.8160478478227146
-//                onValueChanged: {
-//                    p4textfield.text = value
-//                }
-
-
-//            }
-
-//            TextField{
-//                id: p4textfield
-
-
-//            }
         }
     }
 
@@ -189,7 +167,7 @@ ApplicationWindow {
                     }
                     else
                     {
-                       root.currentPosition = mYposition
+                        root.currentPosition = mYposition
                     }
 
                     var frameNo = mYposition/  50
@@ -228,7 +206,7 @@ ApplicationWindow {
                     }
                     else
                     {
-                         root.currentPosition = position
+                        root.currentPosition = position
                     }
 
                     var frameNo = position/  50
@@ -268,6 +246,7 @@ ApplicationWindow {
                 Repeater{
                     id: groupControlPanelRepeater
                     property int  currentGroupIndex: 0
+                    property int  currentTimeSlotIndex: 0
 
                     model: 9
                     delegate: GroupControlPanel{
@@ -291,6 +270,8 @@ ApplicationWindow {
                         onTimeSlotSelect:
                         {
                             groupControlPanelRepeater.currentGroupIndex = groupControlPanelDelegate.groupIndex
+                            groupControlPanelRepeater.currentTimeSlotIndex = timeSlotIndex
+
                         }
 
                         onChangeFromAndToMoment:
@@ -378,6 +359,9 @@ ApplicationWindow {
                 height: root.height-400
                 anchors.bottom: parent.bottom
                 anchors.left: parent.left
+                currentGroupIndex: groupControlPanelRepeater.currentGroupIndex
+                currentTimeSlotIndex:  groupControlPanelRepeater.currentTimeSlotIndex
+
 
             }
 
