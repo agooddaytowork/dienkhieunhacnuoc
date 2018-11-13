@@ -25,7 +25,8 @@ public:
         FileBinPathRole,
         LEDValuesListRole,
         LEDChannelsRole,
-        ValveChannelsRole
+        ValveChannelsRole,
+        ValveModeRole
 
     };
 

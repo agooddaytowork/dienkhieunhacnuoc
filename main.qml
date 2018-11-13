@@ -271,6 +271,7 @@ ApplicationWindow {
                         {
                             groupControlPanelRepeater.currentGroupIndex = groupControlPanelDelegate.groupIndex
                             groupControlPanelRepeater.currentTimeSlotIndex = timeSlotIndex
+                            timeLineSlotControlBox.refreshModel()
 
                         }
 
@@ -281,6 +282,18 @@ ApplicationWindow {
                         }
                         onTimeLineSelected: {
                             groupControlPanelRepeater.currentGroupIndex = groupIndex
+                        }
+
+                        onTimeSlotAdded: {
+
+                            groupControlPanelRepeater.currentGroupIndex = groupControlPanelDelegate.groupIndex
+                            groupControlPanelRepeater.currentTimeSlotIndex = timeSlotIndex
+                            timeLineSlotControlBox.refreshModel()
+                        }
+
+                        onTimeSlotRemoved: {
+                           groupControlPanelRepeater.currentTimeSlotIndex = -1
+                            timeLineSlotControlBox.refreshModel()
                         }
 
                     }
@@ -355,6 +368,8 @@ ApplicationWindow {
 
             }
             TimeLineSlotControlBox{
+
+                id: timeLineSlotControlBox
                 width: parent.width
                 height: root.height-400
                 anchors.bottom: parent.bottom

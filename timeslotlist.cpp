@@ -42,6 +42,7 @@ void timeSlotList::appendItem(const quint8 &group, const int &fromMs, const int 
     item.LedMode = 0;
     item.InverterLevel = 0;
     item.Inverter = false;
+    item.ValveMode = 0;
     switch(group)
     {
     case 0:
@@ -128,6 +129,11 @@ timeSlotItem timeSlotList::getTimeSlotItem(const int &id)
 bool timeSlotList::getCollisionSide()
 {
     return mCollisionSide;
+}
+
+int timeSlotList::count()
+{
+    return mItems.size();
 }
 
 int timeSlotList::timeSlotCollisionCheck(const int &id)

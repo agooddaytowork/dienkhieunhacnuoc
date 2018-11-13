@@ -14,11 +14,13 @@ Item {
     signal changeFromAndToMoment(int from, int to)
     signal timeLineSelected(int groupIndex)
     signal timeSlotSelect(int timeSlotIndex)
+    signal timeSlotAdded(int timeSlotIndex)
+    signal timeSlotRemoved()
     property bool  selected: false
 
-//    onSelectedChanged: {
-//        timeLine.selected = selected
-//    }
+    //    onSelectedChanged: {
+    //        timeLine.selected = selected
+    //    }
 
     function collisionCheck(timeSlotId)
     {
@@ -120,6 +122,8 @@ Item {
 
                 list.appendItem(root.groupIndex,from,to)
 
+                root.timeSlotAdded(root.groupIndex)
+
 
             }
 
@@ -151,9 +155,12 @@ Item {
                     duration: root.duration
 
                     onDeleteTimeSlot: {
+                        root.timeSlotRemoved()
                         var list = root.returnTimeSlotList()
 
                         list.removeItems(theId)
+
+
                     }
 
                     Component.onCompleted: {

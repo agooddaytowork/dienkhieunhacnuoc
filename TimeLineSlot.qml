@@ -143,7 +143,7 @@ Item {
                     timeSlotMouseArea.cursorShape = Qt.ArrowCursor
                 }
 
-                if(root.edgeSelected)
+                if(root.edgeSelected && pressedButtons & Qt.LeftButton)
                 {
 
 

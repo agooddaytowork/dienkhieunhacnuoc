@@ -53,6 +53,9 @@ QVariant timeSlotModel::data(const QModelIndex &index, int role) const
     case ValveChannelsRole:
         return QVariant(item.ValveChannels);
 
+    case ValveModeRole:
+        return QVariant(item.ValveMode);
+
     }
 
     return QVariant();
@@ -103,6 +106,9 @@ bool timeSlotModel::setData(const QModelIndex &index, const QVariant &value, int
         break;
     case ValveChannelsRole:
         item.ValveChannels = static_cast<quint8>(value.toUInt());
+
+    case ValveModeRole:
+        item.ValveMode = static_cast<quint8>(value.toUInt());
     }
 
     if (mList->setItemAt(index.row(), item)) {
@@ -137,6 +143,7 @@ QHash<int, QByteArray> timeSlotModel::roleNames() const
     names[LEDValuesListRole] = "LEDValuesList";
     names[LEDChannelsRole] = "LEDChannels";
     names[ValveChannelsRole] = "ValveChannels";
+    names[ValveModeRole] = "ValveMode";
 
 
     return names;

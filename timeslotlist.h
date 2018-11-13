@@ -18,6 +18,7 @@ struct timeSlotItem{
     QString LedValuesList;
     quint8 LedChannels;
     quint8 ValveChannels;
+    quint8 ValveMode;
 };
 
 class timeSlotList : public QObject
@@ -37,6 +38,7 @@ public:
     bool setItemAt(int index, const timeSlotItem &item);
     Q_INVOKABLE int timeSlotCollisionCheck(const int &id);
     Q_INVOKABLE bool getCollisionSide();
+    Q_INVOKABLE int count();
 
     ~timeSlotList();
 
