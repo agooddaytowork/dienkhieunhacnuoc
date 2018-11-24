@@ -11,6 +11,7 @@ Item {
     property int  timeLineWidth: 0
     property int  duration: 0
     property int  slotDuration: 0
+    property int  valveMode: 0
     signal deleteTimeSlot()
     signal checkCollision()
     property bool collided: false
@@ -21,6 +22,11 @@ Item {
 
     x: root.refreshX()
     width: root.refreshWidth()
+
+    onValveModeChanged: {
+        console.trace()
+        console.log("current valve Mode: " + root.valveMode)
+    }
 
 
 

@@ -378,6 +378,7 @@ ApplicationWindow {
                 currentTimeSlotIndex:  groupControlPanelRepeater.currentTimeSlotIndex
 
 
+
             }
 
 

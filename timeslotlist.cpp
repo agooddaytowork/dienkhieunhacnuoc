@@ -42,7 +42,7 @@ void timeSlotList::appendItem(const quint8 &group, const int &fromMs, const int 
     item.LedMode = 0;
     item.InverterLevel = 0;
     item.Inverter = false;
-    item.ValveMode = 0;
+    item.ValveMode = 1;
     switch(group)
     {
     case 0:

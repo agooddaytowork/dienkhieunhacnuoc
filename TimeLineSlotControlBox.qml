@@ -9,7 +9,10 @@ Item {
     property int  currentTimeSlotIndex: 0
     property int  currentGroupIndex: 0
     property TimeSlotModel theTimeSlotModel: TimeSlotModel{list:returnTimeSlotList() }
+    property bool groupIndexJustChanged: false
+
     enabled: false
+
 
 
     function refreshModel()
@@ -26,6 +29,8 @@ Item {
 
 
     onCurrentGroupIndexChanged: {
+
+        root.groupIndexJustChanged = true
         console.log("timeSlotMGroupChanged")
         theTimeSlotModel.list = returnTimeSlotList()
         refreshModel()
@@ -180,6 +185,8 @@ Item {
                         ComboBox{
                             model: 5
                             anchors.verticalCenter: parent.verticalCenter
+
+
                         }
                         Text {
 
@@ -391,6 +398,44 @@ Item {
                                 model: inverterModeModel
                                 anchors.verticalCenter: parent.verticalCenter
                                 textRole: "name"
+
+
+                                Connections{
+                                    target: theTimeSlotModel
+
+
+                                    onSizeChanged:
+                                    {
+                                        console.trace()
+                                        if(theTimeSlotModel.size !== 0 && root.currentTimeSlotIndex <= theTimeSlotModel.size)
+                                        {
+                                              valveModeComboBox.currentIndex = theTimeSlotModel.getDataPerIndex(root.currentGroupIndex, "ValveMode")
+                                        }
+                                        else
+                                        {
+                                           valveModeComboBox.currentIndex = 0
+                                        }
+                                    }
+                                }
+
+
+                                onCurrentIndexChanged: {
+
+                                    if(root.groupIndexJustChanged)
+                                    {
+                                        root.groupIndexJustChanged = false
+                                        return
+                                    }
+
+                                    if(theTimeSlotModel.size !== 0  && root.currentTimeSlotIndex <= theTimeSlotModel.size)
+                                    {
+                                        console.trace()
+
+                                        theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveMode", currentIndex)
+                                    }
+
+                                }
+
 
                                 onCurrentTextChanged: {
                                     if(currentText == "Solid")
@@ -674,15 +719,7 @@ Item {
                 }
 
             }
-
-
-
         }
-
-
-
-
-
 
     }
 

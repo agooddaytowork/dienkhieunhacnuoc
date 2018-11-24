@@ -5,6 +5,7 @@
 #include <QVector>
 
 struct timeSlotItem{
+//        Q_GADGET
     int id;
     int fromMs;
     int toMs;
@@ -19,6 +20,20 @@ struct timeSlotItem{
     quint8 LedChannels;
     quint8 ValveChannels;
     quint8 ValveMode;
+
+//    Q_PROPERTY(int m_id MEMBER id)
+//    Q_PROPERTY(int m_fromMs MEMBER fromMs)
+//    Q_PROPERTY(int m_toMs MEMBER toMs)
+//    Q_PROPERTY(quint8 m_group MEMBER group)
+//    Q_PROPERTY(bool m_ValveOnOff MEMBER ValveOnOff)
+//    Q_PROPERTY(bool m_LedOnOff MEMBER LedOnOff)
+//    Q_PROPERTY(quint8 m_LedMode MEMBER LedMode)
+//    Q_PROPERTY(quint8 m_InverterLevel MEMBER InverterLevel)
+//    Q_PROPERTY(QString m_fileBinPath MEMBER fileBinPath)
+//    Q_PROPERTY(QString m_LedValuesList MEMBER LedValuesList)
+//    Q_PROPERTY(quint8 m_LedChannels MEMBER LedChannels)
+//    Q_PROPERTY(quint8 m_ValveChannels MEMBER ValveChannels)
+//    Q_PROPERTY(quint8 m_ValveMode MEMBER ValveMode)
 };
 
 class timeSlotList : public QObject

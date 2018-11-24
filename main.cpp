@@ -15,7 +15,9 @@
 
 int main(int argc, char *argv[])
 {
+#if defined(Q_OS_WIN) || defined(Q_OS_ANDROID)
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+#endif
 
     qmlRegisterType<timeSlotModel>("TimeLine", 1, 0, "TimeSlotModel");
     qmlRegisterUncreatableType<timeSlotList>("TimeLine", 1, 0, "TimeSlotList",
@@ -24,6 +26,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<MusicPresenterModel>("MusicPresenter", 1, 0, "MusicPresenterModel");
     qmlRegisterUncreatableType<MusicPresenterList>("MusicPresenter", 1, 0, "MusicPresenterList",
                                                    QStringLiteral("ToDoList should not be created in QML"));
+
 
 
     timeSlotList dataList[9];

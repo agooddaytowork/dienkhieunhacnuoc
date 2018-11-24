@@ -137,6 +137,8 @@ Item {
 
                 }
 
+
+
                 property int  timeSlotSelectedIndex: -1
 
 
@@ -146,6 +148,7 @@ Item {
                     //                        width: theTimeLineSlot.refreshWidth()
                     //                        x: theTimeLineSlot.refreshX()
                     property int  timeSlotIndex: index
+                    valveMode: ValveMode
                     height: timeLine.height
                     timeLineFromMs: root.fromMs
                     timeLineToMs: root.toMs
