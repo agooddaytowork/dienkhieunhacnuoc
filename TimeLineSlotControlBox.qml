@@ -8,11 +8,27 @@ Item {
 
     property int  currentTimeSlotIndex: 0
     property int  currentGroupIndex: 0
+    property int  currentValveModeIndex: 0
     property TimeSlotModel theTimeSlotModel: TimeSlotModel{list:returnTimeSlotList() }
     property bool groupIndexJustChanged: false
+    signal modelRefreshed()
 
     enabled: false
 
+    onCurrentValveModeIndexChanged: {
+        console.log("onCurrentValveModeIndexChanged")
+    }
+
+    function updateValveData()
+    {
+        if(theTimeSlotModel.size !== 0  && root.currentTimeSlotIndex <= theTimeSlotModel.size)
+        {
+            console.trace()
+            theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveMode", valveModeComboBox.currentIndex)
+        }
+
+        refreshModel()
+    }
 
 
     function refreshModel()
@@ -25,17 +41,24 @@ Item {
         {
             root.enabled = true
         }
+        theTimeSlotModel.list = returnTimeSlotList()
+
     }
+
+    //    onCurrentTimeSlotIndexChanged:
+    //    {
+    //        refreshModel()
+    //    }
 
 
     onCurrentGroupIndexChanged: {
 
         root.groupIndexJustChanged = true
         console.log("timeSlotMGroupChanged")
-        theTimeSlotModel.list = returnTimeSlotList()
         refreshModel()
 
         valveModeComboBox.model = returnValveModeList()
+
         if(root.currentGroupIndex == 0 || root.currentGroupIndex == 3 || root.currentGroupIndex ==5 && valveModeComboBox.currentText == "Solid")
         {
             valveControlPane.state = "Solid"
@@ -52,6 +75,49 @@ Item {
         {
             valveControlPane.state = "Default"
         }
+
+
+//        if(theTimeSlotModel.size !== 0 && root.currentTimeSlotIndex <= theTimeSlotModel.size)
+//        {
+//            root.currentValveModeIndex = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex, "ValveMode")
+//        }
+//        else
+//        {
+//            root.currentValveModeIndex.currentIndex = 0
+//        }
+
+        console.log("Group: " + root.currentGroupIndex + " - timeslot: " + root.currentTimeSlotIndex
+                    + " - valveMode: " +theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex, "ValveMode") )
+         root.currentValveModeIndex = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex, "ValveMode")
+    }
+
+    onCurrentTimeSlotIndexChanged:
+    {
+        refreshModel()
+
+        if(root.groupIndexJustChanged)
+        {
+            root.groupIndexJustChanged = false
+            console.trace()
+            console.log("onCurrentTimeSlotIndexChanged")
+            console.log("Group: " + root.currentGroupIndex + " - timeslot: " + root.currentTimeSlotIndex
+                        + " - valveMode: " +theTimeSlotModel.getDataPerIndex(0, "ValveMode") )
+
+            root.currentValveModeIndex = theTimeSlotModel.getDataPerIndex(0, "ValveMode")
+        }
+        else
+        {
+            console.trace()
+            console.log("onCurrentTimeSlotIndexChanged")
+            console.log("Group: " + root.currentGroupIndex + " - timeslot: " + root.currentTimeSlotIndex
+                        + " - valveMode: " +theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex, "ValveMode") )
+
+            root.currentValveModeIndex = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex, "ValveMode")
+
+        }
+
+
+
     }
 
     function returnTimeSlotList()
@@ -228,7 +294,6 @@ Item {
                 contentHeight: valveControlPane.implicitHeight + 100
                 ScrollBar.vertical: ScrollBar{ policy: ScrollBar.AlwaysOn}
 
-
                 Pane {
 
                     id: valveControlPane
@@ -398,43 +463,46 @@ Item {
                                 model: inverterModeModel
                                 anchors.verticalCenter: parent.verticalCenter
                                 textRole: "name"
+                                currentIndex: root.currentValveModeIndex
 
 
-                                Connections{
-                                    target: theTimeSlotModel
+                                //                                Connections{
+                                //                                    target: theTimeSlotModel
 
 
-                                    onSizeChanged:
-                                    {
-                                        console.trace()
-                                        if(theTimeSlotModel.size !== 0 && root.currentTimeSlotIndex <= theTimeSlotModel.size)
-                                        {
-                                              valveModeComboBox.currentIndex = theTimeSlotModel.getDataPerIndex(root.currentGroupIndex, "ValveMode")
-                                        }
-                                        else
-                                        {
-                                           valveModeComboBox.currentIndex = 0
-                                        }
-                                    }
-                                }
+                                //                                    onSizeChanged:
+                                //                                    {
+                                //                                        console.trace()
+                                //                                        if(theTimeSlotModel.size !== 0 && root.currentTimeSlotIndex <= theTimeSlotModel.size)
+                                //                                        {
+                                //                                              valveModeComboBox.currentIndex = theTimeSlotModel.getDataPerIndex(root.currentGroupIndex, "ValveMode")
+                                //                                        }
+                                //                                        else
+                                //                                        {
+                                //                                           valveModeComboBox.currentIndex = 0
+                                //                                        }
+                                //                                    }
+                                //                                }
 
 
-                                onCurrentIndexChanged: {
+                                //                                onCurrentIndexChanged: {
 
-                                    if(root.groupIndexJustChanged)
-                                    {
-                                        root.groupIndexJustChanged = false
-                                        return
-                                    }
+                                //                                    if(root.groupIndexJustChanged)
+                                //                                    {
+                                //                                        root.groupIndexJustChanged = false
+                                //                                        return
+                                //                                    }
 
-                                    if(theTimeSlotModel.size !== 0  && root.currentTimeSlotIndex <= theTimeSlotModel.size)
-                                    {
-                                        console.trace()
+                                //                                    if(theTimeSlotModel.size !== 0  && root.currentTimeSlotIndex <= theTimeSlotModel.size)
+                                //                                    {
+                                //                                        console.trace()
 
-                                        theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveMode", currentIndex)
-                                    }
+                                //                                        theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveMode", currentIndex)
 
-                                }
+                                //                                    }
+
+                                //                                }
+
 
 
                                 onCurrentTextChanged: {
@@ -558,39 +626,39 @@ Item {
 
 
                         Row{
-                        id: valveFadeSliderRow01
-                        spacing: 2
-                        visible: {
-                            if(root.currentGroupIndex == 5  && valveControlPane.state == "Fade")
-                            {
-                                true
+                            id: valveFadeSliderRow01
+                            spacing: 2
+                            visible: {
+                                if(root.currentGroupIndex == 5  && valveControlPane.state == "Fade")
+                                {
+                                    true
+                                }
+                                else
+                                {
+                                    false
+                                }
                             }
-                            else
-                            {
-                                false
+                            Text {
+                                width: 80
+                                text: "CH 2 - Start: " + parseInt(valveFadeRangeSlider01.first.value)
+                                anchors.verticalCenter: parent.verticalCenter
                             }
-                        }
-                        Text {
-                            width: 80
-                            text: "CH 2 - Start: " + parseInt(valveFadeRangeSlider01.first.value)
-                            anchors.verticalCenter: parent.verticalCenter
-                        }
-                        RangeSlider{
-                            id: valveFadeRangeSlider01
-                            from: 0
-                            to: 255
-                            stepSize: 1.0
-                            snapMode: RangeSlider.SnapAlways
-                            first.value: 5
-                            second.value: 100
+                            RangeSlider{
+                                id: valveFadeRangeSlider01
+                                from: 0
+                                to: 255
+                                stepSize: 1.0
+                                snapMode: RangeSlider.SnapAlways
+                                first.value: 5
+                                second.value: 100
 
 
+                            }
+                            Text {
+                                text: "Stop: " + parseInt(valveFadeRangeSlider01.second.value)
+                                anchors.verticalCenter: parent.verticalCenter
+                            }
                         }
-                        Text {
-                            text: "Stop: " + parseInt(valveFadeRangeSlider01.second.value)
-                            anchors.verticalCenter: parent.verticalCenter
-                        }
-                    }
 
                         Row{
 
@@ -711,6 +779,13 @@ Item {
                                 textRole: "name"
 
                             }
+                        }
+
+                        Button{
+                            text: "Update"
+
+                            onClicked: root.updateValveData()
+
                         }
 
 

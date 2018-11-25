@@ -32,7 +32,6 @@ Item {
 
     function refreshPosition()
     {
-
         root.x = refreshPosition()
         root.width = refreshWidth()
     }

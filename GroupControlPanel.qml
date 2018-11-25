@@ -122,8 +122,7 @@ Item {
 
                 list.appendItem(root.groupIndex,from,to)
 
-                root.timeSlotAdded(root.groupIndex)
-
+                root.timeSlotAdded(list.lastIndex())
 
             }
 
@@ -158,9 +157,9 @@ Item {
                     duration: root.duration
 
                     onDeleteTimeSlot: {
+
                         root.timeSlotRemoved()
                         var list = root.returnTimeSlotList()
-
                         list.removeItems(theId)
 
 

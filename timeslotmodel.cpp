@@ -16,7 +16,7 @@ int timeSlotModel::rowCount(const QModelIndex &parent) const
 }
 QVariant timeSlotModel::getDataPerIndex(const int &index, const QByteArray &RoleString)
 {
-    if(index -1 > mList->count() || !mList)
+    if(index-1  > mList->count() || !mList || mList->count() ==  0)
     {
         return QVariant();
     }
@@ -161,7 +161,7 @@ bool timeSlotModel::setDataPerIndex(const int &index, const QByteArray &RoleStri
 
          QModelIndex dmIndex = this->index(index,index);
         emit dataChanged(dmIndex, dmIndex, QVector<int>() << role);
-        //        qDebug() << "setData";
+                qDebug() << "setData";
         return true;
     }
     return false;
