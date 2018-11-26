@@ -41,5 +41,4 @@ HEADERS += \
     musicpresentermodel.h \
     musicpresenterlist.h \
     presenterframelist.h \
-    theinterfacegod.h \
-    anlogger.h
+    theinterfacegod.h

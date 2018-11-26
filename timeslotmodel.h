@@ -45,6 +45,7 @@ public:
     Qt::ItemFlags flags(const QModelIndex& index) const override;
 
     Q_INVOKABLE QVariant getDataPerIndex(const int &index, const QByteArray &RoleString);
+
     Q_INVOKABLE bool    setDataPerIndex(const int &index, const QByteArray &RoleString, const QVariant &value);
     virtual QHash<int, QByteArray> roleNames() const override;
 
@@ -60,6 +61,8 @@ signals:
     void sizeChanged();
 
 private:
+    timeSlotItem getTimeSlotItemPerId(const int &id);
+    int getIndexPerId(const int &id) const;
 
     timeSlotList *mList;
     int mSize;

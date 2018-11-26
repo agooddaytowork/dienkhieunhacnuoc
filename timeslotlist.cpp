@@ -137,7 +137,7 @@ int timeSlotList::count()
 }
 int timeSlotList::lastIndex() const
 {
-    return mItems.count() - 1;
+    return mCurrentIndex - 1;
 }
 
 int timeSlotList::timeSlotCollisionCheck(const int &id)

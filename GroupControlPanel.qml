@@ -146,7 +146,7 @@ Item {
                     z: 2
                     //                        width: theTimeLineSlot.refreshWidth()
                     //                        x: theTimeLineSlot.refreshX()
-                    property int  timeSlotIndex: index
+                    property int  timeSlotIndex: theId
                     valveMode: ValveMode
                     height: timeLine.height
                     timeLineFromMs: root.fromMs

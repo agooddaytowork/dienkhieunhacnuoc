@@ -289,7 +289,7 @@ ApplicationWindow {
 
                         onTimeSlotAdded: {
 
-                               groupControlPanelRepeater.currentGroupIndex = groupControlPanelDelegate.groupIndex
+                             groupControlPanelRepeater.currentGroupIndex = groupControlPanelDelegate.groupIndex
                              groupControlPanelRepeater.currentTimeSlotIndex = timeSlotIndex
 
 
@@ -297,7 +297,7 @@ ApplicationWindow {
                         }
 
                         onTimeSlotRemoved: {
-                           groupControlPanelRepeater.currentTimeSlotIndex = -1
+
                             timeLineSlotControlBox.refreshModel()
                         }
 

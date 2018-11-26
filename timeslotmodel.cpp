@@ -14,6 +14,37 @@ int timeSlotModel::rowCount(const QModelIndex &parent) const
         return 0;
     return mList->items().size();
 }
+
+
+timeSlotItem timeSlotModel::getTimeSlotItemPerId(const int &id)
+{
+    timeSlotItem item;
+
+
+    for(int i =0; i < mList->count(); i++)
+    {
+        if(mList->items().at(i).id == id)
+        {
+            return mList->items().at(i);
+        }
+    }
+
+    return item;
+}
+
+
+int timeSlotModel::getIndexPerId(const int &id) const
+{
+    for(int i =0; i < mList->count(); i++)
+    {
+        if(mList->items().at(i).id == id)
+        {
+            return i;
+        }
+    }
+
+    return -1;
+}
 QVariant timeSlotModel::getDataPerIndex(const int &index, const QByteArray &RoleString)
 {
     if(index-1  > mList->count() || !mList || mList->count() ==  0)
@@ -22,7 +53,9 @@ QVariant timeSlotModel::getDataPerIndex(const int &index, const QByteArray &Role
     }
 
     int role = timeSlotModel::roleNames().key(RoleString);
-    const timeSlotItem item = mList->items().at(index);
+
+
+    const timeSlotItem item = getTimeSlotItemPerId(index);
     switch(role)
     {
     case IDRole:
@@ -113,7 +146,7 @@ bool timeSlotModel::setDataPerIndex(const int &index, const QByteArray &RoleStri
     }
 
     int role = timeSlotModel::roleNames().key(RoleString);
-    timeSlotItem item = mList->items().at(index);
+      timeSlotItem item = getTimeSlotItemPerId(index);
     switch (role) {
     case IDRole:
         item.id = static_cast<int>(value.toUInt());
@@ -157,7 +190,7 @@ bool timeSlotModel::setDataPerIndex(const int &index, const QByteArray &RoleStri
         item.ValveMode = static_cast<quint8>(value.toUInt());
     }
 
-    if (mList->setItemAt(index, item)) {
+    if (mList->setItemAt(getIndexPerId(index), item)) {
 
          QModelIndex dmIndex = this->index(index,index);
         emit dataChanged(dmIndex, dmIndex, QVector<int>() << role);
