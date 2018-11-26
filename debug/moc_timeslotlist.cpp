@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_timeSlotList_t {
-    QByteArrayData data[20];
-    char stringdata0[232];
+    QByteArrayData data[21];
+    char stringdata0[242];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -50,7 +50,8 @@ QT_MOC_LITERAL(15, 171, 11), // "removeItems"
 QT_MOC_LITERAL(16, 183, 2), // "id"
 QT_MOC_LITERAL(17, 186, 22), // "timeSlotCollisionCheck"
 QT_MOC_LITERAL(18, 209, 16), // "getCollisionSide"
-QT_MOC_LITERAL(19, 226, 5) // "count"
+QT_MOC_LITERAL(19, 226, 5), // "count"
+QT_MOC_LITERAL(20, 232, 9) // "lastIndex"
 
     },
     "timeSlotList\0preItemAppended\0\0"
@@ -59,7 +60,7 @@ QT_MOC_LITERAL(19, 226, 5) // "count"
     "timeSlotItem\0item\0timeSlotItemRemoved\0"
     "appendItem\0group\0fromMs\0toMs\0removeItems\0"
     "id\0timeSlotCollisionCheck\0getCollisionSide\0"
-    "count"
+    "count\0lastIndex"
 };
 #undef QT_MOC_LITERAL
 
@@ -69,7 +70,7 @@ static const uint qt_meta_data_timeSlotList[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      11,   14, // methods
+      12,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -77,21 +78,22 @@ static const uint qt_meta_data_timeSlotList[] = {
        6,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   69,    2, 0x06 /* Public */,
-       3,    0,   70,    2, 0x06 /* Public */,
-       4,    1,   71,    2, 0x06 /* Public */,
-       6,    0,   74,    2, 0x06 /* Public */,
-       7,    1,   75,    2, 0x06 /* Public */,
-      10,    1,   78,    2, 0x06 /* Public */,
+       1,    0,   74,    2, 0x06 /* Public */,
+       3,    0,   75,    2, 0x06 /* Public */,
+       4,    1,   76,    2, 0x06 /* Public */,
+       6,    0,   79,    2, 0x06 /* Public */,
+       7,    1,   80,    2, 0x06 /* Public */,
+      10,    1,   83,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      11,    3,   81,    2, 0x0a /* Public */,
-      15,    1,   88,    2, 0x0a /* Public */,
+      11,    3,   86,    2, 0x0a /* Public */,
+      15,    1,   93,    2, 0x0a /* Public */,
 
  // methods: name, argc, parameters, tag, flags
-      17,    1,   91,    2, 0x02 /* Public */,
-      18,    0,   94,    2, 0x02 /* Public */,
-      19,    0,   95,    2, 0x02 /* Public */,
+      17,    1,   96,    2, 0x02 /* Public */,
+      18,    0,   99,    2, 0x02 /* Public */,
+      19,    0,  100,    2, 0x02 /* Public */,
+      20,    0,  101,    2, 0x02 /* Public */,
 
  // signals: parameters
     QMetaType::Void,
@@ -108,6 +110,7 @@ static const uint qt_meta_data_timeSlotList[] = {
  // methods: parameters
     QMetaType::Int, QMetaType::Int,   16,
     QMetaType::Bool,
+    QMetaType::Int,
     QMetaType::Int,
 
        0        // eod
@@ -132,6 +135,8 @@ void timeSlotList::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         case 9: { bool _r = _t->getCollisionSide();
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
         case 10: { int _r = _t->count();
+            if (_a[0]) *reinterpret_cast< int*>(_a[0]) = std::move(_r); }  break;
+        case 11: { int _r = _t->lastIndex();
             if (_a[0]) *reinterpret_cast< int*>(_a[0]) = std::move(_r); }  break;
         default: ;
         }
@@ -207,13 +212,13 @@ int timeSlotList::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 11)
+        if (_id < 12)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 11;
+        _id -= 12;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 11)
+        if (_id < 12)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 11;
+        _id -= 12;
     }
     return _id;
 }

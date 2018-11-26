@@ -21,13 +21,16 @@ Item {
 
     function updateValveData()
     {
+        console.trace()
+        console.log("Group: " + root.currentGroupIndex + " - timeslot: " + root.currentTimeSlotIndex
+                    + " - valveMode: " + valveModeComboBox.currentIndex)
         if(theTimeSlotModel.size !== 0  && root.currentTimeSlotIndex <= theTimeSlotModel.size)
         {
             console.trace()
             theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveMode", valveModeComboBox.currentIndex)
         }
 
-        refreshModel()
+//        refreshModel()
     }
 
 
@@ -93,20 +96,20 @@ Item {
 
     onCurrentTimeSlotIndexChanged:
     {
-        refreshModel()
+//        refreshModel()
 
-        if(root.groupIndexJustChanged)
-        {
-            root.groupIndexJustChanged = false
-            console.trace()
-            console.log("onCurrentTimeSlotIndexChanged")
-            console.log("Group: " + root.currentGroupIndex + " - timeslot: " + root.currentTimeSlotIndex
-                        + " - valveMode: " +theTimeSlotModel.getDataPerIndex(0, "ValveMode") )
+//        if(root.groupIndexJustChanged)
+//        {
+//            root.groupIndexJustChanged = false
+//            console.trace()
+//            console.log("onCurrentTimeSlotIndexChanged")
+//            console.log("Group: " + root.currentGroupIndex + " - timeslot: " + root.currentTimeSlotIndex
+//                        + " - valveMode: " +theTimeSlotModel.getDataPerIndex(0, "ValveMode") )
 
-            root.currentValveModeIndex = theTimeSlotModel.getDataPerIndex(0, "ValveMode")
-        }
-        else
-        {
+//            root.currentValveModeIndex = theTimeSlotModel.getDataPerIndex(0, "ValveMode")
+//        }
+//        else
+//        {
             console.trace()
             console.log("onCurrentTimeSlotIndexChanged")
             console.log("Group: " + root.currentGroupIndex + " - timeslot: " + root.currentTimeSlotIndex
@@ -114,7 +117,7 @@ Item {
 
             root.currentValveModeIndex = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex, "ValveMode")
 
-        }
+//        }
 
 
 
