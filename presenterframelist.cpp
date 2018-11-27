@@ -1,6 +1,8 @@
 #include "presenterframelist.h"
 #include <QDebug>
 #include <QString>
+
+#include "valveeffect_kieu1.h"
 PresenterFrameList::PresenterFrameList(QObject *parent) : QObject(parent),  mDuration(0), mFrameDuration(0),mFrameNo(0),mGroup(0)
 {
 
@@ -87,7 +89,7 @@ void PresenterFrameList::timeSlotChanged(const timeSlotItem &timeSlot)
 {
 
 
-//    qDebug() << "Time SLot Changed";
+    qDebug() << "Time SLot Changed";
     int fromFrame = findFrameFromMs(timeSlot.fromMs);
     int toFrame = findFrameFromMs(timeSlot.toMs);
 
@@ -114,10 +116,13 @@ void PresenterFrameList::timeSlotChanged(const timeSlotItem &timeSlot)
         timeSlotShortVerList.append(aTimeSlotShort);
     }
 
+    int i = 0;
     while(fromFrame <= toFrame)
     {
-        frameList[fromFrame] = setFramePerGroup(timeSlot, frameList.at(fromFrame));
+
+        frameList[fromFrame] = setFramePerGroup(i,timeSlot, frameList.at(fromFrame));
         fromFrame++;
+        i++;
     }
 
     emptyFrameCleanUp();
@@ -140,14 +145,30 @@ int PresenterFrameList::findFrameFromMs(const int &timePoint)
     return static_cast<int>(timePoint/mFrameDuration);
 }
 
-PresenterFrame PresenterFrameList::setFramePerGroup( const timeSlotItem &timeSlot, PresenterFrame aFrame) const
+PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const timeSlotItem &timeSlot, PresenterFrame aFrame) const
 {
+    qDebug() << "setFramePerGroup";
     aFrame.LedOnOff.clear();
     aFrame.ValveOnOff.clear();
+
+
+    if(mGroup ==0 || mGroup == 3)
+    {
+        ValveEffect_Kieu1 effect(timeSlot.fileBinPath);
+
+        qDebug() << "Quy` luon";
+        if(effect.isEffectValid())
+        {
+
+            aFrame.InverterLevel = effect.getData(index);
+            qDebug() << "inverter Level: " + QString::number(effect.getData(index));
+        }
+    }
 
     for(int i = 0; i < timeSlot.ValveChannels; i++)
     {
         aFrame.ValveOnOff.append(timeSlot.ValveOnOff);
+
 
     }
     for(int i = 0; i < timeSlot.LedChannels; i++)

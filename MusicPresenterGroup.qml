@@ -456,6 +456,8 @@ Item {
                 odd: Odd
                 valveON: ValveOnOff
                 ledON: LedOnOff
+                valveLevelControl: Inverter
+                valveLevel: InverterLevel
                 ledColor:{
                     if(root.groupID ==5 )
                     {

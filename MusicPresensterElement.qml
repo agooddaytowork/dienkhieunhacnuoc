@@ -15,14 +15,41 @@ Item {
     property double scale : 1.0
     property int edgePixelLength: 8
     property bool  odd: false
+    property int initialX: 0
+    property int  initialY: 0
+
+
+    Component.onCompleted: {
+
+        root.initialX = x
+        root.initialY = y
+
+    }
+
+
+    onValveLevelChanged: {
+//        if(valveLevelControl)
+//        {
+//            root.x = root.initialX -(valveLevel+1)/255 * 3
+//            root.y = root.initialY - (valveLevel+1) /255 * 3
+//        }
+
+    }
+//    onValveLevelControlChanged: {
+//        console.trace()
+//        console.log(valveLevelControl)
+//    }
 
 
     Rectangle
     {
         id: theElement
-        width: root.edgePixelLength * scale
-        height: root.edgePixelLength * scale
-        radius: (root.edgePixelLength * scale) /2
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.horizontalCenter: parent.horizontalCenter
+        width: root.valveLevelControl ? root.edgePixelLength * scale + (valveLevel+1) /255 * 3  : root.edgePixelLength * scale
+        height: root.valveLevelControl ? root.edgePixelLength * scale + (valveLevel+1) /255 * 3  : root.edgePixelLength * scale
+//        radius: root.valveLevelControl == true ? ((root.edgePixelLength * scale) /2 /255 * valveLevel) +5 :(root.edgePixelLength * scale) /2
+        radius:  root.edgePixelLength * scale / 2
         color: root.valveON == true ? "black" : "white"
 
         border.width:  2

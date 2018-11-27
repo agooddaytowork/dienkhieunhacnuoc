@@ -1,6 +1,8 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
 import TimeLine 1.0
+import Qt.labs.folderlistmodel 2.2
+
 
 Item {
 
@@ -28,9 +30,54 @@ Item {
         {
             console.trace()
             theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveMode", valveModeComboBox.currentIndex)
+            theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"FileBinPath", effectFolderModel.get(valveModeComboBox.currentIndex,"filePath"))
         }
 
 //        refreshModel()
+    }
+
+    function updateEffectFolder()
+    {
+        switch(root.currentGroupIndex)
+        {
+        case 0:
+            effectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/Effects/Kieu1")
+             break
+
+        case 1:
+            effectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/Effects/Kieu2")
+             break
+
+        case 2:
+            effectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/Effects/Kieu3")
+             break
+
+        case 3:
+            effectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/Effects/Kieu4")
+             break
+
+        case 4:
+            effectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/Effects/Kieu5")
+             break
+
+        case 5:
+            effectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/Effects/Kieu6")
+             break
+
+        case 6:
+            effectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/Effects/Kieu7")
+             break
+
+        case 7:
+            effectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/Effects/Kieu8")
+             break
+
+        case 8:
+            effectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/Effects/Kieu9")
+             break
+
+        }
+
     }
 
 
@@ -60,17 +107,19 @@ Item {
         console.log("timeSlotMGroupChanged")
         refreshModel()
 
-        valveModeComboBox.model = returnValveModeList()
 
-        if(root.currentGroupIndex == 0 || root.currentGroupIndex == 3 || root.currentGroupIndex ==5 && valveModeComboBox.currentText == "Solid")
+        valveModeComboBox.model = returnValveModeList()
+        root.updateEffectFolder()
+
+        if(root.currentGroupIndex == 0 || root.currentGroupIndex == 3 || root.currentGroupIndex ==5 && valveModeComboBox.currentText === "Solid")
         {
             valveControlPane.state = "Solid"
         }
-        else if (valveModeComboBox.currentText == "Fade")
+        else if (valveModeComboBox.currentText === "Fade")
         {
             valveControlPane.state = "Fade"
         }
-        else if(valveModeComboBox.currentText == "Blink")
+        else if(valveModeComboBox.currentText === "Blink")
         {
             valveControlPane.state = "Blink"
         }
@@ -571,7 +620,7 @@ Item {
                         Row{
                             id: valveInterterStrength01
                             visible: {
-                                if(root.currentGroupIndex == 5  && valveControlPane.state == "Solid")
+                                if(root.currentGroupIndex == 5  && valveControlPane.state === "Solid")
                                 {
                                     true
                                 }
@@ -632,7 +681,7 @@ Item {
                             id: valveFadeSliderRow01
                             spacing: 2
                             visible: {
-                                if(root.currentGroupIndex == 5  && valveControlPane.state == "Fade")
+                                if(root.currentGroupIndex == 5  && valveControlPane.state === "Fade")
                                 {
                                     true
                                 }
@@ -718,7 +767,7 @@ Item {
                             id: valveBlinkSliderRow01
                             spacing: 2
                             visible: {
-                                if(root.currentGroupIndex == 5  && valveControlPane.state == "Blink")
+                                if(root.currentGroupIndex == 5  && valveControlPane.state === "Blink")
                                 {
                                     true
                                 }
@@ -755,7 +804,7 @@ Item {
                             id: valveBlinkCycleRow01
                             spacing: 2
                             visible: {
-                                if(root.currentGroupIndex == 5  && valveControlPane.state == "Blink")
+                                if(root.currentGroupIndex == 5  && valveControlPane.state === "Blink")
                                 {
                                     true
                                 }
@@ -825,6 +874,33 @@ Item {
         ListElement{
             name: "Transition"
         }
+    }
+
+    FolderListModel{
+        id: effectFolderModel
+        nameFilters: ["*.bin"]
+        showDirs: false
+        showDotAndDotDot: false
+        rootFolder: Qt.resolvedUrl("file:///"+appFilePath+"/Effects")
+
+
+
+        Component.onCompleted:
+        {
+            console.trace()
+            console.log("Folder count: " + effectFolderModel.count)
+//           effectFolderModel. = Qt.resolvedUrl("file:///"+appFilePath+"/Effects")
+             effectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/Effects/Kieu1")
+
+        }
+
+        onFolderChanged: {
+            console.log("Folder count: " + effectFolderModel.count)
+                valveModeComboBox.model = effectFolderModel
+                valveModeComboBox.textRole = "fileName"
+
+        }
+
     }
 
 

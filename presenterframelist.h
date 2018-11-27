@@ -38,7 +38,7 @@ class PresenterFrameList : public QObject
     QVector<PresenterFrame> frameList;
     QVector<PreviousFrame> timeSlotShortVerList;
 
-    PresenterFrame setFramePerGroup(const timeSlotItem &timeSlot,  PresenterFrame aFrame) const;
+    PresenterFrame setFramePerGroup(const int &index, const timeSlotItem &timeSlot,  PresenterFrame aFrame) const;
     PresenterFrame createEmptyFramePerGroup(const int &group) const;
     void emptyFrameCleanUp();
 

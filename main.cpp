@@ -10,6 +10,7 @@
 
 #include <QThread>
 #include <QVector>
+#include <QDebug>
 
 
 
@@ -69,6 +70,9 @@ int main(int argc, char *argv[])
         engine.rootContext()->setContextProperty("presenterList_" + QString::number(i) ,&presenterList[i]);
     }
     engine.rootContext()->setContextProperty("theInterfaceGod", &theGod);
+
+     engine.rootContext()->setContextProperty("appFilePath",QCoreApplication::applicationDirPath());
+     qDebug() << "AppfilePath: " + QCoreApplication::applicationDirPath();
 
 
     backendThread.start();

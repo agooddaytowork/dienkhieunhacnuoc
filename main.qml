@@ -230,10 +230,7 @@ ApplicationWindow {
                     {
                         timeLegend.toMs = root.toMs
                     }
-
                 }
-
-
             }
             Column{
                 anchors.top: parent.top

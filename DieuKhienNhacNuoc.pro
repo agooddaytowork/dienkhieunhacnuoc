@@ -19,7 +19,9 @@ SOURCES += \
     musicpresentermodel.cpp \
     musicpresenterlist.cpp \
     presenterframelist.cpp \
-    theinterfacegod.cpp
+    theinterfacegod.cpp \
+    valveeffectmanager.cpp \
+    valveeffect_kieu1.cpp
 
 RESOURCES += qml.qrc
 
@@ -41,4 +43,6 @@ HEADERS += \
     musicpresentermodel.h \
     musicpresenterlist.h \
     presenterframelist.h \
-    theinterfacegod.h
+    theinterfacegod.h \
+    valveeffectmanager.h \
+    valveeffect_kieu1.h

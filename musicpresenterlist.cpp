@@ -177,7 +177,9 @@ void MusicPresenterList::frameChangedHandler(const PresenterFrame &frame)
 
         theItem.LedOnOff = frame.LedOnOff.at(0);
         theItem.ValveOnOff = frame.ValveOnOff.at(0);
+        theItem.InverterLevel = frame.InverterLevel;
         mItems[ii] = theItem;
+
     }
 
         emit itemChangedFromBackend();
