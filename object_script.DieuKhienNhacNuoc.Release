@@ -7,6 +7,7 @@ INPUT(
 ./release\presenterframelist.o
 ./release\theinterfacegod.o
 ./release\valveeffectmanager.o
+./release\valveeffect_kieu1.o
 ./release\qrc_qml.o
 ./release\moc_timeslotlist.o
 ./release\moc_timeslotmodel.o

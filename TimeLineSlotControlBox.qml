@@ -11,6 +11,7 @@ Item {
     property int  currentTimeSlotIndex: 0
     property int  currentGroupIndex: 0
     property int  currentValveModeIndex: 0
+    property int  currentValveSpeed: 0
     property TimeSlotModel theTimeSlotModel: TimeSlotModel{list:returnTimeSlotList() }
     property bool groupIndexJustChanged: false
     signal modelRefreshed()
@@ -31,6 +32,7 @@ Item {
             console.trace()
             theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveMode", valveModeComboBox.currentIndex)
             theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"FileBinPath", effectFolderModel.get(valveModeComboBox.currentIndex,"filePath"))
+            theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveSpeed",speedValveSpinBox.value)
         }
 
 //        refreshModel()
@@ -140,7 +142,10 @@ Item {
 
         console.log("Group: " + root.currentGroupIndex + " - timeslot: " + root.currentTimeSlotIndex
                     + " - valveMode: " +theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex, "ValveMode") )
+
+
          root.currentValveModeIndex = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex, "ValveMode")
+         root.currentValveSpeed = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"ValveSpeed")
     }
 
     onCurrentTimeSlotIndexChanged:
@@ -165,6 +170,7 @@ Item {
                         + " - valveMode: " +theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex, "ValveMode") )
 
             root.currentValveModeIndex = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex, "ValveMode")
+            root.currentValveSpeed = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"ValveSpeed")
 
 //        }
 
@@ -312,6 +318,7 @@ Item {
                             anchors.verticalCenter: parent.verticalCenter
                         }
                         SpinBox{
+                            id: ledSpeedSpinBox
                             from: -10
                             to: 10
                             stepSize: 1
@@ -588,9 +595,11 @@ Item {
                                 anchors.verticalCenter: parent.verticalCenter
                             }
                             SpinBox{
+                                id: speedValveSpinBox
                                 from: -10
                                 to: 10
                                 stepSize: 1
+                                value: root.currentValveSpeed
                             }
                         }
 

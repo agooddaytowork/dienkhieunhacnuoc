@@ -2,7 +2,6 @@
 #include <QDebug>
 #include <QString>
 
-#include "valveeffect_kieu1.h"
 PresenterFrameList::PresenterFrameList(QObject *parent) : QObject(parent),  mDuration(0), mFrameDuration(0),mFrameNo(0),mGroup(0)
 {
 
@@ -46,9 +45,9 @@ void PresenterFrameList::regenerateFrameList(const int &Duration, const int &Fra
     }
     clearList();
 
-//    qDebug() << "Frame List ---------";
-//    qDebug() << "total Frame: " + QString::number(mFrameNo);
-//    qDebug() << "frame list count: " + QString::number(frameList.count());
+    //    qDebug() << "Frame List ---------";
+    //    qDebug() << "total Frame: " + QString::number(mFrameNo);
+    //    qDebug() << "frame list count: " + QString::number(frameList.count());
 
 
 }
@@ -96,7 +95,7 @@ void PresenterFrameList::timeSlotChanged(const timeSlotItem &timeSlot)
     int previousFrameIndex = timeSlotExistInList(timeSlot.id);
     if(previousFrameIndex >= 0)
     {
-//         qDebug() << "previous Frame Found";
+        //         qDebug() << "previous Frame Found";
         PreviousFrame thePreviousFrame = timeSlotShortVerList[previousFrameIndex];
 
 
@@ -133,7 +132,7 @@ void PresenterFrameList::timeSlotChanged(const timeSlotItem &timeSlot)
 
 int PresenterFrameList::findFrameFromMs(const int &timePoint)
 {
-//    qDebug() << "timePoint: " + QString::number(timePoint);
+    //    qDebug() << "timePoint: " + QString::number(timePoint);
     if(timePoint<0)
     {
         return  0;
@@ -145,23 +144,25 @@ int PresenterFrameList::findFrameFromMs(const int &timePoint)
     return static_cast<int>(timePoint/mFrameDuration);
 }
 
-PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const timeSlotItem &timeSlot, PresenterFrame aFrame) const
+PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const timeSlotItem &timeSlot, PresenterFrame aFrame)
 {
-    qDebug() << "setFramePerGroup";
+
     aFrame.LedOnOff.clear();
     aFrame.ValveOnOff.clear();
 
 
     if(mGroup ==0 || mGroup == 3)
     {
-        ValveEffect_Kieu1 effect(timeSlot.fileBinPath);
 
-        qDebug() << "Quy` luon";
-        if(effect.isEffectValid())
+
+        mValveEffect_1.setNewPath(timeSlot.fileBinPath);
+
+        if(mValveEffect_1.isEffectValid())
         {
 
-            aFrame.InverterLevel = effect.getData(index);
-            qDebug() << "inverter Level: " + QString::number(effect.getData(index));
+            mValveEffect_1.setSpeed(timeSlot.ValveSpeed);
+            aFrame.InverterLevel = mValveEffect_1.getData(index);
+
         }
     }
 
@@ -182,81 +183,81 @@ PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const time
 
 PresenterFrame PresenterFrameList::createEmptyFramePerGroup(const int &group) const
 {
-   PresenterFrame item;
+    PresenterFrame item;
 
-   item.InverterLevel = 0;
+    item.InverterLevel = 0;
 
 
-   switch(group)
-   {
-   case 0:
-       item.Inverter = true;
-       item.LedChannels = 1;
-       item.ValveChannels = 1;
-       item.ValveOnOff.insert(1,false);
-       item.LedOnOff.insert(1,false);
+    switch(group)
+    {
+    case 0:
+        item.Inverter = true;
+        item.LedChannels = 1;
+        item.ValveChannels = 1;
+        item.ValveOnOff.insert(1,false);
+        item.LedOnOff.insert(1,false);
 
-       break;
-   case 1:
-       item.LedChannels = 1;
-       item.ValveChannels = 8;
-       item.ValveOnOff.insert(8,false);
-       item.LedOnOff.insert(1,false);
-       break;
-   case 2:
-       item.LedChannels = 1;
-       item.ValveChannels = 16;
-       item.ValveOnOff.insert(16,false);
-       item.LedOnOff.insert(1,false);
-       break;
-   case 3:
-       item.LedChannels = 2;
-       item.Inverter = true;
-       item.ValveChannels = 1;
-       item.ValveOnOff.insert(1,false);
-       item.LedOnOff.insert(2,false);
-       break;
-   case 4:
-       item.LedChannels = 3;
-       item.ValveChannels = 1;
-       item.ValveOnOff.insert(1,false);
-       item.LedOnOff.insert(3,false);
-       break;
-   case 5:
-       item.LedChannels = 12;
-       item.Inverter = true;
-       item.ValveChannels = 2;
-       item.ValveOnOff.insert(2,false);
-       item.LedOnOff.insert(12,false);
-       break;
-   case 6:
-       item.LedChannels = 6;
-       item.ValveChannels = 2;
-       item.ValveOnOff.insert(2,false);
-       item.LedOnOff.insert(6,false);
-       break;
-   case 7:
-       item.LedChannels = 8;
-       item.ValveChannels = 8;
-       item.ValveOnOff.insert(8,false);
-       item.LedOnOff.insert(8,false);
-       break;
-   case 8:
-       item.LedChannels = 2;
-       item.ValveChannels = 2;
-       item.ValveOnOff.insert(2,false);
-       item.LedOnOff.insert(2,false);
-       break;
+        break;
+    case 1:
+        item.LedChannels = 1;
+        item.ValveChannels = 8;
+        item.ValveOnOff.insert(8,false);
+        item.LedOnOff.insert(1,false);
+        break;
+    case 2:
+        item.LedChannels = 1;
+        item.ValveChannels = 16;
+        item.ValveOnOff.insert(16,false);
+        item.LedOnOff.insert(1,false);
+        break;
+    case 3:
+        item.LedChannels = 2;
+        item.Inverter = true;
+        item.ValveChannels = 1;
+        item.ValveOnOff.insert(1,false);
+        item.LedOnOff.insert(2,false);
+        break;
+    case 4:
+        item.LedChannels = 3;
+        item.ValveChannels = 1;
+        item.ValveOnOff.insert(1,false);
+        item.LedOnOff.insert(3,false);
+        break;
+    case 5:
+        item.LedChannels = 12;
+        item.Inverter = true;
+        item.ValveChannels = 2;
+        item.ValveOnOff.insert(2,false);
+        item.LedOnOff.insert(12,false);
+        break;
+    case 6:
+        item.LedChannels = 6;
+        item.ValveChannels = 2;
+        item.ValveOnOff.insert(2,false);
+        item.LedOnOff.insert(6,false);
+        break;
+    case 7:
+        item.LedChannels = 8;
+        item.ValveChannels = 8;
+        item.ValveOnOff.insert(8,false);
+        item.LedOnOff.insert(8,false);
+        break;
+    case 8:
+        item.LedChannels = 2;
+        item.ValveChannels = 2;
+        item.ValveOnOff.insert(2,false);
+        item.LedOnOff.insert(2,false);
+        break;
 
-   }
+    }
 
-   return item;
+    return item;
 
 }
 
 
 
- bool operator<(const PreviousFrame& a, const PreviousFrame& b) { return a.FromFrame < b.FromFrame; }
+bool operator<(const PreviousFrame& a, const PreviousFrame& b) { return a.FromFrame < b.FromFrame; }
 
 void PresenterFrameList::emptyFrameCleanUp()
 {
@@ -267,14 +268,14 @@ void PresenterFrameList::emptyFrameCleanUp()
 
     for(int i =0; i < timeSlotShortVerList.count(); i++)
     {
-//        qDebug() << "fromFrame: " + QString::number(timeSlotShortVerList[i].FromFrame) << "frameCnt: " + QString::number(frameCnt);
+        //        qDebug() << "fromFrame: " + QString::number(timeSlotShortVerList[i].FromFrame) << "frameCnt: " + QString::number(frameCnt);
         while(frameCnt < timeSlotShortVerList[i].FromFrame)
         {
-         frameList[frameCnt]= createEmptyFramePerGroup(mGroup);
+            frameList[frameCnt]= createEmptyFramePerGroup(mGroup);
             frameCnt++;
         }
         frameCnt = timeSlotShortVerList[i].ToFrame + 1;
-//          qDebug() << "frameCnt after: " + QString::number(frameCnt);
+        //          qDebug() << "frameCnt after: " + QString::number(frameCnt);
     }
 
     while(frameCnt < mFrameNo)
@@ -299,20 +300,20 @@ void PresenterFrameList::timeSlotRemoved(const timeSlotItem &timeSlot)
     }
 
     emptyFrameCleanUp();
-//    while(fromFrame <= toFrame)
-//    {
-//        frameList[fromFrame] = createEmptyFramePerGroup(mGroup);
-//        fromFrame++;
-//    }
+    //    while(fromFrame <= toFrame)
+    //    {
+    //        frameList[fromFrame] = createEmptyFramePerGroup(mGroup);
+    //        fromFrame++;
+    //    }
 
-//    for(int i = 0; i < timeSlotShortVerList.count(); i++)
-//    {
-//        if(timeSlotShortVerList[i].id == timeSlot.id)
-//        {
-//            timeSlotShortVerList.remove(timeSlotShortVerList[i].FromFrame);
-//            return;
-//        }
-//    }
+    //    for(int i = 0; i < timeSlotShortVerList.count(); i++)
+    //    {
+    //        if(timeSlotShortVerList[i].id == timeSlot.id)
+    //        {
+    //            timeSlotShortVerList.remove(timeSlotShortVerList[i].FromFrame);
+    //            return;
+    //        }
+    //    }
 }
 
 

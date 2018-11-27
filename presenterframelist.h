@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QVector>
 #include "timeslotlist.h"
+
+#include "valveeffect_kieu1.h"
 //#include "anlogger.h"
 #include <QMap>
 
@@ -35,10 +37,11 @@ class PresenterFrameList : public QObject
     int mFrameNo;
 
 
+    ValveEffect_Kieu1 mValveEffect_1;
     QVector<PresenterFrame> frameList;
     QVector<PreviousFrame> timeSlotShortVerList;
 
-    PresenterFrame setFramePerGroup(const int &index, const timeSlotItem &timeSlot,  PresenterFrame aFrame) const;
+    PresenterFrame setFramePerGroup(const int &index, const timeSlotItem &timeSlot,  PresenterFrame aFrame);
     PresenterFrame createEmptyFramePerGroup(const int &group) const;
     void emptyFrameCleanUp();
 
@@ -46,6 +49,7 @@ class PresenterFrameList : public QObject
 
     int timeSlotExistInList(const int &id);
 public:
+
     int mGroup;
     explicit PresenterFrameList(QObject *parent = nullptr);
 

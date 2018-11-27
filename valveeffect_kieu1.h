@@ -8,9 +8,13 @@ class ValveEffect_Kieu1
     bool mEffectValid;
     QString mFilePath;
     QByteArray mEffectBytes;
+    QByteArray mEffectBytesWithSpeed;
+    int mSpeed;
 public:
-    ValveEffect_Kieu1(QString const &filePath);
+    ValveEffect_Kieu1();
+    bool setNewPath( QString filePath);
     bool isEffectValid();
+    bool setSpeed(const int &speed);
     quint8 getData(const int &index);
 
 };

@@ -20,6 +20,7 @@ struct timeSlotItem{
     quint8 LedChannels;
     quint8 ValveChannels;
     quint8 ValveMode;
+    int ValveSpeed;
 
 //    Q_PROPERTY(int m_id MEMBER id)
 //    Q_PROPERTY(int m_fromMs MEMBER fromMs)

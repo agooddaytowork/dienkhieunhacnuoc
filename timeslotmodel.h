@@ -27,7 +27,8 @@ public:
         LEDValuesListRole,
         LEDChannelsRole,
         ValveChannelsRole,
-        ValveModeRole
+        ValveModeRole,
+        ValveSpeedRole
 
     };
 
