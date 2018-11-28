@@ -21,7 +21,10 @@ SOURCES += \
     presenterframelist.cpp \
     theinterfacegod.cpp \
     valveeffectmanager.cpp \
-    valveeffect_kieu1.cpp
+    valveeffect_kieu1.cpp \
+    valveeffect_kieu2.cpp \
+    valveeffect_kieu3.cpp \
+    valveeffect_kieu4.cpp
 
 RESOURCES += qml.qrc
 
@@ -45,4 +48,7 @@ HEADERS += \
     presenterframelist.h \
     theinterfacegod.h \
     valveeffectmanager.h \
-    valveeffect_kieu1.h
+    valveeffect_kieu1.h \
+    valveeffect_kieu2.h \
+    valveeffect_kieu3.h \
+    valveeffect_kieu4.h

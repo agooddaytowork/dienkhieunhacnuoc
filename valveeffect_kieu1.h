@@ -3,7 +3,7 @@
 
 #include <QFile>
 #include <QVector>
-class ValveEffect_Kieu1
+class ValveEffect_Kieu1 // INVERTER - Kieu 1, 4
 {
     bool mEffectValid;
     QString mFilePath;

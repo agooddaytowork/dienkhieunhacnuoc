@@ -35,7 +35,7 @@ Item {
             theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveSpeed",speedValveSpinBox.value)
         }
 
-//        refreshModel()
+        //        refreshModel()
     }
 
     function updateEffectFolder()
@@ -44,39 +44,39 @@ Item {
         {
         case 0:
             effectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/Effects/Kieu1")
-             break
+            break
 
         case 1:
             effectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/Effects/Kieu2")
-             break
+            break
 
         case 2:
             effectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/Effects/Kieu3")
-             break
+            break
 
         case 3:
             effectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/Effects/Kieu4")
-             break
+            break
 
         case 4:
             effectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/Effects/Kieu5")
-             break
+            break
 
         case 5:
             effectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/Effects/Kieu6")
-             break
+            break
 
         case 6:
             effectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/Effects/Kieu7")
-             break
+            break
 
         case 7:
             effectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/Effects/Kieu8")
-             break
+            break
 
         case 8:
             effectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/Effects/Kieu9")
-             break
+            break
 
         }
 
@@ -131,48 +131,56 @@ Item {
         }
 
 
-//        if(theTimeSlotModel.size !== 0 && root.currentTimeSlotIndex <= theTimeSlotModel.size)
-//        {
-//            root.currentValveModeIndex = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex, "ValveMode")
-//        }
-//        else
-//        {
-//            root.currentValveModeIndex.currentIndex = 0
-//        }
+        //        if(theTimeSlotModel.size !== 0 && root.currentTimeSlotIndex <= theTimeSlotModel.size)
+        //        {
+        //            root.currentValveModeIndex = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex, "ValveMode")
+        //        }
+        //        else
+        //        {
+        //            root.currentValveModeIndex.currentIndex = 0
+        //        }
 
         console.log("Group: " + root.currentGroupIndex + " - timeslot: " + root.currentTimeSlotIndex
                     + " - valveMode: " +theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex, "ValveMode") )
 
 
-         root.currentValveModeIndex = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex, "ValveMode")
-         root.currentValveSpeed = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"ValveSpeed")
+        root.currentValveModeIndex = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex, "ValveMode")
+        root.currentValveSpeed = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"ValveSpeed")
+        valveModeComboBox.currentIndex = root.currentValveModeIndex
     }
 
     onCurrentTimeSlotIndexChanged:
     {
-//        refreshModel()
+        //        refreshModel()
 
-//        if(root.groupIndexJustChanged)
-//        {
-//            root.groupIndexJustChanged = false
-//            console.trace()
-//            console.log("onCurrentTimeSlotIndexChanged")
-//            console.log("Group: " + root.currentGroupIndex + " - timeslot: " + root.currentTimeSlotIndex
-//                        + " - valveMode: " +theTimeSlotModel.getDataPerIndex(0, "ValveMode") )
+        //        if(root.groupIndexJustChanged)
+        //        {
+        //            root.groupIndexJustChanged = false
+        //            console.trace()
+        //            console.log("onCurrentTimeSlotIndexChanged")
+        //            console.log("Group: " + root.currentGroupIndex + " - timeslot: " + root.currentTimeSlotIndex
+        //                        + " - valveMode: " +theTimeSlotModel.getDataPerIndex(0, "ValveMode") )
 
-//            root.currentValveModeIndex = theTimeSlotModel.getDataPerIndex(0, "ValveMode")
-//        }
-//        else
-//        {
-            console.trace()
-            console.log("onCurrentTimeSlotIndexChanged")
-            console.log("Group: " + root.currentGroupIndex + " - timeslot: " + root.currentTimeSlotIndex
-                        + " - valveMode: " +theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex, "ValveMode") )
+        //            root.currentValveModeIndex = theTimeSlotModel.getDataPerIndex(0, "ValveMode")
+        //        }
+        //        else
+        //        {
 
-            root.currentValveModeIndex = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex, "ValveMode")
-            root.currentValveSpeed = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"ValveSpeed")
+        if(root.groupIndexJustChanged)
+        {
+            root.groupIndexJustChanged = false
+            return
+        }
+        console.trace()
+        console.log("onCurrentTimeSlotIndexChanged")
+        console.log("Group: " + root.currentGroupIndex + " - timeslot: " + root.currentTimeSlotIndex
+                    + " - valveMode: " +theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex, "ValveMode") )
 
-//        }
+        root.currentValveModeIndex = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex, "ValveMode")
+        root.currentValveSpeed = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"ValveSpeed")
+        valveModeComboBox.currentIndex = root.currentValveModeIndex
+
+        //        }
 
 
 
@@ -524,46 +532,6 @@ Item {
                                 textRole: "name"
                                 currentIndex: root.currentValveModeIndex
 
-
-                                //                                Connections{
-                                //                                    target: theTimeSlotModel
-
-
-                                //                                    onSizeChanged:
-                                //                                    {
-                                //                                        console.trace()
-                                //                                        if(theTimeSlotModel.size !== 0 && root.currentTimeSlotIndex <= theTimeSlotModel.size)
-                                //                                        {
-                                //                                              valveModeComboBox.currentIndex = theTimeSlotModel.getDataPerIndex(root.currentGroupIndex, "ValveMode")
-                                //                                        }
-                                //                                        else
-                                //                                        {
-                                //                                           valveModeComboBox.currentIndex = 0
-                                //                                        }
-                                //                                    }
-                                //                                }
-
-
-                                //                                onCurrentIndexChanged: {
-
-                                //                                    if(root.groupIndexJustChanged)
-                                //                                    {
-                                //                                        root.groupIndexJustChanged = false
-                                //                                        return
-                                //                                    }
-
-                                //                                    if(theTimeSlotModel.size !== 0  && root.currentTimeSlotIndex <= theTimeSlotModel.size)
-                                //                                    {
-                                //                                        console.trace()
-
-                                //                                        theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveMode", currentIndex)
-
-                                //                                    }
-
-                                //                                }
-
-
-
                                 onCurrentTextChanged: {
                                     if(currentText == "Solid")
                                     {
@@ -898,15 +866,17 @@ Item {
         {
             console.trace()
             console.log("Folder count: " + effectFolderModel.count)
-//           effectFolderModel. = Qt.resolvedUrl("file:///"+appFilePath+"/Effects")
-             effectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/Effects/Kieu1")
+            //           effectFolderModel. = Qt.resolvedUrl("file:///"+appFilePath+"/Effects")
+            effectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/Effects/Kieu1")
 
         }
 
         onFolderChanged: {
             console.log("Folder count: " + effectFolderModel.count)
-                valveModeComboBox.model = effectFolderModel
-                valveModeComboBox.textRole = "fileName"
+            valveModeComboBox.model = effectFolderModel
+            valveModeComboBox.textRole = "fileName"
+
+            valveModeComboBox.currentIndex = root.currentValveModeIndex
 
         }
 

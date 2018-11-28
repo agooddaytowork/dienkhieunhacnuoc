@@ -76,9 +76,6 @@ bool ValveEffect_Kieu1::setSpeed( const int &theSpeed)
 }
 quint8 ValveEffect_Kieu1::getData(const int &index)
 {
-    if(index < mEffectBytesWithSpeed.count()-1)
-    {
-        return static_cast<quint8>(mEffectBytesWithSpeed.at(index));
-    }
+
     return static_cast<quint8>( mEffectBytesWithSpeed.at(index %(mEffectBytesWithSpeed.count() -1)));
 }

@@ -1,0 +1,25 @@
+#ifndef VALVEEFFECT_KIEU2_H
+#define VALVEEFFECT_KIEU2_H
+
+#include <QFile>
+#include <QString>
+#include <QByteArray>
+#include <QList>
+#include <QBitArray>
+
+class ValveEffect_Kieu2 // Kieu 2 va kieu 8
+{
+    bool mEffectValid;
+    QString mFilePath;
+    QByteArray mEffectBytes;
+    QByteArray mEffectBytesWithSpeed;
+    int mSpeed;
+public:
+    ValveEffect_Kieu2();
+    bool setNewPath( QString filePath);
+    bool isEffectValid();
+    bool setSpeed(const int &speed);
+    bool getData(const int &index, const int &order);
+};
+
+#endif // VALVEEFFECT_KIEU2_H

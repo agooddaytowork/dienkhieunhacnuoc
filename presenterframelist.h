@@ -6,6 +6,9 @@
 #include "timeslotlist.h"
 
 #include "valveeffect_kieu1.h"
+#include "valveeffect_kieu2.h"
+#include "valveeffect_kieu3.h"
+#include "valveeffect_kieu4.h"
 //#include "anlogger.h"
 #include <QMap>
 
@@ -38,6 +41,10 @@ class PresenterFrameList : public QObject
 
 
     ValveEffect_Kieu1 mValveEffect_1;
+    ValveEffect_Kieu2 mValveEffect_2;
+    ValveEffect_Kieu3 mValveEffect_3;
+    ValveEffect_Kieu4 mValveEffect_4;
+
     QVector<PresenterFrame> frameList;
     QVector<PreviousFrame> timeSlotShortVerList;
 

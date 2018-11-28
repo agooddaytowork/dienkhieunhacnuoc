@@ -165,13 +165,52 @@ PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const time
 
         }
     }
-
-    for(int i = 0; i < timeSlot.ValveChannels; i++)
+    else if(mGroup == 1 || mGroup == 7)
     {
-        aFrame.ValveOnOff.append(timeSlot.ValveOnOff);
+        mValveEffect_2.setNewPath(timeSlot.fileBinPath);
 
+        if(mValveEffect_2.isEffectValid())
+        {
+            for(int i = 0; i < timeSlot.ValveChannels; i++)
+            {
+                aFrame.ValveOnOff.append(mValveEffect_2.getData(index, i));
+
+            }
+        }
 
     }
+    else if(mGroup == 2)
+    {
+        mValveEffect_3.setNewPath(timeSlot.fileBinPath);
+
+        if(mValveEffect_3.isEffectValid())
+        {
+            for(int i = 0; i < timeSlot.ValveChannels; i++)
+            {
+                aFrame.ValveOnOff.append(mValveEffect_3.getData(index, i));
+
+            }
+        }
+    }
+    else if(mGroup == 6 || mGroup == 8)
+    {
+        mValveEffect_4.setNewPath(timeSlot.fileBinPath);
+        if(mValveEffect_4.isEffectValid())
+        {
+            aFrame.ValveOnOff.append(mValveEffect_4.getData(index,false));
+            aFrame.ValveOnOff.append(mValveEffect_4.getData(index,true));
+        }
+    }
+
+    if(aFrame.ValveOnOff.count() == 0)
+    {
+        for(int i = 0; i < timeSlot.ValveChannels; i++)
+        {
+            aFrame.ValveOnOff.append(timeSlot.ValveOnOff);
+
+        }
+    }
+
     for(int i = 0; i < timeSlot.LedChannels; i++)
     {
         aFrame.LedOnOff.append(timeSlot.LedOnOff);
@@ -194,59 +233,93 @@ PresenterFrame PresenterFrameList::createEmptyFramePerGroup(const int &group) co
         item.Inverter = true;
         item.LedChannels = 1;
         item.ValveChannels = 1;
-        item.ValveOnOff.insert(1,false);
-        item.LedOnOff.insert(1,false);
+        item.ValveOnOff.append(false); // 1
+        item.LedOnOff.append(false);
 
         break;
     case 1:
         item.LedChannels = 1;
         item.ValveChannels = 8;
-        item.ValveOnOff.insert(8,false);
-        item.LedOnOff.insert(1,false);
+
+
+        for(int i = 0; i < 8; i++)
+        {
+            item.ValveOnOff.append(false);
+        }
+        item.LedOnOff.append(false);
         break;
     case 2:
         item.LedChannels = 1;
         item.ValveChannels = 16;
-        item.ValveOnOff.insert(16,false);
-        item.LedOnOff.insert(1,false);
+        for(int i = 0; i < 16; i++)
+        {
+            item.ValveOnOff.append(false);
+        }
+        item.LedOnOff.append(false);
         break;
     case 3:
         item.LedChannels = 2;
         item.Inverter = true;
         item.ValveChannels = 1;
-        item.ValveOnOff.insert(1,false);
-        item.LedOnOff.insert(2,false);
+        item.ValveOnOff.append(false);
+        for(int i = 0; i < 2; i++)
+        {
+            item.LedOnOff.append(false);
+        }
         break;
     case 4:
         item.LedChannels = 3;
         item.ValveChannels = 1;
-        item.ValveOnOff.insert(1,false);
-        item.LedOnOff.insert(3,false);
+        item.ValveOnOff.append(false);
+        for(int i = 0; i < 3; i++)
+        {
+
+            item.LedOnOff.append(false);
+        }
         break;
     case 5:
         item.LedChannels = 12;
         item.Inverter = true;
         item.ValveChannels = 2;
-        item.ValveOnOff.insert(2,false);
-        item.LedOnOff.insert(12,false);
+        item.ValveOnOff.append(false);
+        item.ValveOnOff.append(false);
+        for(int i = 0; i < 12; i++)
+        {
+
+            item.LedOnOff.append(false);
+        }
         break;
     case 6:
         item.LedChannels = 6;
         item.ValveChannels = 2;
-        item.ValveOnOff.insert(2,false);
-        item.LedOnOff.insert(6,false);
+        item.ValveOnOff.append(false);
+        item.ValveOnOff.append(false);
+
+        for(int i = 0; i < 6; i++)
+        {
+
+            item.LedOnOff.append(false);
+        }
+
         break;
     case 7:
         item.LedChannels = 8;
         item.ValveChannels = 8;
-        item.ValveOnOff.insert(8,false);
-        item.LedOnOff.insert(8,false);
+        for(int i = 0; i < 8; i++)
+        {
+            item.ValveOnOff.append(false);
+            item.LedOnOff.append(false);
+        }
+
         break;
     case 8:
         item.LedChannels = 2;
         item.ValveChannels = 2;
-        item.ValveOnOff.insert(2,false);
-        item.LedOnOff.insert(2,false);
+        for(int i = 0; i < 2; i++)
+        {
+            item.ValveOnOff.append(false);
+            item.LedOnOff.append(false);
+        }
         break;
 
     }

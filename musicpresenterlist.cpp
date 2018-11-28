@@ -121,6 +121,14 @@ void MusicPresenterList::appendItem(const quint8 &group, int xPos, int yPos)
     case 6:
         item.LedChannels = 6;
         item.ValveChannels = 2;
+        if(mCurrentIndex%2 == 0)
+        {
+            item.odd = false;
+        }
+        else
+        {
+            item.odd = true;
+        }
         break;
     case 7:
         item.LedChannels = 8;
@@ -129,8 +137,15 @@ void MusicPresenterList::appendItem(const quint8 &group, int xPos, int yPos)
     case 8:
         item.LedChannels = 2;
         item.ValveChannels = 2;
+        if(mCurrentIndex <=7)
+        {
+            item.odd = false;
+        }
+        else
+        {
+            item.odd = true;
+        }
         break;
-
     }
     mItems.append(item);
     mCurrentIndex++;
@@ -175,8 +190,30 @@ void MusicPresenterList::frameChangedHandler(const PresenterFrame &frame)
 //            theItem.ValveOnOff = frame.ValveOnOff.at(i);
 //        }
 
+
         theItem.LedOnOff = frame.LedOnOff.at(0);
-        theItem.ValveOnOff = frame.ValveOnOff.at(0);
+        if(theItem.group == 1 || theItem.group ==7 || theItem.group == 2)
+        {
+             theItem.ValveOnOff = frame.ValveOnOff.at(ii);
+        }
+        else if(theItem.group == 6 || theItem.group == 8)
+        {
+            if(theItem.odd)
+            {
+                theItem.ValveOnOff = frame.ValveOnOff.at(0);
+            }
+            else
+            {
+                theItem.ValveOnOff = frame.ValveOnOff.at(1);
+            }
+        }
+        else
+        {
+            theItem.ValveOnOff = frame.ValveOnOff.at(0);
+        }
+
+//        theItem.ValveOnOff = frame.ValveOnOff.at(ii);
+
         theItem.InverterLevel = frame.InverterLevel;
         mItems[ii] = theItem;
 
