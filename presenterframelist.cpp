@@ -201,6 +201,14 @@ PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const time
             aFrame.ValveOnOff.append(mValveEffect_4.getData(index,true));
         }
     }
+    else if(mGroup == 4)
+    {
+        mValveEffect_4.setNewPath(timeSlot.fileBinPath);
+        if(mValveEffect_4.isEffectValid())
+        {
+            aFrame.ValveOnOff.append(mValveEffect_4.getData(index,true));
+        }
+    }
 
     if(aFrame.ValveOnOff.count() == 0)
     {

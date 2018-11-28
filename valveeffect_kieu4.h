@@ -6,7 +6,7 @@
 #include <QList>
 #include <QBitArray>
 
-class ValveEffect_Kieu4 // Kieu 3
+class ValveEffect_Kieu4 // Kieu 7 va Kieu 9 // Kieu 5 lay odd = true
 {    bool mEffectValid;
      QString mFilePath;
      QByteArray mEffectBytes;

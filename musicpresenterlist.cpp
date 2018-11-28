@@ -207,6 +207,10 @@ void MusicPresenterList::frameChangedHandler(const PresenterFrame &frame)
                 theItem.ValveOnOff = frame.ValveOnOff.at(1);
             }
         }
+        else if(theItem.group == 4)
+        {
+            theItem.ValveOnOff = frame.ValveOnOff.at(0);
+        }
         else
         {
             theItem.ValveOnOff = frame.ValveOnOff.at(0);

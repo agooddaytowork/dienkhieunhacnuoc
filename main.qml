@@ -389,7 +389,7 @@ ApplicationWindow {
 
     Timer{
         id: mainTimer
-        interval: 25
+        interval: 50
         repeat: true
         running: false
         triggeredOnStart: true
