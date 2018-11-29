@@ -232,12 +232,19 @@ PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const time
         }
     }
 
-    mLED_FadeInFadeOut.setEffects(QColor(timeSlot.LedValuesList));
+    QColor theColor;
+
+    theColor.setNamedColor(timeSlot.LedValuesList);
+
+
+    mLED_FadeInFadeOut.setEffects(theColor);
 
     for(int i = 0; i < timeSlot.LedChannels; i++)
     {
         aFrame.LedOnOff.append(timeSlot.LedOnOff);
         aFrame.LedColors[i]= mLED_FadeInFadeOut.getData(index).name();
+
+        qDebug() << "Led color name: " + aFrame.LedColors[i];
     }
 
 

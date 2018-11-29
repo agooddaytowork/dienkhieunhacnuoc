@@ -8,6 +8,11 @@ INPUT(
 ./release\theinterfacegod.o
 ./release\valveeffectmanager.o
 ./release\valveeffect_kieu1.o
+./release\valveeffect_kieu2.o
+./release\valveeffect_kieu3.o
+./release\valveeffect_kieu4.o
+./release\valveeffect_kieu5.o
+./release\led_fadeinfadeout.o
 ./release\qrc_qml.o
 ./release\moc_timeslotlist.o
 ./release\moc_timeslotmodel.o

@@ -20,7 +20,7 @@ bool LED_FadeInFadeOut::setSpeed(const int &speed)
             {
                 for( int ii = 10; ii >= mSpeed; ii--)
                 {
-                    dataWithSpeed.append(data[i]);
+                    dataWithSpeed.append(data.at(i));
                 }
             }
             else
@@ -28,7 +28,7 @@ bool LED_FadeInFadeOut::setSpeed(const int &speed)
 
                 for(int ii = 0; ii < 10 - mSpeed; ii++)
                 {
-                    dataWithSpeed.append(data[i]);
+                    dataWithSpeed.append(data.at(i));
                 }
             }
         }
@@ -43,6 +43,14 @@ bool LED_FadeInFadeOut::setEffects(const QColor &color)
 {
 
 
+//    theColor.toHsl();
+
+    int hue;
+    int saturation;
+    int lightness;
+
+    color.getHsl(&hue, &saturation,&lightness);
+
     if(color != mColor )
     {
         mColor = color;
@@ -51,25 +59,25 @@ bool LED_FadeInFadeOut::setEffects(const QColor &color)
 
         qDebug() << " THE FUCKING COLOR: " + QString::number(color.red()) +" " +QString::number(color.green())+" " +QString::number(color.blue());
 
-        int theRed = color.red();
-        int theGreen = color.green();
-        int theBlue = color.blue();
-        int red, green,blue;
+//        qDebug() << "hue ah hihi: " + QString::number(hue);
+
+        QColor dmColor = color;
          for(int i = 0; i < 256; i++)
          {
 
-             red = theRed -i;
-             green = theGreen - i;
-             blue =theBlue - i;
-
-            qDebug()<< "Red - Green - Blue::: " + QString::number(red) +"-"+ QString::number(green) +"-"+ QString::number(blue) ;
-
-             QColor theColor(red,green,blue,250);
-             data.append(theColor);
-             qDebug() << "Color at i: " + theColor.name();
+            dmColor.setHsl(hue,saturation,i);
+             data.append(dmColor);
+//             qDebug() << "Color at i: " + theColor.name();
          }
 
-         setSpeed(0);
+         for(int i = 255; i >=0; i=i-2)
+         {
+           dmColor.setHsl(hue,saturation,i);
+             data.append(dmColor);
+//             qDebug() << "Color at i: " + theColor.name();
+         }
+
+         setSpeed(10);
         return true;
     }
 
@@ -82,5 +90,5 @@ QColor LED_FadeInFadeOut::getData(const int &index)
 
 //     mEffectBytesWithSpeed.at(index %(mEffectBytesWithSpeed.count() -1))
 
-    return  dataWithSpeed[index %(dataWithSpeed.count()-1)];
+    return  data[index %(data.count()-1)];
 }

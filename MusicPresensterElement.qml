@@ -19,6 +19,11 @@ Item {
     property int  initialY: 0
 //    property bool idOn: false
 
+    onLedColorChanged: {
+//        console.log("Led color changed")
+//        console.log("color: " + ledColor)
+    }
+
 
     Component.onCompleted: {
 
@@ -79,7 +84,7 @@ Item {
         }
 
         border.width:  2
-        border.color: root.ledColor
+        border.color: root.ledON? root.ledColor : "grey"
 
     }
 
