@@ -79,7 +79,7 @@ Item {
         }
 
         border.width:  2
-        border.color: root.ledON ? root.ledColor:"grey"
+        border.color: root.ledColor
 
     }
 

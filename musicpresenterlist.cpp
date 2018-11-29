@@ -218,6 +218,8 @@ void MusicPresenterList::frameChangedHandler(const PresenterFrame &frame)
             theItem.ValveOnOff = frame.ValveOnOff.at(0);
         }
 
+        theItem.LedColor = frame.LedColors.at(0);
+
         mItems[ii] = theItem;
 
     }

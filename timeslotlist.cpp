@@ -44,6 +44,7 @@ void timeSlotList::appendItem(const quint8 &group, const int &fromMs, const int 
     item.Inverter = false;
     item.ValveMode = 1;
     item.ValveSpeed = 0;
+    item.LedValuesList = "grey";
     switch(group)
     {
     case 0:

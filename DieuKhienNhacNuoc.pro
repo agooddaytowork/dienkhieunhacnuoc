@@ -25,7 +25,8 @@ SOURCES += \
     valveeffect_kieu2.cpp \
     valveeffect_kieu3.cpp \
     valveeffect_kieu4.cpp \
-    valveeffect_kieu5.cpp
+    valveeffect_kieu5.cpp \
+    led_fadeinfadeout.cpp
 
 RESOURCES += qml.qrc
 
@@ -53,4 +54,5 @@ HEADERS += \
     valveeffect_kieu2.h \
     valveeffect_kieu3.h \
     valveeffect_kieu4.h \
-    valveeffect_kieu5.h
+    valveeffect_kieu5.h \
+    led_fadeinfadeout.h

@@ -2,6 +2,7 @@ import QtQuick 2.9
 import QtQuick.Controls 2.2
 import TimeLine 1.0
 import Qt.labs.folderlistmodel 2.2
+import QtQuick.Dialogs 1.2
 
 
 Item {
@@ -302,9 +303,28 @@ Item {
                     spacing: 40
                     width: parent.width
 
-                    Switch{
-                        text: "Sync"
+                    Row{
+                        spacing: 2
+                        Switch{
+                            text: "Sync"
+                        }
+                        Button{
+                            text: "Update"
+                            onClicked:{
+                                console.trace()
+                                console.log("Group: " + root.currentGroupIndex + " - timeslot: " + root.currentTimeSlotIndex
+                                            + " - valveMode: " + valveModeComboBox.currentIndex)
+                                if(theTimeSlotModel.size !== 0  && root.currentTimeSlotIndex <= theTimeSlotModel.size)
+                                {
+                                    console.trace()
+                                    theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LEDValuesList", colorBoxesRepeater.itemAt(0).color)
+
+                                }
+                            }
+                        }
                     }
+
+
                     Row
                     {
                         spacing: 2
@@ -315,7 +335,7 @@ Item {
 
                         }
                         ComboBox{
-                            model: 5
+                            model: ledModeModel
                             anchors.verticalCenter: parent.verticalCenter
 
 
@@ -339,14 +359,31 @@ Item {
                         columns: 3
 
                         Repeater{
+
+                            id: colorBoxesRepeater
                             model: 6
 
+                            property int  currentSelectedIndex: -1
+
                             Rectangle{
+                                id: theColorBox
+                                property int  theIndex: index
                                 width: 30
                                 height: 30
                                 color: "grey"
                                 border.width: 1
                                 border.color: "white"
+
+                                MouseArea{
+                                    anchors.fill: parent
+
+                                    onClicked: {
+
+                                        colorBoxesRepeater.currentSelectedIndex = theColorBox.theIndex
+                                        theColorDialog.currentColor  = theColorBox.color
+                                        theColorDialog.open()
+                                    }
+                                }
                             }
                         }
                     }
@@ -853,6 +890,18 @@ Item {
         }
     }
 
+
+    ListModel{
+        id: ledModeModel
+
+        ListElement{
+            name:"Fade In/Out"
+        }
+        ListElement{
+            name:"Strobe"
+        }
+    }
+
     FolderListModel{
         id: effectFolderModel
         nameFilters: ["*.bin"]
@@ -880,6 +929,23 @@ Item {
 
         }
 
+    }
+
+    ColorDialog
+    {
+        id: theColorDialog
+
+        title: "Please choose a color"
+
+        onAccepted: {
+            colorBoxesRepeater.itemAt(colorBoxesRepeater.currentSelectedIndex).color = theColorDialog.color
+            console.trace()
+            console.log("the color: " + theColorDialog.color)
+        }
+
+        onRejected: {
+
+        }
     }
 
 

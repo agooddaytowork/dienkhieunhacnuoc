@@ -190,8 +190,6 @@ Item {
                         {
                             root.slotDuration = Math.abs(root.timeSlotToMs - root.timeSlotFromMs)
                         }
-
-
                     }
                       root.checkCollision()
                 }

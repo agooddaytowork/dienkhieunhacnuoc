@@ -359,6 +359,7 @@ Item {
                 odd: Odd
                 valveON: ValveOnOff
                 ledON: LedOnOff
+                ledColor: LEDColor
                 valveLevelControl: Inverter
                 valveLevel: InverterLevel
 //                idOn: root.groupID ==5 ? true: false
@@ -380,7 +381,7 @@ Item {
 //                    }
 //                }
 
-                ledColor: "red"
+
 
 
             }
