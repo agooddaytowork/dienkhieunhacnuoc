@@ -9,7 +9,7 @@ Item {
     property double  group6P1: 1.1463414634146343
     property double  group6P2: 0.05746815829737426
     property double  group6P3: 2.4878048780487805
-    property double  group6P4: 0.026166666666666668
+    property double  group6P4: 0.157
 
     Component.onCompleted: {
         presenterModel.clear()
@@ -142,192 +142,95 @@ Item {
         var p4 = root.group6P4
         for (var i = 0; i < 8; i++)
         {
-//            presenterModel.append({"presenterId":i,
-//                                      "xPos" : x_polarToCatersian(meterToPixel(35/2),Math.PI / 4 * i),
-//                                      "yPos" : y_polarToCatersian(meterToPixel(35/2),Math.PI / 4  * i)})
 
             presenterList_5.appenItemGroup6(i%2 == 0 ? false:true,
-                                       x_polarToCatersian(meterToPixel(35/2),Math.PI / 4 * i),
-                                       y_polarToCatersian(meterToPixel(35/2),Math.PI / 4  * i))
+                                                       x_polarToCatersian(meterToPixel(35/2),Math.PI / 4 * i),
+                                                       y_polarToCatersian(meterToPixel(35/2),Math.PI / 4  * i))
 
-
-//            presenterModel.append({"presenterId":i,
-//                                      "xPos" : x_polarToCatersian(meterToPixel((35 -(p1*1))/2),Math.PI / 4 * i - p2 ),
-//                                      "yPos" : y_polarToCatersian(meterToPixel((35 -(p1*1))/2),Math.PI / 4  * i - p2)})
+            presenterList_5.appenItemGroup6(i%2 == 0 ? false:true,
+                                                       x_polarToCatersian(meterToPixel((35 -(p1*1))/2),Math.PI / 4 * i - p2 ),
+                                                       y_polarToCatersian(meterToPixel((35 -(p1*1))/2),Math.PI / 4  * i - p2))
 
 
             presenterList_5.appenItemGroup6(i%2 == 0 ? false:true,
-                                       x_polarToCatersian(meterToPixel((35 -(p1*1))/2),Math.PI / 4 * i - p2 ),
-                                        y_polarToCatersian(meterToPixel((35 -(p1*1))/2),Math.PI / 4  * i - p2))
-
-
-//            presenterModel.append({"presenterId":i,
-//                                      "xPos" : x_polarToCatersian(meterToPixel((35 -(p1*1))/2),Math.PI / 4 * i + p2 ),
-//                                      "yPos" : y_polarToCatersian(meterToPixel((35 -(p1*1))/2),Math.PI / 4  * i + p2)})
+                                                       x_polarToCatersian(meterToPixel((35 -(p1*1))/2),Math.PI / 4 * i + p2 ),
+                                                       y_polarToCatersian(meterToPixel((35 -(p1*1))/2),Math.PI / 4  * i + p2))
 
             presenterList_5.appenItemGroup6(i%2 == 0 ? false:true,
-                                       x_polarToCatersian(meterToPixel((35 -(p1*1))/2),Math.PI / 4 * i + p2 ),
-                                        y_polarToCatersian(meterToPixel((35 -(p1*1))/2),Math.PI / 4  * i + p2))
-
-
-//            presenterModel.append({"presenterId":i,
-//                                      "xPos" : x_polarToCatersian(meterToPixel((35 -(p1*2))/2),Math.PI / 4 * i - p2 *2),
-//                                      "yPos" : y_polarToCatersian(meterToPixel((35 -(p1*2))/2),Math.PI / 4  * i - p2 *2)})
+                                                       x_polarToCatersian(meterToPixel((35 -(p1*2))/2),Math.PI / 4 * i - p2 *2),
+                                                       y_polarToCatersian(meterToPixel((35 -(p1*2))/2),Math.PI / 4  * i - p2 *2))
 
             presenterList_5.appenItemGroup6(i%2 == 0 ? false:true,
-                                       x_polarToCatersian(meterToPixel((35 -(p1*2))/2),Math.PI / 4 * i - p2 *2),
-                                        y_polarToCatersian(meterToPixel((35 -(p1*2))/2),Math.PI / 4  * i - p2 *2))
-
-
-//            presenterModel.append({"presenterId":i,
-//                                      "xPos" : x_polarToCatersian(meterToPixel((35 -(p1*2))/2),Math.PI / 4 * i + p2 *2),
-//                                      "yPos" : y_polarToCatersian(meterToPixel((35 -(p1*2))/2),Math.PI / 4  * i + p2*2)})
+                                                       x_polarToCatersian(meterToPixel((35 -(p1*2))/2),Math.PI / 4 * i + p2 *2),
+                                                       y_polarToCatersian(meterToPixel((35 -(p1*2))/2),Math.PI / 4  * i + p2 *2))
 
             presenterList_5.appenItemGroup6(i%2 == 0 ? false:true,
-                                       x_polarToCatersian(meterToPixel((35 -(p1*2))/2),Math.PI / 4 * i + p2 *2),
-                                        y_polarToCatersian(meterToPixel((35 -(p1*2))/2),Math.PI / 4  * i + p2 *2))
-
-//            presenterModel.append({"presenterId":i,
-//                                      "xPos" : x_polarToCatersian(meterToPixel((35 -(p1*3))/2),Math.PI / 4 * i - p2 *3),
-//                                      "yPos" : y_polarToCatersian(meterToPixel((35 -(p1*3))/2),Math.PI / 4  * i - p2 *3)})
+                                                       x_polarToCatersian(meterToPixel((35 -(p1*3))/2),Math.PI / 4 * i - p2 *3),
+                                                       y_polarToCatersian(meterToPixel((35 -(p1*3))/2),Math.PI / 4  * i - p2 *3))
 
             presenterList_5.appenItemGroup6(i%2 == 0 ? false:true,
-                                       x_polarToCatersian(meterToPixel((35 -(p1*3))/2),Math.PI / 4 * i - p2 *3),
-                                        y_polarToCatersian(meterToPixel((35 -(p1*3))/2),Math.PI / 4  * i - p2 *3))
-
-
-
-//            presenterModel.append({"presenterId":i,
-//                                      "xPos" : x_polarToCatersian(meterToPixel((35 -(p1*3))/2),Math.PI / 4 * i + p2 *3),
-//                                      "yPos" : y_polarToCatersian(meterToPixel((35 -(p1*3))/2),Math.PI / 4  * i + p2*3)})
+                                                       x_polarToCatersian(meterToPixel((35 -(p1*3))/2),Math.PI / 4 * i + p2 *3),
+                                                       y_polarToCatersian(meterToPixel((35 -(p1*3))/2),Math.PI / 4  * i + p2 *3))
 
             presenterList_5.appenItemGroup6(i%2 == 0 ? false:true,
-                                       x_polarToCatersian(meterToPixel((35 -(p1*3))/2),Math.PI / 4 * i + p2 *3),
-                                        y_polarToCatersian(meterToPixel((35 -(p1*3))/2),Math.PI / 4  * i + p2 *3))
-
-
-//            presenterModel.append({"presenterId":i,
-//                                      "xPos" : x_polarToCatersian(meterToPixel((35 -(p1*4))/2),Math.PI / 4 * i - p2 *4),
-//                                      "yPos" : y_polarToCatersian(meterToPixel((35 -(p1*4))/2),Math.PI / 4  * i - p2 *4)})
+                                                       x_polarToCatersian(meterToPixel((35 -(p1*4))/2),Math.PI / 4 * i - p2 *4),
+                                                       y_polarToCatersian(meterToPixel((35 -(p1*4))/2),Math.PI / 4  * i - p2 *4))
 
             presenterList_5.appenItemGroup6(i%2 == 0 ? false:true,
-                                       x_polarToCatersian(meterToPixel((35 -(p1*4))/2),Math.PI / 4 * i - p2 *4),
-                                        y_polarToCatersian(meterToPixel((35 -(p1*4))/2),Math.PI / 4  * i - p2 *4))
-
-
-//            presenterModel.append({"presenterId":i,
-//                                      "xPos" : x_polarToCatersian(meterToPixel((35 -(p1*4))/2),Math.PI / 4 * i + p2 *4),
-//                                      "yPos" : y_polarToCatersian(meterToPixel((35 -(p1*4))/2),Math.PI / 4  * i + p2*4)})
+                                                       x_polarToCatersian(meterToPixel((35 -(p1*4))/2),Math.PI / 4 * i + p2 *4),
+                                                       y_polarToCatersian(meterToPixel((35 -(p1*4))/2),Math.PI / 4  * i + p2 *4))
 
             presenterList_5.appenItemGroup6(i%2 == 0 ? false:true,
-                                       x_polarToCatersian(meterToPixel((35 -(p1*4))/2),Math.PI / 4 * i + p2 *4),
-                                        y_polarToCatersian(meterToPixel((35 -(p1*4))/2),Math.PI / 4  * i + p2 *4))
-
-
-
-//            presenterModel.append({"presenterId":i,
-//                                      "xPos" : x_polarToCatersian(meterToPixel((35 -(p1*5))/2),Math.PI / 4 * i - p2 *5),
-//                                      "yPos" : y_polarToCatersian(meterToPixel((35 -(p1*5))/2),Math.PI / 4  * i - p2 *5)})
+                                                       x_polarToCatersian(meterToPixel((35 -(p1*5))/2),Math.PI / 4 * i - p2 *5),
+                                                       y_polarToCatersian(meterToPixel((35 -(p1*5))/2),Math.PI / 4  * i - p2 *5))
 
             presenterList_5.appenItemGroup6(i%2 == 0 ? false:true,
-                                       x_polarToCatersian(meterToPixel((35 -(p1*5))/2),Math.PI / 4 * i - p2 *5),
-                                        y_polarToCatersian(meterToPixel((35 -(p1*5))/2),Math.PI / 4  * i - p2 *5))
+                                                       x_polarToCatersian(meterToPixel((35 -(p1*5))/2),Math.PI / 4 * i + p2 *5),
+                                                       y_polarToCatersian(meterToPixel((35 -(p1*5))/2),Math.PI / 4  * i + p2 *5))
 
-//            presenterModel.append({"presenterId":i,
-//                                      "xPos" : x_polarToCatersian(meterToPixel((35 -(p1*5))/2),Math.PI / 4 * i + p2 *5),
-//                                      "yPos" : y_polarToCatersian(meterToPixel((35 -(p1*5))/2),Math.PI / 4  * i + p2*5)})
-
-            presenterList_5.appenItemGroup6(i%2 == 0 ? false:true,
-                                       x_polarToCatersian(meterToPixel((35 -(p1*5))/2),Math.PI / 4 * i + p2 *5),
-                                        y_polarToCatersian(meterToPixel((35 -(p1*5))/2),Math.PI / 4  * i + p2 *5))
-
-
-//            presenterModel.append({"presenterId":i,
-//                                      "xPos" : x_polarToCatersian(meterToPixel((35 -(p1*6))/2),Math.PI / 4 * i - p2 *6),
-//                                      "yPos" : y_polarToCatersian(meterToPixel((35 -(p1*6))/2),Math.PI / 4  * i - p2 *6)})
-
-            presenterList_5.appenItemGroup6(i%2 == 0 ? false:true,
-                                       x_polarToCatersian(meterToPixel((35 -(p1*6))/2),Math.PI / 4 * i - p2 *6),
-                                        y_polarToCatersian(meterToPixel((35 -(p1*6))/2),Math.PI / 4  * i - p2 *6))
-
-
-
-//            presenterModel.append({"presenterId":i,
-//                                      "xPos" : x_polarToCatersian(meterToPixel((35 -(p1*6))/2),Math.PI / 4 * i + p2 *6),
-//                                      "yPos" : y_polarToCatersian(meterToPixel((35 -(p1*6))/2),Math.PI / 4  * i + p2 *6)})
-
-            presenterList_5.appenItemGroup6(i%2 == 0 ? false:true,
-                                       x_polarToCatersian(meterToPixel((35 -(p1*6))/2),Math.PI / 4 * i + p2 *6),
-                                        y_polarToCatersian(meterToPixel((35 -(p1*6))/2),Math.PI / 4  * i + p2 *6))
-
-//            presenterModel.append({"presenterId":i,
-//                                      "xPos" : x_polarToCatersian(meterToPixel((35 -(p1*7))/2),Math.PI / 4 * i - p2 *7),
-//                                      "yPos" : y_polarToCatersian(meterToPixel((35 -(p1*7))/2),Math.PI / 4  * i - p2*7)})
 
 
             presenterList_5.appenItemGroup6(i%2 == 0 ? false:true,
-                                       x_polarToCatersian(meterToPixel((35 -(p1*7))/2),Math.PI / 4 * i - p2 *7),
-                                        y_polarToCatersian(meterToPixel((35 -(p1*7))/2),Math.PI / 4  * i - p2 *7))
+                                                       x_polarToCatersian(meterToPixel((35 -(p1*6))/2),Math.PI / 4 * i - p2 *6),
+                                                       y_polarToCatersian(meterToPixel((35 -(p1*6))/2),Math.PI / 4  * i - p2 *6))
 
-//            presenterModel.append({"presenterId":i,
-//                                      "xPos" : x_polarToCatersian(meterToPixel((35 -(p1*8))/2),Math.PI / 4 * i - p2 *8),
-//                                      "yPos" : y_polarToCatersian(meterToPixel((35 -(p1*8))/2),Math.PI / 4  * i - p2*8)})
 
-//            presenterModel.append({"presenterId":i,
-//                                      "xPos" : x_polarToCatersian(meterToPixel((35 -(p1*9))/2),Math.PI / 4 * i - p2 *9),
-//                                      "yPos" : y_polarToCatersian(meterToPixel((35 -(p1*9))/2),Math.PI / 4  * i - p2*9)})
-//            presenterModel.append({"presenterId":i,
-//                                      "xPos" : x_polarToCatersian(meterToPixel((35 -(p1*10))/2),Math.PI / 4 * i - p2 *10),
-//                                      "yPos" : y_polarToCatersian(meterToPixel((35 -(p1*10))/2),Math.PI / 4  * i - p2*10)})
-//            presenterModel.append({"presenterId":i,
-//                                      "xPos" : x_polarToCatersian(meterToPixel((35 -(p3*6))/2),Math.PI / 4 * i + p4 *6),
-//                                      "yPos" : y_polarToCatersian(meterToPixel((35 -(p3*6))/2),Math.PI / 4  * i + p4 *6)})
-
-//            presenterModel.append({"presenterId":i,
-//                                      "xPos" : x_polarToCatersian(meterToPixel((35 -(p3*7))/2),Math.PI / 4 * i + p4 *7),
-//                                      "yPos" : y_polarToCatersian(meterToPixel((35 -(p3*7))/2),Math.PI / 4  * i + p4*7)})
-//            presenterModel.append({"presenterId":i,
-//                                      "xPos" : x_polarToCatersian(meterToPixel((35 -(p3*8))/2),Math.PI / 4 * i + p4 *8),
-//                                      "yPos" : y_polarToCatersian(meterToPixel((35 -(p3*8))/2),Math.PI / 4  * i + p4*8)})
-//            presenterModel.append({"presenterId":i,
-//                                      "xPos" : x_polarToCatersian(meterToPixel((35 -(p3*9))/2),Math.PI / 4 * i + p4 *9),
-//                                      "yPos" : y_polarToCatersian(meterToPixel((35 -(p3*9))/2),Math.PI / 4  * i + p4*9)})
-//            presenterModel.append({"presenterId":i,
-//                                      "xPos" : x_polarToCatersian(meterToPixel((35 -(p3*5))/2),Math.PI / 4 * i + p4 *5),
-//                                      "yPos" : y_polarToCatersian(meterToPixel((35 -(p3*5))/2),Math.PI / 4  * i + p4*5)})
 
             presenterList_5.appenItemGroup6(i%2 == 0 ? false:true,
-                                       x_polarToCatersian(meterToPixel((35 -(p1*8))/2),Math.PI / 4 * i - p2 *8),
-                                        y_polarToCatersian(meterToPixel((35 -(p1*8))/2),Math.PI / 4  * i - p2 *8))
+                                                       x_polarToCatersian(meterToPixel((35 -(p1*6))/2),Math.PI / 4 * i + p2 *6),
+                                                       y_polarToCatersian(meterToPixel((35 -(p1*6))/2),Math.PI / 4  * i + p2 *6))
+
+
             presenterList_5.appenItemGroup6(i%2 == 0 ? false:true,
-                                       x_polarToCatersian(meterToPixel((35 -(p1*9))/2),Math.PI / 4 * i - p2 *9),
-                                        y_polarToCatersian(meterToPixel((35 -(p1*9))/2),Math.PI / 4  * i - p2 *9))
+                                                       x_polarToCatersian(meterToPixel((35 -(p1*7))/2),Math.PI / 4 * i - p2 *7),
+                                                       y_polarToCatersian(meterToPixel((35 -(p1*7))/2),Math.PI / 4  * i - p2 *7))
+
             presenterList_5.appenItemGroup6(i%2 == 0 ? false:true,
-                                       x_polarToCatersian(meterToPixel((35 -(p1*10))/2),Math.PI / 4 * i - p2 *10),
-                                        y_polarToCatersian(meterToPixel((35 -(p1*10))/2),Math.PI / 4  * i - p2 *10))
+                                                       x_polarToCatersian(meterToPixel((35 -(p1*8))/2),Math.PI / 4 * i - p2 *8),
+                                                       y_polarToCatersian(meterToPixel((35 -(p1*8))/2),Math.PI / 4  * i - p2 *8))
+            presenterList_5.appenItemGroup6(i%2 == 0 ? false:true,
+                                                       x_polarToCatersian(meterToPixel((35 -(p1*9))/2),Math.PI / 4 * i - p2 *9),
+                                                       y_polarToCatersian(meterToPixel((35 -(p1*9))/2),Math.PI / 4  * i - p2 *9))
+            presenterList_5.appenItemGroup6(i%2 == 0 ? false:true,
+                                                       x_polarToCatersian(meterToPixel((35 -(p1*10))/2),Math.PI / 4 * i - p2 *10),
+                                                       y_polarToCatersian(meterToPixel((35 -(p1*10))/2),Math.PI / 4  * i - p2 *10))
 
 
             presenterList_5.appenItemGroup6(i%2 == 0 ? true:false,
-                                       x_polarToCatersian(meterToPixel((35 -(p3*5))/2),Math.PI / 4 * i + p4 *5),
-                                        y_polarToCatersian(meterToPixel((35 -(p3*5))/2),Math.PI / 4  * i + p4 *5))
+                                                       x_polarToCatersian(meterToPixel((35 -(p3*5))/2),Math.PI / 4 * i + p4 ),
+                                                       y_polarToCatersian(meterToPixel((35 -(p3*5))/2),Math.PI / 4  * i + p4 ))
             presenterList_5.appenItemGroup6(i%2 == 0 ? true:false,
-                                       x_polarToCatersian(meterToPixel((35 -(p3*6))/2),Math.PI / 4 * i + p4 *6),
-                                        y_polarToCatersian(meterToPixel((35 -(p3*6))/2),Math.PI / 4  * i + p4 *6))
+                                                       x_polarToCatersian(meterToPixel((35 -(p3*6))/2),Math.PI / 4 * i + p4 ),
+                                                       y_polarToCatersian(meterToPixel((35 -(p3*6))/2),Math.PI / 4  * i + p4 ))
             presenterList_5.appenItemGroup6(i%2 == 0 ? true:false,
-                                       x_polarToCatersian(meterToPixel((35 -(p3*7))/2),Math.PI / 4 * i + p4 *7),
-                                        y_polarToCatersian(meterToPixel((35 -(p3*7))/2),Math.PI / 4  * i + p4 *7))
+                                                       x_polarToCatersian(meterToPixel((35 -(p3*7))/2),Math.PI / 4 * i + p4 ),
+                                                       y_polarToCatersian(meterToPixel((35 -(p3*7))/2),Math.PI / 4  * i + p4 ))
             presenterList_5.appenItemGroup6(i%2 == 0 ? true:false,
-                                       x_polarToCatersian(meterToPixel((35 -(p3*8))/2),Math.PI / 4 * i + p4 *8),
-                                        y_polarToCatersian(meterToPixel((35 -(p3*8))/2),Math.PI / 4  * i + p4 *8))
+                                                       x_polarToCatersian(meterToPixel((35 -(p3*8))/2),Math.PI / 4 * i + p4),
+                                                       y_polarToCatersian(meterToPixel((35 -(p3*8))/2),Math.PI / 4  * i + p4 ))
             presenterList_5.appenItemGroup6(i%2 == 0 ? true:false,
-                                       x_polarToCatersian(meterToPixel((35 -(p3*9))/2),Math.PI / 4 * i + p4 *9),
-                                        y_polarToCatersian(meterToPixel((35 -(p3*9))/2),Math.PI / 4  * i + p4 *9))
-
-
-
-
-
-
+                                                       x_polarToCatersian(meterToPixel((35 -(p3*9))/2),Math.PI / 4 * i + p4 ),
+                                                       y_polarToCatersian(meterToPixel((35 -(p3*9))/2),Math.PI / 4  * i + p4 ))
 
         }
     }
@@ -355,8 +258,8 @@ Item {
             //                                      "yPos" : y_polarToCatersian(meterToPixel(31.5/2),Math.PI / 4  * i)})
 
             presenterList_7.appendItem(7,
-                                       x_polarToCatersian(meterToPixel(31.5/2) ,Math.PI / 4 * i),
-                                       y_polarToCatersian(meterToPixel(31.5/2),Math.PI / 4  * i))
+                                       x_polarToCatersian(meterToPixel(31.5/2) ,(Math.PI / 4 ) * i + Math.PI/8),
+                                       y_polarToCatersian(meterToPixel(31.5/2),(Math.PI / 4 )  * i + Math.PI/8))
         }
     }
 
@@ -374,9 +277,9 @@ Item {
         }
         for ( i = 0; i < 16; i++)
         {
-//            presenterModel.append({"presenterId":i,
-//                                      "xPos" : x_polarToCatersian(meterToPixel(3),Math.PI / 8 * i),
-//                                      "yPos" : y_polarToCatersian(meterToPixel(3),Math.PI / 8  * i)})
+            //            presenterModel.append({"presenterId":i,
+            //                                      "xPos" : x_polarToCatersian(meterToPixel(3),Math.PI / 8 * i),
+            //                                      "yPos" : y_polarToCatersian(meterToPixel(3),Math.PI / 8  * i)})
 
             presenterList_8.appendItem(8,
                                        x_polarToCatersian(meterToPixel(3),Math.PI / 8 * i),
@@ -458,23 +361,28 @@ Item {
                 ledON: LedOnOff
                 valveLevelControl: Inverter
                 valveLevel: InverterLevel
-                ledColor:{
-                    if(root.groupID ==5 )
-                    {
-                        if(Odd)
-                        {
-                            "red"
-                        }
-                        else
-                        {
-                            "black"
-                        }
-                    }
-                    else
-                    {
-                        "red"
-                    }
-                }
+//                idOn: root.groupID ==5 ? true: false
+//                ledColor:{
+//                    if(root.groupID ==5 )
+//                    {
+//                        if(Odd)
+//                        {
+//                            "red"
+//                        }
+//                        else
+//                        {
+//                            "black"
+//                        }
+//                    }
+//                    else
+//                    {
+//                        "red"
+//                    }
+//                }
+
+                ledColor: "red"
+
+
             }
         }
     }

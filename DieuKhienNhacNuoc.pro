@@ -24,7 +24,8 @@ SOURCES += \
     valveeffect_kieu1.cpp \
     valveeffect_kieu2.cpp \
     valveeffect_kieu3.cpp \
-    valveeffect_kieu4.cpp
+    valveeffect_kieu4.cpp \
+    valveeffect_kieu5.cpp
 
 RESOURCES += qml.qrc
 
@@ -51,4 +52,5 @@ HEADERS += \
     valveeffect_kieu1.h \
     valveeffect_kieu2.h \
     valveeffect_kieu3.h \
-    valveeffect_kieu4.h
+    valveeffect_kieu4.h \
+    valveeffect_kieu5.h

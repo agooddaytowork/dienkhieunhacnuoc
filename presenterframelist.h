@@ -9,6 +9,8 @@
 #include "valveeffect_kieu2.h"
 #include "valveeffect_kieu3.h"
 #include "valveeffect_kieu4.h"
+#include "valveeffect_kieu5.h"
+
 //#include "anlogger.h"
 #include <QMap>
 
@@ -20,6 +22,7 @@ struct PresenterFrame{
     QList<bool> ValveOnOff;
     QList<bool> LedOnOff;
     quint8 InverterLevel;
+    quint8 InverterLevel1;
     quint8 LedChannels;
     quint8 ValveChannels;
 
@@ -44,6 +47,7 @@ class PresenterFrameList : public QObject
     ValveEffect_Kieu2 mValveEffect_2;
     ValveEffect_Kieu3 mValveEffect_3;
     ValveEffect_Kieu4 mValveEffect_4;
+    ValveEffect_Kieu5 mValveEffect_5;
 
     QVector<PresenterFrame> frameList;
     QVector<PreviousFrame> timeSlotShortVerList;

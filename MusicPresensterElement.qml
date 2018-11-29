@@ -17,6 +17,7 @@ Item {
     property bool  odd: false
     property int initialX: 0
     property int  initialY: 0
+//    property bool idOn: false
 
 
     Component.onCompleted: {
@@ -50,10 +51,36 @@ Item {
         height: root.valveLevelControl ? root.edgePixelLength * scale + (valveLevel+1) /255 * 3  : root.edgePixelLength * scale
 //        radius: root.valveLevelControl == true ? ((root.edgePixelLength * scale) /2 /255 * valveLevel) +5 :(root.edgePixelLength * scale) /2
         radius:  root.edgePixelLength * scale / 2
-        color: root.valveON == true ? "black" : "white"
+//        color: root.valveON == true ? "black" : "white"
+
+        color: {
+            if(root.valveLevelControl)
+            {
+                if(root.valveLevel === 0)
+                {
+                    "white"
+                }
+                else
+                {
+                    "black"
+                }
+            }
+            else
+            {
+                if(root.valveON)
+                {
+                    "black"
+                }
+                else
+                {
+                    "white"
+                }
+            }
+        }
 
         border.width:  2
         border.color: root.ledON ? root.ledColor:"grey"
+
     }
 
 }

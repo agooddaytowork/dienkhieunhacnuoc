@@ -86,6 +86,7 @@ void MusicPresenterList::appendItem(const quint8 &group, int xPos, int yPos)
     item.XPos = xPos;
     item.YPos = yPos;
     item.odd = false;
+    item.Inverter = false;
 
 
     switch(group)
@@ -180,21 +181,11 @@ void MusicPresenterList::frameChangedHandler(const PresenterFrame &frame)
     {
         MusicPresenterItem theItem = mItems.at(ii);
 
-//        for(int i = 0; i < frame.LedOnOff.count();i++)
-//        {
-//            theItem.LedOnOff = frame.LedOnOff.at(i);
-
-//        }
-//        for(int i = 0; i < frame.ValveOnOff.count();i++)
-//        {
-//            theItem.ValveOnOff = frame.ValveOnOff.at(i);
-//        }
-
-
         theItem.LedOnOff = frame.LedOnOff.at(0);
+        theItem.InverterLevel = frame.InverterLevel;
         if(theItem.group == 1 || theItem.group ==7 || theItem.group == 2)
         {
-             theItem.ValveOnOff = frame.ValveOnOff.at(ii);
+            theItem.ValveOnOff = frame.ValveOnOff.at(ii);
         }
         else if(theItem.group == 6 || theItem.group == 8)
         {
@@ -211,19 +202,27 @@ void MusicPresenterList::frameChangedHandler(const PresenterFrame &frame)
         {
             theItem.ValveOnOff = frame.ValveOnOff.at(0);
         }
+        else if(theItem.group ==5)
+        {
+            if(theItem.odd == true)
+            {
+                theItem.InverterLevel = frame.InverterLevel;
+            }
+            else if(theItem.odd == false)
+            {
+                theItem.InverterLevel = frame.InverterLevel1;
+            }
+        }
         else
         {
             theItem.ValveOnOff = frame.ValveOnOff.at(0);
         }
 
-//        theItem.ValveOnOff = frame.ValveOnOff.at(ii);
-
-        theItem.InverterLevel = frame.InverterLevel;
         mItems[ii] = theItem;
 
     }
 
-        emit itemChangedFromBackend();
+    emit itemChangedFromBackend();
 
 
 

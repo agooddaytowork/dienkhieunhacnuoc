@@ -171,6 +171,7 @@ PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const time
 
         if(mValveEffect_2.isEffectValid())
         {
+             mValveEffect_2.setSpeed(timeSlot.ValveSpeed);
             for(int i = 0; i < timeSlot.ValveChannels; i++)
             {
                 aFrame.ValveOnOff.append(mValveEffect_2.getData(index, i));
@@ -185,6 +186,7 @@ PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const time
 
         if(mValveEffect_3.isEffectValid())
         {
+            mValveEffect_3.setSpeed(timeSlot.ValveSpeed);
             for(int i = 0; i < timeSlot.ValveChannels; i++)
             {
                 aFrame.ValveOnOff.append(mValveEffect_3.getData(index, i));
@@ -197,6 +199,7 @@ PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const time
         mValveEffect_4.setNewPath(timeSlot.fileBinPath);
         if(mValveEffect_4.isEffectValid())
         {
+            mValveEffect_4.setSpeed(timeSlot.ValveSpeed);
             aFrame.ValveOnOff.append(mValveEffect_4.getData(index,false));
             aFrame.ValveOnOff.append(mValveEffect_4.getData(index,true));
         }
@@ -206,8 +209,21 @@ PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const time
         mValveEffect_4.setNewPath(timeSlot.fileBinPath);
         if(mValveEffect_4.isEffectValid())
         {
+            mValveEffect_4.setSpeed(timeSlot.ValveSpeed);
             aFrame.ValveOnOff.append(mValveEffect_4.getData(index,true));
         }
+    }
+    else if(mGroup == 5)
+    {
+         mValveEffect_5.setNewPath(timeSlot.fileBinPath);
+         if(mValveEffect_5.isEffectValid())
+         {
+             mValveEffect_5.setSpeed(timeSlot.ValveSpeed);
+
+
+             aFrame.InverterLevel = mValveEffect_5.getData(index,true);
+             aFrame.InverterLevel1= mValveEffect_5.getData(index,false);
+         }
     }
 
     if(aFrame.ValveOnOff.count() == 0)
@@ -233,7 +249,7 @@ PresenterFrame PresenterFrameList::createEmptyFramePerGroup(const int &group) co
     PresenterFrame item;
 
     item.InverterLevel = 0;
-
+    item.Inverter = false;
 
     switch(group)
     {
@@ -288,6 +304,8 @@ PresenterFrame PresenterFrameList::createEmptyFramePerGroup(const int &group) co
     case 5:
         item.LedChannels = 12;
         item.Inverter = true;
+        item.InverterLevel = 0;
+        item.InverterLevel1 = 0;
         item.ValveChannels = 2;
         item.ValveOnOff.append(false);
         item.ValveOnOff.append(false);
