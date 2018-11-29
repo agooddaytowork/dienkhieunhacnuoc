@@ -81,6 +81,7 @@ bool LED_FadeInFadeOut::setEffects(const QColor &color)
         return true;
     }
 
+
     return false;
 }
 

@@ -4,6 +4,7 @@
 #include <QByteArray>
 #include <QColor>
 #include <QVector>
+#include <QList>
 
 
 class LED_FadeInFadeOut
@@ -11,8 +12,8 @@ class LED_FadeInFadeOut
 
     int mSpeed;
     QColor mColor;
-    QVector<QColor> data;
-    QVector<QColor> dataWithSpeed;
+    QList<QColor> data;
+    QList<QColor> dataWithSpeed;
 
 public:
     LED_FadeInFadeOut();
