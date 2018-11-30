@@ -8,6 +8,8 @@
 #include "presenterframelist.h"
 #include "theinterfacegod.h"
 
+#include "serialframebuffer.h"
+
 #include <QThread>
 #include <QVector>
 #include <QDebug>
@@ -27,6 +29,13 @@ int main(int argc, char *argv[])
     qmlRegisterType<MusicPresenterModel>("MusicPresenter", 1, 0, "MusicPresenterModel");
     qmlRegisterUncreatableType<MusicPresenterList>("MusicPresenter", 1, 0, "MusicPresenterList",
                                                    QStringLiteral("ToDoList should not be created in QML"));
+
+
+    SerialFrameBuffer test;
+
+    test.regenerateFrameList(1000);
+
+    test.playSerialFrame(1);
 
 
 

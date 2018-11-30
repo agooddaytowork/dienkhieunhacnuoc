@@ -8,8 +8,11 @@
 
 struct SingleSerialFrame{
     char start = 0x02;
-    char opcode = 0x03;
-    char length = 68;
+    char opcode = 0x01;
+    char length = 70;
+
+    //10 byte cho Valve
+    //-----------------------------//
     char V_CH1_I = 0x00;
     char V_CH2_T = 0x00;
     char V_CH3_T_L = 0x00;
@@ -19,7 +22,12 @@ struct SingleSerialFrame{
     char V_CH6_I_0 = 0x00;
     char V_CH6_I_1 = 0x00;
     char V_CH8_T = 0x00;
-    char extraByte_0 = 0x00;
+    char V_extraByte = 0x00;
+
+
+    // 60 byte cho LED RGB
+    //----------------------------//
+
     char L_CH1[3] ={0x00,  0x00,  0x00};
     char L_CH2[3] ={0x00,  0x00,  0x00};
     char L_CH3[3] ={0x00,  0x00,  0x00};
@@ -39,9 +47,11 @@ struct SingleSerialFrame{
     char L_CH8_7[3] ={0x00,  0x00,  0x00};
     char L_CH9_L[3] ={0x00,  0x00,  0x00};
     char L_CH9_H[3] ={0x00,  0x00,  0x00};
-    char extraByte_1 = 0x00;
-    char checkSumLowByte;
-    char checkSumHighByte;
+    char L_extraByte[3] ={0x00,  0x00,  0x00};
+
+    //---------------------------//
+    char checkSumHighByte = 0x00; // check sum will be calculated at FrameCombiner function
+    char checkSumLowByte = 0x00;
     char stop = 0x03;
 };
 
@@ -52,14 +62,26 @@ class SerialFrameBuffer: public QObject
 
     QVector<SingleSerialFrame> mData;
 
+    void group1Handler(const PresenterFrame &theFrame);
+    void group2Handler(const PresenterFrame &theFrame);
+    void group3Handler(const PresenterFrame &theFrame);
+    void group4Handler(const PresenterFrame &theFrame);
+    void group5Handler(const PresenterFrame &theFrame);
+    void group6Handler(const PresenterFrame &theFrame);
+    void group7Handler(const PresenterFrame &theFrame);
+    void group8Handler(const PresenterFrame &theFrame);
+    void group9Handler(const PresenterFrame &theFrame);
+
+
 public:
+
     SerialFrameBuffer(QObject * parent = nullptr);
+    QByteArray frameCombiner( const SingleSerialFrame &serialFrame) const;
 
-
-public slots:
+    //public slots:
     void SerialFrameChangedHandler(const int &group, const PresenterFrame &theFrame);
     void regenerateFrameList(const int &numberOfFrame);
-    void playSerialFrame (const int &frameNo);
+    void playSerialFrame (const int &index);
 
 };
 
