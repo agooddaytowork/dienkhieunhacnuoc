@@ -17,6 +17,7 @@ Item {
     signal timeSlotAdded(int timeSlotIndex)
     signal timeSlotRemoved()
     property bool  selected: false
+    signal refreshPlease()
 
     //    onSelectedChanged: {
     //        timeLine.selected = selected
@@ -28,7 +29,14 @@ Item {
 
 
     }
+    Connections{
+        target: theInterfaceGod
+        onGui_timeSLotChanged:
+        {
+            root.refreshPlease()
 
+        }
+    }
 
     function returnTimeSlotList()
     {
@@ -109,6 +117,7 @@ Item {
             selected: root.selected
 
 
+
             onChangeFromAndToMoment: {
                 root.changeFromAndToMoment(from,to)
             }
@@ -130,11 +139,12 @@ Item {
                 id: timeSlotRepeater
 
 
+
                 model:TimeSlotModel{
-
+                    id: dmModel
                     list: root.returnTimeSlotList()
-
                 }
+
 
 
 
@@ -144,25 +154,40 @@ Item {
                 delegate: TimeLineSlot{
                     id: theTimeLineSlot
                     z: 2
-                    //                        width: theTimeLineSlot.refreshWidth()
-                    //                        x: theTimeLineSlot.refreshX()
+
                     property int  timeSlotIndex: theId
+
                     valveMode: ValveMode
                     height: timeLine.height
                     timeLineFromMs: root.fromMs
                     timeLineToMs: root.toMs
-                    //                    timeSlotFromMs: FromMs
-                    //                    timeSlotToMs: ToMs
                     timeLineWidth:  timeLine.width
                     duration: root.duration
+                    valveModeName: ValveModeName
+                    valveSpeed: ValveSpeed
+                    ledModeName: LedModeName
+                    ledSpeed: LedSpeed
+
+                    Connections{
+                        target: root
+
+                        onRefreshPlease:
+                        {
+                            theTimeLineSlot.ledModeName = dmModel.getDataPerIndex(theTimeLineSlot.timeSlotIndex, "LedModeName")
+
+                            theTimeLineSlot.valveSpeed = dmModel.getDataPerIndex(theTimeLineSlot.timeSlotIndex, "ValveSpeed")
+
+                            theTimeLineSlot.ledSpeed = dmModel.getDataPerIndex(theTimeLineSlot.timeSlotIndex, "LedSpeed")
+                            theTimeLineSlot.valveModeName = dmModel.getDataPerIndex(theTimeLineSlot.timeSlotIndex, "ValveModeName")
+
+                        }
+                    }
 
                     onDeleteTimeSlot: {
 
                         root.timeSlotRemoved()
                         var list = root.returnTimeSlotList()
                         list.removeItems(theId)
-
-
                     }
 
                     Component.onCompleted: {
@@ -202,6 +227,8 @@ Item {
                         {
                             false
                         }
+
+
                     }
 
 

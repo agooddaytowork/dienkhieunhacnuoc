@@ -90,12 +90,31 @@ QVariant timeSlotModel::getDataPerIndex(const int &index, const QByteArray &Role
     case ValveSpeedRole:
         return QVariant(item.ValveSpeed);
 
+    case ValveModeNameRole:
+        return QVariant(item.ValveModeName);
+    case LedModeNameRole:
+        return QVariant(item.LedModeName);
+    case LedSpeedRole:
+        return QVariant(item.LedSpeed);
+
 
 
     }
 
     return QVariant();
 }
+
+
+void timeSlotModel::setIndexToList(const QModelIndex &index, const int &row)
+{
+    timeSlotItem item = mList->items().at(row);
+
+    item.modelIndex = index;
+
+    mList->setItemAt(row,item);
+}
+
+
 QVariant timeSlotModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid() || !mList)
@@ -103,7 +122,9 @@ QVariant timeSlotModel::data(const QModelIndex &index, int role) const
 
 
 
+
     const timeSlotItem item = mList->items().at(index.row());
+
 
     switch(role)
     {
@@ -140,6 +161,13 @@ QVariant timeSlotModel::data(const QModelIndex &index, int role) const
     case ValveSpeedRole:
         return QVariant(item.ValveSpeed);
 
+    case ValveModeNameRole:
+        return QVariant(item.ValveModeName);
+    case LedModeNameRole:
+        return  QVariant(item.LedModeName);
+    case LedSpeedRole:
+        return QVariant(item.LedSpeed);
+
     }
 
     return QVariant();
@@ -153,7 +181,7 @@ bool timeSlotModel::setDataPerIndex(const int &index, const QByteArray &RoleStri
     }
 
     int role = timeSlotModel::roleNames().key(RoleString);
-      timeSlotItem item = getTimeSlotItemPerId(index);
+    timeSlotItem item = getTimeSlotItemPerId(index);
     switch (role) {
     case IDRole:
         item.id = static_cast<int>(value.toUInt());
@@ -192,19 +220,38 @@ bool timeSlotModel::setDataPerIndex(const int &index, const QByteArray &RoleStri
         break;
     case ValveChannelsRole:
         item.ValveChannels = static_cast<quint8>(value.toUInt());
+        break;
 
     case ValveModeRole:
         item.ValveMode = static_cast<quint8>(value.toUInt());
+        break;
 
     case ValveSpeedRole:
         item.ValveSpeed = value.toInt();
+        break;
+
+    case ValveModeNameRole:
+        item.ValveModeName = value.toString();
+        break;
+    case LedModeNameRole:
+        item.LedModeName = value.toString();
+        break;
+    case LedSpeedRole:
+        item.LedSpeed = value.toInt();
+        break;
     }
 
     if (mList->setItemAt(getIndexPerId(index), item)) {
 
-         QModelIndex dmIndex = this->index(index,index);
-        emit dataChanged(dmIndex, dmIndex, QVector<int>() << role);
-                qDebug() << "setData";
+        QModelIndex dmIndex = this->index(index,0);
+       // emit dataChanged(dmIndex, dmIndex, QVector<int>() << role);
+        qDebug() << "Index valid: " + QString::number(dmIndex.isValid());
+        emit gui_timeSlotItemChanged();
+
+
+        emit dataChanged(item.modelIndex, item.modelIndex, QVector<int>() << role);
+
+        qDebug() << "setData";
         return true;
     }
     return false;
@@ -218,6 +265,12 @@ bool timeSlotModel::setData(const QModelIndex &index, const QVariant &value, int
         return false;
 
     timeSlotItem item = mList->items().at(index.row());
+
+    if(item.modelIndex != index)
+    {
+        item.modelIndex = index;
+    }
+
     switch (role) {
     case IDRole:
         item.id = static_cast<int>(value.toUInt());
@@ -262,6 +315,12 @@ bool timeSlotModel::setData(const QModelIndex &index, const QVariant &value, int
 
     case ValveSpeedRole:
         item.ValveSpeed = value.toInt();
+    case ValveModeNameRole:
+        item.ValveModeName = value.toString();
+    case LedModeNameRole:
+        item.LedModeName = value.toString();
+    case LedSpeedRole:
+        item.LedSpeed = value.toInt();
     }
 
     if (mList->setItemAt(index.row(), item)) {
@@ -298,6 +357,9 @@ QHash<int, QByteArray> timeSlotModel::roleNames() const
     names[ValveChannelsRole] = "ValveChannels";
     names[ValveModeRole] = "ValveMode";
     names[ValveSpeedRole] = "ValveSpeed";
+    names[ValveModeNameRole] = "ValveModeName";
+    names[LedModeNameRole] = "LedModeName";
+    names[LedSpeedRole] = "LedSpeed";
 
     return names;
 
@@ -330,9 +392,12 @@ void timeSlotModel::setList(timeSlotList *list)
         });
 
         connect(mList, &timeSlotList::preItemRemoved, this, [=](int index) {
+
+
             beginRemoveRows(QModelIndex(), index, index);
         });
         connect(mList, &timeSlotList::postItemRemoved, this, [=]() {
+
             this->setSize(mList->count());
             endRemoveRows();
         });

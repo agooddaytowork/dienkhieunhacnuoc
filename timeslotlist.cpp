@@ -25,6 +25,7 @@ bool timeSlotList::setItemAt(int index, const timeSlotItem &item)
     mItems[index] = item;
 
     emit timeSlotItemChanged(item);
+    emit gui_timeSLotItemChanged();
     return true;
 }
 

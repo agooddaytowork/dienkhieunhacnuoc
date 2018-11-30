@@ -19,6 +19,12 @@ Item {
     property bool  edgeSelected: false
     property bool timeSlotSelected: false
     signal timeSlotSelect()
+    property string valveModeName: "-"
+    property int valveSpeed: 0
+    property string ledModeName: "+"
+    property int  ledSpeed: 0
+
+
 
     x: root.refreshX()
     width: root.refreshWidth()
@@ -77,7 +83,73 @@ Item {
         id: theTimeSlot
         anchors.fill: parent
         property int  xOffsetValue: 0
-        z:2
+        z:1
+
+        Rectangle{
+            id: infoRec
+            width: 100
+            height: 60
+            anchors.top: parent.top
+            anchors.left: parent.left
+            color: "transparent"
+            z:3
+
+            Column{
+                anchors.fill: parent
+                spacing: 2
+                Row
+                {
+                    Label{
+                        text: "Valve: "
+                        color: "white"
+                    }
+                    Label{
+                        text: root.valveModeName
+                        color: "white"
+
+                    }
+                }
+                Row
+                {
+                    Label{
+                        text: "Valve Speed: "
+                        color: "white"
+                    }
+                    Label{
+                        text: root.valveSpeed
+                        color: "white"
+                    }
+                }
+
+                Row
+                {
+                    Label{
+                        text: "LED: "
+                        color: "white"
+                    }
+                    Label{
+                        text: root.ledModeName
+                        color: "white"
+
+                    }
+                }
+                Row
+                {
+                    Label{
+                        text: "Led Speed: "
+                        color: "white"
+                    }
+                    Label{
+                        text: root.ledSpeed
+                        color: "white"
+                    }
+                }
+
+
+            }
+
+            visible: infoRec.width >= theTimeSlot.width ? false: true
+        }
 
         MouseArea{
             id: timeSlotMouseArea
@@ -175,7 +247,7 @@ Item {
                     else
                     {
                         var previousToMs = root.timeSlotToMs
-                         previousTimeSlotDuration = root.slotDuration
+                        previousTimeSlotDuration = root.slotDuration
 
                         root.timeSlotToMs  =  (root.x  +mouseX) /  root.timeLineWidth * Math.abs(root.timeLineToMs - root.timeLineFromMs) + root.timeLineFromMs
 
@@ -191,7 +263,7 @@ Item {
                             root.slotDuration = Math.abs(root.timeSlotToMs - root.timeSlotFromMs)
                         }
                     }
-                      root.checkCollision()
+                    root.checkCollision()
                 }
 
             }

@@ -12,11 +12,15 @@ public:
     Q_INVOKABLE void regenerateFrameList(const int &duration, const int &frameDuration);
     Q_INVOKABLE void playFrame(const int &frameNo);
 
+
 signals:
     void SIG_regenerateFrameList(const int &duration, const int &frameDuration);
     void SIG_playFrame(const int &frameNo);
+    void gui_timeSLotChanged();
+
 
 public slots:
+     void invokeTimeSlotChanged();
 };
 
 #endif // THEINTERFACEGOD_H

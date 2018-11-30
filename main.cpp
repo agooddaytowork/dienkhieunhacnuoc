@@ -50,6 +50,8 @@ int main(int argc, char *argv[])
         QObject::connect(&theGod,&theInterfaceGod::SIG_playFrame, &presenterFrameLists[i],&PresenterFrameList::playFrame);
         QObject::connect(&presenterFrameLists[i],&PresenterFrameList::notifyFrameChanged,&presenterList[i],&MusicPresenterList::frameChangedHandler);
 
+       QObject::connect(&dataList[i],&timeSlotList::gui_timeSLotItemChanged,&theGod,&theInterfaceGod::invokeTimeSlotChanged);
+
 
         dataList[i].moveToThread(&backendThread);
 

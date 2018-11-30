@@ -34,6 +34,7 @@ Item {
             theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveMode", valveModeComboBox.currentIndex)
             theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"FileBinPath", effectFolderModel.get(valveModeComboBox.currentIndex,"filePath"))
             theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveSpeed",speedValveSpinBox.value)
+            theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveModeName", effectFolderModel.get(valveModeComboBox.currentIndex,"fileName"))
         }
 
         //        refreshModel()
@@ -318,6 +319,8 @@ Item {
                                 {
                                     console.trace()
                                     theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LEDValuesList", colorBoxesRepeater.itemAt(0).color)
+                                     theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedModeName", ledModeCombobox.currentText)
+                                    theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedSpeed", ledSpeedSpinBox.value)
 
                                 }
                             }
@@ -335,6 +338,7 @@ Item {
 
                         }
                         ComboBox{
+                            id: ledModeCombobox
                             model: ledModeModel
                             anchors.verticalCenter: parent.verticalCenter
 

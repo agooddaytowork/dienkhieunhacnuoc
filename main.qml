@@ -21,6 +21,8 @@ ApplicationWindow {
     property int  buttonSize: 40
 
 
+
+
     onCurrentPositionChanged:
     {
 
@@ -335,9 +337,6 @@ ApplicationWindow {
                 toMs: root.duration
                 duration: root.duration
                 position: root.currentPosition
-
-
-
             }
         }
         Rectangle{

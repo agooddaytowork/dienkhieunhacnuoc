@@ -23,3 +23,7 @@ void theInterfaceGod::playFrame(const int &frameNo)
     }
 
 }
+
+void theInterfaceGod::invokeTimeSlotChanged(){
+    emit gui_timeSLotChanged();
+}

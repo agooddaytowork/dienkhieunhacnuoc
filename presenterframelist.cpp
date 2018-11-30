@@ -244,7 +244,7 @@ PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const time
         aFrame.LedOnOff.append(timeSlot.LedOnOff);
         aFrame.LedColors[i]= mLED_FadeInFadeOut.getData(index).name();
 
-        qDebug() << "Led color name: " + aFrame.LedColors[i];
+//        qDebug() << "Led color name: " + aFrame.LedColors[i];
     }
 
 

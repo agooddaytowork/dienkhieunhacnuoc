@@ -5,6 +5,7 @@
 #include <QVector>
 #include "presenterframelist.h"
 
+
 struct MusicPresenterItem{
     int id;
     quint8 group;
@@ -18,6 +19,7 @@ struct MusicPresenterItem{
     int XPos;
     int YPos;
     bool odd;
+
 };
 
 

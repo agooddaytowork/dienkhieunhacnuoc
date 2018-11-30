@@ -3,6 +3,7 @@
 
 #include <QAbstractListModel>
 #include "timeslotlist.h"
+#include <QModelIndex>
 
 class timeSlotModel : public QAbstractListModel
 {
@@ -10,6 +11,7 @@ class timeSlotModel : public QAbstractListModel
     Q_PROPERTY(timeSlotList *list READ list WRITE setList)
     Q_PROPERTY(int size READ size WRITE setSize NOTIFY sizeChanged)
 
+    QModelIndex mModelIndex;
 public:
     explicit timeSlotModel(QObject *parent = nullptr);
 
@@ -28,7 +30,10 @@ public:
         LEDChannelsRole,
         ValveChannelsRole,
         ValveModeRole,
-        ValveSpeedRole
+        ValveSpeedRole,
+        ValveModeNameRole,
+        LedSpeedRole,
+        LedModeNameRole
 
     };
 
@@ -40,6 +45,8 @@ public:
      QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
     // Editable:
+
+     void setIndexToList(const QModelIndex &index, const int &row);
      bool setData(const QModelIndex &index, const QVariant &value,
                  int role = Qt::EditRole) override;
 
@@ -60,6 +67,7 @@ public:
 signals:
 
     void sizeChanged();
+    void gui_timeSlotItemChanged();
 
 private:
     timeSlotItem getTimeSlotItemPerId(const int &id);
