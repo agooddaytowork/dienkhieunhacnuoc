@@ -302,7 +302,7 @@ void SerialFrameBuffer::regenerateFrameList(const int &numberOfFrame)
 void SerialFrameBuffer::playSerialFrame(const int &index)
 {
 
-    qDebug() << frameCombiner(mData.at(index));
+    qDebug() << frameCombiner(mData.at(index)).toHex(':');
 
 }
 

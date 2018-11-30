@@ -47,6 +47,7 @@ int main(int argc, char *argv[])
 
 
     QObject::connect(&presenterFrameLists[0], &PresenterFrameList::SIG_SerialFrameBuffer_regenerateFrameList, &theSerialFrameBuffer,&SerialFrameBuffer::regenerateFrameList);
+    QObject::connect(&theGod, &theInterfaceGod::SIG_playFrame,&theSerialFrameBuffer, &SerialFrameBuffer::playSerialFrame);
 
 
     for(int i = 0; i < 9; i++)

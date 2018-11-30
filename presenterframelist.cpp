@@ -90,7 +90,7 @@ void PresenterFrameList::timeSlotChanged(const timeSlotItem &timeSlot)
 {
 
 
-    qDebug() << "Time SLot Changed";
+    //    qDebug() << "Time SLot Changed";
     int fromFrame = findFrameFromMs(timeSlot.fromMs);
     int toFrame = findFrameFromMs(timeSlot.toMs);
 
@@ -248,7 +248,7 @@ PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const time
         aFrame.LedOnOff.append(timeSlot.LedOnOff);
         aFrame.LedColors[i]= mLED_FadeInFadeOut.getData(index).name();
 
-//        qDebug() << "Led color name: " + aFrame.LedColors[i];
+        //        qDebug() << "Led color name: " + aFrame.LedColors[i];
     }
 
 
@@ -367,7 +367,7 @@ PresenterFrame PresenterFrameList::createEmptyFramePerGroup(const int &group) co
 
     for(int i = 0; i < item.LedChannels; i++)
     {
-       item.LedColors.append("grey");
+        item.LedColors.append("#000000");
     }
 
     return item;
@@ -402,6 +402,7 @@ void PresenterFrameList::emptyFrameCleanUp()
     while(frameCnt < mFrameNo)
     {
         frameList[frameCnt]= createEmptyFramePerGroup(mGroup);
+        emit SIG_SerialFrameBuffer_notifyFrameChanged(mGroup,frameCnt,frameList[frameCnt]);
         frameCnt++;
     }
 
