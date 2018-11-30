@@ -244,7 +244,7 @@ bool timeSlotModel::setDataPerIndex(const int &index, const QByteArray &RoleStri
     if (mList->setItemAt(getIndexPerId(index), item)) {
 
         QModelIndex dmIndex = this->index(index,0);
-       // emit dataChanged(dmIndex, dmIndex, QVector<int>() << role);
+        // emit dataChanged(dmIndex, dmIndex, QVector<int>() << role);
         qDebug() << "Index valid: " + QString::number(dmIndex.isValid());
         emit gui_timeSlotItemChanged();
 
@@ -392,8 +392,6 @@ void timeSlotModel::setList(timeSlotList *list)
         });
 
         connect(mList, &timeSlotList::preItemRemoved, this, [=](int index) {
-
-
             beginRemoveRows(QModelIndex(), index, index);
         });
         connect(mList, &timeSlotList::postItemRemoved, this, [=]() {
