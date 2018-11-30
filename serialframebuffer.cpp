@@ -8,54 +8,54 @@ SerialFrameBuffer::SerialFrameBuffer(QObject *parent): QObject(parent)
 }
 
 
-void SerialFrameBuffer::SerialFrameChangedHandler(const int &group, const PresenterFrame &theFrame)
+void SerialFrameBuffer::SerialFrameChangedHandler(const int &group, const int &frameNo, const PresenterFrame &theFrame)
 {
     switch (group) {
     case 0:
-        group1Handler(theFrame);
+        group1Handler(frameNo,theFrame);
         break;
     case 1:
-        group2Handler(theFrame);
+        group2Handler(frameNo,theFrame);
         break;
     case 2:
-        group3Handler(theFrame);
+        group3Handler(frameNo,theFrame);
         break;
     case 3:
-        group4Handler(theFrame);
+        group4Handler(frameNo,theFrame);
         break;
     case 4:
-        group5Handler(theFrame);
+        group5Handler(frameNo,theFrame);
         break;
     case 5:
-        group6Handler(theFrame);
+        group6Handler(frameNo,theFrame);
         break;
     case 6:
-        group7Handler(theFrame);
+        group7Handler(frameNo,theFrame);
         break;
     case 7:
-        group8Handler(theFrame);
+        group8Handler(frameNo,theFrame);
         break;
     case 8:
-        group9Handler(theFrame);
+        group9Handler(frameNo,theFrame);
         break;
     }
 }
 
-void SerialFrameBuffer::group1Handler(const PresenterFrame &theFrame)
+void SerialFrameBuffer::group1Handler(const int &frameNo,const PresenterFrame &theFrame)
 {
-    SingleSerialFrame serialFrame = mData.at(theFrame.frameNo);
+    SingleSerialFrame serialFrame = mData.at(frameNo);
 
     serialFrame.V_CH1_I = static_cast<char>(theFrame.InverterLevel);
     serialFrame.L_CH1[0] = static_cast<char>(QColor(theFrame.LedColors.at(0)).red());
     serialFrame.L_CH1[1] = static_cast<char>(QColor(theFrame.LedColors.at(0)).green());
     serialFrame.L_CH1[2] = static_cast<char>(QColor(theFrame.LedColors.at(0)).blue());
 
-    mData[theFrame.frameNo] = serialFrame;
+    mData[frameNo] = serialFrame;
 }
 
-void SerialFrameBuffer::group2Handler(const PresenterFrame &theFrame)
+void SerialFrameBuffer::group2Handler(const int &frameNo,const PresenterFrame &theFrame)
 {
-    SingleSerialFrame serialFrame = mData.at(theFrame.frameNo);
+    SingleSerialFrame serialFrame =mData.at(frameNo);
 
     char ValveToggle = 0x00;
 
@@ -73,13 +73,13 @@ void SerialFrameBuffer::group2Handler(const PresenterFrame &theFrame)
     serialFrame.L_CH2[1] = static_cast<char>(QColor(theFrame.LedColors.at(0)).green());
     serialFrame.L_CH2[2] = static_cast<char>(QColor(theFrame.LedColors.at(0)).blue());
 
-    mData[theFrame.frameNo] = serialFrame;
+    mData[frameNo] = serialFrame;
 
 }
 
-void SerialFrameBuffer::group3Handler(const PresenterFrame &theFrame)
+void SerialFrameBuffer::group3Handler(const int &frameNo,const PresenterFrame &theFrame)
 {
-    SingleSerialFrame serialFrame = mData.at(theFrame.frameNo);
+    SingleSerialFrame serialFrame =mData.at(frameNo);
 
     char ValveToggle_Low = 0x00;
     char ValveToggle_High = 0x00;
@@ -111,25 +111,25 @@ void SerialFrameBuffer::group3Handler(const PresenterFrame &theFrame)
     serialFrame.L_CH3[2] = static_cast<char>(QColor(theFrame.LedColors.at(0)).blue());
 
 
-    mData[theFrame.frameNo] = serialFrame;
+    mData[frameNo] = serialFrame;
 }
 
 
-void SerialFrameBuffer::group4Handler(const PresenterFrame &theFrame)
+void SerialFrameBuffer::group4Handler(const int &frameNo,const PresenterFrame &theFrame)
 {
-    SingleSerialFrame serialFrame = mData.at(theFrame.frameNo);
+    SingleSerialFrame serialFrame =mData.at(frameNo);
 
     serialFrame.V_CH4_I = static_cast<char>(theFrame.InverterLevel);
     serialFrame.L_CH4[0] = static_cast<char>(QColor(theFrame.LedColors.at(0)).red());
     serialFrame.L_CH4[1] = static_cast<char>(QColor(theFrame.LedColors.at(0)).green());
     serialFrame.L_CH4[2] = static_cast<char>(QColor(theFrame.LedColors.at(0)).blue());
 
-    mData[theFrame.frameNo] = serialFrame;
+    mData[frameNo] = serialFrame;
 }
 
-void SerialFrameBuffer::group5Handler(const PresenterFrame &theFrame)
+void SerialFrameBuffer::group5Handler(const int &frameNo,const PresenterFrame &theFrame)
 {
-    SingleSerialFrame serialFrame = mData.at(theFrame.frameNo);
+    SingleSerialFrame serialFrame =mData.at(frameNo);
 
     if(theFrame.LedOnOff.at(0))
     {
@@ -144,12 +144,12 @@ void SerialFrameBuffer::group5Handler(const PresenterFrame &theFrame)
     serialFrame.L_CH5[1] = static_cast<char>(QColor(theFrame.LedColors.at(0)).green());
     serialFrame.L_CH5[2] = static_cast<char>(QColor(theFrame.LedColors.at(0)).blue());
 
-    mData[theFrame.frameNo] = serialFrame;
+    mData[frameNo] = serialFrame;
 }
 
-void SerialFrameBuffer::group6Handler(const PresenterFrame &theFrame)
+void SerialFrameBuffer::group6Handler(const int &frameNo,const PresenterFrame &theFrame)
 {
-    SingleSerialFrame serialFrame = mData.at(theFrame.frameNo);
+    SingleSerialFrame serialFrame =mData.at(frameNo);
 
     serialFrame.V_CH6_I_0 = static_cast<char>(theFrame.InverterLevel);
     serialFrame.V_CH6_I_1 =static_cast<char>(theFrame.InverterLevel1);
@@ -162,12 +162,12 @@ void SerialFrameBuffer::group6Handler(const PresenterFrame &theFrame)
     serialFrame.L_CH6_H[1] = static_cast<char>(QColor(theFrame.LedColors.at(1)).green());
     serialFrame.L_CH6_H[2] = static_cast<char>(QColor(theFrame.LedColors.at(1)).blue());
 
-    mData[theFrame.frameNo] = serialFrame;
+    mData[frameNo] = serialFrame;
 }
 
-void SerialFrameBuffer::group7Handler(const PresenterFrame &theFrame)
+void SerialFrameBuffer::group7Handler(const int &frameNo,const PresenterFrame &theFrame)
 {
-    SingleSerialFrame serialFrame = mData.at(theFrame.frameNo);
+    SingleSerialFrame serialFrame =mData.at(frameNo);
 
     if(theFrame.ValveOnOff.at(0))
     {
@@ -194,13 +194,13 @@ void SerialFrameBuffer::group7Handler(const PresenterFrame &theFrame)
     serialFrame.L_CH7_H[1] = static_cast<char>(QColor(theFrame.LedColors.at(1)).green());
     serialFrame.L_CH7_H[2] = static_cast<char>(QColor(theFrame.LedColors.at(1)).blue());
 
-    mData[theFrame.frameNo] = serialFrame;
+    mData[frameNo] = serialFrame;
 }
 
 
-void SerialFrameBuffer::group8Handler(const PresenterFrame &theFrame)
+void SerialFrameBuffer::group8Handler(const int &frameNo,const PresenterFrame &theFrame)
 {
-    SingleSerialFrame serialFrame = mData.at(theFrame.frameNo);
+    SingleSerialFrame serialFrame =mData.at(frameNo);
 
 
     char ValveToggle = 0x00;
@@ -250,13 +250,13 @@ void SerialFrameBuffer::group8Handler(const PresenterFrame &theFrame)
     serialFrame.L_CH8_7[2] = static_cast<char>(QColor(theFrame.LedColors.at(7)).blue());
 
 
-    mData[theFrame.frameNo] = serialFrame;
+    mData[frameNo] = serialFrame;
 }
 
 
-void SerialFrameBuffer::group9Handler(const PresenterFrame &theFrame)
+void SerialFrameBuffer::group9Handler(const int &frameNo,const PresenterFrame &theFrame)
 {
-    SingleSerialFrame serialFrame = mData.at(theFrame.frameNo);
+    SingleSerialFrame serialFrame =mData.at(frameNo);
 
     if(theFrame.ValveOnOff.at(0))
     {
@@ -284,7 +284,7 @@ void SerialFrameBuffer::group9Handler(const PresenterFrame &theFrame)
     serialFrame.L_CH9_H[1] = static_cast<char>(QColor(theFrame.LedColors.at(1)).green());
     serialFrame.L_CH9_H[2] = static_cast<char>(QColor(theFrame.LedColors.at(1)).blue());
 
-    mData[theFrame.frameNo] = serialFrame;
+    mData[frameNo] = serialFrame;
 }
 
 
@@ -425,9 +425,8 @@ QByteArray SerialFrameBuffer::frameCombiner(const SingleSerialFrame &serialFrame
     package+= CheckSum_Low;
     package+= serialFrame.stop;
 
-    qDebug() << "data size: " + QString::number(data.size());
-    qDebug() << "package size: " + QString::number(package.size());
-
+//    qDebug() << "data size: " + QString::number(data.size());
+//    qDebug() << "package size: " + QString::number(package.size());
 
     return package;
 }

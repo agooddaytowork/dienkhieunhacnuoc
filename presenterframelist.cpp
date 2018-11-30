@@ -42,6 +42,8 @@ void PresenterFrameList::regenerateFrameList(const int &Duration, const int &Fra
         {
             mFrameNo ++;
         }
+
+        emit SIG_SerialFrameBuffer_regenerateFrameList(mFrameNo);
     }
     clearList();
 
@@ -120,6 +122,8 @@ void PresenterFrameList::timeSlotChanged(const timeSlotItem &timeSlot)
     {
 
         frameList[fromFrame] = setFramePerGroup(i,timeSlot, frameList.at(fromFrame));
+
+        emit SIG_SerialFrameBuffer_notifyFrameChanged(mGroup,fromFrame,frameList[fromFrame]);
         fromFrame++;
         i++;
     }
@@ -262,8 +266,6 @@ PresenterFrame PresenterFrameList::createEmptyFramePerGroup(const int &group) co
     item.Inverter = false;
 
 
-
-
     switch(group)
     {
     case 0:
@@ -389,6 +391,8 @@ void PresenterFrameList::emptyFrameCleanUp()
         while(frameCnt < timeSlotShortVerList[i].FromFrame)
         {
             frameList[frameCnt]= createEmptyFramePerGroup(mGroup);
+
+            emit SIG_SerialFrameBuffer_notifyFrameChanged(mGroup,frameCnt,frameList[frameCnt]);
             frameCnt++;
         }
         frameCnt = timeSlotShortVerList[i].ToFrame + 1;

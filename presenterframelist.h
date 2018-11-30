@@ -81,6 +81,9 @@ public:
 signals:
     void notifyFrameChanged(const PresenterFrame &frame);
 
+    void SIG_SerialFrameBuffer_regenerateFrameList(const int &totalFrame);
+    void SIG_SerialFrameBuffer_notifyFrameChanged(const int &group,const int &frameNo,const PresenterFrame &theFrame);
+
 public slots:
     void timeSlotChanged(const timeSlotItem &timeSlot);
     void timeSlotRemoved(const timeSlotItem &timeSlot);

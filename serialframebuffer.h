@@ -62,15 +62,15 @@ class SerialFrameBuffer: public QObject
 
     QVector<SingleSerialFrame> mData;
 
-    void group1Handler(const PresenterFrame &theFrame);
-    void group2Handler(const PresenterFrame &theFrame);
-    void group3Handler(const PresenterFrame &theFrame);
-    void group4Handler(const PresenterFrame &theFrame);
-    void group5Handler(const PresenterFrame &theFrame);
-    void group6Handler(const PresenterFrame &theFrame);
-    void group7Handler(const PresenterFrame &theFrame);
-    void group8Handler(const PresenterFrame &theFrame);
-    void group9Handler(const PresenterFrame &theFrame);
+    void group1Handler(const int &frameNo, const PresenterFrame &theFrame);
+    void group2Handler(const int &frameNo,const PresenterFrame &theFrame);
+    void group3Handler(const int &frameNo,const PresenterFrame &theFrame);
+    void group4Handler(const int &frameNo,const PresenterFrame &theFrame);
+    void group5Handler(const int &frameNo,const PresenterFrame &theFrame);
+    void group6Handler(const int &frameNo,const PresenterFrame &theFrame);
+    void group7Handler(const int &frameNo,const PresenterFrame &theFrame);
+    void group8Handler(const int &frameNo,const PresenterFrame &theFrame);
+    void group9Handler(const int &frameNo,const PresenterFrame &theFrame);
 
 
 public:
@@ -79,7 +79,7 @@ public:
     QByteArray frameCombiner( const SingleSerialFrame &serialFrame) const;
 
     //public slots:
-    void SerialFrameChangedHandler(const int &group, const PresenterFrame &theFrame);
+    void SerialFrameChangedHandler(const int &group, const int &frameNo, const PresenterFrame &theFrame);
     void regenerateFrameList(const int &numberOfFrame);
     void playSerialFrame (const int &index);
 

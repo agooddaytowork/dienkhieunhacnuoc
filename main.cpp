@@ -29,14 +29,10 @@ int main(int argc, char *argv[])
     qmlRegisterType<MusicPresenterModel>("MusicPresenter", 1, 0, "MusicPresenterModel");
     qmlRegisterUncreatableType<MusicPresenterList>("MusicPresenter", 1, 0, "MusicPresenterList",
                                                    QStringLiteral("ToDoList should not be created in QML"));
+    qRegisterMetaType<PresenterFrame>("PresenterFrame");
 
 
-    SerialFrameBuffer test;
-
-    test.regenerateFrameList(1000);
-
-    test.playSerialFrame(1);
-
+    SerialFrameBuffer theSerialFrameBuffer;
 
 
     timeSlotList dataList[9];
@@ -45,6 +41,12 @@ int main(int argc, char *argv[])
     theInterfaceGod theGod;
 
     QThread backendThread;
+    QThread serialFrameThread;
+
+    theSerialFrameBuffer.moveToThread(&serialFrameThread);
+
+
+    QObject::connect(&presenterFrameLists[0], &PresenterFrameList::SIG_SerialFrameBuffer_regenerateFrameList, &theSerialFrameBuffer,&SerialFrameBuffer::regenerateFrameList);
 
 
     for(int i = 0; i < 9; i++)
@@ -59,7 +61,9 @@ int main(int argc, char *argv[])
         QObject::connect(&theGod,&theInterfaceGod::SIG_playFrame, &presenterFrameLists[i],&PresenterFrameList::playFrame);
         QObject::connect(&presenterFrameLists[i],&PresenterFrameList::notifyFrameChanged,&presenterList[i],&MusicPresenterList::frameChangedHandler);
 
-       QObject::connect(&dataList[i],&timeSlotList::gui_timeSLotItemChanged,&theGod,&theInterfaceGod::invokeTimeSlotChanged);
+        QObject::connect(&dataList[i],&timeSlotList::gui_timeSLotItemChanged,&theGod,&theInterfaceGod::invokeTimeSlotChanged);
+
+        QObject::connect(&presenterFrameLists[i],&PresenterFrameList::SIG_SerialFrameBuffer_notifyFrameChanged,&theSerialFrameBuffer,&SerialFrameBuffer::SerialFrameChangedHandler);
 
 
         dataList[i].moveToThread(&backendThread);
@@ -82,10 +86,12 @@ int main(int argc, char *argv[])
     }
     engine.rootContext()->setContextProperty("theInterfaceGod", &theGod);
 
-     engine.rootContext()->setContextProperty("appFilePath",QCoreApplication::applicationDirPath());
-     qDebug() << "AppfilePath: " + QCoreApplication::applicationDirPath();
+    engine.rootContext()->setContextProperty("appFilePath",QCoreApplication::applicationDirPath());
+    qDebug() << "AppfilePath: " + QCoreApplication::applicationDirPath();
 
 
+
+    serialFrameThread.start(); // serialFrameThread must start before backendThread
     backendThread.start();
 
 
