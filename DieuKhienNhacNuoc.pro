@@ -28,7 +28,8 @@ SOURCES += \
     valveeffect_kieu5.cpp \
     led_fadeinfadeout.cpp \
     serialframebuffer.cpp \
-    serialportal.cpp
+    serialportal.cpp \
+    timeslotlistexporter.cpp
 
 RESOURCES += qml.qrc
 
@@ -59,4 +60,5 @@ HEADERS += \
     valveeffect_kieu5.h \
     led_fadeinfadeout.h \
     serialframebuffer.h \
-    serialportal.h
+    serialportal.h \
+    timeslotlistexporter.h

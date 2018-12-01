@@ -143,6 +143,11 @@ int timeSlotList::lastIndex() const
     return mCurrentIndex - 1;
 }
 
+void timeSlotList::getTimeSlotList()
+{
+    emit SIG_returnTimeSlotList(mGroup,mItems);
+}
+
 int timeSlotList::timeSlotCollisionCheck(const int &id)
 {
 

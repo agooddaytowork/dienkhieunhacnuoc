@@ -95,3 +95,8 @@ void theInterfaceGod::enableSerialOutput(const bool &enable)
     emit SIG_enableSerialOutput(enable);
 }
 
+void theInterfaceGod::saveSession(const QString &fileName)
+{
+    emit SIG_saveSession(fileName);
+}
+

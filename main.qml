@@ -90,7 +90,7 @@ ApplicationWindow {
 
                         text: "Save"
                         onClicked: {
-
+                            theInterfaceGod.saveSession("test.txt")
                         }
                     }
                     MenuItem{

@@ -3,6 +3,7 @@
 #include <QQmlContext>
 #include "timeslotlist.h"
 #include "timeslotmodel.h"
+#include "timeslotlistexporter.h"
 #include "musicpresenterlist.h"
 #include "musicpresentermodel.h"
 #include "presenterframelist.h"
@@ -35,6 +36,7 @@ int main(int argc, char *argv[])
                                                    QStringLiteral("ToDoList should not be created in QML"));
     qRegisterMetaType<PresenterFrame>("PresenterFrame");
     qRegisterMetaType<QSerialPort::SerialPortError>("SerialPortError");
+    qRegisterMetaType<timeSlotItem>("timeSlotItem");
 
 
     QThread backendThread;
@@ -51,23 +53,40 @@ int main(int argc, char *argv[])
     PresenterFrameList presenterFrameLists[9];
     theInterfaceGod theGod;
 
+    TimeSlotListExporter theTimeSlotExporter;
+
+
+
 
     theSerialFrameBuffer.moveToThread(&serialFrameThread);
     aPortal.moveToThread(&serialFrameThread);
+    theTimeSlotExporter.moveToThread(&backendThread);
+
+
+    QObject::connect(&theTimeSlotExporter,&TimeSlotListExporter::SIG_reportError,&theGod,&theInterfaceGod::reportError);
+    QObject::connect(&theTimeSlotExporter,&TimeSlotListExporter::SIG_reportInformation,&theGod,&theInterfaceGod::reportInformation);
+    QObject::connect(&theGod,&theInterfaceGod::SIG_saveSession,&theTimeSlotExporter,&TimeSlotListExporter::saveDataToFileRequestHandler);
 
 
     QObject::connect(&presenterFrameLists[0], &PresenterFrameList::SIG_SerialFrameBuffer_regenerateFrameList, &theSerialFrameBuffer,&SerialFrameBuffer::regenerateFrameList);
-    QObject::connect(&theGod, &theInterfaceGod::SIG_playFrame,&theSerialFrameBuffer, &SerialFrameBuffer::playSerialFrame);
+
 
     QObject::connect(&aPortal,&SerialPortal::SIG_reportError,&theGod,&theInterfaceGod::reportError);
     QObject::connect(&aPortal,&SerialPortal::SIG_reportInformation,&theGod,&theInterfaceGod::reportInformation);
+    QObject::connect(&aPortal,&SerialPortal::SIG_isConnected,&theGod,&theInterfaceGod::serialPortConnectionStatus);
+
+    QObject::connect(&theGod, &theInterfaceGod::SIG_playFrame,&theSerialFrameBuffer, &SerialFrameBuffer::playSerialFrame);
     QObject::connect(&theGod,&theInterfaceGod::SIG_connectSerialPort,&aPortal,&SerialPortal::connect);
     QObject::connect(&theGod,&theInterfaceGod::SIG_disconnectSerialPort,&aPortal,&SerialPortal::disconnectSerialPort);
+    QObject::connect(&theGod,&theInterfaceGod::SIG_enableSerialOutput, &theSerialFrameBuffer,&SerialFrameBuffer::setSerialEnableOutput);
+    QObject::connect(&theGod,&theInterfaceGod::saveSession,&theTimeSlotExporter,&TimeSlotListExporter::saveDataToFileRequestHandler);
+
+
     QObject::connect(&serialFrameThread, &QThread::started, &aPortal,&SerialPortal::start);
     QObject::connect(&theSerialFrameBuffer,&SerialFrameBuffer::SIG_sendFrameToSerialPort,&aPortal,&SerialPortal::sendFrame);
 
-    QObject::connect(&theGod,&theInterfaceGod::SIG_enableSerialOutput, &theSerialFrameBuffer,&SerialFrameBuffer::setSerialEnableOutput);
-    QObject::connect(&aPortal,&SerialPortal::SIG_isConnected,&theGod,&theInterfaceGod::serialPortConnectionStatus);
+
+
 
 
     // CLOSE THREADS signal
@@ -92,7 +111,8 @@ int main(int argc, char *argv[])
         QObject::connect(&dataList[i],&timeSlotList::gui_timeSLotItemChanged,&theGod,&theInterfaceGod::invokeTimeSlotChanged);
         QObject::connect(&presenterFrameLists[i],&PresenterFrameList::SIG_SerialFrameBuffer_notifyFrameChanged,&theSerialFrameBuffer,&SerialFrameBuffer::SerialFrameChangedHandler);
 
-
+        QObject::connect(&theTimeSlotExporter,&TimeSlotListExporter::SIG_getTimeSlotList,&dataList[i],&timeSlotList::getTimeSlotList);
+        QObject::connect(&dataList[i], &timeSlotList::SIG_returnTimeSlotList,&theTimeSlotExporter,&TimeSlotListExporter::timeSlotListHandler);
 
         dataList[i].moveToThread(&backendThread);
 
@@ -100,10 +120,9 @@ int main(int argc, char *argv[])
 
 
     QApplication app(argc, argv);
-
-
-
     QQmlApplicationEngine engine;
+
+    theTimeSlotExporter.setFilePath(QCoreApplication::applicationDirPath() +"/Sessions");
 
     for (int i = 0; i < 9; i++)
     {

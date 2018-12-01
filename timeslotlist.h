@@ -42,6 +42,7 @@ struct timeSlotItem{
     //    Q_PROPERTY(quint8 m_ValveMode MEMBER ValveMode)
 };
 
+
 class timeSlotList : public QObject
 {
     Q_OBJECT
@@ -62,6 +63,8 @@ public:
     Q_INVOKABLE int count();
     Q_INVOKABLE int lastIndex() const;
 
+    void getTimeSlotList();
+
     ~timeSlotList();
 
 signals:
@@ -74,11 +77,14 @@ signals:
     void timeSlotItemRemoved(const timeSlotItem &item);
     void gui_timeSLotItemChanged();
 
+    void SIG_returnTimeSlotList(const int &group, const QVector<timeSlotItem> &list );
+
 public slots:
 
     void appendItem(const quint8 &group,const int &fromMs, const int &toMs);
     void removeItems(const int &id);
 
 };
+
 
 #endif // TIMESLOTLIST_H
