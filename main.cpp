@@ -9,17 +9,21 @@
 #include "theinterfacegod.h"
 
 #include "serialframebuffer.h"
+#include "serialportal.h"
 
 #include <QThread>
 #include <QVector>
 #include <QDebug>
+
+#include <QApplication>
+
 
 
 
 int main(int argc, char *argv[])
 {
 #if defined(Q_OS_WIN) || defined(Q_OS_ANDROID)
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
 
     qmlRegisterType<timeSlotModel>("TimeLine", 1, 0, "TimeSlotModel");
@@ -30,9 +34,16 @@ int main(int argc, char *argv[])
     qmlRegisterUncreatableType<MusicPresenterList>("MusicPresenter", 1, 0, "MusicPresenterList",
                                                    QStringLiteral("ToDoList should not be created in QML"));
     qRegisterMetaType<PresenterFrame>("PresenterFrame");
+    qRegisterMetaType<QSerialPort::SerialPortError>("SerialPortError");
+
+
+    QThread backendThread;
+    QThread serialFrameThread;
 
 
     SerialFrameBuffer theSerialFrameBuffer;
+    SerialPortal aPortal;
+
 
 
     timeSlotList dataList[9];
@@ -40,14 +51,31 @@ int main(int argc, char *argv[])
     PresenterFrameList presenterFrameLists[9];
     theInterfaceGod theGod;
 
-    QThread backendThread;
-    QThread serialFrameThread;
 
     theSerialFrameBuffer.moveToThread(&serialFrameThread);
+    aPortal.moveToThread(&serialFrameThread);
 
 
     QObject::connect(&presenterFrameLists[0], &PresenterFrameList::SIG_SerialFrameBuffer_regenerateFrameList, &theSerialFrameBuffer,&SerialFrameBuffer::regenerateFrameList);
     QObject::connect(&theGod, &theInterfaceGod::SIG_playFrame,&theSerialFrameBuffer, &SerialFrameBuffer::playSerialFrame);
+
+    QObject::connect(&aPortal,&SerialPortal::SIG_reportError,&theGod,&theInterfaceGod::reportError);
+    QObject::connect(&aPortal,&SerialPortal::SIG_reportInformation,&theGod,&theInterfaceGod::reportInformation);
+    QObject::connect(&theGod,&theInterfaceGod::SIG_connectSerialPort,&aPortal,&SerialPortal::connect);
+    QObject::connect(&theGod,&theInterfaceGod::SIG_disconnectSerialPort,&aPortal,&SerialPortal::disconnectSerialPort);
+    QObject::connect(&serialFrameThread, &QThread::started, &aPortal,&SerialPortal::start);
+    QObject::connect(&theSerialFrameBuffer,&SerialFrameBuffer::SIG_sendFrameToSerialPort,&aPortal,&SerialPortal::sendFrame);
+
+    QObject::connect(&theGod,&theInterfaceGod::SIG_enableSerialOutput, &theSerialFrameBuffer,&SerialFrameBuffer::setSerialEnableOutput);
+    QObject::connect(&aPortal,&SerialPortal::SIG_isConnected,&theGod,&theInterfaceGod::serialPortConnectionStatus);
+
+
+    // CLOSE THREADS signal
+
+    QObject::connect(&theGod,&theInterfaceGod::SIG_CloseThreads,&serialFrameThread,&QThread::quit);
+    QObject::connect(&theGod,&theInterfaceGod::SIG_CloseThreads,&backendThread,&QThread::quit);
+    QObject::connect(&backendThread,&QThread::finished,&theGod,&theInterfaceGod::closeApplication);
+
 
 
     for(int i = 0; i < 9; i++)
@@ -61,10 +89,9 @@ int main(int argc, char *argv[])
         QObject::connect(&theGod,&theInterfaceGod::SIG_regenerateFrameList,&presenterFrameLists[i],&PresenterFrameList::regenerateFrameList);
         QObject::connect(&theGod,&theInterfaceGod::SIG_playFrame, &presenterFrameLists[i],&PresenterFrameList::playFrame);
         QObject::connect(&presenterFrameLists[i],&PresenterFrameList::notifyFrameChanged,&presenterList[i],&MusicPresenterList::frameChangedHandler);
-
         QObject::connect(&dataList[i],&timeSlotList::gui_timeSLotItemChanged,&theGod,&theInterfaceGod::invokeTimeSlotChanged);
-
         QObject::connect(&presenterFrameLists[i],&PresenterFrameList::SIG_SerialFrameBuffer_notifyFrameChanged,&theSerialFrameBuffer,&SerialFrameBuffer::SerialFrameChangedHandler);
+
 
 
         dataList[i].moveToThread(&backendThread);
@@ -72,9 +99,7 @@ int main(int argc, char *argv[])
     }
 
 
-
-
-    QGuiApplication app(argc, argv);
+    QApplication app(argc, argv);
 
 
 
@@ -90,14 +115,13 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("appFilePath",QCoreApplication::applicationDirPath());
     qDebug() << "AppfilePath: " + QCoreApplication::applicationDirPath();
 
-
-
     serialFrameThread.start(); // serialFrameThread must start before backendThread
     backendThread.start();
 
 
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+
     if (engine.rootObjects().isEmpty())
         return -1;
 

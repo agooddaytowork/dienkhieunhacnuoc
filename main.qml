@@ -21,6 +21,38 @@ ApplicationWindow {
     property int  buttonSize: 40
 
 
+    /***** THIS SHIT IS FOR QUITING THE Application after closing the GOODDDAAM THREAD ****/
+    onClosing:
+    {
+        close.accepted = false;
+
+        theInterfaceGod.closeThreads()
+    }
+
+    Connections{
+        target: theInterfaceGod
+
+        onGui_CloseApplication:
+        {
+            Qt.quit()
+        }
+
+        onGui_SerialPortConnection:
+        {
+            if(isConnected)
+            {
+                serialOutPutCheckBox.enabled = true
+            }
+            else
+            {
+                serialOutPutCheckBox.checked = false
+                serialOutPutCheckBox.enabled = false
+            }
+        }
+    }
+
+    /***** THIS SHIT IS FOR QUITING THE Application after closing the GOODDDAAM THREAD ****/
+
 
 
     onCurrentPositionChanged:
@@ -33,9 +65,9 @@ ApplicationWindow {
 
 
         Row{
-            anchors.fill: parent
-
-
+            anchors.top: parent.top
+            anchors.left: parent.left
+            height: parent.height
             ToolButton{
                 text: "File"
 
@@ -52,6 +84,27 @@ ApplicationWindow {
                         text: "Open music"
                         onClicked: {
                             theFileDialog.open()
+                        }
+                    }
+                    MenuItem{
+
+                        text: "Save"
+                        onClicked: {
+
+                        }
+                    }
+                    MenuItem{
+
+                        text: "Import Session"
+                        onClicked: {
+
+                        }
+                    }
+                    MenuItem{
+
+                        text: "Export Session"
+                        onClicked: {
+
                         }
                     }
                 }
@@ -119,12 +172,43 @@ ApplicationWindow {
                     root.currentPosition = 0
                     audioPlayer.stop()
                 }
-
             }
-
         }
-    }
 
+        Row
+        {
+            anchors.right: parent.right
+            anchors.top: parent.top
+            height: parent.height
+            anchors.rightMargin: 10
+
+
+            CheckBox{
+                id: serialOutPutCheckBox
+                enabled: false
+                text: "Output"
+
+                onCheckedChanged: {
+                    theInterfaceGod.enableSerialOutput(checked)
+                }
+            }
+            Button{
+                id: serialButton
+                text: "Serial: "
+                width: 60
+
+                onClicked: {
+                    theSerialDialog.open()
+                }
+            }
+            Label{
+                id: serialPortNameText
+                text: theSerialDialog.currentPortName
+                anchors.verticalCenter: parent.verticalCenter
+            }
+        }
+
+    }
 
     Grid{
         id: mainGrid
@@ -288,8 +372,8 @@ ApplicationWindow {
 
                         onTimeSlotAdded: {
 
-                             groupControlPanelRepeater.currentGroupIndex = groupControlPanelDelegate.groupIndex
-                             groupControlPanelRepeater.currentTimeSlotIndex = timeSlotIndex
+                            groupControlPanelRepeater.currentGroupIndex = groupControlPanelDelegate.groupIndex
+                            groupControlPanelRepeater.currentTimeSlotIndex = timeSlotIndex
 
 
                             timeLineSlotControlBox.refreshModel()
@@ -452,5 +536,16 @@ ApplicationWindow {
 
         }
     }
+
+    SerialDialog{
+        id: theSerialDialog
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: parent.top
+        anchors.topMargin:  250
+
+
+
+    }
+
 
 }

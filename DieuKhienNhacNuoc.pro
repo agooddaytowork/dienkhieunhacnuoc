@@ -1,4 +1,4 @@
-QT += quick
+QT += quick serialport widgets
 CONFIG += c++1z
 
 # The following define makes your compiler emit warnings if you use
@@ -27,7 +27,8 @@ SOURCES += \
     valveeffect_kieu4.cpp \
     valveeffect_kieu5.cpp \
     led_fadeinfadeout.cpp \
-    serialframebuffer.cpp
+    serialframebuffer.cpp \
+    serialportal.cpp
 
 RESOURCES += qml.qrc
 
@@ -57,4 +58,5 @@ HEADERS += \
     valveeffect_kieu4.h \
     valveeffect_kieu5.h \
     led_fadeinfadeout.h \
-    serialframebuffer.h
+    serialframebuffer.h \
+    serialportal.h

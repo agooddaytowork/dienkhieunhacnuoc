@@ -14,5 +14,6 @@
         <file>icons/stop.png</file>
         <file>TimeLineSlot.qml</file>
         <file>TimeLineSlotControlBox.qml</file>
+        <file>SerialDialog.qml</file>
     </qresource>
 </RCC>

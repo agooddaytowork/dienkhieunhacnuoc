@@ -2,7 +2,7 @@
 #include <QColor>
 #include <QDebug>
 
-SerialFrameBuffer::SerialFrameBuffer(QObject *parent): QObject(parent)
+SerialFrameBuffer::SerialFrameBuffer(QObject *parent): QObject(parent), mSerialOutputEnable(false)
 {
 
 }
@@ -302,8 +302,18 @@ void SerialFrameBuffer::regenerateFrameList(const int &numberOfFrame)
 void SerialFrameBuffer::playSerialFrame(const int &index)
 {
 
-    qDebug() << frameCombiner(mData.at(index)).toHex(':');
+    QByteArray theFrame = frameCombiner(mData.at(index));
+    qDebug() << theFrame.toHex(':');
 
+    if(mSerialOutputEnable)
+    {
+        emit SIG_sendFrameToSerialPort(theFrame);
+    }
+}
+
+void SerialFrameBuffer::setSerialEnableOutput(const bool &enable)
+{
+    mSerialOutputEnable = enable;
 }
 
 QByteArray SerialFrameBuffer::frameCombiner(const SingleSerialFrame &serialFrame)  const
@@ -402,7 +412,7 @@ QByteArray SerialFrameBuffer::frameCombiner(const SingleSerialFrame &serialFrame
     data +=serialFrame.L_extraByte[1];
     data +=serialFrame.L_extraByte[2];
 
-//    serialFrame.Length_Low =
+    //    serialFrame.Length_Low =
 
     quint16 checksum = 0;
 
@@ -425,8 +435,8 @@ QByteArray SerialFrameBuffer::frameCombiner(const SingleSerialFrame &serialFrame
     package+= CheckSum_Low;
     package+= serialFrame.stop;
 
-//    qDebug() << "data size: " + QString::number(data.size());
-//    qDebug() << "package size: " + QString::number(package.size());
+    //    qDebug() << "data size: " + QString::number(data.size());
+    //    qDebug() << "package size: " + QString::number(package.size());
 
     return package;
 }

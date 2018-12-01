@@ -6,6 +6,8 @@
 #include <QVector>
 #include "presenterframelist.h"
 
+
+
 struct SingleSerialFrame{
     char start = 0x02;
     char opcode = 0x01;
@@ -61,6 +63,7 @@ class SerialFrameBuffer: public QObject
     Q_OBJECT
 
     QVector<SingleSerialFrame> mData;
+    bool mSerialOutputEnable;
 
     void group1Handler(const int &frameNo, const PresenterFrame &theFrame);
     void group2Handler(const int &frameNo,const PresenterFrame &theFrame);
@@ -82,6 +85,10 @@ public:
     void SerialFrameChangedHandler(const int &group, const int &frameNo, const PresenterFrame &theFrame);
     void regenerateFrameList(const int &numberOfFrame);
     void playSerialFrame (const int &index);
+    void setSerialEnableOutput(const bool &enable);
+
+signals:
+    void SIG_sendFrameToSerialPort(const QByteArray &frame);
 
 };
 
