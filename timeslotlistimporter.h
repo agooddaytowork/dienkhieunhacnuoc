@@ -14,12 +14,17 @@ class TimeSlotListImporter : public QObject
     Q_OBJECT
 
     QString mRootPath;
+
+    timeSlotItem constructTimeSlotItem(const int &group, const QJsonObject &theJsonObject);
+
+    QString returnCorrectFileBinPath(const int &group, const QString &fileName);
 public:
     explicit TimeSlotListImporter(QObject *parent = nullptr);
     bool importFile(const QString &filePath);
-    void setRootPath(const QString &rootPath);
+    void setRoothPath(const QString &rootPath);
 
 signals:
+    void SIG_updateTimeSlotSlit(const int &group, const QVector<timeSlotItem> &list);
 
 public slots:
 };

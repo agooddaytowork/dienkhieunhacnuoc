@@ -36,7 +36,6 @@ void TimeSlotListExporter::timeSlotListHandler(const int &group, const QVector<t
         item.insert("FileBinPath", theItem.fileBinPath);
         item.insert("LEDValuesList", theItem.LedValuesList);
         item.insert("LEDChannels", theItem.LedChannels);
-        item.insert("LEDChannels", theItem.LedChannels);
         item.insert("ValveChannels", theItem.ValveChannels);
         item.insert("ValveMode", theItem.ValveMode);
         item.insert("ValveSpeed", theItem.ValveSpeed);
