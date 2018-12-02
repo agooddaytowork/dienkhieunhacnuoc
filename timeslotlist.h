@@ -26,20 +26,6 @@ struct timeSlotItem{
     int ValveSpeed;
     int LedSpeed;
     QModelIndex modelIndex;
-
-    //    Q_PROPERTY(int m_id MEMBER id)
-    //    Q_PROPERTY(int m_fromMs MEMBER fromMs)
-    //    Q_PROPERTY(int m_toMs MEMBER toMs)
-    //    Q_PROPERTY(quint8 m_group MEMBER group)
-    //    Q_PROPERTY(bool m_ValveOnOff MEMBER ValveOnOff)
-    //    Q_PROPERTY(bool m_LedOnOff MEMBER LedOnOff)
-    //    Q_PROPERTY(quint8 m_LedMode MEMBER LedMode)
-    //    Q_PROPERTY(quint8 m_InverterLevel MEMBER InverterLevel)
-    //    Q_PROPERTY(QString m_fileBinPath MEMBER fileBinPath)
-    //    Q_PROPERTY(QString m_LedValuesList MEMBER LedValuesList)
-    //    Q_PROPERTY(quint8 m_LedChannels MEMBER LedChannels)
-    //    Q_PROPERTY(quint8 m_ValveChannels MEMBER ValveChannels)
-    //    Q_PROPERTY(quint8 m_ValveMode MEMBER ValveMode)
 };
 
 
@@ -83,6 +69,7 @@ public slots:
 
     void appendItem(const quint8 &group,const int &fromMs, const int &toMs);
     void removeItems(const int &id);
+    void timeSlotListImportedHandler(const int &group, const QVector<timeSlotItem> &list);
 
 };
 

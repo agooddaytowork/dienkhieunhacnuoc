@@ -95,7 +95,7 @@ void timeSlotList::appendItem(const quint8 &group, const int &fromMs, const int 
 
 
     emit postItemAppended();
-//    emit timeSlotItemChanged(item);
+    //    emit timeSlotItemChanged(item);
 }
 
 void timeSlotList::removeItems(const int &id)
@@ -172,5 +172,31 @@ int timeSlotList::timeSlotCollisionCheck(const int &id)
 
     }
     return 0;
-//    return false;
+    //    return false;
+}
+
+
+void timeSlotList::timeSlotListImportedHandler(const int &group, const QVector<timeSlotItem> &list)
+{
+
+    if(mGroup != group)
+    {
+        return;
+    }
+
+
+    mItems.clear();
+    mCurrentIndex = 0;
+
+    for(int i = 0; i < list.size(); i++)
+    {
+        emit preItemAppended();
+
+        mItems.append(list.at(i));
+        mCurrentIndex++;
+
+        emit postItemAppended();
+
+    }
+
 }

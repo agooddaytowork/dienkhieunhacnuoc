@@ -29,9 +29,7 @@ public:
     void timeSlotListHandler(const int &group, const QVector<timeSlotItem> &list);
     void setFilePath(const QString &filePath);
     void setFileName(const QString &name);
-
     bool saveDataToFile();
-
     void saveDataToFileRequestHandler(const QString &fileName);
 
 signals:
