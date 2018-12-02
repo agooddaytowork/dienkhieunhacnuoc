@@ -9,6 +9,7 @@
 #include "../timeslotlist.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
+#include <QtCore/QVector>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'timeslotlist.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
@@ -21,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_timeSlotList_t {
-    QByteArrayData data[21];
-    char stringdata0[242];
+    QByteArrayData data[26];
+    char stringdata0[344];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -42,24 +43,32 @@ QT_MOC_LITERAL(7, 84, 19), // "timeSlotItemChanged"
 QT_MOC_LITERAL(8, 104, 12), // "timeSlotItem"
 QT_MOC_LITERAL(9, 117, 4), // "item"
 QT_MOC_LITERAL(10, 122, 19), // "timeSlotItemRemoved"
-QT_MOC_LITERAL(11, 142, 10), // "appendItem"
-QT_MOC_LITERAL(12, 153, 5), // "group"
-QT_MOC_LITERAL(13, 159, 6), // "fromMs"
-QT_MOC_LITERAL(14, 166, 4), // "toMs"
-QT_MOC_LITERAL(15, 171, 11), // "removeItems"
-QT_MOC_LITERAL(16, 183, 2), // "id"
-QT_MOC_LITERAL(17, 186, 22), // "timeSlotCollisionCheck"
-QT_MOC_LITERAL(18, 209, 16), // "getCollisionSide"
-QT_MOC_LITERAL(19, 226, 5), // "count"
-QT_MOC_LITERAL(20, 232, 9) // "lastIndex"
+QT_MOC_LITERAL(11, 142, 23), // "gui_timeSLotItemChanged"
+QT_MOC_LITERAL(12, 166, 22), // "SIG_returnTimeSlotList"
+QT_MOC_LITERAL(13, 189, 5), // "group"
+QT_MOC_LITERAL(14, 195, 21), // "QVector<timeSlotItem>"
+QT_MOC_LITERAL(15, 217, 4), // "list"
+QT_MOC_LITERAL(16, 222, 10), // "appendItem"
+QT_MOC_LITERAL(17, 233, 6), // "fromMs"
+QT_MOC_LITERAL(18, 240, 4), // "toMs"
+QT_MOC_LITERAL(19, 245, 11), // "removeItems"
+QT_MOC_LITERAL(20, 257, 2), // "id"
+QT_MOC_LITERAL(21, 260, 27), // "timeSlotListImportedHandler"
+QT_MOC_LITERAL(22, 288, 22), // "timeSlotCollisionCheck"
+QT_MOC_LITERAL(23, 311, 16), // "getCollisionSide"
+QT_MOC_LITERAL(24, 328, 5), // "count"
+QT_MOC_LITERAL(25, 334, 9) // "lastIndex"
 
     },
     "timeSlotList\0preItemAppended\0\0"
     "postItemAppended\0preItemRemoved\0index\0"
     "postItemRemoved\0timeSlotItemChanged\0"
     "timeSlotItem\0item\0timeSlotItemRemoved\0"
-    "appendItem\0group\0fromMs\0toMs\0removeItems\0"
-    "id\0timeSlotCollisionCheck\0getCollisionSide\0"
+    "gui_timeSLotItemChanged\0SIG_returnTimeSlotList\0"
+    "group\0QVector<timeSlotItem>\0list\0"
+    "appendItem\0fromMs\0toMs\0removeItems\0"
+    "id\0timeSlotListImportedHandler\0"
+    "timeSlotCollisionCheck\0getCollisionSide\0"
     "count\0lastIndex"
 };
 #undef QT_MOC_LITERAL
@@ -70,30 +79,33 @@ static const uint qt_meta_data_timeSlotList[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      12,   14, // methods
+      15,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       6,       // signalCount
+       8,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   74,    2, 0x06 /* Public */,
-       3,    0,   75,    2, 0x06 /* Public */,
-       4,    1,   76,    2, 0x06 /* Public */,
-       6,    0,   79,    2, 0x06 /* Public */,
-       7,    1,   80,    2, 0x06 /* Public */,
-      10,    1,   83,    2, 0x06 /* Public */,
+       1,    0,   89,    2, 0x06 /* Public */,
+       3,    0,   90,    2, 0x06 /* Public */,
+       4,    1,   91,    2, 0x06 /* Public */,
+       6,    0,   94,    2, 0x06 /* Public */,
+       7,    1,   95,    2, 0x06 /* Public */,
+      10,    1,   98,    2, 0x06 /* Public */,
+      11,    0,  101,    2, 0x06 /* Public */,
+      12,    2,  102,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      11,    3,   86,    2, 0x0a /* Public */,
-      15,    1,   93,    2, 0x0a /* Public */,
+      16,    3,  107,    2, 0x0a /* Public */,
+      19,    1,  114,    2, 0x0a /* Public */,
+      21,    2,  117,    2, 0x0a /* Public */,
 
  // methods: name, argc, parameters, tag, flags
-      17,    1,   96,    2, 0x02 /* Public */,
-      18,    0,   99,    2, 0x02 /* Public */,
-      19,    0,  100,    2, 0x02 /* Public */,
-      20,    0,  101,    2, 0x02 /* Public */,
+      22,    1,  122,    2, 0x02 /* Public */,
+      23,    0,  125,    2, 0x02 /* Public */,
+      24,    0,  126,    2, 0x02 /* Public */,
+      25,    0,  127,    2, 0x02 /* Public */,
 
  // signals: parameters
     QMetaType::Void,
@@ -102,13 +114,16 @@ static const uint qt_meta_data_timeSlotList[] = {
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 8,    9,
     QMetaType::Void, 0x80000000 | 8,    9,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int, 0x80000000 | 14,   13,   15,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::UChar, QMetaType::Int, QMetaType::Int,   12,   13,   14,
-    QMetaType::Void, QMetaType::Int,   16,
+    QMetaType::Void, QMetaType::UChar, QMetaType::Int, QMetaType::Int,   13,   17,   18,
+    QMetaType::Void, QMetaType::Int,   20,
+    QMetaType::Void, QMetaType::Int, 0x80000000 | 14,   13,   15,
 
  // methods: parameters
-    QMetaType::Int, QMetaType::Int,   16,
+    QMetaType::Int, QMetaType::Int,   20,
     QMetaType::Bool,
     QMetaType::Int,
     QMetaType::Int,
@@ -128,15 +143,18 @@ void timeSlotList::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         case 3: _t->postItemRemoved(); break;
         case 4: _t->timeSlotItemChanged((*reinterpret_cast< const timeSlotItem(*)>(_a[1]))); break;
         case 5: _t->timeSlotItemRemoved((*reinterpret_cast< const timeSlotItem(*)>(_a[1]))); break;
-        case 6: _t->appendItem((*reinterpret_cast< const quint8(*)>(_a[1])),(*reinterpret_cast< const int(*)>(_a[2])),(*reinterpret_cast< const int(*)>(_a[3]))); break;
-        case 7: _t->removeItems((*reinterpret_cast< const int(*)>(_a[1]))); break;
-        case 8: { int _r = _t->timeSlotCollisionCheck((*reinterpret_cast< const int(*)>(_a[1])));
+        case 6: _t->gui_timeSLotItemChanged(); break;
+        case 7: _t->SIG_returnTimeSlotList((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const QVector<timeSlotItem>(*)>(_a[2]))); break;
+        case 8: _t->appendItem((*reinterpret_cast< const quint8(*)>(_a[1])),(*reinterpret_cast< const int(*)>(_a[2])),(*reinterpret_cast< const int(*)>(_a[3]))); break;
+        case 9: _t->removeItems((*reinterpret_cast< const int(*)>(_a[1]))); break;
+        case 10: _t->timeSlotListImportedHandler((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const QVector<timeSlotItem>(*)>(_a[2]))); break;
+        case 11: { int _r = _t->timeSlotCollisionCheck((*reinterpret_cast< const int(*)>(_a[1])));
             if (_a[0]) *reinterpret_cast< int*>(_a[0]) = std::move(_r); }  break;
-        case 9: { bool _r = _t->getCollisionSide();
+        case 12: { bool _r = _t->getCollisionSide();
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
-        case 10: { int _r = _t->count();
+        case 13: { int _r = _t->count();
             if (_a[0]) *reinterpret_cast< int*>(_a[0]) = std::move(_r); }  break;
-        case 11: { int _r = _t->lastIndex();
+        case 14: { int _r = _t->lastIndex();
             if (_a[0]) *reinterpret_cast< int*>(_a[0]) = std::move(_r); }  break;
         default: ;
         }
@@ -184,6 +202,20 @@ void timeSlotList::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
                 return;
             }
         }
+        {
+            using _t = void (timeSlotList::*)();
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&timeSlotList::gui_timeSLotItemChanged)) {
+                *result = 6;
+                return;
+            }
+        }
+        {
+            using _t = void (timeSlotList::*)(const int & , const QVector<timeSlotItem> & );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&timeSlotList::SIG_returnTimeSlotList)) {
+                *result = 7;
+                return;
+            }
+        }
     }
 }
 
@@ -212,13 +244,13 @@ int timeSlotList::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 12)
+        if (_id < 15)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 12;
+        _id -= 15;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 12)
+        if (_id < 15)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 12;
+        _id -= 15;
     }
     return _id;
 }
@@ -260,6 +292,19 @@ void timeSlotList::timeSlotItemRemoved(const timeSlotItem & _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 5, _a);
+}
+
+// SIGNAL 6
+void timeSlotList::gui_timeSLotItemChanged()
+{
+    QMetaObject::activate(this, &staticMetaObject, 6, nullptr);
+}
+
+// SIGNAL 7
+void timeSlotList::SIG_returnTimeSlotList(const int & _t1, const QVector<timeSlotItem> & _t2)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)) };
+    QMetaObject::activate(this, &staticMetaObject, 7, _a);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

@@ -230,6 +230,7 @@ Makefile: DieuKhienNhacNuoc.pro C:/Qt/5.11.1/mingw53_32/mkspecs/win32-g++/qmake.
 		C:/Qt/5.11.1/mingw53_32/mkspecs/features/resources.prf \
 		C:/Qt/5.11.1/mingw53_32/mkspecs/features/moc.prf \
 		C:/Qt/5.11.1/mingw53_32/mkspecs/features/win32/opengl.prf \
+		C:/Qt/5.11.1/mingw53_32/mkspecs/features/uic.prf \
 		C:/Qt/5.11.1/mingw53_32/mkspecs/features/qmake_use.prf \
 		C:/Qt/5.11.1/mingw53_32/mkspecs/features/file_copies.prf \
 		C:/Qt/5.11.1/mingw53_32/mkspecs/features/win32/windows.prf \
@@ -240,9 +241,11 @@ Makefile: DieuKhienNhacNuoc.pro C:/Qt/5.11.1/mingw53_32/mkspecs/win32-g++/qmake.
 		DieuKhienNhacNuoc.pro \
 		C:/Qt/5.11.1/mingw53_32/lib/qtmaind.prl \
 		C:/Qt/5.11.1/mingw53_32/lib/Qt5Quick.prl \
+		C:/Qt/5.11.1/mingw53_32/lib/Qt5Widgets.prl \
 		C:/Qt/5.11.1/mingw53_32/lib/Qt5Gui.prl \
 		C:/Qt/5.11.1/mingw53_32/lib/Qt5Qml.prl \
 		C:/Qt/5.11.1/mingw53_32/lib/Qt5Network.prl \
+		C:/Qt/5.11.1/mingw53_32/lib/Qt5SerialPort.prl \
 		C:/Qt/5.11.1/mingw53_32/lib/Qt5Core.prl
 	$(QMAKE) -o Makefile DieuKhienNhacNuoc.pro -spec win32-g++ "CONFIG+=debug"
 C:/Qt/5.11.1/mingw53_32/mkspecs/features/spec_pre.prf:
@@ -414,6 +417,7 @@ C:/Qt/5.11.1/mingw53_32/mkspecs/features/qt.prf:
 C:/Qt/5.11.1/mingw53_32/mkspecs/features/resources.prf:
 C:/Qt/5.11.1/mingw53_32/mkspecs/features/moc.prf:
 C:/Qt/5.11.1/mingw53_32/mkspecs/features/win32/opengl.prf:
+C:/Qt/5.11.1/mingw53_32/mkspecs/features/uic.prf:
 C:/Qt/5.11.1/mingw53_32/mkspecs/features/qmake_use.prf:
 C:/Qt/5.11.1/mingw53_32/mkspecs/features/file_copies.prf:
 C:/Qt/5.11.1/mingw53_32/mkspecs/features/win32/windows.prf:
@@ -424,9 +428,11 @@ C:/Qt/5.11.1/mingw53_32/mkspecs/features/lex.prf:
 DieuKhienNhacNuoc.pro:
 C:/Qt/5.11.1/mingw53_32/lib/qtmaind.prl:
 C:/Qt/5.11.1/mingw53_32/lib/Qt5Quick.prl:
+C:/Qt/5.11.1/mingw53_32/lib/Qt5Widgets.prl:
 C:/Qt/5.11.1/mingw53_32/lib/Qt5Gui.prl:
 C:/Qt/5.11.1/mingw53_32/lib/Qt5Qml.prl:
 C:/Qt/5.11.1/mingw53_32/lib/Qt5Network.prl:
+C:/Qt/5.11.1/mingw53_32/lib/Qt5SerialPort.prl:
 C:/Qt/5.11.1/mingw53_32/lib/Qt5Core.prl:
 qmake: FORCE
 	@$(QMAKE) -o Makefile DieuKhienNhacNuoc.pro -spec win32-g++ "CONFIG+=debug"

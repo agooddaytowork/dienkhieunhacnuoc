@@ -51,6 +51,7 @@ public:
 
     void getTimeSlotList();
 
+
     ~timeSlotList();
 
 signals:
@@ -64,6 +65,8 @@ signals:
     void gui_timeSLotItemChanged();
 
     void SIG_returnTimeSlotList(const int &group, const QVector<timeSlotItem> &list );
+
+    void SIG_NotifyListChanged();
 
 public slots:
 

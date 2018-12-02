@@ -100,3 +100,8 @@ void theInterfaceGod::saveSession(const QString &fileName)
     emit SIG_saveSession(fileName);
 }
 
+void theInterfaceGod::importTimeSlotList(const QString &fileName)
+{
+    emit SIG_importTimeSlotList(fileName);
+}
+

@@ -29,6 +29,7 @@ void TimeSlotListExporter::timeSlotListHandler(const int &group, const QVector<t
         item.insert( "id", theItem.id);
         item.insert("ValveOnOff",theItem.ValveOnOff);
         item.insert("Inverter", theItem.Inverter);
+        item.insert("LedOnOff",theItem.LedOnOff);
         item.insert("FromMs", theItem.fromMs);
         item.insert("ToMs", theItem.toMs);
         item.insert("LedMode", theItem.LedMode );

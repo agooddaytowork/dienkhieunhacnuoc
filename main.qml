@@ -98,6 +98,8 @@ ApplicationWindow {
                         text: "Import Session"
                         onClicked: {
 
+                            importFileDialog.open()
+
                         }
                     }
                     MenuItem{
@@ -532,7 +534,20 @@ ApplicationWindow {
             //            // console.log("audio duration" + audioPlayer.duration)
             //            // console.log("audio Position" + audioPlayer.position)
 
+        }
+    }
 
+    FileDialog{
+        id: importFileDialog
+        selectMultiple: false
+        title: "Import Sessions"
+        selectFolder: false
+        nameFilters: ["text (*.txt)"]
+        onAccepted: {
+
+             console.log("file URL " +  fileUrl)
+
+            theInterfaceGod.importTimeSlotList(fileUrl)
 
         }
     }
@@ -542,9 +557,6 @@ ApplicationWindow {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
         anchors.topMargin:  250
-
-
-
     }
 
 

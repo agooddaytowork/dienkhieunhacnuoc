@@ -20,7 +20,7 @@ class TimeSlotListImporter : public QObject
     QString returnCorrectFileBinPath(const int &group, const QString &fileName);
 public:
     explicit TimeSlotListImporter(QObject *parent = nullptr);
-    bool importFile(const QString &filePath);
+    void importFile(const QString &filePath);
     void setRoothPath(const QString &rootPath);
 
 signals:

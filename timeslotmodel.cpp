@@ -389,6 +389,7 @@ void timeSlotModel::setList(timeSlotList *list)
 
             this->setSize(mList->count());
             endInsertRows();
+
         });
 
         connect(mList, &timeSlotList::preItemRemoved, this, [=](int index) {
@@ -398,6 +399,12 @@ void timeSlotModel::setList(timeSlotList *list)
 
             this->setSize(mList->count());
             endRemoveRows();
+        });
+
+        connect(mList,&timeSlotList::SIG_NotifyListChanged,this,[=](){
+
+            qDebug() << "list change ne dmmm";
+            emit this->listChanged();
         });
     }
 

@@ -1,4 +1,6 @@
 #include "timeslotlistimporter.h"
+#include <QDebug>
+#include <QUrl>
 
 TimeSlotListImporter::TimeSlotListImporter(QObject *parent) : QObject(parent)
 {
@@ -14,6 +16,7 @@ timeSlotItem TimeSlotListImporter::constructTimeSlotItem(const int &group, const
     theItem.id = theJsonObject.value("id").toInt(0);
     theItem.ValveOnOff = theJsonObject.value("ValveOnOff").toBool(false);
     theItem.Inverter = theJsonObject.value("Inverter").toBool(false);
+    theItem.LedOnOff = theJsonObject.value("LedOnOff").toBool(true);
     theItem.fromMs = theJsonObject.value("FromMs").toInt(0);
     theItem.toMs = theJsonObject.value("ToMs").toInt(0);
     theItem.LedMode = static_cast<quint8>(theJsonObject.value("LedMode").toInt(0));
@@ -40,7 +43,7 @@ QString TimeSlotListImporter::returnCorrectFileBinPath(const int &group, const Q
 
     switch(group)
     {
-        case 0:
+    case 0:
         groupFolderPath  += "Kieu1/";
         break;
 
@@ -74,22 +77,27 @@ QString TimeSlotListImporter::returnCorrectFileBinPath(const int &group, const Q
     return mRootPath + groupFolderPath + fileName;
 }
 
-bool TimeSlotListImporter::importFile(const QString &filePath)
+void TimeSlotListImporter::importFile(const QString &filePath)
 {
 
-    QFile file(filePath);
 
-    if(file.open(QIODevice::ReadOnly))
+    qDebug() << "TimeSlotListImporter::importFile :" +QUrl(filePath).toLocalFile();
+
+    QFile file(QUrl(filePath).toLocalFile());
+
+    if(file.open(QIODevice::ReadOnly ))
     {
+        qDebug()<< "file is oPen";
         QByteArray data = file.readAll();
 
 
-        QJsonDocument theDocument;
 
-        theDocument.fromBinaryData(data);
+        QJsonDocument theDocument = QJsonDocument::fromJson(data);
+
 
         if(!theDocument.isNull())
         {
+            qDebug()<< "Document is not null";
 
             QJsonArray groupsArray = theDocument.array();
 
@@ -105,17 +113,25 @@ bool TimeSlotListImporter::importFile(const QString &filePath)
                     timeSlotList.append(constructTimeSlotItem(theGroup.value("group").toInt(), timeSlotsArray.at(ii).toObject()));
                 }
 
+                qDebug() << "Emit shits";
+
                 emit SIG_updateTimeSlotSlit(theGroup.value("group").toInt(), timeSlotList);
 
             }
 
-            return true;
+
         }
 
 
     }
+    else
+    {
+        qDebug() << file.errorString();
+        qDebug() << "file is not open";
+    }
 
-    return false;
+
+
 
 }
 

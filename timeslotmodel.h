@@ -8,7 +8,7 @@
 class timeSlotModel : public QAbstractListModel
 {
     Q_OBJECT
-    Q_PROPERTY(timeSlotList *list READ list WRITE setList)
+    Q_PROPERTY(timeSlotList *list READ list WRITE setList NOTIFY listChanged)
     Q_PROPERTY(int size READ size WRITE setSize NOTIFY sizeChanged)
 
     QModelIndex mModelIndex;
@@ -67,6 +67,7 @@ public:
 signals:
 
     void sizeChanged();
+    void listChanged();
     void gui_timeSlotItemChanged();
 
 private:

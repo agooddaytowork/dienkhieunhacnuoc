@@ -143,6 +143,12 @@ Item {
                 model:TimeSlotModel{
                     id: dmModel
                     list: root.returnTimeSlotList()
+
+                    onListChanged: {
+
+                        console.log("LIST CHANGED MA SAO EM KO CHIU RESET")
+                        dmModel.list = root.returnTimeSlotList()
+                    }
                 }
 
 

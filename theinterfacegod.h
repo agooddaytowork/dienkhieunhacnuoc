@@ -25,6 +25,7 @@ public:
     Q_INVOKABLE void closeThreads();
     Q_INVOKABLE void enableSerialOutput(const bool &enable);
     Q_INVOKABLE void saveSession(const QString &fileName);
+    Q_INVOKABLE void importTimeSlotList(const QString &fileName);
 
     void closeApplication();
     void reportError(const QString &title, const QString &content);
@@ -43,6 +44,7 @@ signals:
     void gui_SerialPortConnection(const bool &isConnected);
     void SIG_enableSerialOutput(const bool &enable);
     void SIG_saveSession(const QString &fileName);
+    void SIG_importTimeSlotList(const QString &fileName);
 
 
 public slots:

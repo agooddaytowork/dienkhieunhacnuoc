@@ -199,4 +199,6 @@ void timeSlotList::timeSlotListImportedHandler(const int &group, const QVector<t
 
     }
 
+   emit SIG_NotifyListChanged();
+
 }

@@ -13,6 +13,10 @@ INPUT(
 ./debug\valveeffect_kieu4.o
 ./debug\valveeffect_kieu5.o
 ./debug\led_fadeinfadeout.o
+./debug\serialframebuffer.o
+./debug\serialportal.o
+./debug\timeslotlistexporter.o
+./debug\timeslotlistimporter.o
 ./debug\qrc_qml.o
 ./debug\moc_timeslotlist.o
 ./debug\moc_timeslotmodel.o
@@ -21,4 +25,8 @@ INPUT(
 ./debug\moc_presenterframelist.o
 ./debug\moc_theinterfacegod.o
 ./debug\moc_valveeffectmanager.o
+./debug\moc_serialframebuffer.o
+./debug\moc_serialportal.o
+./debug\moc_timeslotlistexporter.o
+./debug\moc_timeslotlistimporter.o
 );

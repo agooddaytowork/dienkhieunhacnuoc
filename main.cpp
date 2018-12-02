@@ -4,6 +4,8 @@
 #include "timeslotlist.h"
 #include "timeslotmodel.h"
 #include "timeslotlistexporter.h"
+#include "timeslotlistimporter.h"
+
 #include "musicpresenterlist.h"
 #include "musicpresentermodel.h"
 #include "presenterframelist.h"
@@ -54,18 +56,23 @@ int main(int argc, char *argv[])
     theInterfaceGod theGod;
 
     TimeSlotListExporter theTimeSlotExporter;
+    TimeSlotListImporter theTimeSlotImporter;
+
 
 
 
 
     theSerialFrameBuffer.moveToThread(&serialFrameThread);
     aPortal.moveToThread(&serialFrameThread);
+    theTimeSlotImporter.moveToThread(&backendThread);
     theTimeSlotExporter.moveToThread(&backendThread);
+
 
 
     QObject::connect(&theTimeSlotExporter,&TimeSlotListExporter::SIG_reportError,&theGod,&theInterfaceGod::reportError);
     QObject::connect(&theTimeSlotExporter,&TimeSlotListExporter::SIG_reportInformation,&theGod,&theInterfaceGod::reportInformation);
     QObject::connect(&theGod,&theInterfaceGod::SIG_saveSession,&theTimeSlotExporter,&TimeSlotListExporter::saveDataToFileRequestHandler);
+    QObject::connect(&theGod,&theInterfaceGod::SIG_importTimeSlotList,&theTimeSlotImporter,&TimeSlotListImporter::importFile);
 
 
     QObject::connect(&presenterFrameLists[0], &PresenterFrameList::SIG_SerialFrameBuffer_regenerateFrameList, &theSerialFrameBuffer,&SerialFrameBuffer::regenerateFrameList);
@@ -79,7 +86,7 @@ int main(int argc, char *argv[])
     QObject::connect(&theGod,&theInterfaceGod::SIG_connectSerialPort,&aPortal,&SerialPortal::connect);
     QObject::connect(&theGod,&theInterfaceGod::SIG_disconnectSerialPort,&aPortal,&SerialPortal::disconnectSerialPort);
     QObject::connect(&theGod,&theInterfaceGod::SIG_enableSerialOutput, &theSerialFrameBuffer,&SerialFrameBuffer::setSerialEnableOutput);
-    QObject::connect(&theGod,&theInterfaceGod::saveSession,&theTimeSlotExporter,&TimeSlotListExporter::saveDataToFileRequestHandler);
+    QObject::connect(&theGod,&theInterfaceGod::SIG_saveSession,&theTimeSlotExporter,&TimeSlotListExporter::saveDataToFileRequestHandler);
 
 
     QObject::connect(&serialFrameThread, &QThread::started, &aPortal,&SerialPortal::start);
@@ -114,6 +121,9 @@ int main(int argc, char *argv[])
         QObject::connect(&theTimeSlotExporter,&TimeSlotListExporter::SIG_getTimeSlotList,&dataList[i],&timeSlotList::getTimeSlotList);
         QObject::connect(&dataList[i], &timeSlotList::SIG_returnTimeSlotList,&theTimeSlotExporter,&TimeSlotListExporter::timeSlotListHandler);
 
+        QObject::connect(&theTimeSlotImporter,&TimeSlotListImporter::SIG_updateTimeSlotSlit,&dataList[i],&timeSlotList::timeSlotListImportedHandler);
+
+
         dataList[i].moveToThread(&backendThread);
 
     }
@@ -123,6 +133,7 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
 
     theTimeSlotExporter.setFilePath(QCoreApplication::applicationDirPath() +"/Sessions");
+    theTimeSlotImporter.setRoothPath(QCoreApplication::applicationDirPath());
 
     for (int i = 0; i < 9; i++)
     {

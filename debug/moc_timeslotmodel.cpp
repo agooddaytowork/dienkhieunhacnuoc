@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_timeSlotModel_t {
-    QByteArrayData data[11];
-    char stringdata0[106];
+    QByteArrayData data[12];
+    char stringdata0[130];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,17 +34,19 @@ static const qt_meta_stringdata_timeSlotModel_t qt_meta_stringdata_timeSlotModel
 QT_MOC_LITERAL(0, 0, 13), // "timeSlotModel"
 QT_MOC_LITERAL(1, 14, 11), // "sizeChanged"
 QT_MOC_LITERAL(2, 26, 0), // ""
-QT_MOC_LITERAL(3, 27, 15), // "getDataPerIndex"
-QT_MOC_LITERAL(4, 43, 5), // "index"
-QT_MOC_LITERAL(5, 49, 10), // "RoleString"
-QT_MOC_LITERAL(6, 60, 15), // "setDataPerIndex"
-QT_MOC_LITERAL(7, 76, 5), // "value"
-QT_MOC_LITERAL(8, 82, 4), // "list"
-QT_MOC_LITERAL(9, 87, 13), // "timeSlotList*"
-QT_MOC_LITERAL(10, 101, 4) // "size"
+QT_MOC_LITERAL(3, 27, 23), // "gui_timeSlotItemChanged"
+QT_MOC_LITERAL(4, 51, 15), // "getDataPerIndex"
+QT_MOC_LITERAL(5, 67, 5), // "index"
+QT_MOC_LITERAL(6, 73, 10), // "RoleString"
+QT_MOC_LITERAL(7, 84, 15), // "setDataPerIndex"
+QT_MOC_LITERAL(8, 100, 5), // "value"
+QT_MOC_LITERAL(9, 106, 4), // "list"
+QT_MOC_LITERAL(10, 111, 13), // "timeSlotList*"
+QT_MOC_LITERAL(11, 125, 4) // "size"
 
     },
-    "timeSlotModel\0sizeChanged\0\0getDataPerIndex\0"
+    "timeSlotModel\0sizeChanged\0\0"
+    "gui_timeSlotItemChanged\0getDataPerIndex\0"
     "index\0RoleString\0setDataPerIndex\0value\0"
     "list\0timeSlotList*\0size"
 };
@@ -56,30 +58,32 @@ static const uint qt_meta_data_timeSlotModel[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       3,   14, // methods
-       2,   42, // properties
+       4,   14, // methods
+       2,   48, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       1,       // signalCount
+       2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   29,    2, 0x06 /* Public */,
+       1,    0,   34,    2, 0x06 /* Public */,
+       3,    0,   35,    2, 0x06 /* Public */,
 
  // methods: name, argc, parameters, tag, flags
-       3,    2,   30,    2, 0x02 /* Public */,
-       6,    3,   35,    2, 0x02 /* Public */,
+       4,    2,   36,    2, 0x02 /* Public */,
+       7,    3,   41,    2, 0x02 /* Public */,
 
  // signals: parameters
     QMetaType::Void,
+    QMetaType::Void,
 
  // methods: parameters
-    QMetaType::QVariant, QMetaType::Int, QMetaType::QByteArray,    4,    5,
-    QMetaType::Bool, QMetaType::Int, QMetaType::QByteArray, QMetaType::QVariant,    4,    5,    7,
+    QMetaType::QVariant, QMetaType::Int, QMetaType::QByteArray,    5,    6,
+    QMetaType::Bool, QMetaType::Int, QMetaType::QByteArray, QMetaType::QVariant,    5,    6,    8,
 
  // properties: name, type, flags
-       8, 0x80000000 | 9, 0x0009510b,
-      10, QMetaType::Int, 0x00495103,
+       9, 0x80000000 | 10, 0x0009510b,
+      11, QMetaType::Int, 0x00495103,
 
  // properties: notify_signal_id
        0,
@@ -95,9 +99,10 @@ void timeSlotModel::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->sizeChanged(); break;
-        case 1: { QVariant _r = _t->getDataPerIndex((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const QByteArray(*)>(_a[2])));
+        case 1: _t->gui_timeSlotItemChanged(); break;
+        case 2: { QVariant _r = _t->getDataPerIndex((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const QByteArray(*)>(_a[2])));
             if (_a[0]) *reinterpret_cast< QVariant*>(_a[0]) = std::move(_r); }  break;
-        case 2: { bool _r = _t->setDataPerIndex((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const QByteArray(*)>(_a[2])),(*reinterpret_cast< const QVariant(*)>(_a[3])));
+        case 3: { bool _r = _t->setDataPerIndex((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const QByteArray(*)>(_a[2])),(*reinterpret_cast< const QVariant(*)>(_a[3])));
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
         default: ;
         }
@@ -107,6 +112,13 @@ void timeSlotModel::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
             using _t = void (timeSlotModel::*)();
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&timeSlotModel::sizeChanged)) {
                 *result = 0;
+                return;
+            }
+        }
+        {
+            using _t = void (timeSlotModel::*)();
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&timeSlotModel::gui_timeSlotItemChanged)) {
+                *result = 1;
                 return;
             }
         }
@@ -167,13 +179,13 @@ int timeSlotModel::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 3)
+        if (_id < 4)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 3;
+        _id -= 4;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 3)
+        if (_id < 4)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 3;
+        _id -= 4;
     }
 #ifndef QT_NO_PROPERTIES
    else if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
@@ -199,6 +211,12 @@ int timeSlotModel::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 void timeSlotModel::sizeChanged()
 {
     QMetaObject::activate(this, &staticMetaObject, 0, nullptr);
+}
+
+// SIGNAL 1
+void timeSlotModel::gui_timeSlotItemChanged()
+{
+    QMetaObject::activate(this, &staticMetaObject, 1, nullptr);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

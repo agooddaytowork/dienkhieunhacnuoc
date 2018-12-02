@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_PresenterFrameList_t {
-    QByteArrayData data[14];
-    char stringdata0[175];
+    QByteArrayData data[19];
+    char stringdata0[284];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -36,22 +36,30 @@ QT_MOC_LITERAL(1, 19, 18), // "notifyFrameChanged"
 QT_MOC_LITERAL(2, 38, 0), // ""
 QT_MOC_LITERAL(3, 39, 14), // "PresenterFrame"
 QT_MOC_LITERAL(4, 54, 5), // "frame"
-QT_MOC_LITERAL(5, 60, 15), // "timeSlotChanged"
-QT_MOC_LITERAL(6, 76, 12), // "timeSlotItem"
-QT_MOC_LITERAL(7, 89, 8), // "timeSlot"
-QT_MOC_LITERAL(8, 98, 15), // "timeSlotRemoved"
-QT_MOC_LITERAL(9, 114, 9), // "playFrame"
-QT_MOC_LITERAL(10, 124, 7), // "frameNo"
-QT_MOC_LITERAL(11, 132, 19), // "regenerateFrameList"
-QT_MOC_LITERAL(12, 152, 8), // "Duration"
-QT_MOC_LITERAL(13, 161, 13) // "FrameDuration"
+QT_MOC_LITERAL(5, 60, 41), // "SIG_SerialFrameBuffer_regener..."
+QT_MOC_LITERAL(6, 102, 10), // "totalFrame"
+QT_MOC_LITERAL(7, 113, 40), // "SIG_SerialFrameBuffer_notifyF..."
+QT_MOC_LITERAL(8, 154, 5), // "group"
+QT_MOC_LITERAL(9, 160, 7), // "frameNo"
+QT_MOC_LITERAL(10, 168, 8), // "theFrame"
+QT_MOC_LITERAL(11, 177, 15), // "timeSlotChanged"
+QT_MOC_LITERAL(12, 193, 12), // "timeSlotItem"
+QT_MOC_LITERAL(13, 206, 8), // "timeSlot"
+QT_MOC_LITERAL(14, 215, 15), // "timeSlotRemoved"
+QT_MOC_LITERAL(15, 231, 9), // "playFrame"
+QT_MOC_LITERAL(16, 241, 19), // "regenerateFrameList"
+QT_MOC_LITERAL(17, 261, 8), // "Duration"
+QT_MOC_LITERAL(18, 270, 13) // "FrameDuration"
 
     },
     "PresenterFrameList\0notifyFrameChanged\0"
-    "\0PresenterFrame\0frame\0timeSlotChanged\0"
+    "\0PresenterFrame\0frame\0"
+    "SIG_SerialFrameBuffer_regenerateFrameList\0"
+    "totalFrame\0SIG_SerialFrameBuffer_notifyFrameChanged\0"
+    "group\0frameNo\0theFrame\0timeSlotChanged\0"
     "timeSlotItem\0timeSlot\0timeSlotRemoved\0"
-    "playFrame\0frameNo\0regenerateFrameList\0"
-    "Duration\0FrameDuration"
+    "playFrame\0regenerateFrameList\0Duration\0"
+    "FrameDuration"
 };
 #undef QT_MOC_LITERAL
 
@@ -61,30 +69,34 @@ static const uint qt_meta_data_PresenterFrameList[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       5,   14, // methods
+       7,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       1,       // signalCount
+       3,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   39,    2, 0x06 /* Public */,
+       1,    1,   49,    2, 0x06 /* Public */,
+       5,    1,   52,    2, 0x06 /* Public */,
+       7,    3,   55,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       5,    1,   42,    2, 0x0a /* Public */,
-       8,    1,   45,    2, 0x0a /* Public */,
-       9,    1,   48,    2, 0x0a /* Public */,
-      11,    2,   51,    2, 0x0a /* Public */,
+      11,    1,   62,    2, 0x0a /* Public */,
+      14,    1,   65,    2, 0x0a /* Public */,
+      15,    1,   68,    2, 0x0a /* Public */,
+      16,    2,   71,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
+    QMetaType::Void, QMetaType::Int,    6,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int, 0x80000000 | 3,    8,    9,   10,
 
  // slots: parameters
-    QMetaType::Void, 0x80000000 | 6,    7,
-    QMetaType::Void, 0x80000000 | 6,    7,
-    QMetaType::Void, QMetaType::Int,   10,
-    QMetaType::Void, QMetaType::Int, QMetaType::Int,   12,   13,
+    QMetaType::Void, 0x80000000 | 12,   13,
+    QMetaType::Void, 0x80000000 | 12,   13,
+    QMetaType::Void, QMetaType::Int,    9,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int,   17,   18,
 
        0        // eod
 };
@@ -96,10 +108,12 @@ void PresenterFrameList::qt_static_metacall(QObject *_o, QMetaObject::Call _c, i
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->notifyFrameChanged((*reinterpret_cast< const PresenterFrame(*)>(_a[1]))); break;
-        case 1: _t->timeSlotChanged((*reinterpret_cast< const timeSlotItem(*)>(_a[1]))); break;
-        case 2: _t->timeSlotRemoved((*reinterpret_cast< const timeSlotItem(*)>(_a[1]))); break;
-        case 3: _t->playFrame((*reinterpret_cast< const int(*)>(_a[1]))); break;
-        case 4: _t->regenerateFrameList((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const int(*)>(_a[2]))); break;
+        case 1: _t->SIG_SerialFrameBuffer_regenerateFrameList((*reinterpret_cast< const int(*)>(_a[1]))); break;
+        case 2: _t->SIG_SerialFrameBuffer_notifyFrameChanged((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const int(*)>(_a[2])),(*reinterpret_cast< const PresenterFrame(*)>(_a[3]))); break;
+        case 3: _t->timeSlotChanged((*reinterpret_cast< const timeSlotItem(*)>(_a[1]))); break;
+        case 4: _t->timeSlotRemoved((*reinterpret_cast< const timeSlotItem(*)>(_a[1]))); break;
+        case 5: _t->playFrame((*reinterpret_cast< const int(*)>(_a[1]))); break;
+        case 6: _t->regenerateFrameList((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const int(*)>(_a[2]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -108,6 +122,20 @@ void PresenterFrameList::qt_static_metacall(QObject *_o, QMetaObject::Call _c, i
             using _t = void (PresenterFrameList::*)(const PresenterFrame & );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&PresenterFrameList::notifyFrameChanged)) {
                 *result = 0;
+                return;
+            }
+        }
+        {
+            using _t = void (PresenterFrameList::*)(const int & );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&PresenterFrameList::SIG_SerialFrameBuffer_regenerateFrameList)) {
+                *result = 1;
+                return;
+            }
+        }
+        {
+            using _t = void (PresenterFrameList::*)(const int & , const int & , const PresenterFrame & );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&PresenterFrameList::SIG_SerialFrameBuffer_notifyFrameChanged)) {
+                *result = 2;
                 return;
             }
         }
@@ -139,13 +167,13 @@ int PresenterFrameList::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 5)
+        if (_id < 7)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 7;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 5)
+        if (_id < 7)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 5;
+        _id -= 7;
     }
     return _id;
 }
@@ -155,6 +183,20 @@ void PresenterFrameList::notifyFrameChanged(const PresenterFrame & _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
+}
+
+// SIGNAL 1
+void PresenterFrameList::SIG_SerialFrameBuffer_regenerateFrameList(const int & _t1)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 1, _a);
+}
+
+// SIGNAL 2
+void PresenterFrameList::SIG_SerialFrameBuffer_notifyFrameChanged(const int & _t1, const int & _t2, const PresenterFrame & _t3)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)) };
+    QMetaObject::activate(this, &staticMetaObject, 2, _a);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE
