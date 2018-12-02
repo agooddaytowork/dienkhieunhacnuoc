@@ -20,6 +20,8 @@ ApplicationWindow {
     property int  currentPosition: 0
     property int  buttonSize: 40
 
+    property string currentSong: ""
+
 
     /***** THIS SHIT IS FOR QUITING THE Application after closing the GOODDDAAM THREAD ****/
     onClosing:
@@ -177,13 +179,67 @@ ApplicationWindow {
             }
         }
 
+
+
         Row
         {
             anchors.right: parent.right
             anchors.top: parent.top
             height: parent.height
             anchors.rightMargin: 10
+            spacing: 2
+            Label{
+                id: songLabel
+                anchors.verticalCenter: parent.verticalCenter
+                text: "Song: " + root.currentSong
+            }
 
+            ToolSeparator{
+
+            }
+
+            Label{
+                id: timeLabel
+                text: returnDurationString(root.currentPosition)
+                anchors.verticalCenter: parent.verticalCenter
+
+                function returnDurationString(duration)
+                {
+                    var minutes="00"
+                    var seconds="00"
+                    var miliSeconds ="000"
+
+                    if(duration <=999)
+                    {
+                        miliSeconds = ("00" + duration).slice(-3)
+                        return "00m:00s:"+miliSeconds +"ms"
+                    }
+                    else if(duration <=59999)
+                    {
+                        seconds = ("0" + parseInt(duration/1000)).slice(-2)
+                        miliSeconds = ("00" + duration).slice(-3)
+
+                        return "00m:"+seconds+"s:"+miliSeconds+"ms"
+                    }
+                    else
+                    {
+                        minutes = ("0" + parseInt(duration/60000)).slice(-2)
+
+                        duration = duration%60000
+                        seconds = ("0" + parseInt(duration/1000)).slice(-2)
+                        miliSeconds =("00" + duration%1000).slice(-3)
+
+                        return minutes + "m:" + seconds + "s:" + miliSeconds+"ms"
+
+                    }
+                }
+            }
+
+
+
+            ToolSeparator{
+
+            }
 
             CheckBox{
                 id: serialOutPutCheckBox
@@ -526,7 +582,14 @@ ApplicationWindow {
         onAccepted: {
 
             // console.log("file URL" +  fileUrl)
+//            root.currentSong = fileBaseName
             audioPlayer.source = fileUrl
+
+            var theFileName = ""
+            theFileName += fileUrl
+
+            root.currentSong = theFileName.replace(/^.*[\\\/]/, '')
+
 
 
 
@@ -545,7 +608,7 @@ ApplicationWindow {
         nameFilters: ["text (*.txt)"]
         onAccepted: {
 
-             console.log("file URL " +  fileUrl)
+            console.log("file URL " +  fileUrl)
 
             theInterfaceGod.importTimeSlotList(fileUrl)
 
