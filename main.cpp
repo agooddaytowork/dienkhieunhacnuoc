@@ -112,10 +112,13 @@ int main(int argc, char *argv[])
 
         QObject::connect(&dataList[i],&timeSlotList::timeSlotItemChanged,&presenterFrameLists[i],&PresenterFrameList::timeSlotChanged);
         QObject::connect(&dataList[i],&timeSlotList::timeSlotItemRemoved,&presenterFrameLists[i],&PresenterFrameList::timeSlotRemoved);
+
         QObject::connect(&theGod,&theInterfaceGod::SIG_regenerateFrameList,&presenterFrameLists[i],&PresenterFrameList::regenerateFrameList);
         QObject::connect(&theGod,&theInterfaceGod::SIG_playFrame, &presenterFrameLists[i],&PresenterFrameList::playFrame);
         QObject::connect(&presenterFrameLists[i],&PresenterFrameList::notifyFrameChanged,&presenterList[i],&MusicPresenterList::frameChangedHandler);
+        QObject::connect(&presenterFrameLists[i],&PresenterFrameList::SIG_frameListReconstructed,&theGod,&theInterfaceGod::frameListRescontrusctedHandler);
         QObject::connect(&dataList[i],&timeSlotList::gui_timeSLotItemChanged,&theGod,&theInterfaceGod::invokeTimeSlotChanged);
+        QObject::connect(&theGod,&theInterfaceGod::SIG_clearTimeSlotList,&dataList[i],&timeSlotList::clearTimeSlotList);
         QObject::connect(&presenterFrameLists[i],&PresenterFrameList::SIG_SerialFrameBuffer_notifyFrameChanged,&theSerialFrameBuffer,&SerialFrameBuffer::SerialFrameChangedHandler);
 
         QObject::connect(&theTimeSlotExporter,&TimeSlotListExporter::SIG_getTimeSlotList,&dataList[i],&timeSlotList::getTimeSlotList);

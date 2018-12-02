@@ -199,6 +199,14 @@ void timeSlotList::timeSlotListImportedHandler(const int &group, const QVector<t
 
     }
 
-   emit SIG_NotifyListChanged();
+    emit SIG_NotifyListChanged();
 
+}
+
+void timeSlotList::clearTimeSlotList()
+{
+    mItems.clear();
+    mCurrentIndex = 0;
+
+    emit SIG_NotifyListChanged();
 }

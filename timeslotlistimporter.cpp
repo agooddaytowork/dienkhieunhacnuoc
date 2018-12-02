@@ -130,9 +130,6 @@ void TimeSlotListImporter::importFile(const QString &filePath)
         qDebug() << "file is not open";
     }
 
-
-
-
 }
 
 void TimeSlotListImporter::setRoothPath(const QString &rootPath)

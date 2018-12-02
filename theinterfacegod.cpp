@@ -105,3 +105,22 @@ void theInterfaceGod::importTimeSlotList(const QString &fileName)
     emit SIG_importTimeSlotList(fileName);
 }
 
+void theInterfaceGod::frameListRescontrusctedHandler()
+{
+    static int cnt = 0;
+
+    cnt++;
+
+    if(cnt == 9)
+    {
+        cnt = 0;
+        emit gui_FrameListResconstructed();
+
+    }
+}
+
+void theInterfaceGod::clearTimeSlotList()
+{
+    emit SIG_clearTimeSlotList();
+}
+

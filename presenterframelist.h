@@ -44,7 +44,6 @@ class PresenterFrameList : public QObject
     int mFrameDuration;
     int mFrameNo;
 
-
     ValveEffect_Kieu1 mValveEffect_1;
     ValveEffect_Kieu2 mValveEffect_2;
     ValveEffect_Kieu3 mValveEffect_3;
@@ -83,6 +82,8 @@ signals:
 
     void SIG_SerialFrameBuffer_regenerateFrameList(const int &totalFrame);
     void SIG_SerialFrameBuffer_notifyFrameChanged(const int &group,const int &frameNo,const PresenterFrame &theFrame);
+
+    void SIG_frameListReconstructed();
 
 public slots:
     void timeSlotChanged(const timeSlotItem &timeSlot);

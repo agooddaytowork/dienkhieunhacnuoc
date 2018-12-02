@@ -26,11 +26,13 @@ public:
     Q_INVOKABLE void enableSerialOutput(const bool &enable);
     Q_INVOKABLE void saveSession(const QString &fileName);
     Q_INVOKABLE void importTimeSlotList(const QString &fileName);
+    Q_INVOKABLE void clearTimeSlotList();
 
     void closeApplication();
     void reportError(const QString &title, const QString &content);
     void reportInformation(const QString &title, const QString &content);
     void serialPortConnectionStatus(const bool &status);
+    void frameListRescontrusctedHandler();
 
 
 signals:
@@ -42,9 +44,11 @@ signals:
     void SIG_CloseThreads();
     void gui_CloseApplication();
     void gui_SerialPortConnection(const bool &isConnected);
+    void gui_FrameListResconstructed();
     void SIG_enableSerialOutput(const bool &enable);
     void SIG_saveSession(const QString &fileName);
     void SIG_importTimeSlotList(const QString &fileName);
+    void SIG_clearTimeSlotList();
 
 
 public slots:

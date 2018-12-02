@@ -16,6 +16,8 @@ void PresenterFrameList::clearList()
     {
         frameList.append(createEmptyFramePerGroup(mGroup));
     }
+
+    emit SIG_frameListReconstructed();
 }
 
 void PresenterFrameList::regenerateFrameList(const int &Duration, const int &FrameDuration)

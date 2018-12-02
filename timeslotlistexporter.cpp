@@ -73,7 +73,7 @@ void TimeSlotListExporter::setFileName(const QString &name)
 bool TimeSlotListExporter::saveDataToFile()
 {
     qDebug() << "saveDataToFile--- : " + mFilePath+"/"+mFileName;
-    QFile file(mFilePath+"/"+mFileName);
+    QFile file(mFilePath+"/"+mFileName+".bin");
 
     if(file.open(QIODevice::WriteOnly | QIODevice::Truncate))
     {

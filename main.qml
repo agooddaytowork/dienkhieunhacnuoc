@@ -19,9 +19,17 @@ ApplicationWindow {
     property int  duration: 240000
     property int  currentPosition: 0
     property int  buttonSize: 40
+    property bool currentSongJustChanged: false
 
     property string currentSong: ""
 
+
+    onCurrentSongChanged: {
+
+        root.currentSongJustChanged = true
+//        console.log("file:///"+appFilePath+"/Sessions/" + root.currentSong +".bin")
+//        theInterfaceGod.importTimeSlotList("file:///"+appFilePath+"/Sessions/" + root.currentSong +".bin")
+    }
 
     /***** THIS SHIT IS FOR QUITING THE Application after closing the GOODDDAAM THREAD ****/
     onClosing:
@@ -49,6 +57,16 @@ ApplicationWindow {
             {
                 serialOutPutCheckBox.checked = false
                 serialOutPutCheckBox.enabled = false
+            }
+        }
+
+        onGui_FrameListResconstructed:
+        {
+            if(root.currentSongJustChanged)
+            {
+                root.currentSongJustChanged = false
+
+                 theInterfaceGod.importTimeSlotList("file:///"+appFilePath+"/Sessions/" + root.currentSong +".bin")
             }
         }
     }
@@ -90,9 +108,22 @@ ApplicationWindow {
                     }
                     MenuItem{
 
-                        text: "Save"
+                        text: "New Session"
                         onClicked: {
-                            theInterfaceGod.saveSession("test.txt")
+                            root.currentSong = ""
+                            root.currentPosition = 0
+
+                            audioPlayer.source = ""
+
+                            theInterfaceGod.clearTimeSlotList()
+
+                        }
+                    }
+                    MenuItem{
+
+                        text: "Save Session"
+                        onClicked: {
+                            theInterfaceGod.saveSession(root.currentSong)
                         }
                     }
                     MenuItem{
@@ -548,6 +579,8 @@ ApplicationWindow {
         notifyInterval: 45
         property int  previousPosition: 0
 
+
+
         onDurationChanged: {
             // console.log("changed DURATION ASLKDJALSDJSKLAJDKLSAJJD: " + duration)
 
@@ -581,21 +614,12 @@ ApplicationWindow {
         nameFilters: ["Music (*.mp3 *.wav)"]
         onAccepted: {
 
-            // console.log("file URL" +  fileUrl)
-//            root.currentSong = fileBaseName
             audioPlayer.source = fileUrl
 
             var theFileName = ""
             theFileName += fileUrl
 
-            root.currentSong = theFileName.replace(/^.*[\\\/]/, '')
-
-
-
-
-            //            audioPlayer.play()
-            //            // console.log("audio duration" + audioPlayer.duration)
-            //            // console.log("audio Position" + audioPlayer.position)
+            root.currentSong =theFileName.split('\\').pop().split('/').pop().slice(0,-4);
 
         }
     }
@@ -605,7 +629,7 @@ ApplicationWindow {
         selectMultiple: false
         title: "Import Sessions"
         selectFolder: false
-        nameFilters: ["text (*.txt)"]
+        nameFilters: ["text (*.txt *.bin) "]
         onAccepted: {
 
             console.log("file URL " +  fileUrl)
