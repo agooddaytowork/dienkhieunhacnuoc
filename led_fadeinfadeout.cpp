@@ -14,6 +14,7 @@ bool LED_FadeInFadeOut::setSpeed(const int &speed)
 
         dataWithSpeed.clear();
 
+
         for(int i = 0; i < data.count();i++)
         {
             if(mSpeed >= 0)
@@ -33,6 +34,8 @@ bool LED_FadeInFadeOut::setSpeed(const int &speed)
             }
         }
 
+        qDebug() << "LED SIZE: " + QString::number(dataWithSpeed.count())
+                 << "Raw Led size: " + QString::number(data.count());
         return true;
     }
 
@@ -77,7 +80,8 @@ bool LED_FadeInFadeOut::setEffects(const QColor &color)
 //             qDebug() << "Color at i: " + theColor.name();
          }
 
-         setSpeed(10);
+
+         setSpeed(5);
         return true;
     }
 

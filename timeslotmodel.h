@@ -23,7 +23,6 @@ public:
         InverterRole,
         FromMsRole,
         ToMsRole,
-        LedModeRole,
         InverterLevelRole,
         FileBinPathRole,
         LEDValuesListRole,
@@ -33,7 +32,8 @@ public:
         ValveSpeedRole,
         ValveModeNameRole,
         LedSpeedRole,
-        LedModeNameRole
+        LedModeNameRole,
+        LedModeRole
 
     };
 

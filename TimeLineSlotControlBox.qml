@@ -13,8 +13,11 @@ Item {
     property int  currentGroupIndex: 0
     property int  currentValveModeIndex: 0
     property int  currentValveSpeed: 0
+    property int  currentLedSpeed: 0
+    property int  currentLedMode: 0
     property TimeSlotModel theTimeSlotModel: TimeSlotModel{list:returnTimeSlotList() }
     property bool groupIndexJustChanged: false
+    property string currentLedColorList: ""
     signal modelRefreshed()
 
     enabled: false
@@ -22,6 +25,8 @@ Item {
     onCurrentValveModeIndexChanged: {
         console.log("onCurrentValveModeIndexChanged")
     }
+
+
 
     function updateValveData()
     {
@@ -99,11 +104,30 @@ Item {
 
     }
 
-    //    onCurrentTimeSlotIndexChanged:
-    //    {
-    //        refreshModel()
-    //    }
+    function updateCurrentConfiguration()
+    {
+        root.currentValveModeIndex = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex, "ValveMode")
+        root.currentValveSpeed = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"ValveSpeed")
+        root.currentLedSpeed = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedSpeed")
+        root.currentLedMode = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedModeHihi")
+        root.currentLedColorList = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LEDValuesList")
 
+
+        valveModeComboBox.currentIndex = root.currentValveModeIndex
+        ledModeCombobox.currentIndex = setLedMode(theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedModeName"))
+    }
+
+
+    function setLedMode( modeName)
+    {
+        for(var i = 0; i < ledModeModel.count; i++)
+        {
+            if(ledModeModel.get(i).name === modeName)
+                return i
+        }
+
+        return -1
+    }
 
     onCurrentGroupIndexChanged: {
 
@@ -145,10 +169,8 @@ Item {
         console.log("Group: " + root.currentGroupIndex + " - timeslot: " + root.currentTimeSlotIndex
                     + " - valveMode: " +theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex, "ValveMode") )
 
+    root.updateCurrentConfiguration()
 
-        root.currentValveModeIndex = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex, "ValveMode")
-        root.currentValveSpeed = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"ValveSpeed")
-        valveModeComboBox.currentIndex = root.currentValveModeIndex
     }
 
     onCurrentTimeSlotIndexChanged:
@@ -168,21 +190,17 @@ Item {
         //        else
         //        {
 
-        if(root.groupIndexJustChanged)
-        {
-            root.groupIndexJustChanged = false
-            return
-        }
+//        if(root.groupIndexJustChanged)
+//        {
+//            root.groupIndexJustChanged = false
+//            return
+//        }
         console.trace()
         console.log("onCurrentTimeSlotIndexChanged")
         console.log("Group: " + root.currentGroupIndex + " - timeslot: " + root.currentTimeSlotIndex
                     + " - valveMode: " +theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex, "ValveMode") )
 
-        root.currentValveModeIndex = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex, "ValveMode")
-        root.currentValveSpeed = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"ValveSpeed")
-        valveModeComboBox.currentIndex = root.currentValveModeIndex
-
-        //        }
+      root.updateCurrentConfiguration()
 
 
 
@@ -322,6 +340,9 @@ Item {
                                      theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedModeName", ledModeCombobox.currentText)
                                     theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedSpeed", ledSpeedSpinBox.value)
 
+                                    console.log("Led Mode: " + ledModeCombobox.currentIndex)
+                                    theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedModeHihi", ledModeCombobox.currentIndex)
+
                                 }
                             }
                         }
@@ -341,6 +362,7 @@ Item {
                             id: ledModeCombobox
                             model: ledModeModel
                             anchors.verticalCenter: parent.verticalCenter
+                            currentIndex: root.currentLedMode
 
 
                         }
@@ -354,6 +376,7 @@ Item {
                             from: -10
                             to: 10
                             stepSize: 1
+                            value: root.currentLedSpeed
                         }
                     }
 
@@ -365,7 +388,7 @@ Item {
                         Repeater{
 
                             id: colorBoxesRepeater
-                            model: 6
+                            model: 3
 
                             property int  currentSelectedIndex: -1
 

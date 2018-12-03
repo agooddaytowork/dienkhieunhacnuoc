@@ -244,6 +244,7 @@ PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const time
 
 
     mLED_FadeInFadeOut.setEffects(theColor);
+    mLED_FadeInFadeOut.setSpeed(timeSlot.LedSpeed);
 
     for(int i = 0; i < timeSlot.LedChannels; i++)
     {

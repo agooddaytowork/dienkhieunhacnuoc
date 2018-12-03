@@ -32,7 +32,7 @@ void TimeSlotListExporter::timeSlotListHandler(const int &group, const QVector<t
         item.insert("LedOnOff",theItem.LedOnOff);
         item.insert("FromMs", theItem.fromMs);
         item.insert("ToMs", theItem.toMs);
-        item.insert("LedMode", theItem.LedMode );
+        item.insert("LedMode", theItem.LedMode);
         item.insert("InverterLevel", theItem.InverterLevel);
         item.insert("FileBinPath", theItem.fileBinPath);
         item.insert("LEDValuesList", theItem.LedValuesList);

@@ -444,7 +444,7 @@ ApplicationWindow {
                             groupControlPanelRepeater.currentTimeSlotIndex = timeSlotIndex
                             groupControlPanelRepeater.currentGroupIndex = groupControlPanelDelegate.groupIndex
 
-                            timeLineSlotControlBox.refreshModel()
+//                            timeLineSlotControlBox.refreshModel()
 
                         }
 
@@ -550,7 +550,6 @@ ApplicationWindow {
                 anchors.left: parent.left
                 currentGroupIndex: groupControlPanelRepeater.currentGroupIndex
                 currentTimeSlotIndex:  groupControlPanelRepeater.currentTimeSlotIndex
-
 
 
             }

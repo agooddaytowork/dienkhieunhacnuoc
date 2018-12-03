@@ -145,8 +145,6 @@ Item {
                     list: root.returnTimeSlotList()
 
                     onListChanged: {
-
-                        console.log("LIST CHANGED MA SAO EM KO CHIU RESET")
                         dmModel.list = root.returnTimeSlotList()
                     }
                 }
@@ -173,18 +171,20 @@ Item {
                     valveSpeed: ValveSpeed
                     ledModeName: LedModeName
                     ledSpeed: LedSpeed
+                    dmLedMode: LedModeHihi
+
 
                     Connections{
                         target: root
 
                         onRefreshPlease:
                         {
+
                             theTimeLineSlot.ledModeName = dmModel.getDataPerIndex(theTimeLineSlot.timeSlotIndex, "LedModeName")
-
                             theTimeLineSlot.valveSpeed = dmModel.getDataPerIndex(theTimeLineSlot.timeSlotIndex, "ValveSpeed")
-
                             theTimeLineSlot.ledSpeed = dmModel.getDataPerIndex(theTimeLineSlot.timeSlotIndex, "LedSpeed")
                             theTimeLineSlot.valveModeName = dmModel.getDataPerIndex(theTimeLineSlot.timeSlotIndex, "ValveModeName")
+
 
                         }
                     }

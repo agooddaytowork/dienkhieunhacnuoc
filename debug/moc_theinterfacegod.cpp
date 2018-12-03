@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_theInterfaceGod_t {
-    QByteArrayData data[33];
-    char stringdata0[532];
+    QByteArrayData data[36];
+    char stringdata0[600];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -46,24 +46,27 @@ QT_MOC_LITERAL(11, 162, 16), // "SIG_CloseThreads"
 QT_MOC_LITERAL(12, 179, 20), // "gui_CloseApplication"
 QT_MOC_LITERAL(13, 200, 24), // "gui_SerialPortConnection"
 QT_MOC_LITERAL(14, 225, 11), // "isConnected"
-QT_MOC_LITERAL(15, 237, 22), // "SIG_enableSerialOutput"
-QT_MOC_LITERAL(16, 260, 6), // "enable"
-QT_MOC_LITERAL(17, 267, 15), // "SIG_saveSession"
-QT_MOC_LITERAL(18, 283, 8), // "fileName"
-QT_MOC_LITERAL(19, 292, 22), // "SIG_importTimeSlotList"
-QT_MOC_LITERAL(20, 315, 21), // "invokeTimeSlotChanged"
-QT_MOC_LITERAL(21, 337, 19), // "regenerateFrameList"
-QT_MOC_LITERAL(22, 357, 9), // "playFrame"
-QT_MOC_LITERAL(23, 367, 18), // "getSerialPortNames"
-QT_MOC_LITERAL(24, 386, 5), // "index"
-QT_MOC_LITERAL(25, 392, 18), // "getSerialPortCount"
-QT_MOC_LITERAL(26, 411, 18), // "refreshSerialPorts"
-QT_MOC_LITERAL(27, 430, 17), // "connectSerialPort"
-QT_MOC_LITERAL(28, 448, 20), // "disconnectSerialPort"
-QT_MOC_LITERAL(29, 469, 12), // "closeThreads"
-QT_MOC_LITERAL(30, 482, 18), // "enableSerialOutput"
-QT_MOC_LITERAL(31, 501, 11), // "saveSession"
-QT_MOC_LITERAL(32, 513, 18) // "importTimeSlotList"
+QT_MOC_LITERAL(15, 237, 27), // "gui_FrameListResconstructed"
+QT_MOC_LITERAL(16, 265, 22), // "SIG_enableSerialOutput"
+QT_MOC_LITERAL(17, 288, 6), // "enable"
+QT_MOC_LITERAL(18, 295, 15), // "SIG_saveSession"
+QT_MOC_LITERAL(19, 311, 8), // "fileName"
+QT_MOC_LITERAL(20, 320, 22), // "SIG_importTimeSlotList"
+QT_MOC_LITERAL(21, 343, 21), // "SIG_clearTimeSlotList"
+QT_MOC_LITERAL(22, 365, 21), // "invokeTimeSlotChanged"
+QT_MOC_LITERAL(23, 387, 19), // "regenerateFrameList"
+QT_MOC_LITERAL(24, 407, 9), // "playFrame"
+QT_MOC_LITERAL(25, 417, 18), // "getSerialPortNames"
+QT_MOC_LITERAL(26, 436, 5), // "index"
+QT_MOC_LITERAL(27, 442, 18), // "getSerialPortCount"
+QT_MOC_LITERAL(28, 461, 18), // "refreshSerialPorts"
+QT_MOC_LITERAL(29, 480, 17), // "connectSerialPort"
+QT_MOC_LITERAL(30, 498, 20), // "disconnectSerialPort"
+QT_MOC_LITERAL(31, 519, 12), // "closeThreads"
+QT_MOC_LITERAL(32, 532, 18), // "enableSerialOutput"
+QT_MOC_LITERAL(33, 551, 11), // "saveSession"
+QT_MOC_LITERAL(34, 563, 18), // "importTimeSlotList"
+QT_MOC_LITERAL(35, 582, 17) // "clearTimeSlotList"
 
     },
     "theInterfaceGod\0SIG_regenerateFrameList\0"
@@ -72,15 +75,17 @@ QT_MOC_LITERAL(32, 513, 18) // "importTimeSlotList"
     "SIG_connectSerialPort\0portName\0"
     "SIG_disconnectSerialPort\0SIG_CloseThreads\0"
     "gui_CloseApplication\0gui_SerialPortConnection\0"
-    "isConnected\0SIG_enableSerialOutput\0"
-    "enable\0SIG_saveSession\0fileName\0"
-    "SIG_importTimeSlotList\0invokeTimeSlotChanged\0"
-    "regenerateFrameList\0playFrame\0"
-    "getSerialPortNames\0index\0getSerialPortCount\0"
-    "refreshSerialPorts\0connectSerialPort\0"
-    "disconnectSerialPort\0closeThreads\0"
-    "enableSerialOutput\0saveSession\0"
-    "importTimeSlotList"
+    "isConnected\0gui_FrameListResconstructed\0"
+    "SIG_enableSerialOutput\0enable\0"
+    "SIG_saveSession\0fileName\0"
+    "SIG_importTimeSlotList\0SIG_clearTimeSlotList\0"
+    "invokeTimeSlotChanged\0regenerateFrameList\0"
+    "playFrame\0getSerialPortNames\0index\0"
+    "getSerialPortCount\0refreshSerialPorts\0"
+    "connectSerialPort\0disconnectSerialPort\0"
+    "closeThreads\0enableSerialOutput\0"
+    "saveSession\0importTimeSlotList\0"
+    "clearTimeSlotList"
 };
 #undef QT_MOC_LITERAL
 
@@ -90,41 +95,44 @@ static const uint qt_meta_data_theInterfaceGod[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      23,   14, // methods
+      26,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-      11,       // signalCount
+      13,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    2,  129,    2, 0x06 /* Public */,
-       5,    1,  134,    2, 0x06 /* Public */,
-       7,    0,  137,    2, 0x06 /* Public */,
-       8,    1,  138,    2, 0x06 /* Public */,
-      10,    0,  141,    2, 0x06 /* Public */,
-      11,    0,  142,    2, 0x06 /* Public */,
-      12,    0,  143,    2, 0x06 /* Public */,
-      13,    1,  144,    2, 0x06 /* Public */,
-      15,    1,  147,    2, 0x06 /* Public */,
-      17,    1,  150,    2, 0x06 /* Public */,
-      19,    1,  153,    2, 0x06 /* Public */,
+       1,    2,  144,    2, 0x06 /* Public */,
+       5,    1,  149,    2, 0x06 /* Public */,
+       7,    0,  152,    2, 0x06 /* Public */,
+       8,    1,  153,    2, 0x06 /* Public */,
+      10,    0,  156,    2, 0x06 /* Public */,
+      11,    0,  157,    2, 0x06 /* Public */,
+      12,    0,  158,    2, 0x06 /* Public */,
+      13,    1,  159,    2, 0x06 /* Public */,
+      15,    0,  162,    2, 0x06 /* Public */,
+      16,    1,  163,    2, 0x06 /* Public */,
+      18,    1,  166,    2, 0x06 /* Public */,
+      20,    1,  169,    2, 0x06 /* Public */,
+      21,    0,  172,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      20,    0,  156,    2, 0x0a /* Public */,
+      22,    0,  173,    2, 0x0a /* Public */,
 
  // methods: name, argc, parameters, tag, flags
-      21,    2,  157,    2, 0x02 /* Public */,
-      22,    1,  162,    2, 0x02 /* Public */,
-      23,    1,  165,    2, 0x02 /* Public */,
-      25,    0,  168,    2, 0x02 /* Public */,
-      26,    0,  169,    2, 0x02 /* Public */,
-      27,    1,  170,    2, 0x02 /* Public */,
-      28,    0,  173,    2, 0x02 /* Public */,
-      29,    0,  174,    2, 0x02 /* Public */,
-      30,    1,  175,    2, 0x02 /* Public */,
-      31,    1,  178,    2, 0x02 /* Public */,
-      32,    1,  181,    2, 0x02 /* Public */,
+      23,    2,  174,    2, 0x02 /* Public */,
+      24,    1,  179,    2, 0x02 /* Public */,
+      25,    1,  182,    2, 0x02 /* Public */,
+      27,    0,  185,    2, 0x02 /* Public */,
+      28,    0,  186,    2, 0x02 /* Public */,
+      29,    1,  187,    2, 0x02 /* Public */,
+      30,    0,  190,    2, 0x02 /* Public */,
+      31,    0,  191,    2, 0x02 /* Public */,
+      32,    1,  192,    2, 0x02 /* Public */,
+      33,    1,  195,    2, 0x02 /* Public */,
+      34,    1,  198,    2, 0x02 /* Public */,
+      35,    0,  201,    2, 0x02 /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Int, QMetaType::Int,    3,    4,
@@ -135,9 +143,11 @@ static const uint qt_meta_data_theInterfaceGod[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Bool,   14,
-    QMetaType::Void, QMetaType::Bool,   16,
-    QMetaType::Void, QMetaType::QString,   18,
-    QMetaType::Void, QMetaType::QString,   18,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Bool,   17,
+    QMetaType::Void, QMetaType::QString,   19,
+    QMetaType::Void, QMetaType::QString,   19,
+    QMetaType::Void,
 
  // slots: parameters
     QMetaType::Void,
@@ -145,15 +155,16 @@ static const uint qt_meta_data_theInterfaceGod[] = {
  // methods: parameters
     QMetaType::Void, QMetaType::Int, QMetaType::Int,    3,    4,
     QMetaType::Void, QMetaType::Int,    6,
-    QMetaType::QString, QMetaType::Int,   24,
+    QMetaType::QString, QMetaType::Int,   26,
     QMetaType::Int,
     QMetaType::Void,
     QMetaType::Void, QMetaType::QString,    9,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Bool,   16,
-    QMetaType::Void, QMetaType::QString,   18,
-    QMetaType::Void, QMetaType::QString,   18,
+    QMetaType::Void, QMetaType::Bool,   17,
+    QMetaType::Void, QMetaType::QString,   19,
+    QMetaType::Void, QMetaType::QString,   19,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -172,23 +183,26 @@ void theInterfaceGod::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
         case 5: _t->SIG_CloseThreads(); break;
         case 6: _t->gui_CloseApplication(); break;
         case 7: _t->gui_SerialPortConnection((*reinterpret_cast< const bool(*)>(_a[1]))); break;
-        case 8: _t->SIG_enableSerialOutput((*reinterpret_cast< const bool(*)>(_a[1]))); break;
-        case 9: _t->SIG_saveSession((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 10: _t->SIG_importTimeSlotList((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 11: _t->invokeTimeSlotChanged(); break;
-        case 12: _t->regenerateFrameList((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const int(*)>(_a[2]))); break;
-        case 13: _t->playFrame((*reinterpret_cast< const int(*)>(_a[1]))); break;
-        case 14: { QString _r = _t->getSerialPortNames((*reinterpret_cast< const int(*)>(_a[1])));
+        case 8: _t->gui_FrameListResconstructed(); break;
+        case 9: _t->SIG_enableSerialOutput((*reinterpret_cast< const bool(*)>(_a[1]))); break;
+        case 10: _t->SIG_saveSession((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 11: _t->SIG_importTimeSlotList((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 12: _t->SIG_clearTimeSlotList(); break;
+        case 13: _t->invokeTimeSlotChanged(); break;
+        case 14: _t->regenerateFrameList((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const int(*)>(_a[2]))); break;
+        case 15: _t->playFrame((*reinterpret_cast< const int(*)>(_a[1]))); break;
+        case 16: { QString _r = _t->getSerialPortNames((*reinterpret_cast< const int(*)>(_a[1])));
             if (_a[0]) *reinterpret_cast< QString*>(_a[0]) = std::move(_r); }  break;
-        case 15: { int _r = _t->getSerialPortCount();
+        case 17: { int _r = _t->getSerialPortCount();
             if (_a[0]) *reinterpret_cast< int*>(_a[0]) = std::move(_r); }  break;
-        case 16: _t->refreshSerialPorts(); break;
-        case 17: _t->connectSerialPort((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 18: _t->disconnectSerialPort(); break;
-        case 19: _t->closeThreads(); break;
-        case 20: _t->enableSerialOutput((*reinterpret_cast< const bool(*)>(_a[1]))); break;
-        case 21: _t->saveSession((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 22: _t->importTimeSlotList((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 18: _t->refreshSerialPorts(); break;
+        case 19: _t->connectSerialPort((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 20: _t->disconnectSerialPort(); break;
+        case 21: _t->closeThreads(); break;
+        case 22: _t->enableSerialOutput((*reinterpret_cast< const bool(*)>(_a[1]))); break;
+        case 23: _t->saveSession((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 24: _t->importTimeSlotList((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 25: _t->clearTimeSlotList(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -250,23 +264,37 @@ void theInterfaceGod::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
             }
         }
         {
-            using _t = void (theInterfaceGod::*)(const bool & );
-            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&theInterfaceGod::SIG_enableSerialOutput)) {
+            using _t = void (theInterfaceGod::*)();
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&theInterfaceGod::gui_FrameListResconstructed)) {
                 *result = 8;
                 return;
             }
         }
         {
-            using _t = void (theInterfaceGod::*)(const QString & );
-            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&theInterfaceGod::SIG_saveSession)) {
+            using _t = void (theInterfaceGod::*)(const bool & );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&theInterfaceGod::SIG_enableSerialOutput)) {
                 *result = 9;
                 return;
             }
         }
         {
             using _t = void (theInterfaceGod::*)(const QString & );
-            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&theInterfaceGod::SIG_importTimeSlotList)) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&theInterfaceGod::SIG_saveSession)) {
                 *result = 10;
+                return;
+            }
+        }
+        {
+            using _t = void (theInterfaceGod::*)(const QString & );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&theInterfaceGod::SIG_importTimeSlotList)) {
+                *result = 11;
+                return;
+            }
+        }
+        {
+            using _t = void (theInterfaceGod::*)();
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&theInterfaceGod::SIG_clearTimeSlotList)) {
+                *result = 12;
                 return;
             }
         }
@@ -298,13 +326,13 @@ int theInterfaceGod::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 23)
+        if (_id < 26)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 23;
+        _id -= 26;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 23)
+        if (_id < 26)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 23;
+        _id -= 26;
     }
     return _id;
 }
@@ -362,24 +390,36 @@ void theInterfaceGod::gui_SerialPortConnection(const bool & _t1)
 }
 
 // SIGNAL 8
-void theInterfaceGod::SIG_enableSerialOutput(const bool & _t1)
+void theInterfaceGod::gui_FrameListResconstructed()
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 8, _a);
+    QMetaObject::activate(this, &staticMetaObject, 8, nullptr);
 }
 
 // SIGNAL 9
-void theInterfaceGod::SIG_saveSession(const QString & _t1)
+void theInterfaceGod::SIG_enableSerialOutput(const bool & _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 9, _a);
 }
 
 // SIGNAL 10
-void theInterfaceGod::SIG_importTimeSlotList(const QString & _t1)
+void theInterfaceGod::SIG_saveSession(const QString & _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 10, _a);
+}
+
+// SIGNAL 11
+void theInterfaceGod::SIG_importTimeSlotList(const QString & _t1)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 11, _a);
+}
+
+// SIGNAL 12
+void theInterfaceGod::SIG_clearTimeSlotList()
+{
+    QMetaObject::activate(this, &staticMetaObject, 12, nullptr);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

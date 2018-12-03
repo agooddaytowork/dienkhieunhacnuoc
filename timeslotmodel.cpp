@@ -72,8 +72,7 @@ QVariant timeSlotModel::getDataPerIndex(const int &index, const QByteArray &Role
         return QVariant(item.fromMs);
     case ToMsRole:
         return QVariant(item.toMs);
-    case LedModeRole:
-        return QVariant(item.LedMode);
+
     case InverterLevelRole:
         return QVariant(item.InverterLevel);
     case FileBinPathRole:
@@ -84,12 +83,12 @@ QVariant timeSlotModel::getDataPerIndex(const int &index, const QByteArray &Role
         return QVariant(item.LedChannels);
     case ValveChannelsRole:
         return QVariant(item.ValveChannels);
-
     case ValveModeRole:
         return QVariant(item.ValveMode);
     case ValveSpeedRole:
         return QVariant(item.ValveSpeed);
-
+    case LedModeRole:
+        return QVariant(item.LedMode);
     case ValveModeNameRole:
         return QVariant(item.ValveModeName);
     case LedModeNameRole:
@@ -245,13 +244,13 @@ bool timeSlotModel::setDataPerIndex(const int &index, const QByteArray &RoleStri
 
         QModelIndex dmIndex = this->index(index,0);
         // emit dataChanged(dmIndex, dmIndex, QVector<int>() << role);
-        qDebug() << "Index valid: " + QString::number(dmIndex.isValid());
+//        qDebug() << "Index valid: " + QString::number(dmIndex.isValid());
         emit gui_timeSlotItemChanged();
 
 
         emit dataChanged(item.modelIndex, item.modelIndex, QVector<int>() << role);
 
-        qDebug() << "setData";
+//        qDebug() << "setData";
         return true;
     }
     return false;
@@ -349,7 +348,7 @@ QHash<int, QByteArray> timeSlotModel::roleNames() const
     names[InverterRole] = "Inverter";
     names[FromMsRole] = "FromMs";
     names[ToMsRole] = "ToMs";
-    names[LedModeRole] = "LedMode";
+    names[LedModeRole] = "LedModeHihi";
     names[InverterLevelRole] = "InverterLevel";
     names[FileBinPathRole] = "FileBinPath";
     names[LEDValuesListRole] = "LEDValuesList";

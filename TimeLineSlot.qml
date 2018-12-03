@@ -12,6 +12,7 @@ Item {
     property int  duration: 0
     property int  slotDuration: 0
     property int  valveMode: 0
+    property int  dmLedMode: 0
     signal deleteTimeSlot()
     signal checkCollision()
     property bool collided: false
@@ -23,6 +24,7 @@ Item {
     property int valveSpeed: 0
     property string ledModeName: "+"
     property int  ledSpeed: 0
+
 
 
 
@@ -124,7 +126,7 @@ Item {
                 Row
                 {
                     Label{
-                        text: "LED: "
+                        text: "LED Mode: "
                         color: "white"
                     }
                     Label{
