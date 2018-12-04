@@ -112,9 +112,10 @@ Item {
         root.currentLedMode = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedModeHihi")
         root.currentLedColorList = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LEDValuesList")
 
-
+        ledSyncSwitch.checked = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedSync");
         valveModeComboBox.currentIndex = root.currentValveModeIndex
         ledModeCombobox.currentIndex = setLedMode(theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedModeName"))
+
     }
 
 
@@ -341,8 +342,9 @@ Item {
                                      theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedModeName", ledModeCombobox.currentText)
                                     theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedSpeed", ledSpeedSpinBox.value)
 
-                                    console.log("Led Mode: " + ledModeCombobox.currentIndex)
+//                                    console.log("Led Mode: " + ledModeCombobox.currentIndex)
                                     theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedModeHihi", ledModeCombobox.currentIndex)
+                                    theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedSync", ledSyncSwitch.checked)
 
                                 }
                             }
@@ -374,8 +376,8 @@ Item {
                         }
                         SpinBox{
                             id: ledSpeedSpinBox
-                            from: -10
-                            to: 10
+                            from: -50
+                            to: 50
                             stepSize: 1
                             value: root.currentLedSpeed
                         }

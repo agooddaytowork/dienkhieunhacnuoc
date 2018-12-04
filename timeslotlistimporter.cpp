@@ -30,6 +30,7 @@ timeSlotItem TimeSlotListImporter::constructTimeSlotItem(const int &group, const
     theItem.ValveModeName = theJsonObject.value("ValveModeName").toString();
     theItem.LedModeName = theJsonObject.value("LedModeName").toString();
     theItem.LedSpeed = theJsonObject.value("LedSpeed").toInt();
+    theItem.LedSync = theJsonObject.value("LedSync").toBool();
 
 
 

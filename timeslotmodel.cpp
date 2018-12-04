@@ -250,7 +250,7 @@ bool timeSlotModel::setDataPerIndex(const int &index, const QByteArray &RoleStri
 
     if (mList->setItemAt(getIndexPerId(index), item)) {
 
-        QModelIndex dmIndex = this->index(index,0);
+
         // emit dataChanged(dmIndex, dmIndex, QVector<int>() << role);
 //        qDebug() << "Index valid: " + QString::number(dmIndex.isValid());
         emit gui_timeSlotItemChanged();

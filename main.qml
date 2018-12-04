@@ -608,12 +608,14 @@ ApplicationWindow {
 
     FileDialog{
         id: theFileDialog
-        folder: shortcuts.home
+        folder: appFilePath
         selectMultiple: false
         selectFolder: false
         nameFilters: ["Music (*.mp3 *.wav)"]
+
         onAccepted: {
 
+            theFileDialog.folder = fileUrl
             audioPlayer.source = fileUrl
 
             var theFileName = ""

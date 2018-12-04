@@ -46,9 +46,27 @@ void SerialFrameBuffer::group1Handler(const int &frameNo,const PresenterFrame &t
     SingleSerialFrame serialFrame = mData.at(frameNo);
 
     serialFrame.V_CH1_I = static_cast<char>(theFrame.InverterLevel);
-    serialFrame.L_CH1[0] = static_cast<char>(QColor(theFrame.LedColors.at(0)).red());
-    serialFrame.L_CH1[1] = static_cast<char>(QColor(theFrame.LedColors.at(0)).green());
-    serialFrame.L_CH1[2] = static_cast<char>(QColor(theFrame.LedColors.at(0)).blue());
+
+
+    if(theFrame.LedSync && theFrame.InverterLevel == 0)
+    {
+        QColor theColor(0,0,0);
+        serialFrame.L_CH1[0] = static_cast<char>(theColor.red());
+        serialFrame.L_CH1[1] = static_cast<char>(theColor.green());
+        serialFrame.L_CH1[2] = static_cast<char>(theColor.blue());
+    }
+    else
+    {
+        serialFrame.L_CH1[0] = static_cast<char>(QColor(theFrame.LedColors.at(0)).red());
+        serialFrame.L_CH1[1] = static_cast<char>(QColor(theFrame.LedColors.at(0)).green());
+        serialFrame.L_CH1[2] = static_cast<char>(QColor(theFrame.LedColors.at(0)).blue());
+    }
+
+
+
+
+
+
 
     mData[frameNo] = serialFrame;
 }
@@ -69,9 +87,19 @@ void SerialFrameBuffer::group2Handler(const int &frameNo,const PresenterFrame &t
 
     serialFrame.V_CH2_T = ValveToggle;
 
-    serialFrame.L_CH2[0] = static_cast<char>(QColor(theFrame.LedColors.at(0)).red());
-    serialFrame.L_CH2[1] = static_cast<char>(QColor(theFrame.LedColors.at(0)).green());
-    serialFrame.L_CH2[2] = static_cast<char>(QColor(theFrame.LedColors.at(0)).blue());
+    if(theFrame.LedSync && ValveToggle == 0x00)
+    {
+        QColor theColor(0,0,0);
+        serialFrame.L_CH2[0] = static_cast<char>(theColor.red());
+        serialFrame.L_CH2[1] = static_cast<char>(theColor.green());
+        serialFrame.L_CH2[2] = static_cast<char>(theColor.blue());
+    }
+    else
+    {
+        serialFrame.L_CH2[0] = static_cast<char>(QColor(theFrame.LedColors.at(0)).red());
+        serialFrame.L_CH2[1] = static_cast<char>(QColor(theFrame.LedColors.at(0)).green());
+        serialFrame.L_CH2[2] = static_cast<char>(QColor(theFrame.LedColors.at(0)).blue());
+    }
 
     mData[frameNo] = serialFrame;
 
@@ -106,9 +134,20 @@ void SerialFrameBuffer::group3Handler(const int &frameNo,const PresenterFrame &t
     serialFrame.V_CH3_T_L = ValveToggle_Low;
     serialFrame.V_CH3_T_H = ValveToggle_High;
 
-    serialFrame.L_CH3[0] = static_cast<char>(QColor(theFrame.LedColors.at(0)).red());
-    serialFrame.L_CH3[1] = static_cast<char>(QColor(theFrame.LedColors.at(0)).green());
-    serialFrame.L_CH3[2] = static_cast<char>(QColor(theFrame.LedColors.at(0)).blue());
+    if(theFrame.LedSync && ValveToggle_Low == 0x00 && ValveToggle_High == 0x00 )
+    {
+        QColor theColor(0,0,0);
+        serialFrame.L_CH3[0] = static_cast<char>(theColor.red());
+        serialFrame.L_CH3[1] = static_cast<char>(theColor.green());
+        serialFrame.L_CH3[2] = static_cast<char>(theColor.blue());
+    }
+    else
+    {
+        serialFrame.L_CH3[0] = static_cast<char>(QColor(theFrame.LedColors.at(0)).red());
+        serialFrame.L_CH3[1] = static_cast<char>(QColor(theFrame.LedColors.at(0)).green());
+        serialFrame.L_CH3[2] = static_cast<char>(QColor(theFrame.LedColors.at(0)).blue());
+    }
+
 
 
     mData[frameNo] = serialFrame;
@@ -120,9 +159,22 @@ void SerialFrameBuffer::group4Handler(const int &frameNo,const PresenterFrame &t
     SingleSerialFrame serialFrame =mData.at(frameNo);
 
     serialFrame.V_CH4_I = static_cast<char>(theFrame.InverterLevel);
-    serialFrame.L_CH4[0] = static_cast<char>(QColor(theFrame.LedColors.at(0)).red());
-    serialFrame.L_CH4[1] = static_cast<char>(QColor(theFrame.LedColors.at(0)).green());
-    serialFrame.L_CH4[2] = static_cast<char>(QColor(theFrame.LedColors.at(0)).blue());
+
+    if(theFrame.LedSync && theFrame.InverterLevel == 0)
+    {
+        QColor theColor(0,0,0);
+
+        serialFrame.L_CH4[0] = static_cast<char>(theColor.red());
+        serialFrame.L_CH4[1] = static_cast<char>(theColor.green());
+        serialFrame.L_CH4[2] = static_cast<char>(theColor.blue());
+    }
+    else
+    {
+        serialFrame.L_CH4[0] = static_cast<char>(QColor(theFrame.LedColors.at(0)).red());
+        serialFrame.L_CH4[1] = static_cast<char>(QColor(theFrame.LedColors.at(0)).green());
+        serialFrame.L_CH4[2] = static_cast<char>(QColor(theFrame.LedColors.at(0)).blue());
+    }
+
 
     mData[frameNo] = serialFrame;
 }
@@ -131,7 +183,7 @@ void SerialFrameBuffer::group5Handler(const int &frameNo,const PresenterFrame &t
 {
     SingleSerialFrame serialFrame =mData.at(frameNo);
 
-    if(theFrame.LedOnOff.at(0))
+    if(theFrame.ValveOnOff.at(0))
     {
         serialFrame.V_CH5_CH7_CH9_T |= static_cast<char>(1 << 0);
     }
@@ -140,9 +192,22 @@ void SerialFrameBuffer::group5Handler(const int &frameNo,const PresenterFrame &t
         serialFrame.V_CH5_CH7_CH9_T &=~(1 << 0);
     }
 
-    serialFrame.L_CH5[0] = static_cast<char>(QColor(theFrame.LedColors.at(0)).red());
-    serialFrame.L_CH5[1] = static_cast<char>(QColor(theFrame.LedColors.at(0)).green());
-    serialFrame.L_CH5[2] = static_cast<char>(QColor(theFrame.LedColors.at(0)).blue());
+    if(theFrame.LedSync && !theFrame.ValveOnOff.at(0))
+    {
+        QColor theColor(0,0,0);
+        serialFrame.L_CH5[0] = static_cast<char>(theColor.red());
+        serialFrame.L_CH5[1] = static_cast<char>(theColor.green());
+        serialFrame.L_CH5[2] = static_cast<char>(theColor.blue());
+
+    }
+    else
+    {
+        serialFrame.L_CH5[0] = static_cast<char>(QColor(theFrame.LedColors.at(0)).red());
+        serialFrame.L_CH5[1] = static_cast<char>(QColor(theFrame.LedColors.at(0)).green());
+        serialFrame.L_CH5[2] = static_cast<char>(QColor(theFrame.LedColors.at(0)).blue());
+    }
+
+
 
     mData[frameNo] = serialFrame;
 }
@@ -162,12 +227,33 @@ void SerialFrameBuffer::group6Handler(const int &frameNo,const PresenterFrame &t
     serialFrame.L_CH6_H[1] = static_cast<char>(QColor(theFrame.LedColors.at(1)).green());
     serialFrame.L_CH6_H[2] = static_cast<char>(QColor(theFrame.LedColors.at(1)).blue());
 
+    if(theFrame.LedSync )
+    {
+        QColor theColor(0,0,0);
+
+        if(theFrame.InverterLevel ==0)
+        {
+            serialFrame.L_CH6_L[0] = static_cast<char>(theColor.red());
+            serialFrame.L_CH6_L[1] = static_cast<char>(theColor.green());
+            serialFrame.L_CH6_L[2] = static_cast<char>(theColor.blue());
+        }
+        if(theFrame.InverterLevel1 == 0)
+        {
+            serialFrame.L_CH6_H[0] = static_cast<char>(theColor.red());
+            serialFrame.L_CH6_H[1] = static_cast<char>(theColor.green());
+            serialFrame.L_CH6_H[2] = static_cast<char>(theColor.blue());
+        }
+
+    }
+
+
     mData[frameNo] = serialFrame;
 }
 
 void SerialFrameBuffer::group7Handler(const int &frameNo,const PresenterFrame &theFrame)
 {
     SingleSerialFrame serialFrame =mData.at(frameNo);
+
 
     if(theFrame.ValveOnOff.at(0))
     {
@@ -194,6 +280,24 @@ void SerialFrameBuffer::group7Handler(const int &frameNo,const PresenterFrame &t
     serialFrame.L_CH7_H[1] = static_cast<char>(QColor(theFrame.LedColors.at(1)).green());
     serialFrame.L_CH7_H[2] = static_cast<char>(QColor(theFrame.LedColors.at(1)).blue());
 
+    if(theFrame.LedSync)
+    {
+        QColor theColor(0,0,0);
+        if(!theFrame.ValveOnOff.at(0))
+        {
+            serialFrame.L_CH7_L[0] = static_cast<char>(theColor.red());
+            serialFrame.L_CH7_L[1] = static_cast<char>(theColor.green());
+            serialFrame.L_CH7_L[2] = static_cast<char>(theColor.blue());
+        }
+        if(!theFrame.ValveOnOff.at(1))
+        {
+            serialFrame.L_CH7_H[0] = static_cast<char>(theColor.red());
+            serialFrame.L_CH7_H[1] = static_cast<char>(theColor.green());
+            serialFrame.L_CH7_H[2] = static_cast<char>(theColor.blue());
+        }
+
+    }
+
     mData[frameNo] = serialFrame;
 }
 
@@ -205,21 +309,12 @@ void SerialFrameBuffer::group8Handler(const int &frameNo,const PresenterFrame &t
 
     char ValveToggle = 0x00;
 
-    for(int i = 0; i < theFrame.ValveChannels; i++)
-    {
-        if(theFrame.ValveOnOff.at(i))
-        {
-            ValveToggle |= (static_cast<char>(1) << static_cast<char>(i));
-        }
-    }
-
-
-    serialFrame.V_CH8_T = ValveToggle;
-
 
     serialFrame.L_CH8_0[0] = static_cast<char>(QColor(theFrame.LedColors.at(0)).red());
     serialFrame.L_CH8_0[1] = static_cast<char>(QColor(theFrame.LedColors.at(0)).green());
     serialFrame.L_CH8_0[2] = static_cast<char>(QColor(theFrame.LedColors.at(0)).blue());
+
+
 
     serialFrame.L_CH8_1[0] = static_cast<char>(QColor(theFrame.LedColors.at(1)).red());
     serialFrame.L_CH8_1[1] = static_cast<char>(QColor(theFrame.LedColors.at(1)).green());
@@ -250,6 +345,80 @@ void SerialFrameBuffer::group8Handler(const int &frameNo,const PresenterFrame &t
     serialFrame.L_CH8_7[2] = static_cast<char>(QColor(theFrame.LedColors.at(7)).blue());
 
 
+
+
+    for(int i = 0; i < theFrame.ValveChannels; i++)
+    {
+        if(theFrame.ValveOnOff.at(i))
+        {
+            ValveToggle |= (static_cast<char>(1) << static_cast<char>(i));
+
+
+
+
+        }
+        else
+        {
+            if(theFrame.LedSync)
+            {
+                switch (i) {
+
+                case 0:
+                    serialFrame.L_CH8_0[0] = 0x00;
+                    serialFrame.L_CH8_0[1] = 0x00;
+                    serialFrame.L_CH8_0[2] = 0x00;
+                    break;
+                case 1:
+
+                    serialFrame.L_CH8_1[0] = 0x00;
+                    serialFrame.L_CH8_1[1] = 0x00;
+                    serialFrame.L_CH8_1[2] = 0x00;
+                    break;
+                case 2:
+                    serialFrame.L_CH8_2[0] = 0x00;
+                    serialFrame.L_CH8_2[1] = 0x00;
+                    serialFrame.L_CH8_2[2] = 0x00;
+                    break;
+                case 3:
+
+
+                    serialFrame.L_CH8_3[0] = 0x00;
+                    serialFrame.L_CH8_3[1] = 0x00;
+                    serialFrame.L_CH8_3[2] = 0x00;
+                    break;
+                case 4:
+
+                    serialFrame.L_CH8_4[0] = 0x00;
+                    serialFrame.L_CH8_4[1] = 0x00;
+                    serialFrame.L_CH8_4[2] = 0x00;
+                    break;
+                case 5:
+                    serialFrame.L_CH8_5[0] = 0x00;
+                    serialFrame.L_CH8_5[1] = 0x00;
+                    serialFrame.L_CH8_5[2] = 0x00;
+                    break;
+                case 6:
+                    serialFrame.L_CH8_6[0] = 0x00;
+                    serialFrame.L_CH8_6[1] = 0x00;
+                    serialFrame.L_CH8_6[2] = 0x00;
+                    break;
+                case 7:
+                    serialFrame.L_CH8_7[0] = 0x00;
+                    serialFrame.L_CH8_7[1] = 0x00;
+                    serialFrame.L_CH8_7[2] = 0x00;
+                    break;
+
+                }
+            }
+        }
+
+
+    }
+
+
+    serialFrame.V_CH8_T = ValveToggle;
+
+
     mData[frameNo] = serialFrame;
 }
 
@@ -258,13 +427,29 @@ void SerialFrameBuffer::group9Handler(const int &frameNo,const PresenterFrame &t
 {
     SingleSerialFrame serialFrame =mData.at(frameNo);
 
+    serialFrame.L_CH9_L[0] = static_cast<char>(QColor(theFrame.LedColors.at(0)).red());
+    serialFrame.L_CH9_L[1] = static_cast<char>(QColor(theFrame.LedColors.at(0)).green());
+    serialFrame.L_CH9_L[2] = static_cast<char>(QColor(theFrame.LedColors.at(0)).blue());
+    serialFrame.L_CH9_H[0] = static_cast<char>(QColor(theFrame.LedColors.at(1)).red());
+    serialFrame.L_CH9_H[1] = static_cast<char>(QColor(theFrame.LedColors.at(1)).green());
+    serialFrame.L_CH9_H[2] = static_cast<char>(QColor(theFrame.LedColors.at(1)).blue());
+
+
     if(theFrame.ValveOnOff.at(0))
     {
         serialFrame.V_CH5_CH7_CH9_T |= 1 << 3;
+
+
     }
     else
     {
         serialFrame.V_CH5_CH7_CH9_T &=~(1 << 3);
+        if(theFrame.LedSync)
+        {
+            serialFrame.L_CH9_L[0] = 0x00;
+            serialFrame.L_CH9_L[1] = 0x00;
+            serialFrame.L_CH9_L[2] = 0x00;
+        }
     }
     if(theFrame.ValveOnOff.at(1))
     {
@@ -273,16 +458,13 @@ void SerialFrameBuffer::group9Handler(const int &frameNo,const PresenterFrame &t
     else
     {
         serialFrame.V_CH5_CH7_CH9_T &=~(1 << 4);
+        if(theFrame.LedSync)
+        {
+            serialFrame.L_CH9_H[0] = 0x00;
+            serialFrame.L_CH9_H[1] = 0x00;
+            serialFrame.L_CH9_H[2] = 0x00;
+        }
     }
-
-
-    serialFrame.L_CH9_L[0] = static_cast<char>(QColor(theFrame.LedColors.at(0)).red());
-    serialFrame.L_CH9_L[1] = static_cast<char>(QColor(theFrame.LedColors.at(0)).green());
-    serialFrame.L_CH9_L[2] = static_cast<char>(QColor(theFrame.LedColors.at(0)).blue());
-
-    serialFrame.L_CH9_H[0] = static_cast<char>(QColor(theFrame.LedColors.at(1)).red());
-    serialFrame.L_CH9_H[1] = static_cast<char>(QColor(theFrame.LedColors.at(1)).green());
-    serialFrame.L_CH9_H[2] = static_cast<char>(QColor(theFrame.LedColors.at(1)).blue());
 
     mData[frameNo] = serialFrame;
 }
@@ -303,7 +485,7 @@ void SerialFrameBuffer::playSerialFrame(const int &index)
 {
 
     QByteArray theFrame = frameCombiner(mData.at(index));
-//    qDebug() << theFrame.toHex(':');
+    //    qDebug() << theFrame.toHex(':');
 
     if(mSerialOutputEnable)
     {

@@ -27,6 +27,7 @@ struct PresenterFrame{
     quint8 InverterLevel1;
     quint8 LedChannels;
     quint8 ValveChannels;
+    bool LedSync;
 
 };
 

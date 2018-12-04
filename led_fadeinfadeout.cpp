@@ -19,7 +19,7 @@ bool LED_FadeInFadeOut::setSpeed(const int &speed)
         {
             if(mSpeed >= 0)
             {
-                for( int ii = 10; ii >= mSpeed; ii--)
+                for( int ii = 50; ii >= mSpeed; ii--)
                 {
                     dataWithSpeed.append(data.at(i));
                 }
@@ -27,7 +27,7 @@ bool LED_FadeInFadeOut::setSpeed(const int &speed)
             else
             {
 
-                for(int ii = 0; ii < 10 - mSpeed; ii++)
+                for(int ii = 0; ii < 50 - mSpeed; ii++)
                 {
                     dataWithSpeed.append(data.at(i));
                 }

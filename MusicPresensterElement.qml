@@ -17,6 +17,7 @@ Item {
     property bool  odd: false
     property int initialX: 0
     property int  initialY: 0
+
 //    property bool idOn: false
 
     onLedColorChanged: {

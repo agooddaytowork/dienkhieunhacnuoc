@@ -181,26 +181,104 @@ void MusicPresenterList::frameChangedHandler(const PresenterFrame &frame)
     {
         MusicPresenterItem theItem = mItems.at(ii);
 
-        theItem.LedOnOff = frame.LedOnOff.at(0);
+
         theItem.InverterLevel = frame.InverterLevel;
-        if(theItem.group == 1 || theItem.group ==7 || theItem.group == 2)
+
+        if(frame.LedSync)
+        {
+            if(theItem.InverterLevel == 0)
+            {
+                theItem.LedOnOff = false;
+            }
+            else
+            {
+                theItem.LedOnOff = true;
+            }
+        }
+        else
+        {
+            theItem.LedOnOff = frame.LedOnOff.at(0);
+        }
+
+
+        if(theItem.group == 1  || theItem.group == 2)
         {
             theItem.ValveOnOff = frame.ValveOnOff.at(ii);
+
+            if(frame.LedSync)
+            {
+                quint16 status = 0x0000;
+
+                for(int i= 0; i < frame.ValveChannels; i++)
+                {
+                    if(frame.ValveOnOff.at(i))
+                    {
+                        status |= 1 << i;
+                    }
+                }
+                if(status == 0x0000)
+                {
+                    theItem.LedOnOff = false;
+                }
+                else
+                {
+                    theItem.LedOnOff = true;
+                }
+
+            }
+            else
+            {
+                theItem.LedOnOff = frame.LedOnOff.at(0);
+            }
+
+        }
+        else if(theItem.group == 7)
+        {
+            theItem.ValveOnOff = frame.ValveOnOff.at(ii);
+
+            if(frame.LedSync)
+            {
+                theItem.LedOnOff = theItem.ValveOnOff;
+            }
+            else
+            {
+                theItem.LedOnOff = frame.LedOnOff.at(0);
+            }
         }
         else if(theItem.group == 6 || theItem.group == 8)
         {
             if(theItem.odd)
             {
                 theItem.ValveOnOff = frame.ValveOnOff.at(0);
+
             }
             else
             {
                 theItem.ValveOnOff = frame.ValveOnOff.at(1);
             }
+
+            if(frame.LedSync)
+            {
+                theItem.LedOnOff = theItem.ValveOnOff;
+            }
+            else
+            {
+                theItem.LedOnOff = frame.LedOnOff.at(0);
+            }
+
+
         }
         else if(theItem.group == 4)
         {
             theItem.ValveOnOff = frame.ValveOnOff.at(0);
+            if(frame.LedSync)
+            {
+                theItem.LedOnOff = theItem.ValveOnOff;
+            }
+            else
+            {
+                theItem.LedOnOff = frame.LedOnOff.at(0);
+            }
         }
         else if(theItem.group ==5)
         {
@@ -211,6 +289,22 @@ void MusicPresenterList::frameChangedHandler(const PresenterFrame &frame)
             else if(theItem.odd == false)
             {
                 theItem.InverterLevel = frame.InverterLevel1;
+            }
+
+            if(frame.LedSync)
+            {
+                if(theItem.InverterLevel == 0)
+                {
+                    theItem.LedOnOff = false;
+                }
+                else
+                {
+                    theItem.LedOnOff = true;
+                }
+            }
+            else
+            {
+                theItem.LedOnOff = frame.LedOnOff.at(0);
             }
         }
         else
