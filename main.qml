@@ -16,7 +16,7 @@ ApplicationWindow {
     title: qsTr("Nhạc nước Tiền Giang")
     property int  fromMs: 0
     property int toMs: 60000
-    property int  duration: 240000
+    property int  duration: 0
     property int  currentPosition: 0
     property int  buttonSize: 40
     property bool currentSongJustChanged: false
@@ -112,6 +112,7 @@ ApplicationWindow {
                         onClicked: {
                             root.currentSong = ""
                             root.currentPosition = 0
+                            root.duration = 0
 
                             audioPlayer.source = ""
 
@@ -301,7 +302,7 @@ ApplicationWindow {
 
     Grid{
         id: mainGrid
-
+        enabled: root.duration == 0 ? false:true
         rows: 1
         columns: 2
         anchors.fill: parent
@@ -582,7 +583,7 @@ ApplicationWindow {
 
         onDurationChanged: {
             // console.log("changed DURATION ASLKDJALSDJSKLAJDKLSAJJD: " + duration)
-
+            root.duration = duration
             theInterfaceGod.regenerateFrameList(duration, 50)
         }
 

@@ -95,6 +95,8 @@ QVariant timeSlotModel::getDataPerIndex(const int &index, const QByteArray &Role
         return QVariant(item.LedModeName);
     case LedSpeedRole:
         return QVariant(item.LedSpeed);
+    case LedSyncRole:
+        return  QVariant(item.LedSync);
 
 
 
@@ -166,6 +168,9 @@ QVariant timeSlotModel::data(const QModelIndex &index, int role) const
         return  QVariant(item.LedModeName);
     case LedSpeedRole:
         return QVariant(item.LedSpeed);
+    case LedSyncRole:
+        return  QVariant(item.LedSync);
+
 
     }
 
@@ -237,6 +242,9 @@ bool timeSlotModel::setDataPerIndex(const int &index, const QByteArray &RoleStri
         break;
     case LedSpeedRole:
         item.LedSpeed = value.toInt();
+        break;
+    case LedSyncRole:
+        item.LedSync = value.toBool();
         break;
     }
 
@@ -320,6 +328,9 @@ bool timeSlotModel::setData(const QModelIndex &index, const QVariant &value, int
         item.LedModeName = value.toString();
     case LedSpeedRole:
         item.LedSpeed = value.toInt();
+    case LedSyncRole:
+        item.LedSync = value.toBool();
+        break;
     }
 
     if (mList->setItemAt(index.row(), item)) {
@@ -359,6 +370,7 @@ QHash<int, QByteArray> timeSlotModel::roleNames() const
     names[ValveModeNameRole] = "ValveModeName";
     names[LedModeNameRole] = "LedModeName";
     names[LedSpeedRole] = "LedSpeed";
+    names[LedSyncRole] = "LedSync";
 
     return names;
 

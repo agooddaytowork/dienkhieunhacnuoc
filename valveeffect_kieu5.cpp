@@ -1,5 +1,5 @@
 #include "valveeffect_kieu5.h"
-
+#include <QtDebug>
 
 ValveEffect_Kieu5::ValveEffect_Kieu5(): mEffectValid(false), mSpeed(0)
 {
@@ -18,15 +18,8 @@ bool ValveEffect_Kieu5::setNewPath(QString filePath)
             mEffectValid = true;
 
             mEffectBytes = file.readAll();
-            for(int i = 0; i < mEffectBytes.count();i++)
-            {
 
-                for( int ii = 10; ii >= 0; ii--)
-                {
-                    mEffectBytesWithSpeed.append(mEffectBytes[(i*2 %(mEffectBytes.count() -1))]);
-                    mEffectBytesWithSpeed.append(mEffectBytes[((i*2 +1) %(mEffectBytes.count() -1))]);
-                }
-            }
+            setSpeed(50);
 
             return true;
         }
@@ -55,19 +48,19 @@ bool ValveEffect_Kieu5::setSpeed( const int &theSpeed)
         {
             if(mSpeed >= 0)
             {
-                for( int ii = 10; ii >= mSpeed; ii--)
+                for( int ii = 50; ii >= mSpeed; ii--)
                 {
-                    mEffectBytesWithSpeed.append(mEffectBytes[(i*2 %(mEffectBytes.count() -1))]);
-                    mEffectBytesWithSpeed.append(mEffectBytes[((i*2 +1) %(mEffectBytes.count() -1))]);
+                    mEffectBytesWithSpeed.append(mEffectBytes[(i*2 %(mEffectBytes.count()))]);
+                    mEffectBytesWithSpeed.append(mEffectBytes[((i*2 +1) %(mEffectBytes.count()))]);
                 }
             }
             else
             {
 
-                for(int ii = 0; ii < 10 - mSpeed; ii++)
+                for(int ii = 0; ii < 50 - mSpeed; ii++)
                 {
-                    mEffectBytesWithSpeed.append(mEffectBytes[(i*2 %(mEffectBytes.count() -1))]);
-                    mEffectBytesWithSpeed.append(mEffectBytes[((i*2 +1) %(mEffectBytes.count() -1))]);
+                    mEffectBytesWithSpeed.append(mEffectBytes[(i*2 %(mEffectBytes.count()))]);
+                    mEffectBytesWithSpeed.append(mEffectBytes[((i*2 +1) %(mEffectBytes.count()))]);
                 }
             }
         }
@@ -81,11 +74,13 @@ bool ValveEffect_Kieu5::setSpeed( const int &theSpeed)
 quint8 ValveEffect_Kieu5::getData(const int &index, const bool &odd)
 {
 
+//    qDebug() << "index: " + QString::number(index) + " odd: " + QString::number(odd);
+
     if(odd)
     {
-        return  static_cast<quint8>( mEffectBytesWithSpeed.at(index*2 %(mEffectBytesWithSpeed.count() -1)));
+        return  static_cast<quint8>( mEffectBytesWithSpeed.at(index*2 %(mEffectBytesWithSpeed.count())));
     }
 
-    return static_cast<quint8>( mEffectBytesWithSpeed.at((index*2 +1) %(mEffectBytesWithSpeed.count() -1)));
+    return static_cast<quint8>( mEffectBytesWithSpeed.at((index*2 +1) %(mEffectBytesWithSpeed.count())));
 
 }

@@ -238,18 +238,30 @@ PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const time
         }
     }
 
-    QColor theColor;
 
-    theColor.setNamedColor(timeSlot.LedValuesList);
+    if(timeSlot.LedModeName == "Fade In/Out")
+    {
+        QColor theColor;
+
+        theColor.setNamedColor(timeSlot.LedValuesList);
 
 
-    mLED_FadeInFadeOut.setEffects(theColor);
-    mLED_FadeInFadeOut.setSpeed(timeSlot.LedSpeed);
+        mLED_FadeInFadeOut.setEffects(theColor);
+        mLED_FadeInFadeOut.setSpeed(timeSlot.LedSpeed);
+        for(int i = 0; i < timeSlot.LedChannels; i++)
+        {
+
+            aFrame.LedColors[i]= mLED_FadeInFadeOut.getData(index).name();
+
+            //        qDebug() << "Led color name: " + aFrame.LedColors[i];
+        }
+    }
+
 
     for(int i = 0; i < timeSlot.LedChannels; i++)
     {
         aFrame.LedOnOff.append(timeSlot.LedOnOff);
-        aFrame.LedColors[i]= mLED_FadeInFadeOut.getData(index).name();
+
 
         //        qDebug() << "Led color name: " + aFrame.LedColors[i];
     }

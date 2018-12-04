@@ -14,6 +14,7 @@ struct timeSlotItem{
     bool ValveOnOff;
     bool LedOnOff;
     bool Inverter;
+    bool LedSync;
     quint8 LedMode;
     quint8 InverterLevel;
     QString fileBinPath;

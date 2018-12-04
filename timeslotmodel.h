@@ -33,7 +33,8 @@ public:
         ValveModeNameRole,
         LedSpeedRole,
         LedModeNameRole,
-        LedModeRole
+        LedModeRole,
+        LedSyncRole
 
     };
 

@@ -325,6 +325,7 @@ Item {
                     Row{
                         spacing: 2
                         Switch{
+                            id: ledSyncSwitch
                             text: "Sync"
                         }
                         Button{
@@ -628,10 +629,11 @@ Item {
                             }
                             SpinBox{
                                 id: speedValveSpinBox
-                                from: -10
-                                to: 10
+                                from: -50
+                                to: 50
                                 stepSize: 1
                                 value: root.currentValveSpeed
+                                editable: true
                             }
                         }
 

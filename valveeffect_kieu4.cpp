@@ -18,14 +18,7 @@ bool ValveEffect_Kieu4::setNewPath(QString filePath)
             mEffectValid = true;
 
             mEffectBytes = file.readAll();
-            for(int i = 0; i < mEffectBytes.count();i++)
-            {
-
-                for( int ii = 10; ii >= 0; ii--)
-                {
-                    mEffectBytesWithSpeed.append(mEffectBytes[i]);
-                }
-            }
+            setSpeed(50);
 
             return true;
         }
@@ -49,7 +42,7 @@ bool ValveEffect_Kieu4::setSpeed( const int &theSpeed)
         {
             if(mSpeed >= 0)
             {
-                for( int ii = 10; ii >= mSpeed; ii--)
+                for( int ii = 50; ii >= mSpeed; ii--)
                 {
                     mEffectBytesWithSpeed.append(mEffectBytes[i]);
                 }
@@ -57,7 +50,7 @@ bool ValveEffect_Kieu4::setSpeed( const int &theSpeed)
             else
             {
 
-                for(int ii = 0; ii < 10 - mSpeed; ii++)
+                for(int ii = 0; ii < 50 - mSpeed; ii++)
                 {
                     mEffectBytesWithSpeed.append(mEffectBytes[i]);
                 }
@@ -73,7 +66,8 @@ bool ValveEffect_Kieu4::setSpeed( const int &theSpeed)
 
 bool ValveEffect_Kieu4::getData(const int &index, const bool &odd)
 {
-    quint8 theValue = static_cast<quint8>( mEffectBytesWithSpeed.at(index %(mEffectBytesWithSpeed.count() -1)));
+
+    quint8 theValue = static_cast<quint8>( mEffectBytesWithSpeed.at(index %(mEffectBytesWithSpeed.count())));
 
 
     if(odd)
