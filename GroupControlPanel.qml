@@ -172,6 +172,7 @@ Item {
                     ledModeName: LedModeName
                     ledSpeed: LedSpeed
                     dmLedMode: LedModeHihi
+                    ledColorList: LEDValuesList
 
 
                     Connections{
@@ -184,6 +185,7 @@ Item {
                             theTimeLineSlot.valveSpeed = dmModel.getDataPerIndex(theTimeLineSlot.timeSlotIndex, "ValveSpeed")
                             theTimeLineSlot.ledSpeed = dmModel.getDataPerIndex(theTimeLineSlot.timeSlotIndex, "LedSpeed")
                             theTimeLineSlot.valveModeName = dmModel.getDataPerIndex(theTimeLineSlot.timeSlotIndex, "ValveModeName")
+                            theTimeLineSlot.ledColorList = dmModel.getDataPerIndex(theTimeLineSlot.timeSlotIndex,"LEDValuesList")
 
 
                         }

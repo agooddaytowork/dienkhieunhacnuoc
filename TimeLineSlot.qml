@@ -24,8 +24,14 @@ Item {
     property int valveSpeed: 0
     property string ledModeName: "+"
     property int  ledSpeed: 0
+    property string ledColorList: "#8e8e8e;#8e8e8e"
 
 
+    onLedColorListChanged: {
+        console.trace()
+        firstColorRec.color = returnColor(0)
+        secondColorRec.color = returnColor(1)
+    }
 
 
     x: root.refreshX()
@@ -36,7 +42,20 @@ Item {
         console.log("current valve Mode: " + root.valveMode)
     }
 
+    Component.onCompleted: {
+      returnColor(0)
+    }
 
+    function returnColor(index)
+    {
+
+        var colorArray = root.ledColorList.split(";")
+        if(colorArray.length <= index)
+        {
+            return "#8e8e8e"
+        }
+        return colorArray[index]
+    }
 
     function refreshPosition()
     {
@@ -89,13 +108,13 @@ Item {
 
         Rectangle{
             id: infoRec
-            width: 100
+            width: 150
             height: 60
             anchors.top: parent.top
             anchors.left: parent.left
             color: "transparent"
             z:3
-
+            visible: infoRec.width >= theTimeSlot.width ? false: true
             Column{
                 anchors.fill: parent
                 spacing: 2
@@ -125,6 +144,7 @@ Item {
 
                 Row
                 {
+                    spacing: 2
                     Label{
                         text: "LED Mode: "
                         color: "white"
@@ -134,6 +154,26 @@ Item {
                         color: "white"
 
                     }
+
+                        Rectangle{
+                            id: firstColorRec
+                            width: 15
+                            height: 15
+                            radius: 7.5
+                            border.width: 1
+                            border.color: "white"
+                            color: returnColor(0)
+                        }
+                        Rectangle{
+                            id: secondColorRec
+                            width: 15
+                            height: 15
+                            radius: 7.5
+                            border.width: 1
+                            border.color: "white"
+                            color: returnColor(1)
+                        }
+
                 }
                 Row
                 {
@@ -150,7 +190,7 @@ Item {
 
             }
 
-            visible: infoRec.width >= theTimeSlot.width ? false: true
+
         }
 
         MouseArea{

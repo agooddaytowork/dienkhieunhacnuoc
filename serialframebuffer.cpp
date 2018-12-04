@@ -485,7 +485,7 @@ void SerialFrameBuffer::playSerialFrame(const int &index)
 {
 
     QByteArray theFrame = frameCombiner(mData.at(index));
-    //    qDebug() << theFrame.toHex(':');
+       qDebug() << theFrame.toHex(':');
 
     if(mSerialOutputEnable)
     {
