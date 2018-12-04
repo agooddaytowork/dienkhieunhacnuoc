@@ -30,7 +30,8 @@ SOURCES += \
     serialframebuffer.cpp \
     serialportal.cpp \
     timeslotlistexporter.cpp \
-    timeslotlistimporter.cpp
+    timeslotlistimporter.cpp \
+    led_fadeinfadeout2colors.cpp
 
 RESOURCES += qml.qrc
 
@@ -63,4 +64,5 @@ HEADERS += \
     serialframebuffer.h \
     serialportal.h \
     timeslotlistexporter.h \
-    timeslotlistimporter.h
+    timeslotlistimporter.h \
+    led_fadeinfadeout2colors.h
