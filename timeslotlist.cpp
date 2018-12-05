@@ -50,6 +50,7 @@ void timeSlotList::copyItem(const int &id, const int &fromMs)
     item.fromMs =fromMs;
     item.toMs = fromMs + duration;
 
+    mCurrentIndex++;
     mItems.append(item);
 
     emit postItemAppended();

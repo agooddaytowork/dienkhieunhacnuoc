@@ -82,13 +82,13 @@ void TimeSlotListImporter::importFile(const QString &filePath)
 {
 
 
-    qDebug() << "TimeSlotListImporter::importFile :" +QUrl(filePath).toLocalFile();
+//    qDebug() << "TimeSlotListImporter::importFile :" +QUrl(filePath).toLocalFile();
 
     QFile file(QUrl(filePath).toLocalFile());
 
     if(file.open(QIODevice::ReadOnly ))
     {
-        qDebug()<< "file is oPen";
+//        qDebug()<< "file is oPen";
         QByteArray data = file.readAll();
 
 
@@ -98,7 +98,7 @@ void TimeSlotListImporter::importFile(const QString &filePath)
 
         if(!theDocument.isNull())
         {
-            qDebug()<< "Document is not null";
+//            qDebug()<< "Document is not null";
 
             QJsonArray groupsArray = theDocument.array();
 
@@ -114,7 +114,7 @@ void TimeSlotListImporter::importFile(const QString &filePath)
                     timeSlotList.append(constructTimeSlotItem(theGroup.value("group").toInt(), timeSlotsArray.at(ii).toObject()));
                 }
 
-                qDebug() << "Emit shits";
+//                qDebug() << "Emit shits";
 
                 emit SIG_updateTimeSlotSlit(theGroup.value("group").toInt(), timeSlotList);
 
@@ -128,7 +128,7 @@ void TimeSlotListImporter::importFile(const QString &filePath)
     else
     {
         qDebug() << file.errorString();
-        qDebug() << "file is not open";
+//        qDebug() << "file is not open";
     }
 
 }

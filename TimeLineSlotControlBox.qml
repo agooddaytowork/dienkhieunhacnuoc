@@ -45,14 +45,14 @@ Item {
         console.trace()
         console.log("Group: " + root.currentGroupIndex + " - timeslot: " + root.currentTimeSlotIndex
                     + " - valveMode: " + valveModeComboBox.currentIndex)
-//        if(theTimeSlotModel.size !== 0  && root.currentTimeSlotIndex <= theTimeSlotModel.size)
-//        {
-            console.trace()
-            theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveMode", valveModeComboBox.currentIndex)
-            theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"FileBinPath", effectFolderModel.get(valveModeComboBox.currentIndex,"filePath"))
-            theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveSpeed",speedValveSpinBox.value)
-            theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveModeName", effectFolderModel.get(valveModeComboBox.currentIndex,"fileName"))
-//        }
+        //        if(theTimeSlotModel.size !== 0  && root.currentTimeSlotIndex <= theTimeSlotModel.size)
+        //        {
+        console.trace()
+        theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveMode", valveModeComboBox.currentIndex)
+        theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"FileBinPath", effectFolderModel.get(valveModeComboBox.currentIndex,"filePath"))
+        theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveSpeed",speedValveSpinBox.value)
+        theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveModeName", effectFolderModel.get(valveModeComboBox.currentIndex,"fileName"))
+        //        }
 
         //        refreshModel()
     }
@@ -284,19 +284,19 @@ Item {
     Column{
         anchors.fill: parent
 
-//        Rectangle{
-//            height: 30
-//            width: root.width
-//            color: "grey"
-//            Label{
-//                anchors.verticalCenter: parent.verticalCenter
-//                anchors.horizontalCenter: parent.horizontalCenter
-//                text: "Kiểu " + (root.currentGroupIndex+1)
-//                font.bold: true
-//                font.pointSize: 12
-//                color: "white"
-//            }
-//        }
+        //        Rectangle{
+        //            height: 30
+        //            width: root.width
+        //            color: "grey"
+        //            Label{
+        //                anchors.verticalCenter: parent.verticalCenter
+        //                anchors.horizontalCenter: parent.horizontalCenter
+        //                text: "Kiểu " + (root.currentGroupIndex+1)
+        //                font.bold: true
+        //                font.pointSize: 12
+        //                color: "white"
+        //            }
+        //        }
 
         TabBar{
             id: tabBar
@@ -331,34 +331,45 @@ Item {
 
                     Row{
                         spacing: 5
-                    anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
                         Button{
                             text: "Update"
                             onClicked:{
-//                                refreshModel()
+                                //                                refreshModel()
                                 console.trace()
                                 console.log("Group: " + root.currentGroupIndex + " - timeslot: " + root.currentTimeSlotIndex
                                             + " - valveMode: " + valveModeComboBox.currentIndex)
 
-//                                if(theTimeSlotModel.size !== 0 /* && root.currentTimeSlotIndex <= theTimeSlotModel.size*/)
-//                                {
-                                    console.trace()
+                                //                                if(theTimeSlotModel.size !== 0 /* && root.currentTimeSlotIndex <= theTimeSlotModel.size*/)
+                                //                                {
+                                console.trace()
 
 
-                                    theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LEDValuesList", colorBoxesRepeater.itemAt(0).color +";"+colorBoxesRepeater.itemAt(1).color)
-                                    theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedModeName", ledModeCombobox.currentText)
-                                    theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedSpeed", ledSpeedSpinBox.value)
+                                theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LEDValuesList", colorBoxesRepeater.itemAt(0).color +";"+colorBoxesRepeater.itemAt(1).color)
+                                theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedModeName", ledModeCombobox.currentText)
+                                theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedSpeed", ledSpeedSpinBox.value)
 
-                                    //                                    console.log("Led Mode: " + ledModeCombobox.currentIndex)
-                                    theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedModeHihi", ledModeCombobox.currentIndex)
-                                    theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedSync", ledSyncSwitch.checked)
+                                //                                    console.log("Led Mode: " + ledModeCombobox.currentIndex)
+                                theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedModeHihi", ledModeCombobox.currentIndex)
+                                theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedSync", ledSyncSwitch.checked)
 
-//                                }
+                                //                                }
                             }
                         }
-                        Switch{
-                            id: ledSyncSwitch
-                            text: "Sync"
+
+                        Text {
+
+                            text: qsTr("Mode: ")
+                            anchors.verticalCenter: parent.verticalCenter
+
+                        }
+                        ComboBox{
+                            id: ledModeCombobox
+                            model: ledModeModel
+                            anchors.verticalCenter: parent.verticalCenter
+                            currentIndex: root.currentLedMode
+
+
                         }
 
                         Text {
@@ -380,20 +391,12 @@ Item {
                     Row
                     {
                         spacing: 5
-                        Text {
-
-                            text: qsTr("Mode: ")
-                            anchors.verticalCenter: parent.verticalCenter
-
+                        Switch{
+                            id: ledSyncSwitch
+                            text: "Sync"
                         }
-                        ComboBox{
-                            id: ledModeCombobox
-                            model: ledModeModel
-                            anchors.verticalCenter: parent.verticalCenter
-                            currentIndex: root.currentLedMode
 
 
-                        }
                         Text {
 
                             text: qsTr("Color: ")
@@ -434,31 +437,7 @@ Item {
                                 }
                             }
                         }
-//                        Text {
-
-//                            text: qsTr("Speed")
-//                            anchors.verticalCenter: parent.verticalCenter
-//                        }
-//                        SpinBox{
-//                            id: ledSpeedSpinBox
-//                            from: -50
-//                            to: 50
-//                            stepSize: 1
-//                            value: root.currentLedSpeed
-//                            editable: true
-//                        }
                     }
-
-//                    Grid
-//                    {
-//                        rows: 2
-//                        columns: 3
-//                        spacing: 2
-
-
-//                    }
-
-
                 }
             }
 
@@ -474,149 +453,7 @@ Item {
                     width: root.width
                     state: "Default"
 
-                    states:[
 
-                        State{
-                            name:"Solid"
-                            PropertyChanges{
-                                target: speedValveControl
-                                visible: false
-                            }
-                            PropertyChanges{
-                                target: valveInterterStrength00
-                                visible: true
-                            }
-
-                            PropertyChanges{
-                                target: valveFadeSliderRow00
-                                visible: false
-                            }
-                            PropertyChanges{
-                                target: valveBlinkSliderRow00
-                                visible: false
-                            }
-                            PropertyChanges{
-                                target: valveBlinkCycleRow00
-                                visible: false
-                            }
-                            PropertyChanges{
-                                target: valveBlinkCycleSlider00
-                                visible: false
-                            }
-
-                            PropertyChanges{
-                                target: valveBlinkMode00
-                                visible: false
-                            }
-                        },
-                        State{
-                            name:"Default"
-                            PropertyChanges{
-                                target: speedValveControl
-                                visible: true
-                            }
-                            PropertyChanges{
-                                target: valveInterterStrength00
-                                visible: false
-                            }
-                            PropertyChanges{
-                                target: valveInterterStrength01
-                                visible: false
-                            }
-                            PropertyChanges{
-                                target: valveFadeSliderRow00
-                                visible: false
-                            }
-                            PropertyChanges{
-                                target: valveBlinkCycleRow00
-                                visible: false
-                            }
-                            PropertyChanges{
-                                target: valveBlinkCycleSlider00
-                                visible: false
-                            }
-                            PropertyChanges{
-                                target: valveBlinkSliderRow00
-                                visible: false
-                            }
-                            PropertyChanges{
-                                target: valveBlinkMode00
-                                visible: false
-                            }
-
-                        },
-                        State{
-                            name:"Fade"
-                            PropertyChanges{
-                                target: speedValveControl
-                                visible: false
-                            }
-                            PropertyChanges{
-                                target: valveInterterStrength00
-                                visible: false
-                            }
-                            PropertyChanges{
-                                target: valveInterterStrength01
-                                visible: false
-                            }
-                            PropertyChanges{
-                                target: valveFadeSliderRow00
-                                visible: true
-                            }
-                            PropertyChanges{
-                                target: valveBlinkCycleRow00
-                                visible: false
-                            }
-                            PropertyChanges{
-                                target: valveBlinkSliderRow00
-                                visible: false
-                            }
-                            PropertyChanges{
-                                target: valveBlinkCycleSlider00
-                                visible: false
-                            }
-                            PropertyChanges{
-                                target: valveBlinkMode00
-                                visible: false
-                            }
-                        },
-                        State{
-                            name:"Blink"
-                            PropertyChanges{
-                                target: speedValveControl
-                                visible: false
-                            }
-                            PropertyChanges{
-                                target: valveInterterStrength00
-                                visible: false
-                            }
-                            PropertyChanges{
-                                target: valveInterterStrength01
-                                visible: false
-                            }
-                            PropertyChanges{
-                                target: valveFadeSliderRow00
-                                visible: false
-                            }
-                            PropertyChanges{
-                                target: valveBlinkCycleRow00
-                                visible: true
-                            }
-                            PropertyChanges{
-                                target: valveBlinkCycleSlider00
-                                visible: true
-                            }
-                            PropertyChanges{
-                                target: valveBlinkMode00
-                                visible: true
-                            }
-                            PropertyChanges{
-                                target: valveBlinkSliderRow00
-                                visible: true
-                            }
-                        }
-
-                    ]
 
 
                     Column {
@@ -690,247 +527,244 @@ Item {
 
                         }
 
-                        Row{
-                            id: valveInterterStrength00
-                            spacing: 2
-                            Text {
+                        //                        Row{
+                        //                            id: valveInterterStrength00
+                        //                            spacing: 2
+                        //                            Text {
 
-                                text: qsTr("CH1 Strength :")
-                                anchors.verticalCenter: parent.verticalCenter
-                            }
-                            Slider{
-                                id: inverterValveStrangeSlider
-                                from: 0
-                                to: 255
-                                value: 125
-                                stepSize: 1
-                            }
+                        //                                text: qsTr("CH1 Strength :")
+                        //                                anchors.verticalCenter: parent.verticalCenter
+                        //                            }
+                        //                            Slider{
+                        //                                id: inverterValveStrangeSlider
+                        //                                from: 0
+                        //                                to: 255
+                        //                                value: 125
+                        //                                stepSize: 1
+                        //                            }
 
-                            Text {
+                        //                            Text {
 
-                                text: inverterValveStrangeSlider.value
-                                anchors.verticalCenter: parent.verticalCenter
-                            }
-                        }
+                        //                                text: inverterValveStrangeSlider.value
+                        //                                anchors.verticalCenter: parent.verticalCenter
+                        //                            }
+                        //                        }
 
-                        Row{
-                            id: valveInterterStrength01
-                            visible: {
-                                if(root.currentGroupIndex == 5  && valveControlPane.state === "Solid")
-                                {
-                                    true
-                                }
-                                else
-                                {
-                                    false
-                                }
-                            }
-                            spacing: 2
-                            Text {
+                        //                        Row{
+                        //                            id: valveInterterStrength01
+                        //                            visible: {
+                        //                                if(root.currentGroupIndex == 5  && valveControlPane.state === "Solid")
+                        //                                {
+                        //                                    true
+                        //                                }
+                        //                                else
+                        //                                {
+                        //                                    false
+                        //                                }
+                        //                            }
+                        //                            spacing: 2
+                        //                            Text {
 
-                                text: qsTr("CH2 Strength :")
-                                anchors.verticalCenter: parent.verticalCenter
-                            }
-                            Slider{
-                                id: inverterValveStrangeSlider1
-                                from: 0
-                                to: 255
-                                value: 125
-                                stepSize: 1
-                            }
+                        //                                text: qsTr("CH2 Strength :")
+                        //                                anchors.verticalCenter: parent.verticalCenter
+                        //                            }
+                        //                            Slider{
+                        //                                id: inverterValveStrangeSlider1
+                        //                                from: 0
+                        //                                to: 255
+                        //                                value: 125
+                        //                                stepSize: 1
+                        //                            }
 
-                            Text {
-                                text: inverterValveStrangeSlider1.value
-                                anchors.verticalCenter: parent.verticalCenter
-                            }
-                        }
+                        //                            Text {
+                        //                                text: inverterValveStrangeSlider1.value
+                        //                                anchors.verticalCenter: parent.verticalCenter
+                        //                            }
+                        //                        }
 
-                        Row{
+                        //                        Row{
 
-                            id: valveFadeSliderRow00
-                            spacing: 2
-                            Text {
-                                width: 80
-                                text: "CH1 - Start: " + parseInt(valveFadeRangeSlider00.first.value)
-                                anchors.verticalCenter: parent.verticalCenter
-                            }
-                            RangeSlider{
-                                id: valveFadeRangeSlider00
-                                from: 0
-                                to: 255
-                                stepSize: 1.0
-                                snapMode: RangeSlider.SnapAlways
-                                first.value: 5
-                                second.value: 100
-
-
-                            }
-                            Text {
-                                text: "Stop: " + parseInt(valveFadeRangeSlider00.second.value)
-                                anchors.verticalCenter: parent.verticalCenter
-                            }
-                        }
+                        //                            id: valveFadeSliderRow00
+                        //                            spacing: 2
+                        //                            Text {
+                        //                                width: 80
+                        //                                text: "CH1 - Start: " + parseInt(valveFadeRangeSlider00.first.value)
+                        //                                anchors.verticalCenter: parent.verticalCenter
+                        //                            }
+                        //                            RangeSlider{
+                        //                                id: valveFadeRangeSlider00
+                        //                                from: 0
+                        //                                to: 255
+                        //                                stepSize: 1.0
+                        //                                snapMode: RangeSlider.SnapAlways
+                        //                                first.value: 5
+                        //                                second.value: 100
 
 
-
-                        Row{
-                            id: valveFadeSliderRow01
-                            spacing: 2
-                            visible: {
-                                if(root.currentGroupIndex == 5  && valveControlPane.state === "Fade")
-                                {
-                                    true
-                                }
-                                else
-                                {
-                                    false
-                                }
-                            }
-                            Text {
-                                width: 80
-                                text: "CH 2 - Start: " + parseInt(valveFadeRangeSlider01.first.value)
-                                anchors.verticalCenter: parent.verticalCenter
-                            }
-                            RangeSlider{
-                                id: valveFadeRangeSlider01
-                                from: 0
-                                to: 255
-                                stepSize: 1.0
-                                snapMode: RangeSlider.SnapAlways
-                                first.value: 5
-                                second.value: 100
-
-
-                            }
-                            Text {
-                                text: "Stop: " + parseInt(valveFadeRangeSlider01.second.value)
-                                anchors.verticalCenter: parent.verticalCenter
-                            }
-                        }
-
-                        Row{
-
-                            id: valveBlinkSliderRow00
-                            spacing: 2
-                            Text {
-                                width: 80
-                                text: "CH1 Start: " + parseInt(valveBlinkRangeSlider00.first.value)
-                                anchors.verticalCenter: parent.verticalCenter
-                            }
-                            RangeSlider{
-                                id: valveBlinkRangeSlider00
-                                from: 0
-                                to: 255
-                                stepSize: 1.0
-                                snapMode: RangeSlider.SnapAlways
-                                first.value: 5
-                                second.value: 100
-
-
-                            }
-                            Text {
-                                text: "Stop: " + parseInt(valveBlinkRangeSlider00.second.value)
-                                anchors.verticalCenter: parent.verticalCenter
-                            }
-                        }
-
-                        Row
-                        {
-                            id: valveBlinkCycleRow00
-                            spacing: 2
-                            Text {
-                                width: 100
-                                text: "CH1 Cycle Time: " + valveBlinkCycleSlider00.value + "s"
-                                anchors.verticalCenter: parent.verticalCenter
-                            }
-                            Slider{
-                                id: valveBlinkCycleSlider00
-                                from: 0
-                                to: 60
-                                stepSize: 0.5
-                                value: 1
-                            }
-                            ComboBox{
-                                id: valveBlinkMode00
-                                model: valveBlinkModeModel
-                                textRole: "name"
-
-                            }
-                        }
-
-                        Row{
-
-                            id: valveBlinkSliderRow01
-                            spacing: 2
-                            visible: {
-                                if(root.currentGroupIndex == 5  && valveControlPane.state === "Blink")
-                                {
-                                    true
-                                }
-                                else
-                                {
-                                    false
-                                }
-                            }
-                            Text {
-                                width: 80
-                                text: "CH2 Start: " + parseInt(valveBlinkRangeSlider01.first.value)
-                                anchors.verticalCenter: parent.verticalCenter
-                            }
-                            RangeSlider{
-                                id: valveBlinkRangeSlider01
-                                from: 0
-                                to: 255
-                                stepSize: 1.0
-                                snapMode: RangeSlider.SnapAlways
-                                first.value: 5
-                                second.value: 100
-
-
-                            }
-                            Text {
-                                text: "Stop: " + parseInt(valveBlinkRangeSlider01.second.value)
-                                anchors.verticalCenter: parent.verticalCenter
-                            }
-                        }
-
-
-                        Row
-                        {
-                            id: valveBlinkCycleRow01
-                            spacing: 2
-                            visible: {
-                                if(root.currentGroupIndex == 5  && valveControlPane.state === "Blink")
-                                {
-                                    true
-                                }
-                                else
-                                {
-                                    false
-                                }
-                            }
-                            Text {
-                                width: 100
-                                text: "CH2 Cycle Time: " + valveBlinkCycleSlider01.value + "s"
-                                anchors.verticalCenter: parent.verticalCenter
-                            }
-                            Slider{
-                                id: valveBlinkCycleSlider01
-                                from: 0
-                                to: 60
-                                stepSize: 0.5
-                                value: 1
-                            }
-                            ComboBox{
-                                id: valveBlinkMode01
-                                model: valveBlinkModeModel
-                                textRole: "name"
-
-                            }
-                        }
+                        //                            }
+                        //                            Text {
+                        //                                text: "Stop: " + parseInt(valveFadeRangeSlider00.second.value)
+                        //                                anchors.verticalCenter: parent.verticalCenter
+                        //                            }
+                        //                        }
 
 
 
+                        //                        Row{
+                        //                            id: valveFadeSliderRow01
+                        //                            spacing: 2
+                        //                            visible: {
+                        //                                if(root.currentGroupIndex == 5  && valveControlPane.state === "Fade")
+                        //                                {
+                        //                                    true
+                        //                                }
+                        //                                else
+                        //                                {
+                        //                                    false
+                        //                                }
+                        //                            }
+                        //                            Text {
+                        //                                width: 80
+                        //                                text: "CH 2 - Start: " + parseInt(valveFadeRangeSlider01.first.value)
+                        //                                anchors.verticalCenter: parent.verticalCenter
+                        //                            }
+                        //                            RangeSlider{
+                        //                                id: valveFadeRangeSlider01
+                        //                                from: 0
+                        //                                to: 255
+                        //                                stepSize: 1.0
+                        //                                snapMode: RangeSlider.SnapAlways
+                        //                                first.value: 5
+                        //                                second.value: 100
+
+
+                        //                            }
+                        //                            Text {
+                        //                                text: "Stop: " + parseInt(valveFadeRangeSlider01.second.value)
+                        //                                anchors.verticalCenter: parent.verticalCenter
+                        //                            }
+                        //                        }
+
+                        //                        Row{
+
+                        //                            id: valveBlinkSliderRow00
+                        //                            spacing: 2
+                        //                            Text {
+                        //                                width: 80
+                        //                                text: "CH1 Start: " + parseInt(valveBlinkRangeSlider00.first.value)
+                        //                                anchors.verticalCenter: parent.verticalCenter
+                        //                            }
+                        //                            RangeSlider{
+                        //                                id: valveBlinkRangeSlider00
+                        //                                from: 0
+                        //                                to: 255
+                        //                                stepSize: 1.0
+                        //                                snapMode: RangeSlider.SnapAlways
+                        //                                first.value: 5
+                        //                                second.value: 100
+
+
+                        //                            }
+                        //                            Text {
+                        //                                text: "Stop: " + parseInt(valveBlinkRangeSlider00.second.value)
+                        //                                anchors.verticalCenter: parent.verticalCenter
+                        //                            }
+                        //                        }
+
+                        //                        Row
+                        //                        {
+                        //                            id: valveBlinkCycleRow00
+                        //                            spacing: 2
+                        //                            Text {
+                        //                                width: 100
+                        //                                text: "CH1 Cycle Time: " + valveBlinkCycleSlider00.value + "s"
+                        //                                anchors.verticalCenter: parent.verticalCenter
+                        //                            }
+                        //                            Slider{
+                        //                                id: valveBlinkCycleSlider00
+                        //                                from: 0
+                        //                                to: 60
+                        //                                stepSize: 0.5
+                        //                                value: 1
+                        //                            }
+                        //                            ComboBox{
+                        //                                id: valveBlinkMode00
+                        //                                model: valveBlinkModeModel
+                        //                                textRole: "name"
+
+                        //                            }
+                        //                        }
+
+                        //                        Row{
+
+                        //                            id: valveBlinkSliderRow01
+                        //                            spacing: 2
+                        //                            visible: {
+                        //                                if(root.currentGroupIndex == 5  && valveControlPane.state === "Blink")
+                        //                                {
+                        //                                    true
+                        //                                }
+                        //                                else
+                        //                                {
+                        //                                    false
+                        //                                }
+                        //                            }
+                        //                            Text {
+                        //                                width: 80
+                        //                                text: "CH2 Start: " + parseInt(valveBlinkRangeSlider01.first.value)
+                        //                                anchors.verticalCenter: parent.verticalCenter
+                        //                            }
+                        //                            RangeSlider{
+                        //                                id: valveBlinkRangeSlider01
+                        //                                from: 0
+                        //                                to: 255
+                        //                                stepSize: 1.0
+                        //                                snapMode: RangeSlider.SnapAlways
+                        //                                first.value: 5
+                        //                                second.value: 100
+
+
+                        //                            }
+                        //                            Text {
+                        //                                text: "Stop: " + parseInt(valveBlinkRangeSlider01.second.value)
+                        //                                anchors.verticalCenter: parent.verticalCenter
+                        //                            }
+                        //                        }
+
+
+                        //                        Row
+                        //                        {
+                        //                            id: valveBlinkCycleRow01
+                        //                            spacing: 2
+                        //                            visible: {
+                        //                                if(root.currentGroupIndex == 5  && valveControlPane.state === "Blink")
+                        //                                {
+                        //                                    true
+                        //                                }
+                        //                                else
+                        //                                {
+                        //                                    false
+                        //                                }
+                        //                            }
+                        //                            Text {
+                        //                                width: 100
+                        //                                text: "CH2 Cycle Time: " + valveBlinkCycleSlider01.value + "s"
+                        //                                anchors.verticalCenter: parent.verticalCenter
+                        //                            }
+                        //                            Slider{
+                        //                                id: valveBlinkCycleSlider01
+                        //                                from: 0
+                        //                                to: 60
+                        //                                stepSize: 0.5
+                        //                                value: 1
+                        //                            }
+                        //                            ComboBox{
+                        //                                id: valveBlinkMode01
+                        //                                model: valveBlinkModeModel
+                        //                                textRole: "name"
+
+                        //                            }
+                        //                        }
 
                     }
 
@@ -983,9 +817,9 @@ Item {
         ListElement{
             name:"Fade In/Out"
         }
-        ListElement{
-            name:"Strobe"
-        }
+        //        ListElement{
+        //            name:"Strobe"
+        //        }
 
     }
 
