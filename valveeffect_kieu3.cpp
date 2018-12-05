@@ -42,8 +42,8 @@ bool ValveEffect_Kieu3::setSpeed( const int &theSpeed)
             {
                 for( int ii = 50; ii >= mSpeed; ii--)
                 {
-                    mEffectBytesWithSpeed.append(mEffectBytes[i * 2]);
-                    mEffectBytesWithSpeed.append(mEffectBytes[(i *2) + 1]);
+                    mEffectBytesWithSpeed.append(mEffectBytes[(i * 2)% (mEffectBytes.count())]);
+                    mEffectBytesWithSpeed.append(mEffectBytes[((i *2) + 1)%(mEffectBytes.count())]);
                 }
             }
             else
@@ -51,8 +51,8 @@ bool ValveEffect_Kieu3::setSpeed( const int &theSpeed)
 
                 for(int ii = 0; ii < 50 - mSpeed; ii++)
                 {
-                    mEffectBytesWithSpeed.append(mEffectBytes[i * 2]);
-                    mEffectBytesWithSpeed.append(mEffectBytes[(i *2) + 1]);
+                    mEffectBytesWithSpeed.append(mEffectBytes[(i * 2)% (mEffectBytes.count())]);
+                    mEffectBytesWithSpeed.append(mEffectBytes[((i *2) + 1)%(mEffectBytes.count())]);
                 }
             }
         }

@@ -8,15 +8,14 @@
 
 class LED_FadeInFadeOut2Colors
 {
-    int mSpeed;
     QColor mColorHead, mColorTail;
     QList<QColor> data;
     QList<QColor> dataWithSpeed;
+    int mFrameNo;
 
 public:
     LED_FadeInFadeOut2Colors();
-    bool setSpeed(const int &speed);
-    bool setEffects(const QColor &Headcolor, const QColor &TailColor);
+    bool setEffects(const QColor &Headcolor, const QColor &TailColor, const int &frameNo);
 
     QColor getData(const int &index) ;
 };

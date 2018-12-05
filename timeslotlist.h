@@ -72,6 +72,7 @@ signals:
 public slots:
 
     void appendItem(const quint8 &group,const int &fromMs, const int &toMs);
+    void copyItem(const int &id, const int &fromMs);
     void removeItems(const int &id);
     void timeSlotListImportedHandler(const int &group, const QVector<timeSlotItem> &list);
     void clearTimeSlotList();

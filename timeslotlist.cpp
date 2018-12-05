@@ -29,6 +29,31 @@ bool timeSlotList::setItemAt(int index, const timeSlotItem &item)
     return true;
 }
 
+void timeSlotList::copyItem(const int &id, const int &fromMs)
+{
+     emit preItemAppended();
+
+    timeSlotItem item;
+    for (int i = 0; i < mItems.size(); i++)
+    {
+        if(mItems.at(i).id == id)
+        {
+            item = mItems.at(i);
+            break;
+        }
+
+    }
+
+    item.id  = mCurrentIndex;
+
+    int duration = item.toMs - item.fromMs;
+    item.fromMs =fromMs;
+    item.toMs = fromMs + duration;
+
+    mItems.append(item);
+
+    emit postItemAppended();
+}
 
 void timeSlotList::appendItem(const quint8 &group, const int &fromMs, const int &toMs)
 {

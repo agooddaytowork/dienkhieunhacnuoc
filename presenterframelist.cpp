@@ -320,7 +320,8 @@ PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const time
     {
         QColor theColor;
 
-        theColor.setNamedColor(timeSlot.LedValuesList);
+
+        theColor.setNamedColor(returnLedValue(0,timeSlot.LedValuesList));
 
 
         mLED_FadeInFadeOut.setEffects(theColor);
@@ -330,7 +331,25 @@ PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const time
 
             aFrame.LedColors[i]= mLED_FadeInFadeOut.getData(index).name();
 
-            //        qDebug() << "Led color name: " + aFrame.LedColors[i];
+
+        }
+    }
+    else if(timeSlot.LedModeName == "Color Transition")
+    {
+        QColor headColor;
+        QColor tailColor;
+
+        headColor.setNamedColor(returnLedValue(0,timeSlot.LedValuesList));
+        tailColor.setNamedColor(returnLedValue(1,timeSlot.LedValuesList));
+
+
+        mLed_ColorTransition.setEffects(headColor
+                                        ,tailColor
+                                        ,(timeSlot.toMs - timeSlot.fromMs)/50);
+
+        for(int i = 0; i < timeSlot.LedChannels; i++)
+        {
+             aFrame.LedColors[i]= mLed_ColorTransition.getData(index).name();
         }
     }
 
@@ -542,4 +561,17 @@ int PresenterFrameList::timeSlotExistInList(const int &id)
         }
     }
     return -1;
+}
+
+QString PresenterFrameList::returnLedValue(const int &index, const QString &ledList)
+{
+
+    QStringList theList = ledList.split(';');
+
+    if(index >= theList.size())
+    {
+        return "#8e8e8e";
+    }
+
+    return theList.at(index);
 }

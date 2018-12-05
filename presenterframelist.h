@@ -12,6 +12,7 @@
 #include "valveeffect_kieu5.h"
 
 #include "led_fadeinfadeout.h"
+#include "led_fadeinfadeout2colors.h"
 
 //#include "anlogger.h"
 #include <QMap>
@@ -52,6 +53,7 @@ class PresenterFrameList : public QObject
     ValveEffect_Kieu5 mValveEffect_5;
 
     LED_FadeInFadeOut mLED_FadeInFadeOut;
+    LED_FadeInFadeOut2Colors mLed_ColorTransition;
 
     QVector<PresenterFrame> frameList;
     QVector<PreviousFrame> timeSlotShortVerList;
@@ -63,6 +65,7 @@ class PresenterFrameList : public QObject
 
 
     int timeSlotExistInList(const int &id);
+    QString returnLedValue(const int &index, const QString &ledList);
 public:
 
     int mGroup;

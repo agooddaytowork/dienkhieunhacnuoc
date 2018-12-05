@@ -251,14 +251,9 @@ bool timeSlotModel::setDataPerIndex(const int &index, const QByteArray &RoleStri
     if (mList->setItemAt(getIndexPerId(index), item)) {
 
 
-        // emit dataChanged(dmIndex, dmIndex, QVector<int>() << role);
-//        qDebug() << "Index valid: " + QString::number(dmIndex.isValid());
+//         emit dataChanged(createIndex(index,0), createIndex(index,0), QVector<int>() << role);
         emit gui_timeSlotItemChanged();
 
-
-        emit dataChanged(item.modelIndex, item.modelIndex, QVector<int>() << role);
-
-//        qDebug() << "setData";
         return true;
     }
     return false;
@@ -415,6 +410,7 @@ void timeSlotModel::setList(timeSlotList *list)
         connect(mList,&timeSlotList::SIG_NotifyListChanged,this,[=](){
 
             qDebug() << "list change ne dmmm";
+//             emit dataChanged(createIndex(0,0), createIndex(rowCount()-1,0), QVector<int>());
             emit this->listChanged();
         });
     }

@@ -17,10 +17,22 @@ Item {
     property int  currentLedMode: 0
     property TimeSlotModel theTimeSlotModel: TimeSlotModel{list:returnTimeSlotList() }
     property bool groupIndexJustChanged: false
-    property string currentLedColorList: ""
+    property string currentLedColorList: "grey;grey"
+
     signal modelRefreshed()
 
     enabled: false
+
+    function returnColor(index)
+    {
+
+        var colorArray = root.currentLedColorList.split(";")
+        if(colorArray.length <= index)
+        {
+            return "#8e8e8e"
+        }
+        return colorArray[index]
+    }
 
     onCurrentValveModeIndexChanged: {
         console.log("onCurrentValveModeIndexChanged")
@@ -92,6 +104,7 @@ Item {
 
     function refreshModel()
     {
+        theTimeSlotModel.list = returnTimeSlotList()
         if(theTimeSlotModel.list.count() === 0 || currentTimeSlotIndex == -1)
         {
             root.enabled = false
@@ -100,8 +113,6 @@ Item {
         {
             root.enabled = true
         }
-        theTimeSlotModel.list = returnTimeSlotList()
-
     }
 
     function updateCurrentConfiguration()
@@ -115,6 +126,11 @@ Item {
         ledSyncSwitch.checked = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedSync");
         valveModeComboBox.currentIndex = root.currentValveModeIndex
         ledModeCombobox.currentIndex = setLedMode(theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedModeName"))
+
+        colorBoxesRepeater.itemAt(0).color = returnColor(0)
+        colorBoxesRepeater.itemAt(1).color = returnColor(1)
+
+
 
     }
 
@@ -157,20 +173,10 @@ Item {
             valveControlPane.state = "Default"
         }
 
-
-        //        if(theTimeSlotModel.size !== 0 && root.currentTimeSlotIndex <= theTimeSlotModel.size)
-        //        {
-        //            root.currentValveModeIndex = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex, "ValveMode")
-        //        }
-        //        else
-        //        {
-        //            root.currentValveModeIndex.currentIndex = 0
-        //        }
-
         console.log("Group: " + root.currentGroupIndex + " - timeslot: " + root.currentTimeSlotIndex
                     + " - valveMode: " +theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex, "ValveMode") )
 
-    root.updateCurrentConfiguration()
+        root.updateCurrentConfiguration()
 
     }
 
@@ -191,17 +197,17 @@ Item {
         //        else
         //        {
 
-//        if(root.groupIndexJustChanged)
-//        {
-//            root.groupIndexJustChanged = false
-//            return
-//        }
+        //        if(root.groupIndexJustChanged)
+        //        {
+        //            root.groupIndexJustChanged = false
+        //            return
+        //        }
         console.trace()
         console.log("onCurrentTimeSlotIndexChanged")
         console.log("Group: " + root.currentGroupIndex + " - timeslot: " + root.currentTimeSlotIndex
                     + " - valveMode: " +theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex, "ValveMode") )
 
-      root.updateCurrentConfiguration()
+        root.updateCurrentConfiguration()
 
 
 
@@ -338,11 +344,13 @@ Item {
                                 if(theTimeSlotModel.size !== 0  && root.currentTimeSlotIndex <= theTimeSlotModel.size)
                                 {
                                     console.trace()
-                                    theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LEDValuesList", colorBoxesRepeater.itemAt(0).color)
-                                     theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedModeName", ledModeCombobox.currentText)
+
+
+                                    theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LEDValuesList", colorBoxesRepeater.itemAt(0).color +";"+colorBoxesRepeater.itemAt(1).color)
+                                    theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedModeName", ledModeCombobox.currentText)
                                     theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedSpeed", ledSpeedSpinBox.value)
 
-//                                    console.log("Led Mode: " + ledModeCombobox.currentIndex)
+                                    //                                    console.log("Led Mode: " + ledModeCombobox.currentIndex)
                                     theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedModeHihi", ledModeCombobox.currentIndex)
                                     theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedSync", ledSyncSwitch.checked)
 
@@ -380,6 +388,7 @@ Item {
                             to: 50
                             stepSize: 1
                             value: root.currentLedSpeed
+                            editable: true
                         }
                     }
 
@@ -387,11 +396,12 @@ Item {
                     {
                         rows: 2
                         columns: 3
+                        spacing: 2
 
                         Repeater{
 
                             id: colorBoxesRepeater
-                            model: 3
+                            model: 2
 
                             property int  currentSelectedIndex: -1
 
@@ -400,9 +410,11 @@ Item {
                                 property int  theIndex: index
                                 width: 30
                                 height: 30
-                                color: "grey"
+
+                                //                                radius: 15
+                                color: root.returnColor(theColorBox.theIndex)
                                 border.width: 1
-                                border.color: "white"
+                                border.color: "black"
 
                                 MouseArea{
                                     anchors.fill: parent
@@ -410,8 +422,10 @@ Item {
                                     onClicked: {
 
                                         colorBoxesRepeater.currentSelectedIndex = theColorBox.theIndex
-                                        theColorDialog.currentColor  = theColorBox.color
+
                                         theColorDialog.open()
+                                        console.log(colorBoxesRepeater.currentSelectedIndex)
+                                        theColorDialog.color = theColorBox.color
                                     }
                                 }
                             }
@@ -931,6 +945,9 @@ Item {
         ListElement{
             name:"Strobe"
         }
+        ListElement{
+            name:"Color Transition"
+        }
     }
 
     FolderListModel{
@@ -972,6 +989,8 @@ Item {
             colorBoxesRepeater.itemAt(colorBoxesRepeater.currentSelectedIndex).color = theColorDialog.color
             console.trace()
             console.log("the color: " + theColorDialog.color)
+
+
         }
 
         onRejected: {

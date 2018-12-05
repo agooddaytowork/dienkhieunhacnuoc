@@ -16,6 +16,7 @@ Item {
     signal timeSlotSelect(int timeSlotIndex)
     signal timeSlotAdded(int timeSlotIndex)
     signal timeSlotRemoved()
+    property int  currentCopyIndex: -1
     property bool  selected: false
     signal refreshPlease()
 
@@ -135,6 +136,15 @@ Item {
 
             }
 
+            onPaseTimeSlot: {
+                console.log("PASTE NEW TIMESLOT: " +from)
+
+                var list = returnTimeSlotList()
+                list.copyItem(root.currentCopyIndex, from)
+            }
+
+
+
             Repeater{
                 id: timeSlotRepeater
 
@@ -216,6 +226,11 @@ Item {
                     {
                         timeSlotRepeater.timeSlotSelectedIndex = theTimeLineSlot.timeSlotIndex
                         root.timeSlotSelect(theTimeLineSlot.timeSlotIndex)
+                    }
+
+                    onCopyTimeSlot:
+                    {
+                        root.currentCopyIndex = theId
                     }
 
                     timeSlotSelected:{

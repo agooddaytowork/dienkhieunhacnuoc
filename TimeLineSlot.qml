@@ -15,6 +15,7 @@ Item {
     property int  dmLedMode: 0
     signal deleteTimeSlot()
     signal checkCollision()
+    signal copyTimeSlot()
     property bool collided: false
     property bool rightCollision: false
     property bool  edgeSelected: false
@@ -318,6 +319,13 @@ Item {
         Menu
         {
             id: theTimeSlotMenu
+            MenuItem{
+                text: qsTr("Copy")
+                onClicked: {
+                    root.copyTimeSlot()
+                }
+            }
+
             MenuItem{
                 text: qsTr("Delete")
                 onClicked: {

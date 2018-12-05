@@ -10,6 +10,7 @@ Item {
     property int  duration: 240000
     signal changeFromAndToMoment(int from, int to)
     signal newTimeSlot(int from, int to)
+    signal paseTimeSlot(int from)
     signal timeLineSelect()
     property bool selected: false
 
@@ -136,6 +137,15 @@ Item {
                         root.newTimeSlot(selectedFromMs,selectedToMs)
                     }
 
+                }
+
+                MenuItem{
+                    id: pasteMenuItem
+                    text: qsTr("Paste")
+
+                    onClicked: {
+                        root.paseTimeSlot((timeLineMainMouseArea.mouseX / timelineBG.width * Math.abs(root.toMs - root.fromMs) ) + root.fromMs)
+                    }
                 }
 
 
