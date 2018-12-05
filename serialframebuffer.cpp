@@ -126,7 +126,7 @@ void SerialFrameBuffer::group3Handler(const int &frameNo,const PresenterFrame &t
         {
             if(theFrame.ValveOnOff.at(i))
             {
-                ValveToggle_High |= (static_cast<char>(1) << static_cast<char>(i));
+                ValveToggle_High |= (static_cast<char>(1) << static_cast<char>(i-8));
             }
         }
 
