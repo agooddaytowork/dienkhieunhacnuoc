@@ -940,14 +940,21 @@ Item {
         id: ledModeModel
 
         ListElement{
+            name:"Color Transition"
+        }
+        ListElement{
+            name: "Solid"
+        }
+        ListElement{
+            name: "Blink"
+        }
+        ListElement{
             name:"Fade In/Out"
         }
         ListElement{
             name:"Strobe"
         }
-        ListElement{
-            name:"Color Transition"
-        }
+
     }
 
     FolderListModel{

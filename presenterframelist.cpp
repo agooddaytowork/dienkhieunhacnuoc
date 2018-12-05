@@ -166,24 +166,6 @@ PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const time
 
             mValveEffect_1.setSpeed(timeSlot.ValveSpeed);
             aFrame.InverterLevel = mValveEffect_1.getData(index);
-
-//            if(timeSlot.LedSync)
-//            {
-//                if(aFrame.InverterLevel == 0)
-//                {
-//                    aFrame.LedOnOff.append(false);
-//                }
-//                else
-//                {
-//                    aFrame.LedOnOff.append(true);
-//                }
-//            }
-//            else
-//            {
-//                aFrame.LedOnOff.append(timeSlot.LedOnOff);
-//            }
-
-
         }
 
 
@@ -199,14 +181,6 @@ PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const time
             {
                 aFrame.ValveOnOff.append(mValveEffect_2.getData(index, i));
 
-//                if(timeSlot.LedSync)
-//                {
-//                    aFrame.LedOnOff.append(mValveEffect_2.getData(index, i));
-//                }
-//                else
-//                {
-//                    aFrame.LedOnOff.append(timeSlot.LedOnOff);
-//                }
 
             }
         }
@@ -225,7 +199,6 @@ PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const time
 
 
             }
-//                aFrame.LedOnOff.append(timeSlot.LedOnOff);
         }
     }
     else if(mGroup == 6 || mGroup == 8)
@@ -236,17 +209,6 @@ PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const time
             mValveEffect_4.setSpeed(timeSlot.ValveSpeed);
             aFrame.ValveOnOff.append(mValveEffect_4.getData(index,false));
             aFrame.ValveOnOff.append(mValveEffect_4.getData(index,true));
-
-//            if(timeSlot.LedSync)
-//            {
-//                aFrame.LedOnOff.append(mValveEffect_4.getData(index, false));
-//                aFrame.LedOnOff.append(mValveEffect_4.getData(index, true));
-//            }
-//            else
-//            {
-//                aFrame.LedOnOff.append(timeSlot.LedOnOff);
-//                aFrame.LedOnOff.append(timeSlot.LedOnOff);
-//            }
         }
     }
     else if(mGroup == 4)
@@ -256,14 +218,6 @@ PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const time
         {
             mValveEffect_4.setSpeed(timeSlot.ValveSpeed);
             aFrame.ValveOnOff.append(mValveEffect_4.getData(index,true));
-//            if(timeSlot.LedSync)
-//            {
-//                aFrame.LedOnOff.append(mValveEffect_4.getData(index, true));
-//            }
-//            else
-//            {
-//                aFrame.LedOnOff.append(timeSlot.LedOnOff);
-//            }
         }
     }
     else if(mGroup == 5)
@@ -277,32 +231,6 @@ PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const time
             aFrame.InverterLevel = mValveEffect_5.getData(index,true);
             aFrame.InverterLevel1= mValveEffect_5.getData(index,false);
 
-//            if(timeSlot.LedSync)
-//            {
-//                if(aFrame.InverterLevel == 0)
-//                {
-//                     aFrame.LedOnOff.append(false);
-//                }
-//                else
-//                {
-//                    aFrame.LedOnOff.append(true);
-//                }
-
-//                if(aFrame.InverterLevel1 == 0)
-//                {
-//                     aFrame.LedOnOff.append(false);
-//                }
-//                else
-//                {
-//                    aFrame.LedOnOff.append(true);
-//                }
-
-//            }
-//            else
-//            {
-//                aFrame.LedOnOff.append(timeSlot.LedOnOff);
-//                aFrame.LedOnOff.append(timeSlot.LedOnOff);
-//            }
         }
     }
 
@@ -328,10 +256,7 @@ PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const time
         mLED_FadeInFadeOut.setSpeed(timeSlot.LedSpeed);
         for(int i = 0; i < timeSlot.LedChannels; i++)
         {
-
             aFrame.LedColors[i]= mLED_FadeInFadeOut.getData(index).name();
-
-
         }
     }
     else if(timeSlot.LedModeName == "Color Transition")
@@ -351,6 +276,36 @@ PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const time
         {
              aFrame.LedColors[i]= mLed_ColorTransition.getData(index).name();
         }
+    }
+    else if(timeSlot.LedModeName == "Solid")
+    {
+        QColor theColor;
+
+        theColor.setNamedColor(returnLedValue(0,timeSlot.LedValuesList));
+        mLED_Solid.setEffects(theColor);
+
+        for(int i = 0; i < timeSlot.LedChannels; i++)
+        {
+            aFrame.LedColors[i]= mLED_Solid.getData().name();
+        }
+
+    }
+    else if(timeSlot.LedModeName == "Blink")
+    {
+
+        QColor theColor;
+
+
+        theColor.setNamedColor(returnLedValue(0,timeSlot.LedValuesList));
+
+
+        mLED_Blink.setEffects(theColor);
+        mLED_Blink.setSpeed(timeSlot.LedSpeed);
+        for(int i = 0; i < timeSlot.LedChannels; i++)
+        {
+            aFrame.LedColors[i]= mLED_Blink.getData(index).name();
+        }
+
     }
 
 

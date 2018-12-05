@@ -129,7 +129,6 @@ void SerialFrameBuffer::group3Handler(const int &frameNo,const PresenterFrame &t
                 ValveToggle_High |= (static_cast<char>(1) << static_cast<char>(i-8));
             }
         }
-
     }
     serialFrame.V_CH3_T_L = ValveToggle_Low;
     serialFrame.V_CH3_T_H = ValveToggle_High;
@@ -207,8 +206,6 @@ void SerialFrameBuffer::group5Handler(const int &frameNo,const PresenterFrame &t
         serialFrame.L_CH5[2] = static_cast<char>(QColor(theFrame.LedColors.at(0)).blue());
     }
 
-
-
     mData[frameNo] = serialFrame;
 }
 
@@ -243,10 +240,7 @@ void SerialFrameBuffer::group6Handler(const int &frameNo,const PresenterFrame &t
             serialFrame.L_CH6_H[1] = static_cast<char>(theColor.green());
             serialFrame.L_CH6_H[2] = static_cast<char>(theColor.blue());
         }
-
     }
-
-
     mData[frameNo] = serialFrame;
 }
 
