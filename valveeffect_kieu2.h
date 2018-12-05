@@ -14,6 +14,8 @@ class ValveEffect_Kieu2 // Kieu 2 va kieu 8
     QByteArray mEffectBytes;
     QByteArray mEffectBytesWithSpeed;
     int mSpeed;
+
+
 public:
     ValveEffect_Kieu2();
     bool setNewPath( QString filePath);

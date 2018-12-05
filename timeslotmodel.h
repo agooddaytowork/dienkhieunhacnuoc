@@ -34,7 +34,9 @@ public:
         LedSpeedRole,
         LedModeNameRole,
         LedModeRole,
-        LedSyncRole
+        LedSyncRole,
+        ValveForceRepeatRole,
+        ValveForceRepeatTimesRole
 
     };
 

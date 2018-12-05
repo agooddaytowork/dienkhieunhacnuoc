@@ -164,7 +164,15 @@ PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const time
         if(mValveEffect_1.isEffectValid())
         {
 
-            mValveEffect_1.setSpeed(timeSlot.ValveSpeed);
+            if(timeSlot.ValveForceRepeat)
+            {
+                mValveEffect_1.setForceRepeat(timeSlot.ValveForceRepeatTimes);
+            }
+            else
+            {
+                mValveEffect_1.setSpeed(timeSlot.ValveSpeed);
+            }
+
             aFrame.InverterLevel = mValveEffect_1.getData(index);
         }
 

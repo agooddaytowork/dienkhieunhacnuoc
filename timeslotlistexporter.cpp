@@ -44,6 +44,8 @@ void TimeSlotListExporter::timeSlotListHandler(const int &group, const QVector<t
         item.insert("LedModeName", theItem.LedModeName);
         item.insert("LedSpeed", theItem.LedSpeed);
         item.insert("LedSync", theItem.LedSync);
+        item.insert("ValveForceRepeat", theItem.ValveForceRepeat);
+        item.insert("ValveForceRepeatTimes", theItem.ValveForceRepeatTimes);
 
         data.append(item);
 

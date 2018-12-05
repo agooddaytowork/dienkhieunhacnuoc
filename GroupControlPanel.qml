@@ -180,6 +180,9 @@ Item {
                             theTimeLineSlot.ledSpeed = dmModel.getDataPerIndex(theTimeLineSlot.timeSlotIndex, "LedSpeed")
                             theTimeLineSlot.valveModeName = dmModel.getDataPerIndex(theTimeLineSlot.timeSlotIndex, "ValveModeName")
                             theTimeLineSlot.ledColorList = dmModel.getDataPerIndex(theTimeLineSlot.timeSlotIndex,"LEDValuesList")
+                            theTimeLineSlot.timeSlotToMs = dmModel.getDataPerIndex(theTimeLineSlot.timeSlotIndex,"ToMs")
+
+
 
 
                         }

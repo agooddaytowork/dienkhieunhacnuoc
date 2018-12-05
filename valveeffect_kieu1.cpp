@@ -1,6 +1,6 @@
 #include "valveeffect_kieu1.h"
-
-ValveEffect_Kieu1::ValveEffect_Kieu1(): mEffectValid(false), mSpeed(0)
+#include <QDebug>
+ValveEffect_Kieu1::ValveEffect_Kieu1(): mEffectValid(false), mSpeed(0), mForceRepeat(false), mRepeatTime(0), mFrameNo(0)
 {
 
 
@@ -19,7 +19,7 @@ bool ValveEffect_Kieu1::setNewPath(QString filePath)
             mEffectBytes = file.readAll();
 
 
-                setSpeed(50);
+            setSpeed(50);
 
             return true;
         }
@@ -36,11 +36,38 @@ bool ValveEffect_Kieu1::isEffectValid()
     return mEffectValid;
 }
 
+bool ValveEffect_Kieu1::setForceRepeat(const int &repeatTime)
+{
+
+    if(!mForceRepeat || repeatTime != mRepeatTime)
+    {
+        mForceRepeat = true;
+        mRepeatTime = repeatTime;
+
+        mEffectBytesWithSpeed.clear();
+
+        for(int i =0; i < repeatTime;i++)
+        {
+            mEffectBytesWithSpeed.append(mEffectBytes);
+        }
+
+        qDebug() << "effectByte with speed size: " + QString::number(mEffectBytesWithSpeed.size());
+
+        return true;
+    }
+
+
+    return false;
+}
+
+
+
 bool ValveEffect_Kieu1::setSpeed( const int &theSpeed)
 {
-    if(mSpeed != theSpeed)
+    if(mSpeed != theSpeed || mForceRepeat)
     {
         mSpeed = theSpeed;
+        mForceRepeat = false;
 
         mEffectBytesWithSpeed.clear();
 

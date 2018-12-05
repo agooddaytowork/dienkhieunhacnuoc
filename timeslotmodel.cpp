@@ -97,6 +97,10 @@ QVariant timeSlotModel::getDataPerIndex(const int &index, const QByteArray &Role
         return QVariant(item.LedSpeed);
     case LedSyncRole:
         return  QVariant(item.LedSync);
+    case ValveForceRepeatRole:
+        return QVariant(item.ValveForceRepeat);
+    case ValveForceRepeatTimesRole:
+        return QVariant(item.ValveForceRepeatTimes);
 
 
 
@@ -170,6 +174,10 @@ QVariant timeSlotModel::data(const QModelIndex &index, int role) const
         return QVariant(item.LedSpeed);
     case LedSyncRole:
         return  QVariant(item.LedSync);
+    case ValveForceRepeatRole:
+        return QVariant(item.ValveForceRepeat);
+    case ValveForceRepeatTimesRole:
+        return QVariant(item.ValveForceRepeatTimes);
 
 
     }
@@ -245,6 +253,12 @@ bool timeSlotModel::setDataPerIndex(const int &index, const QByteArray &RoleStri
         break;
     case LedSyncRole:
         item.LedSync = value.toBool();
+        break;
+    case ValveForceRepeatRole:
+        item.ValveForceRepeat = value.toBool();
+        break;
+    case ValveForceRepeatTimesRole:
+        item.ValveForceRepeatTimes = value.toInt();
         break;
     }
 
@@ -326,6 +340,12 @@ bool timeSlotModel::setData(const QModelIndex &index, const QVariant &value, int
     case LedSyncRole:
         item.LedSync = value.toBool();
         break;
+    case ValveForceRepeatRole:
+        item.ValveForceRepeat = value.toBool();
+        break;
+    case ValveForceRepeatTimesRole:
+        item.ValveForceRepeatTimes = value.toInt();
+        break;
     }
 
     if (mList->setItemAt(index.row(), item)) {
@@ -366,6 +386,9 @@ QHash<int, QByteArray> timeSlotModel::roleNames() const
     names[LedModeNameRole] = "LedModeName";
     names[LedSpeedRole] = "LedSpeed";
     names[LedSyncRole] = "LedSync";
+    names[ValveForceRepeatRole] = "ValveForceRepeat";
+    names[ValveForceRepeatTimesRole] = "ValveForceRepeatTimes";
+
 
     return names;
 
