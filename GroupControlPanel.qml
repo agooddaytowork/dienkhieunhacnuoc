@@ -80,32 +80,15 @@ Item {
             width: root.width / 10
             height: root.height
 
-            radius: 10
-            Column{
-                anchors.fill: parent
+            radius: 0
                 Label{
                     text: "Kiểu " + (root.groupIndex + 1)
-                    height: root.height/3
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    topPadding: 8
+                   anchors.horizontalCenter: parent.horizontalCenter
+                   anchors.verticalCenter: parent.verticalCenter
                     font.bold: true
-                }
 
-                Switch{
-                    id: valveCheckBox
-                    text: "Valve"
-                    height: root.height/3
-                    scale: 0.7
 
                 }
-                Switch{
-                    id: ledCheckBox
-                    text: "LED"
-                    height: root.height/3
-                    scale: 0.7
-                }
-
-            }
 
         }
         Timeline{
