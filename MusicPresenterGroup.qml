@@ -353,6 +353,8 @@ Item {
 
             delegate: MusicPresensterElement
             {
+
+
                 presenterId: theId
                 x: XPos
                 y: YPos

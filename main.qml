@@ -313,7 +313,7 @@ ApplicationWindow {
         Rectangle{
             id: controlTimeLineBGRec
             color: "yellow"
-            width: root.width-400
+            width: root.width-500
             height: root.height
 
 
@@ -519,7 +519,7 @@ ApplicationWindow {
             color: "#474747"
             border.width: 1
             border.color: "black"
-            width: 400
+            width: 500
             height: root.height
 
 
@@ -527,7 +527,7 @@ ApplicationWindow {
                 width: parent.width
                 anchors.top: parent.top
                 anchors.left: parent.left
-                height: 400
+                height: 500
                 color: "#474747"
                 border.width: 1
                 border.color: "black"
@@ -535,9 +535,10 @@ ApplicationWindow {
                     model: 9
                     delegate: MusicPresenterGroup{
                         id: theGroup
+
                         property int groupIndex: index
                         groupID: index
-                        scale: 1
+                        scale: 1.3
                     }
                 }
 
@@ -546,7 +547,7 @@ ApplicationWindow {
 
                 id: timeLineSlotControlBox
                 width: parent.width
-                height: root.height-400
+                height: root.height-500
                 anchors.bottom: parent.bottom
                 anchors.left: parent.left
                 currentGroupIndex: groupControlPanelRepeater.currentGroupIndex

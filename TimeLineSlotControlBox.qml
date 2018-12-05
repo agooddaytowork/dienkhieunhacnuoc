@@ -45,14 +45,14 @@ Item {
         console.trace()
         console.log("Group: " + root.currentGroupIndex + " - timeslot: " + root.currentTimeSlotIndex
                     + " - valveMode: " + valveModeComboBox.currentIndex)
-        if(theTimeSlotModel.size !== 0  && root.currentTimeSlotIndex <= theTimeSlotModel.size)
-        {
+//        if(theTimeSlotModel.size !== 0  && root.currentTimeSlotIndex <= theTimeSlotModel.size)
+//        {
             console.trace()
             theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveMode", valveModeComboBox.currentIndex)
             theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"FileBinPath", effectFolderModel.get(valveModeComboBox.currentIndex,"filePath"))
             theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveSpeed",speedValveSpinBox.value)
             theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveModeName", effectFolderModel.get(valveModeComboBox.currentIndex,"fileName"))
-        }
+//        }
 
         //        refreshModel()
     }
@@ -284,19 +284,19 @@ Item {
     Column{
         anchors.fill: parent
 
-        Rectangle{
-            height: 30
-            width: root.width
-            color: "grey"
-            Label{
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: "Kiểu " + (root.currentGroupIndex+1)
-                font.bold: true
-                font.pointSize: 12
-                color: "white"
-            }
-        }
+//        Rectangle{
+//            height: 30
+//            width: root.width
+//            color: "grey"
+//            Label{
+//                anchors.verticalCenter: parent.verticalCenter
+//                anchors.horizontalCenter: parent.horizontalCenter
+//                text: "Kiểu " + (root.currentGroupIndex+1)
+//                font.bold: true
+//                font.pointSize: 12
+//                color: "white"
+//            }
+//        }
 
         TabBar{
             id: tabBar
@@ -316,7 +316,7 @@ Item {
             currentIndex: tabBar.currentIndex
             clip: true
             width: root.width
-            height: root.height - 60
+            height: root.height - 40
 
             Pane {
 
@@ -330,19 +330,18 @@ Item {
                     width: parent.width
 
                     Row{
-                        spacing: 2
-                        Switch{
-                            id: ledSyncSwitch
-                            text: "Sync"
-                        }
+                        spacing: 5
+                    anchors.horizontalCenter: parent.horizontalCenter
                         Button{
                             text: "Update"
                             onClicked:{
+//                                refreshModel()
                                 console.trace()
                                 console.log("Group: " + root.currentGroupIndex + " - timeslot: " + root.currentTimeSlotIndex
                                             + " - valveMode: " + valveModeComboBox.currentIndex)
-                                if(theTimeSlotModel.size !== 0  && root.currentTimeSlotIndex <= theTimeSlotModel.size)
-                                {
+
+//                                if(theTimeSlotModel.size !== 0 /* && root.currentTimeSlotIndex <= theTimeSlotModel.size*/)
+//                                {
                                     console.trace()
 
 
@@ -354,15 +353,33 @@ Item {
                                     theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedModeHihi", ledModeCombobox.currentIndex)
                                     theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedSync", ledSyncSwitch.checked)
 
-                                }
+//                                }
                             }
                         }
-                    }
+                        Switch{
+                            id: ledSyncSwitch
+                            text: "Sync"
+                        }
 
+                        Text {
+
+                            text: qsTr("Speed")
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+                        SpinBox{
+                            id: ledSpeedSpinBox
+                            from: -50
+                            to: 50
+                            stepSize: 1
+                            value: root.currentLedSpeed
+                            editable: true
+                        }
+
+                    }
 
                     Row
                     {
-                        spacing: 2
+                        spacing: 5
                         Text {
 
                             text: qsTr("Mode: ")
@@ -379,29 +396,15 @@ Item {
                         }
                         Text {
 
-                            text: qsTr("Speed")
+                            text: qsTr("Color: ")
                             anchors.verticalCenter: parent.verticalCenter
-                        }
-                        SpinBox{
-                            id: ledSpeedSpinBox
-                            from: -50
-                            to: 50
-                            stepSize: 1
-                            value: root.currentLedSpeed
-                            editable: true
-                        }
-                    }
 
-                    Grid
-                    {
-                        rows: 2
-                        columns: 3
-                        spacing: 2
+                        }
 
                         Repeater{
 
                             id: colorBoxesRepeater
-                            model: 2
+                            model: 4
 
                             property int  currentSelectedIndex: -1
 
@@ -410,6 +413,7 @@ Item {
                                 property int  theIndex: index
                                 width: 30
                                 height: 30
+                                anchors.verticalCenter: parent.verticalCenter
 
                                 //                                radius: 15
                                 color: root.returnColor(theColorBox.theIndex)
@@ -430,7 +434,29 @@ Item {
                                 }
                             }
                         }
+//                        Text {
+
+//                            text: qsTr("Speed")
+//                            anchors.verticalCenter: parent.verticalCenter
+//                        }
+//                        SpinBox{
+//                            id: ledSpeedSpinBox
+//                            from: -50
+//                            to: 50
+//                            stepSize: 1
+//                            value: root.currentLedSpeed
+//                            editable: true
+//                        }
                     }
+
+//                    Grid
+//                    {
+//                        rows: 2
+//                        columns: 3
+//                        spacing: 2
+
+
+//                    }
 
 
                 }
@@ -600,6 +626,15 @@ Item {
                         {
                             id: valveControlMode
                             spacing: 2
+
+                            Button{
+                                text: "Update"
+
+                                onClicked: root.updateValveData()
+
+                            }
+
+
                             Text {
 
                                 text: qsTr("Mode: ")
@@ -632,12 +667,7 @@ Item {
                                     }
                                 }
                             }
-                        }
 
-                        Row
-                        {
-                            id: speedValveControl
-                            spacing: 2
                             Text {
 
                                 text: qsTr("Speed")
@@ -651,6 +681,13 @@ Item {
                                 value: root.currentValveSpeed
                                 editable: true
                             }
+                        }
+
+                        Row
+                        {
+                            id: speedValveControl
+                            spacing: 2
+
                         }
 
                         Row{
@@ -892,12 +929,7 @@ Item {
                             }
                         }
 
-                        Button{
-                            text: "Update"
 
-                            onClicked: root.updateValveData()
-
-                        }
 
 
                     }

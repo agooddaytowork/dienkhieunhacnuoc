@@ -156,6 +156,7 @@ Item {
 
                     onListChanged: {
                         dmModel.list = root.returnTimeSlotList()
+
                     }
                 }
 
