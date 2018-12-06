@@ -46,6 +46,10 @@ void TimeSlotListExporter::timeSlotListHandler(const int &group, const QVector<t
         item.insert("LedSync", theItem.LedSync);
         item.insert("ValveForceRepeat", theItem.ValveForceRepeat);
         item.insert("ValveForceRepeatTimes", theItem.ValveForceRepeatTimes);
+        item.insert("LedBinPath",theItem.LedBinPath);
+        item.insert("UseLedBuiltInEffects", theItem.UseLedBuiltInEffects);
+        item.insert("LedForceRepeat",theItem.LedForceRepeat);
+        item.insert("LedForceRepeatTimes",theItem.LedForceRepeatTimes);
 
         data.append(item);
 

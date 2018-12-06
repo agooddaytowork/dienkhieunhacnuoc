@@ -296,70 +296,99 @@ PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const time
         }
     }
 
-
-    if(timeSlot.LedModeName == "Fade In/Out")
+    if(timeSlot.UseLedBuiltInEffects)
     {
-        QColor theColor;
-
-
-        theColor.setNamedColor(returnLedValue(0,timeSlot.LedValuesList));
-
-
-        mLED_FadeInFadeOut.setEffects(theColor);
-        mLED_FadeInFadeOut.setSpeed(timeSlot.LedSpeed);
-        for(int i = 0; i < timeSlot.LedChannels; i++)
+        if(timeSlot.LedModeName == "Fade In/Out")
         {
-            aFrame.LedColors[i]= mLED_FadeInFadeOut.getData(index).name();
+            QColor theColor;
+
+
+            theColor.setNamedColor(returnLedValue(0,timeSlot.LedValuesList));
+
+
+            mLED_FadeInFadeOut.setEffects(theColor);
+            mLED_FadeInFadeOut.setSpeed(timeSlot.LedSpeed);
+            for(int i = 0; i < timeSlot.LedChannels; i++)
+            {
+                aFrame.LedColors[i]= mLED_FadeInFadeOut.getData(index).name();
+            }
+        }
+        else if(timeSlot.LedModeName == "Color Transition")
+        {
+            QColor headColor;
+            QColor tailColor;
+
+            headColor.setNamedColor(returnLedValue(0,timeSlot.LedValuesList));
+            tailColor.setNamedColor(returnLedValue(1,timeSlot.LedValuesList));
+
+
+            mLed_ColorTransition.setEffects(headColor
+                                            ,tailColor
+                                            ,(timeSlot.toMs - timeSlot.fromMs)/50);
+
+            for(int i = 0; i < timeSlot.LedChannels; i++)
+            {
+                aFrame.LedColors[i]= mLed_ColorTransition.getData(index).name();
+            }
+        }
+        else if(timeSlot.LedModeName == "Solid")
+        {
+            QColor theColor;
+
+            theColor.setNamedColor(returnLedValue(0,timeSlot.LedValuesList));
+            mLED_Solid.setEffects(theColor);
+
+            for(int i = 0; i < timeSlot.LedChannels; i++)
+            {
+                aFrame.LedColors[i]= mLED_Solid.getData().name();
+            }
+
+        }
+        else if(timeSlot.LedModeName == "Blink")
+        {
+
+            QColor theColor;
+
+
+            theColor.setNamedColor(returnLedValue(0,timeSlot.LedValuesList));
+
+
+            mLED_Blink.setEffects(theColor);
+            mLED_Blink.setSpeed(timeSlot.LedSpeed);
+            for(int i = 0; i < timeSlot.LedChannels; i++)
+            {
+                aFrame.LedColors[i]= mLED_Blink.getData(index).name();
+            }
+
         }
     }
-    else if(timeSlot.LedModeName == "Color Transition")
+    else
     {
-        QColor headColor;
-        QColor tailColor;
+        // use external LED effects
 
-        headColor.setNamedColor(returnLedValue(0,timeSlot.LedValuesList));
-        tailColor.setNamedColor(returnLedValue(1,timeSlot.LedValuesList));
+        mLED_BinEffects.setNewPath(timeSlot.LedBinPath, timeSlot.LedChannels);
 
-
-        mLed_ColorTransition.setEffects(headColor
-                                        ,tailColor
-                                        ,(timeSlot.toMs - timeSlot.fromMs)/50);
-
-        for(int i = 0; i < timeSlot.LedChannels; i++)
+        if(mLED_BinEffects.isEffectValid())
         {
-            aFrame.LedColors[i]= mLed_ColorTransition.getData(index).name();
-        }
-    }
-    else if(timeSlot.LedModeName == "Solid")
-    {
-        QColor theColor;
+            if(timeSlot.LedForceRepeat)
+            {
+                mLED_BinEffects.setForceRepeat(true, timeSlot.LedForceRepeatTimes);
+            }
+            else
+            {
+                mLED_BinEffects.setForceRepeat(false, timeSlot.LedForceRepeatTimes);
+            }
 
-        theColor.setNamedColor(returnLedValue(0,timeSlot.LedValuesList));
-        mLED_Solid.setEffects(theColor);
+            mLED_BinEffects.setSpeed(timeSlot.LedSpeed);
 
-        for(int i = 0; i < timeSlot.LedChannels; i++)
-        {
-            aFrame.LedColors[i]= mLED_Solid.getData().name();
+            for(int i = 0; i < timeSlot.LedChannels; i++)
+            {
+                aFrame.LedColors[i]= mLED_BinEffects.getData(index,i).name();
+            }
         }
 
     }
-    else if(timeSlot.LedModeName == "Blink")
-    {
 
-        QColor theColor;
-
-
-        theColor.setNamedColor(returnLedValue(0,timeSlot.LedValuesList));
-
-
-        mLED_Blink.setEffects(theColor);
-        mLED_Blink.setSpeed(timeSlot.LedSpeed);
-        for(int i = 0; i < timeSlot.LedChannels; i++)
-        {
-            aFrame.LedColors[i]= mLED_Blink.getData(index).name();
-        }
-
-    }
 
 
     aFrame.LedSync = timeSlot.LedSync;

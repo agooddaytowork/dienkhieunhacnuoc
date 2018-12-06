@@ -33,6 +33,10 @@ timeSlotItem TimeSlotListImporter::constructTimeSlotItem(const int &group, const
     theItem.LedSync = theJsonObject.value("LedSync").toBool();
     theItem.ValveForceRepeat = theJsonObject.value("ValveForceRepeat").toBool();
     theItem.ValveForceRepeatTimes = theJsonObject.value("ValveForceRepeatTimes").toInt();
+    theItem.LedBinPath = theJsonObject.value("LedBinPath").toString("");
+    theItem.UseLedBuiltInEffects = theJsonObject.value("UseLedBuiltInEffects").toBool();
+    theItem.LedForceRepeat = theJsonObject.value("LedForceRepeat").toBool();
+    theItem.LedForceRepeatTimes = theJsonObject.value("LedForceRepeatTimes").toInt();
 
 
     return theItem;
@@ -41,7 +45,7 @@ timeSlotItem TimeSlotListImporter::constructTimeSlotItem(const int &group, const
 
 QString TimeSlotListImporter::returnCorrectFileBinPath(const int &group, const QString &fileName)
 {
-    QString groupFolderPath = "/Effects/";
+    QString groupFolderPath = "/ValveEffects/";
 
     switch(group)
     {

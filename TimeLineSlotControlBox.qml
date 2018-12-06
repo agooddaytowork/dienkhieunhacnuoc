@@ -38,6 +38,8 @@ Item {
         console.log("onCurrentValveModeIndexChanged")
     }
 
+
+
     function returnDurationString(duration)
     {
         var minutes="00"
@@ -80,6 +82,8 @@ Item {
         //        {
         //        console.trace()
 
+
+
         if(valveForceRepeatCheckBox.checked)
         {
             switch(root.currentGroupIndex)
@@ -92,13 +96,13 @@ Item {
             case 8:
             case 4:
                 var currentFromMs = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"FromMs")
-                var newToMs = effectFolderModel.get(valveModeComboBox.currentIndex,"fileSize") * valveForceRepeatSpinbox.value * 50 *(51- speedValveSpinBox.value) +currentFromMs
+                var newToMs = valveEffectFolderModel.get(valveModeComboBox.currentIndex,"fileSize") * valveForceRepeatSpinbox.value * 50 *(51- speedValveSpinBox.value) +currentFromMs
 
                 break
             case 2:
             case 5:
                 currentFromMs = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"FromMs")
-                newToMs = effectFolderModel.get(valveModeComboBox.currentIndex,"fileSize")/2 * valveForceRepeatSpinbox.value * 50 *(51- speedValveSpinBox.value) +currentFromMs
+                newToMs = valveEffectFolderModel.get(valveModeComboBox.currentIndex,"fileSize")/2 * valveForceRepeatSpinbox.value * 50 *(51- speedValveSpinBox.value) +currentFromMs
 
                 break
 
@@ -107,7 +111,7 @@ Item {
 
             if(newToMs > theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"ToMs"))
             {
-                messageDialog.title = "Forced Repeat Error"
+                messageDialog.title = "Valve - Forced Repeat Error"
                 messageDialog.text = "Timeslot out of range! \n Please extend time slot length  to be at least:"+ root.returnDurationString(newToMs - currentFromMs)+" \nor change valve speed, repeat time"
                 messageDialog.icon = MessageDialog.Warning
                 messageDialog.open()
@@ -118,17 +122,14 @@ Item {
         }
 
 
-
-
-
         theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveForceRepeat",valveForceRepeatCheckBox.checked)
         theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveForceRepeatTimes",valveForceRepeatSpinbox.value)
         theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveMode", valveModeComboBox.currentIndex)
-        theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"FileBinPath", effectFolderModel.get(valveModeComboBox.currentIndex,"filePath"))
+        theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"FileBinPath", valveEffectFolderModel.get(valveModeComboBox.currentIndex,"filePath"))
         theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveSpeed",speedValveSpinBox.value)
-        theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveModeName", effectFolderModel.get(valveModeComboBox.currentIndex,"fileName"))
+        theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveModeName", valveEffectFolderModel.get(valveModeComboBox.currentIndex,"fileName"))
 
-        console.log(effectFolderModel.get(valveModeComboBox.currentIndex,"fileSize"))
+        console.log(valveEffectFolderModel.get(valveModeComboBox.currentIndex,"fileSize"))
         if(valveForceRepeatCheckBox.checked)
         {
             theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ToMs", newToMs)
@@ -136,48 +137,91 @@ Item {
 
     }
 
-    function updateEffectFolder()
+    function updateValveEffectFolder()
     {
         switch(root.currentGroupIndex)
         {
         case 0:
-            effectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/Effects/Kieu1")
+            valveEffectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/ValveEffects/Kieu1")
             break
 
         case 1:
-            effectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/Effects/Kieu2")
+            valveEffectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/ValveEffects/Kieu2")
             break
 
         case 2:
-            effectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/Effects/Kieu3")
+            valveEffectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/ValveEffects/Kieu3")
             break
 
         case 3:
-            effectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/Effects/Kieu4")
+            valveEffectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/ValveEffects/Kieu4")
             break
 
         case 4:
-            effectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/Effects/Kieu5")
+            valveEffectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/ValveEffects/Kieu5")
             break
 
         case 5:
-            effectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/Effects/Kieu6")
+            valveEffectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/ValveEffects/Kieu6")
             break
 
         case 6:
-            effectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/Effects/Kieu7")
+            valveEffectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/ValveEffects/Kieu7")
             break
 
         case 7:
-            effectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/Effects/Kieu8")
+            valveEffectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/ValveEffects/Kieu8")
             break
 
         case 8:
-            effectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/Effects/Kieu9")
+            valveEffectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/ValveEffects/Kieu9")
             break
 
         }
 
+    }
+
+    function updateLedEffectFolder()
+    {
+        switch(root.currentGroupIndex)
+        {
+        case 0:
+            ledEffectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/LedEffects/Kieu1")
+            break
+
+        case 1:
+            ledEffectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/LedEffects/Kieu2")
+            break
+
+        case 2:
+            ledEffectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/LedEffects/Kieu3")
+            break
+
+        case 3:
+            ledEffectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/LedEffects/Kieu4")
+            break
+
+        case 4:
+            ledEffectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/LedEffects/Kieu5")
+            break
+
+        case 5:
+            ledEffectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/LedEffects/Kieu6")
+            break
+
+        case 6:
+            ledEffectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/LedEffects/Kieu7")
+            break
+
+        case 7:
+            ledEffectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/LedEffects/Kieu8")
+            break
+
+        case 8:
+            ledEffectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/LedEffects/Kieu9")
+            break
+
+        }
     }
 
 
@@ -204,7 +248,7 @@ Item {
 
         ledSyncSwitch.checked = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedSync")
         valveModeComboBox.currentIndex = root.currentValveModeIndex
-        ledModeCombobox.currentIndex = setLedMode(theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedModeName"))
+
 
         colorBoxesRepeater.itemAt(0).color = returnColor(0)
         colorBoxesRepeater.itemAt(1).color = returnColor(1)
@@ -212,16 +256,51 @@ Item {
         valveForceRepeatSpinbox.value = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"ValveForceRepeatTimes")
 
 
+        ledBuiltInEffectsCheckBox.checked = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"UseLedBuiltInEffects")
+        if(ledBuiltInEffectsCheckBox.checked)
+        {
+             ledModeCombobox.currentIndex = setBuiltInLedMode(theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedModeName"))
+        }
+        else
+        {
+            ledModeCombobox.currentIndex = setExternalLedMode(theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedModeName"))
+
+        }
+
+        ledForceRepeatCheckBox.checked = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedForceRepeat")
+        ledForceRepeatTimesSpinbox.value = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedForceRepeatTimes")
+
+//        theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"UseLedBuiltInEffects",ledBuiltInEffectsCheckBox.checked)
+
+//        if(!ledBuiltInEffectsCheckBox.checked)
+//        {
+//            theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedBinPath", ledEffectFolderModel.get(ledModeCombobox.currentIndex),"filePath")
+//            theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedForceRepeat",ledForceRepeatCheckBox.checked)
+//            theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedForceRepeatTimes",ledForceRepeatTimesSpinbox.value)
+//        }
 
     }
 
 
-    function setLedMode( modeName)
+    function setBuiltInLedMode( modeName)
     {
         for(var i = 0; i < ledModeModel.count; i++)
         {
             if(ledModeModel.get(i).name === modeName)
                 return i
+        }
+
+        return -1
+    }
+
+    function setExternalLedMode(modeName)
+    {
+        for(var i = 0; i < ledEffectFolderModel.count;i++)
+        {
+            if(ledEffectFolderModel.get(i,"fileName") === modeName)
+            {
+                return i
+            }
         }
 
         return -1
@@ -235,7 +314,8 @@ Item {
 
 
         valveModeComboBox.model = returnValveModeList()
-        root.updateEffectFolder()
+        root.updateValveEffectFolder()
+        root.updateLedEffectFolder()
 
         if(root.currentGroupIndex == 0 || root.currentGroupIndex == 3 || root.currentGroupIndex ==5 && valveModeComboBox.currentText === "Solid")
         {
@@ -365,20 +445,6 @@ Item {
     Column{
         anchors.fill: parent
 
-        //        Rectangle{
-        //            height: 30
-        //            width: root.width
-        //            color: "grey"
-        //            Label{
-        //                anchors.verticalCenter: parent.verticalCenter
-        //                anchors.horizontalCenter: parent.horizontalCenter
-        //                text: "Kiểu " + (root.currentGroupIndex+1)
-        //                font.bold: true
-        //                font.pointSize: 12
-        //                color: "white"
-        //            }
-        //        }
-
         TabBar{
             id: tabBar
             width: root.width
@@ -407,14 +473,15 @@ Item {
 
                 Column {
                     id: ledControlColumn
-                    spacing: 40
+                    spacing: 15
                     width: parent.width
 
-                    Row{
-                        spacing: 5
-                        anchors.horizontalCenter: parent.horizontalCenter
+                    Row
+                    {
+                        spacing: 30
                         Button{
                             text: "Update"
+                            width: 180
                             onClicked:{
                                 //                                refreshModel()
                                 console.trace()
@@ -434,9 +501,30 @@ Item {
                                 theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedModeHihi", ledModeCombobox.currentIndex)
                                 theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedSync", ledSyncSwitch.checked)
 
-                                //                                }
+                                theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"UseLedBuiltInEffects",ledBuiltInEffectsCheckBox.checked)
+
+                                if(!ledBuiltInEffectsCheckBox.checked)
+                                {
+                                    theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedBinPath", ledEffectFolderModel.get(ledModeCombobox.currentIndex,"filePath"))
+                                    theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedForceRepeat",ledForceRepeatCheckBox.checked)
+                                    theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedForceRepeatTimes",ledForceRepeatTimesSpinbox.value)
+                                }
+
                             }
                         }
+                        CheckBox{
+                            id: ledBuiltInEffectsCheckBox
+                            text: "Built-in Effects"
+                            checked: false
+                        }
+                    }
+
+
+
+                    Row{
+                        spacing: 5
+
+
 
                         Text {
 
@@ -446,16 +534,16 @@ Item {
                         }
                         ComboBox{
                             id: ledModeCombobox
-                            model: ledModeModel
+                            model: ledBuiltInEffectsCheckBox.checked ? ledModeModel: ledEffectFolderModel
                             anchors.verticalCenter: parent.verticalCenter
                             currentIndex: root.currentLedMode
-
+                            textRole: ledBuiltInEffectsCheckBox.checked? "name" : "fileName"
 
                         }
 
                         Text {
 
-                            text: qsTr("Speed")
+                            text: qsTr("|| Speed:")
                             anchors.verticalCenter: parent.verticalCenter
                         }
                         SpinBox{
@@ -472,9 +560,55 @@ Item {
                     Row
                     {
                         spacing: 5
+                        Text {
+
+                            text: qsTr("Sync:")
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
                         Switch{
                             id: ledSyncSwitch
-                            text: "Sync"
+                            text: ""
+
+                        }
+                        Text {
+
+                            text: qsTr("|| Forced Repeat: ")
+                             anchors.verticalCenter: parent.verticalCenter
+                              visible: !ledBuiltInEffectsCheckBox.checked
+                        }
+                        CheckBox{
+                            id: ledForceRepeatCheckBox
+                            text: ""
+                            visible: !ledBuiltInEffectsCheckBox.checked
+
+                            onCheckedChanged: {
+                                if(checked)
+                                {
+                                    valveForceRepeatCheckBox.checked = false
+                                    valveForceRepeatCheckBox.enabled = false
+
+                                    theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveForceRepeat",false)
+                                }
+                                else
+                                {
+                                    valveForceRepeatCheckBox.enabled = true
+                                }
+                            }
+                        }
+                        Text {
+
+                            text: qsTr("|| Repeat:")
+                             anchors.verticalCenter: parent.verticalCenter
+                              visible: !ledBuiltInEffectsCheckBox.checked
+                        }
+
+                        SpinBox{
+                            id: ledForceRepeatTimesSpinbox
+                            from: 1
+                            to: 10000
+                            stepSize: 1
+                            editable: true
+                            visible: !ledBuiltInEffectsCheckBox.checked
                         }
 
 
@@ -482,18 +616,19 @@ Item {
 
                             text: qsTr("Color: ")
                             anchors.verticalCenter: parent.verticalCenter
-
+                            visible: ledBuiltInEffectsCheckBox.checked
                         }
 
                         Repeater{
 
                             id: colorBoxesRepeater
-                            model: 4
+                            model: 2
 
                             property int  currentSelectedIndex: -1
 
                             Rectangle{
                                 id: theColorBox
+                                visible: ledBuiltInEffectsCheckBox.checked
                                 property int  theIndex: index
                                 width: 30
                                 height: 30
@@ -609,6 +744,19 @@ Item {
                             {
                                 id: valveForceRepeatCheckBox
                                 text: "Forced Repeat    || "
+
+                                onCheckedChanged: {
+                                    if(checked)
+                                    {
+                                        ledForceRepeatCheckBox.checked = false
+                                        ledForceRepeatCheckBox.enabled = false
+                                        theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedForceRepeat",false)
+                                    }
+                                    else
+                                    {
+                                        ledForceRepeatCheckBox.enabled = true
+                                    }
+                                }
                             }
 
                             Text {
@@ -693,29 +841,58 @@ Item {
     }
 
     FolderListModel{
-        id: effectFolderModel
+        id: valveEffectFolderModel
         nameFilters: ["*.bin"]
         showDirs: false
         showDotAndDotDot: false
-        rootFolder: Qt.resolvedUrl("file:///"+appFilePath+"/Effects")
+        rootFolder: Qt.resolvedUrl("file:///"+appFilePath+"/ValveEffects")
 
 
 
         Component.onCompleted:
         {
             console.trace()
-            console.log("Folder count: " + effectFolderModel.count)
-            //           effectFolderModel. = Qt.resolvedUrl("file:///"+appFilePath+"/Effects")
-            effectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/Effects/Kieu1")
+            console.log("Folder count: " + valveEffectFolderModel.count)
+            //           valveEffectFolderModel. = Qt.resolvedUrl("file:///"+appFilePath+"/Effects")
+            valveEffectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/ValveEffects/Kieu1")
 
         }
 
         onFolderChanged: {
-            console.log("Folder count: " + effectFolderModel.count)
-            valveModeComboBox.model = effectFolderModel
+            console.log("Folder count: " + valveEffectFolderModel.count)
+            valveModeComboBox.model = valveEffectFolderModel
             valveModeComboBox.textRole = "fileName"
 
             valveModeComboBox.currentIndex = root.currentValveModeIndex
+
+        }
+
+    }
+
+    FolderListModel{
+        id: ledEffectFolderModel
+        nameFilters: ["*.bin"]
+        showDirs: false
+        showDotAndDotDot: false
+        rootFolder: Qt.resolvedUrl("file:///"+appFilePath+"/LedEffects")
+
+
+
+        Component.onCompleted:
+        {
+            console.trace()
+            console.log("Folder count: " + ledEffectFolderModel.count)
+            //           valveEffectFolderModel. = Qt.resolvedUrl("file:///"+appFilePath+"/Effects")
+            ledEffectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/LedEffects/Kieu1")
+
+        }
+
+        onFolderChanged: {
+            console.log("Folder count: " + ledEffectFolderModel.count)
+//            valveModeComboBox.model = valveEffectFolderModel
+//            valveModeComboBox.textRole = "fileName"
+
+//            valveModeComboBox.currentIndex = root.currentValveModeIndex
 
         }
 
@@ -731,8 +908,6 @@ Item {
             colorBoxesRepeater.itemAt(colorBoxesRepeater.currentSelectedIndex).color = theColorDialog.color
             console.trace()
             console.log("the color: " + theColorDialog.color)
-
-
         }
 
         onRejected: {
@@ -742,7 +917,6 @@ Item {
 
     MessageDialog{
         id: messageDialog
-
     }
 
 

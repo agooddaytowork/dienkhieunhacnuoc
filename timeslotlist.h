@@ -29,6 +29,10 @@ struct timeSlotItem{
     QModelIndex modelIndex;
     bool ValveForceRepeat = false;
     int ValveForceRepeatTimes = 0;
+    QString LedBinPath;
+    bool UseLedBuiltInEffects = false;
+    bool LedForceRepeat = false;
+    int  LedForceRepeatTimes = 0;
 };
 
 

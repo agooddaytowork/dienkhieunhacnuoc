@@ -36,8 +36,11 @@ public:
         LedModeRole,
         LedSyncRole,
         ValveForceRepeatRole,
-        ValveForceRepeatTimesRole
-
+        ValveForceRepeatTimesRole,
+        LedBinPath,
+        LedBuiltIntEffectRole,
+        LedForceRepeatRole,
+        LedForceRepeatTimesRole
     };
 
     // Basic functionality:

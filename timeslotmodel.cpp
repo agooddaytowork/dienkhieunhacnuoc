@@ -101,6 +101,14 @@ QVariant timeSlotModel::getDataPerIndex(const int &index, const QByteArray &Role
         return QVariant(item.ValveForceRepeat);
     case ValveForceRepeatTimesRole:
         return QVariant(item.ValveForceRepeatTimes);
+    case LedBinPath:
+        return QVariant(item.LedBinPath);
+    case LedBuiltIntEffectRole:
+        return QVariant(item.UseLedBuiltInEffects);
+    case LedForceRepeatRole:
+        return QVariant(item.LedForceRepeat);
+    case LedForceRepeatTimesRole:
+        return QVariant(item.LedForceRepeatTimes);
 
 
 
@@ -178,6 +186,15 @@ QVariant timeSlotModel::data(const QModelIndex &index, int role) const
         return QVariant(item.ValveForceRepeat);
     case ValveForceRepeatTimesRole:
         return QVariant(item.ValveForceRepeatTimes);
+    case LedBinPath:
+        return QVariant(item.LedBinPath);
+    case LedBuiltIntEffectRole:
+        return QVariant(item.UseLedBuiltInEffects);
+    case LedForceRepeatRole:
+        return QVariant(item.LedForceRepeat);
+    case LedForceRepeatTimesRole:
+        return QVariant(item.LedForceRepeatTimes);
+
 
 
     }
@@ -259,6 +276,18 @@ bool timeSlotModel::setDataPerIndex(const int &index, const QByteArray &RoleStri
         break;
     case ValveForceRepeatTimesRole:
         item.ValveForceRepeatTimes = value.toInt();
+        break;
+    case LedBinPath:
+        item.LedBinPath = value.toString();
+        break;
+    case LedBuiltIntEffectRole:
+        item.UseLedBuiltInEffects = value.toBool();
+        break;
+    case LedForceRepeatRole:
+        item.LedForceRepeat = value.toBool();
+        break;
+    case LedForceRepeatTimesRole:
+        item.LedForceRepeatTimes = value.toInt();
         break;
     }
 
@@ -346,6 +375,18 @@ bool timeSlotModel::setData(const QModelIndex &index, const QVariant &value, int
     case ValveForceRepeatTimesRole:
         item.ValveForceRepeatTimes = value.toInt();
         break;
+    case LedBinPath:
+        item.LedBinPath = value.toString();
+        break;
+    case LedBuiltIntEffectRole:
+        item.UseLedBuiltInEffects = value.toBool();
+        break;
+    case LedForceRepeatRole:
+        item.LedForceRepeat = value.toBool();
+        break;
+    case LedForceRepeatTimesRole:
+        item.LedForceRepeatTimes = value.toInt();
+        break;
     }
 
     if (mList->setItemAt(index.row(), item)) {
@@ -388,6 +429,10 @@ QHash<int, QByteArray> timeSlotModel::roleNames() const
     names[LedSyncRole] = "LedSync";
     names[ValveForceRepeatRole] = "ValveForceRepeat";
     names[ValveForceRepeatTimesRole] = "ValveForceRepeatTimes";
+    names[LedBinPath] = "LedBinPath";
+    names[LedBuiltIntEffectRole] = "UseLedBuiltInEffects";
+    names[LedForceRepeatRole] = "LedForceRepeat";
+    names[LedForceRepeatTimesRole] = "LedForceRepeatTimes";
 
 
     return names;
@@ -432,7 +477,7 @@ void timeSlotModel::setList(timeSlotList *list)
 
         connect(mList,&timeSlotList::SIG_NotifyListChanged,this,[=](){
 
-            qDebug() << "list change ne dmmm";
+//            qDebug() << "list change ne dmmm";
 //             emit dataChanged(createIndex(0,0), createIndex(rowCount()-1,0), QVector<int>());
             emit this->listChanged();
         });

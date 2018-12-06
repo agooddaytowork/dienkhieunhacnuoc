@@ -34,7 +34,8 @@ SOURCES += \
     led_fadeinfadeout2colors.cpp \
     led_strobe.cpp \
     led_solid.cpp \
-    led_blink.cpp
+    led_blink.cpp \
+    led_bineffects.cpp
 
 RESOURCES += qml.qrc
 
@@ -71,4 +72,5 @@ HEADERS += \
     led_fadeinfadeout2colors.h \
     led_strobe.h \
     led_solid.h \
-    led_blink.h
+    led_blink.h \
+    led_bineffects.h

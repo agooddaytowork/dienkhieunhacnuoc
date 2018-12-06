@@ -16,6 +16,7 @@
 #include "led_fadeinfadeout2colors.h"
 #include "led_solid.h"
 #include "led_blink.h"
+#include "led_bineffects.h"
 
 //#include "anlogger.h"
 #include <QMap>
@@ -59,10 +60,8 @@ class PresenterFrameList : public QObject
     LED_FadeInFadeOut2Colors mLed_ColorTransition;
     LED_Solid mLED_Solid;
     LED_Blink mLED_Blink;
+    LED_BinEffects mLED_BinEffects;
 
-    LED_FadeInFadeOut mLED_FadeInFadeOut_1;
-    LED_FadeInFadeOut2Colors mLed_ColorTransition_1;
-    LED_Solid mLED_Solid_1;
 
     QVector<PresenterFrame> frameList;
     QVector<PreviousFrame> timeSlotShortVerList;
@@ -70,8 +69,6 @@ class PresenterFrameList : public QObject
     PresenterFrame setFramePerGroup(const int &index, const timeSlotItem &timeSlot,  PresenterFrame aFrame);
     PresenterFrame createEmptyFramePerGroup(const int &group) const;
     void emptyFrameCleanUp();
-
-
 
     int timeSlotExistInList(const int &id);
     QString returnLedValue(const int &index, const QString &ledList);
