@@ -1,6 +1,6 @@
 #include "valveeffect_kieu1.h"
 #include <QDebug>
-ValveEffect_Kieu1::ValveEffect_Kieu1(): mEffectValid(false), mSpeed(0), mForceRepeat(false), mRepeatTime(0), mFrameNo(0)
+ValveEffect_Kieu1::ValveEffect_Kieu1(): mEffectValid(false), mSpeed(0), mForceRepeat(false), mRepeatTime(0), mForceRepeatJustChanged(false),mFrameNo(0)
 {
 
 
@@ -36,24 +36,33 @@ bool ValveEffect_Kieu1::isEffectValid()
     return mEffectValid;
 }
 
-bool ValveEffect_Kieu1::setForceRepeat(const int &repeatTime)
+bool ValveEffect_Kieu1::setForceRepeat(const bool &forcedRepeat, const int &repeatTime)
 {
 
-    if(!mForceRepeat || repeatTime != mRepeatTime)
+
+
+    if(mForceRepeat != forcedRepeat || repeatTime != mRepeatTime)
     {
-        mForceRepeat = true;
+
         mRepeatTime = repeatTime;
+        mForceRepeat = forcedRepeat;
 
-        mEffectBytesWithSpeed.clear();
-
-        for(int i =0; i < repeatTime;i++)
+        if(mForceRepeat)
         {
-            mEffectBytesWithSpeed.append(mEffectBytes);
+                    mEffectBytesForceRepeat.clear();
+
+                    for(int i =0; i < repeatTime;i++)
+                    {
+                        mEffectBytesForceRepeat.append(mEffectBytes);
+                    }
         }
 
-        qDebug() << "effectByte with speed size: " + QString::number(mEffectBytesWithSpeed.size());
+        mForceRepeatJustChanged = true;
 
-        return true;
+
+//        qDebug() << "effectByte with speed size: " + QString::number(mEffectBytesWithSpeed.size());
+     return true;
+
     }
 
 
@@ -64,28 +73,54 @@ bool ValveEffect_Kieu1::setForceRepeat(const int &repeatTime)
 
 bool ValveEffect_Kieu1::setSpeed( const int &theSpeed)
 {
-    if(mSpeed != theSpeed || mForceRepeat)
+
+    if(mSpeed != theSpeed || mForceRepeatJustChanged)
     {
         mSpeed = theSpeed;
-        mForceRepeat = false;
+        mForceRepeatJustChanged = false;
+
 
         mEffectBytesWithSpeed.clear();
-
-        for(int i = 0; i < mEffectBytes.count();i++)
+         qDebug() << "chan vl vay";
+        if(mForceRepeat)
         {
-            if(mSpeed >= 0)
+            qDebug() << "mForceRepeatSet";
+            for(int i = 0; i < mEffectBytesForceRepeat.count();i++)
             {
-                for( int ii = 50; ii >= mSpeed; ii--)
+                if(mSpeed >= 0)
                 {
-                    mEffectBytesWithSpeed.append(mEffectBytes[i]);
+                    for( int ii = 50; ii >= mSpeed; ii--)
+                    {
+                        mEffectBytesWithSpeed.append(mEffectBytesForceRepeat[i]);
+                    }
+                }
+                else
+                {
+
+                    for(int ii = 0; ii < 50 - mSpeed; ii++)
+                    {
+                        mEffectBytesWithSpeed.append(mEffectBytesForceRepeat[i]);
+                    }
                 }
             }
-            else
+        }
+        else
+        {
+            for(int i = 0; i < mEffectBytes.count();i++)
             {
-
-                for(int ii = 0; ii < 50 - mSpeed; ii++)
+                if(mSpeed >= 0)
                 {
-                    mEffectBytesWithSpeed.append(mEffectBytes[i]);
+                    for( int ii = 50; ii >= mSpeed; ii--)
+                    {
+                        mEffectBytesWithSpeed.append(mEffectBytes[i]);
+                    }
+                }
+                else
+                {
+                    for(int ii = 0; ii < 50 - mSpeed; ii++)
+                    {
+                        mEffectBytesWithSpeed.append(mEffectBytes[i]);
+                    }
                 }
             }
         }

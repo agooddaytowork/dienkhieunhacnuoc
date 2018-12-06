@@ -166,10 +166,12 @@ PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const time
 
             if(timeSlot.ValveForceRepeat)
             {
-                mValveEffect_1.setForceRepeat(timeSlot.ValveForceRepeatTimes);
+                mValveEffect_1.setForceRepeat(true,timeSlot.ValveForceRepeatTimes);
+                mValveEffect_1.setSpeed(timeSlot.ValveSpeed);
             }
             else
             {
+                mValveEffect_1.setForceRepeat(false,timeSlot.ValveForceRepeatTimes);
                 mValveEffect_1.setSpeed(timeSlot.ValveSpeed);
             }
 

@@ -39,7 +39,7 @@ Item {
     width: root.refreshWidth()
 
     onValveModeChanged: {
-        console.trace()
+//        console.trace()
         console.log("current valve Mode: " + root.valveMode)
     }
 

@@ -47,7 +47,7 @@ Item {
                     + " - valveMode: " + valveModeComboBox.currentIndex)
         //        if(theTimeSlotModel.size !== 0  && root.currentTimeSlotIndex <= theTimeSlotModel.size)
         //        {
-        console.trace()
+//        console.trace()
 
         theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveForceRepeat",valveForceRepeatCheckBox.checked)
         theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveForceRepeatTimes",valveForceRepeatSpinbox.value)
@@ -70,7 +70,7 @@ Item {
             case 0:
             case 3:
                 var currentFromMs = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"FromMs")
-                var newToMs = effectFolderModel.get(valveModeComboBox.currentIndex,"fileSize") * valveForceRepeatSpinbox.value * 50
+                var newToMs = effectFolderModel.get(valveModeComboBox.currentIndex,"fileSize") * valveForceRepeatSpinbox.value * 50 *(51- speedValveSpinBox.value)
                 theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ToMs", newToMs)
                 break
             }
@@ -544,7 +544,7 @@ Item {
                                 stepSize: 1
                                 value: root.currentValveSpeed
                                 editable: true
-                                enabled: !valveForceRepeatCheckBox.checked
+
                             }
                         }
 

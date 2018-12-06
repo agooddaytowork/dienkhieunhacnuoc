@@ -9,8 +9,10 @@ class ValveEffect_Kieu1 // INVERTER - Kieu 1, 4
     QString mFilePath;
     QByteArray mEffectBytes;
     QByteArray mEffectBytesWithSpeed;
+    QByteArray mEffectBytesForceRepeat;
     int mSpeed;
     bool mForceRepeat;
+    bool mForceRepeatJustChanged;
     int mRepeatTime;
     int mFrameNo;
 public:
@@ -18,7 +20,7 @@ public:
     bool setNewPath( QString filePath);
     bool isEffectValid();
     bool setSpeed(const int &speed);
-    bool setForceRepeat(const int &repeatTime);
+    bool setForceRepeat(const bool &forcedRepeat, const int &repeatTime);
     quint8 getData(const int &index);
 
 };
