@@ -599,10 +599,6 @@ Item {
                             textRole: ledBuiltInEffectsCheckBox.checked? "name" : "fileName"
                             anchors.verticalCenter: parent.verticalCenter
 
-                            onModelChanged: {
-                                console.trace()
-                                console.log("model change ne dm")
-                            }
 
 
 
@@ -947,9 +943,9 @@ Item {
 
         Component.onCompleted:
         {
-            console.trace()
-            console.log("Folder count: " + ledEffectFolderModel.count)
-            //           valveEffectFolderModel. = Qt.resolvedUrl("file:///"+appFilePath+"/Effects")
+//            console.trace()
+//            console.log("Folder count: " + ledEffectFolderModel.count)
+//            //           valveEffectFolderModel. = Qt.resolvedUrl("file:///"+appFilePath+"/Effects")
             ledEffectFolderModel.folder = Qt.resolvedUrl("file:///"+appFilePath+"/LedEffects/Kieu1")
 
         }
@@ -963,8 +959,8 @@ Item {
             }
             else
             {
-                console.trace()
-                console.log("Led Mode Name: " +theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedModeName") )
+//                console.trace()
+//                console.log("Led Mode Name: " +theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedModeName") )
                 ledModeCombobox.currentIndex = root.setExternalLedMode(theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedModeName"))
             }
 
