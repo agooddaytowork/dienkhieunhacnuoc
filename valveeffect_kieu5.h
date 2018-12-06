@@ -16,6 +16,7 @@ class ValveEffect_Kieu5 // INVERTER - Kieu 6
     bool mForceRepeatJustChanged;
     int mRepeatTime;
     int mFrameNo;
+    bool mNewPathJustChanged;
 public:
     ValveEffect_Kieu5();
     bool setNewPath( QString filePath);

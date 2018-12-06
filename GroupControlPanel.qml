@@ -16,6 +16,7 @@ Item {
     signal timeSlotSelect(int timeSlotIndex)
     signal timeSlotAdded(int timeSlotIndex)
     signal timeSlotRemoved()
+    signal updateAllTimeSlots()
     property int  currentCopyIndex: -1
     property bool  selected: false
     signal refreshPlease()
@@ -82,14 +83,26 @@ Item {
             color: "white"
 
             radius: 0
+            Column{
+
+                anchors.fill: parent
                 Label{
                     text: "Kiểu " + (root.groupIndex + 1)
-                   anchors.horizontalCenter: parent.horizontalCenter
-                   anchors.verticalCenter: parent.verticalCenter
+//                   anchors.horizontalCenter: parent.horizontalCenter
+//                   anchors.verticalCenter: parent.verticalCenter
                     font.bold: true
 
 
                 }
+                Button{
+                    text: "Update"
+                    onClicked: {
+                        var theList = root.returnTimeSlotList();
+                        theList.updateAllTimeSlots()
+                    }
+                }
+            }
+
 
         }
         Timeline{

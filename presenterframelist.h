@@ -102,6 +102,7 @@ public slots:
     void regenerateFrameList(const int &Duration, const int &FrameDuration);
 
 
+
 };
 
 #endif // PRESENTERFRAMELIST_H

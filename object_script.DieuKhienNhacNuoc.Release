@@ -17,6 +17,11 @@ INPUT(
 ./release\serialportal.o
 ./release\timeslotlistexporter.o
 ./release\timeslotlistimporter.o
+./release\led_fadeinfadeout2colors.o
+./release\led_strobe.o
+./release\led_solid.o
+./release\led_blink.o
+./release\led_bineffects.o
 ./release\qrc_qml.o
 ./release\moc_timeslotlist.o
 ./release\moc_timeslotmodel.o

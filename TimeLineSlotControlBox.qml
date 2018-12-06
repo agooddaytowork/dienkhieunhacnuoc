@@ -23,6 +23,9 @@ Item {
 
     enabled: false
 
+
+
+
     function returnColor(index)
     {
 

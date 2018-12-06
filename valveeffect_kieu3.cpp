@@ -1,6 +1,6 @@
 #include "valveeffect_kieu3.h"
 
-ValveEffect_Kieu3::ValveEffect_Kieu3(): mEffectValid(false), mSpeed(0), mForceRepeat(false), mForceRepeatJustChanged(false),mRepeatTime(0),mFrameNo(0)
+ValveEffect_Kieu3::ValveEffect_Kieu3(): mEffectValid(false), mSpeed(0), mForceRepeat(false), mForceRepeatJustChanged(false),mRepeatTime(0),mFrameNo(0), mNewPathJustChanged(false)
 {
 
 }
@@ -11,6 +11,7 @@ bool ValveEffect_Kieu3::setNewPath(QString filePath)
     if(mFilePath != filePath)
     {
         mFilePath = filePath;
+        mNewPathJustChanged = true;
         QFile file(mFilePath);
         if(file.open(QIODevice::ReadOnly ))
         {
@@ -30,11 +31,12 @@ bool ValveEffect_Kieu3::setNewPath(QString filePath)
 
 bool ValveEffect_Kieu3::setForceRepeat(const bool &forcedRepeat, const int &repeatTime)
 {
-    if(mForceRepeat != forcedRepeat || repeatTime != mRepeatTime)
+    if(mForceRepeat != forcedRepeat || repeatTime != mRepeatTime || mNewPathJustChanged)
     {
 
         mRepeatTime = repeatTime;
         mForceRepeat = forcedRepeat;
+        mNewPathJustChanged = false;
 
         if(mForceRepeat)
         {

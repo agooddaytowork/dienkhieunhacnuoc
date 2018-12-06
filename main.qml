@@ -474,6 +474,10 @@ ApplicationWindow {
                             timeLineSlotControlBox.refreshModel()
                         }
 
+                        onUpdateAllTimeSlots: {
+
+                        }
+
                     }
                 }
             }

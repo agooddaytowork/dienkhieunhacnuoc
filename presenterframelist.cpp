@@ -92,14 +92,14 @@ void PresenterFrameList::timeSlotChanged(const timeSlotItem &timeSlot)
 {
 
 
-    //    qDebug() << "Time SLot Changed";
+        qDebug() << "Time SLot Changed";
     int fromFrame = findFrameFromMs(timeSlot.fromMs);
     int toFrame = findFrameFromMs(timeSlot.toMs);
 
     int previousFrameIndex = timeSlotExistInList(timeSlot.id);
     if(previousFrameIndex >= 0)
     {
-        //         qDebug() << "previous Frame Found";
+                 qDebug() << "previous Frame Found";
         PreviousFrame thePreviousFrame = timeSlotShortVerList[previousFrameIndex];
 
 
@@ -145,9 +145,9 @@ int PresenterFrameList::findFrameFromMs(const int &timePoint)
     }
     else if(timePoint > mDuration)
     {
-        return mDuration/mFrameDuration;
+        return mDuration /mFrameDuration ;
     }
-    return static_cast<int>(timePoint/mFrameDuration);
+    return static_cast<int>(timePoint/mFrameDuration );
 }
 
 PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const timeSlotItem &timeSlot, PresenterFrame aFrame)
@@ -612,3 +612,4 @@ QString PresenterFrameList::returnLedValue(const int &index, const QString &ledL
 
     return theList.at(index);
 }
+

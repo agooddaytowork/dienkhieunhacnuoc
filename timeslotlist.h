@@ -55,6 +55,7 @@ public:
     Q_INVOKABLE bool getCollisionSide();
     Q_INVOKABLE int count();
     Q_INVOKABLE int lastIndex() const;
+    Q_INVOKABLE void updateAllTimeSlots();
 
     void getTimeSlotList();
 

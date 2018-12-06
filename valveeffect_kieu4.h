@@ -17,6 +17,7 @@ class ValveEffect_Kieu4 // Kieu 7 va Kieu 9 // Kieu 5 lay odd = true
            bool mForceRepeatJustChanged;
             int mRepeatTime;
              int mFrameNo;
+              bool mNewPathJustChanged;
  public:
               ValveEffect_Kieu4();
                bool setNewPath( QString filePath);

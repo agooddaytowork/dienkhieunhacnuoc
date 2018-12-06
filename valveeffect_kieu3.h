@@ -18,6 +18,7 @@ class ValveEffect_Kieu3 // Kieu 3
            bool mForceRepeatJustChanged;
             int mRepeatTime;
              int mFrameNo;
+              bool mNewPathJustChanged;
  public:
               ValveEffect_Kieu3();
                bool setNewPath( QString filePath);

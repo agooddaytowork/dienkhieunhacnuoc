@@ -19,6 +19,7 @@ class ValveEffect_Kieu2 // Kieu 2 va kieu 8
     bool mForceRepeatJustChanged;
     int mRepeatTime;
     int mFrameNo;
+    bool mNewPathJustChanged;
 
 
 public:

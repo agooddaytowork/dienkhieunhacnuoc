@@ -183,15 +183,15 @@ int timeSlotList::timeSlotCollisionCheck(const int &id)
     {
         if(mItems.at(i).id != theTimeSlot.id)
         {
-            if(theTimeSlot.fromMs >= mItems.at(i).fromMs && theTimeSlot.fromMs <= mItems.at(i).toMs)
+            if(theTimeSlot.fromMs + 50 >= mItems.at(i).fromMs && theTimeSlot.fromMs + 50 <= mItems.at(i).toMs)
             {
                 mCollisionSide = false;
                 return mItems.at(i).toMs;
             }
-            else if(theTimeSlot.toMs >= mItems.at(i).fromMs && theTimeSlot.toMs <= mItems.at(i).toMs)
+            else if(theTimeSlot.toMs -50 >= mItems.at(i).fromMs && theTimeSlot.toMs -50 <= mItems.at(i).toMs)
             {
                 mCollisionSide = true;
-                return mItems.at(i).fromMs - (theTimeSlot.toMs - theTimeSlot.fromMs);
+                return mItems.at(i).fromMs - (theTimeSlot.toMs -50 - theTimeSlot.fromMs + 50) ;
             }
 
         }
@@ -240,4 +240,12 @@ void timeSlotList::clearTimeSlotList()
     mCurrentIndex = 0;
 
     emit SIG_NotifyListChanged();
+}
+
+void timeSlotList::updateAllTimeSlots()
+{
+    for(int i = 0; i < mItems.size(); i++)
+    {
+        emit timeSlotItemChanged(mItems.at(i));
+    }
 }

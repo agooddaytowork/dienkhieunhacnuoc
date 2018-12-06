@@ -13,6 +13,7 @@ class ValveEffect_Kieu1 // INVERTER - Kieu 1, 4
     int mSpeed;
     bool mForceRepeat;
     bool mForceRepeatJustChanged;
+    bool mNewPathJustChanged;
     int mRepeatTime;
     int mFrameNo;
 public:
