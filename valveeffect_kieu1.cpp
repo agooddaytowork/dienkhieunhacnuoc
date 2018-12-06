@@ -1,6 +1,6 @@
 #include "valveeffect_kieu1.h"
 #include <QDebug>
-ValveEffect_Kieu1::ValveEffect_Kieu1(): mEffectValid(false), mSpeed(0), mForceRepeat(false), mRepeatTime(0), mForceRepeatJustChanged(false),mFrameNo(0)
+ValveEffect_Kieu1::ValveEffect_Kieu1(): mEffectValid(false), mSpeed(0), mForceRepeat(false), mForceRepeatJustChanged(false),mRepeatTime(0),mFrameNo(0)
 {
 
 

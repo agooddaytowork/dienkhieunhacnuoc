@@ -13,7 +13,12 @@ class ValveEffect_Kieu2 // Kieu 2 va kieu 8
     QString mFilePath;
     QByteArray mEffectBytes;
     QByteArray mEffectBytesWithSpeed;
+    QByteArray mEffectBytesForceRepeat;
     int mSpeed;
+    bool mForceRepeat;
+    bool mForceRepeatJustChanged;
+    int mRepeatTime;
+    int mFrameNo;
 
 
 public:
@@ -21,6 +26,7 @@ public:
     bool setNewPath( QString filePath);
     bool isEffectValid();
     bool setSpeed(const int &speed);
+    bool setForceRepeat(const bool &forcedRepeat, const int &repeatTime);
     bool getData(const int &index, const int &order);
 };
 

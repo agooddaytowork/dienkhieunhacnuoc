@@ -167,14 +167,13 @@ PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const time
             if(timeSlot.ValveForceRepeat)
             {
                 mValveEffect_1.setForceRepeat(true,timeSlot.ValveForceRepeatTimes);
-                mValveEffect_1.setSpeed(timeSlot.ValveSpeed);
             }
             else
             {
                 mValveEffect_1.setForceRepeat(false,timeSlot.ValveForceRepeatTimes);
-                mValveEffect_1.setSpeed(timeSlot.ValveSpeed);
-            }
 
+            }
+            mValveEffect_1.setSpeed(timeSlot.ValveSpeed);
             aFrame.InverterLevel = mValveEffect_1.getData(index);
         }
 
@@ -186,12 +185,19 @@ PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const time
 
         if(mValveEffect_2.isEffectValid())
         {
+            if(timeSlot.ValveForceRepeat)
+            {
+                mValveEffect_2.setForceRepeat(true,timeSlot.ValveForceRepeatTimes);
+            }
+            else
+            {
+                mValveEffect_2.setForceRepeat(true,timeSlot.ValveForceRepeatTimes);
+            }
             mValveEffect_2.setSpeed(timeSlot.ValveSpeed);
+
             for(int i = 0; i < timeSlot.ValveChannels; i++)
             {
                 aFrame.ValveOnOff.append(mValveEffect_2.getData(index, i));
-
-
             }
         }
 
@@ -284,7 +290,7 @@ PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const time
 
         for(int i = 0; i < timeSlot.LedChannels; i++)
         {
-             aFrame.LedColors[i]= mLed_ColorTransition.getData(index).name();
+            aFrame.LedColors[i]= mLed_ColorTransition.getData(index).name();
         }
     }
     else if(timeSlot.LedModeName == "Solid")
@@ -319,11 +325,11 @@ PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const time
     }
 
 
-        aFrame.LedSync = timeSlot.LedSync;
-        for(int i = 0; i < timeSlot.LedChannels; i++)
-        {
-            aFrame.LedOnOff.append(timeSlot.LedOnOff);
-        }
+    aFrame.LedSync = timeSlot.LedSync;
+    for(int i = 0; i < timeSlot.LedChannels; i++)
+    {
+        aFrame.LedOnOff.append(timeSlot.LedOnOff);
+    }
 
 
 
