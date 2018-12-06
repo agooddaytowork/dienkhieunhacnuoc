@@ -9,15 +9,21 @@
 class ValveEffect_Kieu4 // Kieu 7 va Kieu 9 // Kieu 5 lay odd = true
 {    bool mEffectValid;
      QString mFilePath;
-     QByteArray mEffectBytes;
-     QByteArray mEffectBytesWithSpeed;
-     int mSpeed;
+      QByteArray mEffectBytes;
+       QByteArray mEffectBytesWithSpeed;
+        QByteArray mEffectBytesForceRepeat;
+         int mSpeed;
+          bool mForceRepeat;
+           bool mForceRepeatJustChanged;
+            int mRepeatTime;
+             int mFrameNo;
  public:
-     ValveEffect_Kieu4();
-     bool setNewPath( QString filePath);
-     bool isEffectValid();
-     bool setSpeed(const int &speed);
-     bool getData(const int &index, const bool &odd);
+              ValveEffect_Kieu4();
+               bool setNewPath( QString filePath);
+                bool isEffectValid();
+                 bool setSpeed(const int &speed);
+                  bool setForceRepeat(const bool &forcedRepeat, const int &repeatTime);
+                   bool getData(const int &index, const bool &odd);
 };
 
 #endif // VALVEEFFECT_KIEU4_H

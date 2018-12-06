@@ -177,7 +177,6 @@ PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const time
             aFrame.InverterLevel = mValveEffect_1.getData(index);
         }
 
-
     }
     else if(mGroup == 1 || mGroup == 7)
     {
@@ -229,8 +228,20 @@ PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const time
     else if(mGroup == 6 || mGroup == 8)
     {
         mValveEffect_4.setNewPath(timeSlot.fileBinPath);
+
+
+
+
         if(mValveEffect_4.isEffectValid())
         {
+            if(timeSlot.ValveForceRepeat)
+            {
+                mValveEffect_4.setForceRepeat(true,timeSlot.ValveForceRepeatTimes);
+            }
+            else
+            {
+                mValveEffect_4.setForceRepeat(false,timeSlot.ValveForceRepeatTimes);
+            }
             mValveEffect_4.setSpeed(timeSlot.ValveSpeed);
             aFrame.ValveOnOff.append(mValveEffect_4.getData(index,false));
             aFrame.ValveOnOff.append(mValveEffect_4.getData(index,true));
