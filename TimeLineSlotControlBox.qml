@@ -34,9 +34,6 @@ Item {
         return colorArray[index]
     }
 
-    onCurrentValveModeIndexChanged: {
-        console.log("onCurrentValveModeIndexChanged")
-    }
 
 
 
@@ -243,7 +240,7 @@ Item {
         root.currentValveModeIndex = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex, "ValveMode")
         root.currentValveSpeed = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"ValveSpeed")
         root.currentLedSpeed = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedSpeed")
-        root.currentLedMode = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedModeHihi")
+//        root.currentLedMode = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedModeHihi")
         root.currentLedColorList = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LEDValuesList")
 
         ledSyncSwitch.checked = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedSync")
@@ -259,13 +256,14 @@ Item {
         ledBuiltInEffectsCheckBox.checked = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"UseLedBuiltInEffects")
         if(ledBuiltInEffectsCheckBox.checked)
         {
+
             ledModeCombobox.currentIndex = setBuiltInLedMode(theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedModeName"))
         }
         else
         {
-//            ledModeCombobox.currentIndex = setExternalLedMode(theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedModeName"))
-            ledModeCombobox.currentText = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedModeName")
-
+            console.trace()
+            console.log("Led Mode Name: " +theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedModeName") )
+            ledModeCombobox.currentIndex = setExternalLedMode(theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedModeName"))
         }
 
         ledForceRepeatCheckBox.checked = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedForceRepeat")
@@ -296,15 +294,7 @@ Item {
 
     function setExternalLedMode(modeName)
     {
-        for(var i = 0; i < ledEffectFolderModel.count;i++)
-        {
-            if(ledEffectFolderModel.get(i,"fileName") === modeName)
-            {
-                return i
-            }
-        }
-
-        return -1
+        ledModeCombobox.find(modeName)
     }
 
     onCurrentGroupIndexChanged: {
@@ -470,8 +460,6 @@ Item {
 
                 width: swipeView.width
                 height: swipeView.height
-
-
                 Column {
                     id: ledControlColumn
                     spacing: 15
@@ -566,6 +554,23 @@ Item {
                             id: ledBuiltInEffectsCheckBox
                             text: "Built-in Effects"
                             checked: false
+
+                            onCheckedChanged: {
+                                if(checked)
+                                {
+                                    ledForceRepeatCheckBox.checked = false
+                                    theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedForceRepeat",ledForceRepeatCheckBox.checked)
+                                    ledModeCombobox.model = ledModeModel
+                                    ledModeCombobox.textRole = "name"
+                                    ledModeCombobox.currentIndex = setBuiltInLedMode(theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedModeName"))
+                                }
+                                else
+                                {
+                                    ledModeCombobox.model = ledEffectFolderModel
+                                    ledModeCombobox.textRole = "fileName"
+                                    ledModeCombobox.currentIndex = setExternalLedMode(theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedModeName"))
+                                }
+                            }
                         }
                     }
 
@@ -584,10 +589,11 @@ Item {
                         }
                         ComboBox{
                             id: ledModeCombobox
-                            model: ledBuiltInEffectsCheckBox.checked ? ledModeModel: ledEffectFolderModel
-                            anchors.verticalCenter: parent.verticalCenter
-                            currentIndex: root.currentLedMode
+                            model: ledBuiltInEffectsCheckBox.checked? ledModeModel : ledEffectFolderModel
                             textRole: ledBuiltInEffectsCheckBox.checked? "name" : "fileName"
+                            anchors.verticalCenter: parent.verticalCenter
+
+
 
                         }
 
@@ -939,10 +945,6 @@ Item {
 
         onFolderChanged: {
             console.log("Folder count: " + ledEffectFolderModel.count)
-            //            valveModeComboBox.model = valveEffectFolderModel
-            //            valveModeComboBox.textRole = "fileName"
-
-            //            valveModeComboBox.currentIndex = root.currentValveModeIndex
 
         }
 
