@@ -252,6 +252,14 @@ PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const time
         mValveEffect_4.setNewPath(timeSlot.fileBinPath);
         if(mValveEffect_4.isEffectValid())
         {
+            if(timeSlot.ValveForceRepeat)
+            {
+                mValveEffect_4.setForceRepeat(true,timeSlot.ValveForceRepeatTimes);
+            }
+            else
+            {
+                mValveEffect_4.setForceRepeat(false,timeSlot.ValveForceRepeatTimes);
+            }
             mValveEffect_4.setSpeed(timeSlot.ValveSpeed);
             aFrame.ValveOnOff.append(mValveEffect_4.getData(index,true));
         }
@@ -261,6 +269,15 @@ PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const time
         mValveEffect_5.setNewPath(timeSlot.fileBinPath);
         if(mValveEffect_5.isEffectValid())
         {
+            if(timeSlot.ValveForceRepeat)
+            {
+                mValveEffect_5.setForceRepeat(true,timeSlot.ValveForceRepeatTimes);
+            }
+            else
+            {
+                mValveEffect_5.setForceRepeat(false,timeSlot.ValveForceRepeatTimes);
+            }
+
             mValveEffect_5.setSpeed(timeSlot.ValveSpeed);
 
 
