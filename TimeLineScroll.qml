@@ -16,7 +16,7 @@ Item {
         id: sliderBackground
         width: root.width
         height: root.height
-        color: "orange"
+        color: "grey"
 
 
 
@@ -24,9 +24,15 @@ Item {
             id: theSlider
 
             property bool  movable: false
-            color: "grey"
-            height: root.height - 5
-            anchors.top: parent.top
+            color: "orange"
+            height: root.height - 10
+            anchors.verticalCenter: parent.verticalCenter
+
+            Label{
+                text: "..."
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+            }
 
             width: root.width/duration * Math.abs(root.toMs - root.fromMs)
 

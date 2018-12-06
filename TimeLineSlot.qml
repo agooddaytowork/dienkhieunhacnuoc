@@ -334,7 +334,7 @@ Item {
                 }
             }
         }
-        color:  root.timeSlotSelected ? "grey":"black"
+        color:  root.timeSlotSelected ? "orange":"black"
         border.width: 1
         border.color: "white"
 

@@ -79,6 +79,7 @@ Item {
         Rectangle{
             width: root.width / 10
             height: root.height
+            color: "white"
 
             radius: 0
                 Label{

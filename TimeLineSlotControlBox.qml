@@ -38,6 +38,37 @@ Item {
         console.log("onCurrentValveModeIndexChanged")
     }
 
+    function returnDurationString(duration)
+    {
+        var minutes="00"
+        var seconds="00"
+        var miliSeconds ="000"
+
+        if(duration <=999)
+        {
+            miliSeconds = ("00" + duration).slice(-3)
+            return "00m:00s:"+miliSeconds +"ms"
+        }
+        else if(duration <=59999)
+        {
+            seconds = ("0" + parseInt(duration/1000)).slice(-2)
+            miliSeconds = ("00" + duration).slice(-3)
+
+            return "00m:"+seconds+"s:"+miliSeconds+"ms"
+        }
+        else
+        {
+            minutes = ("0" + parseInt(duration/60000)).slice(-2)
+
+            duration = duration%60000
+            seconds = ("0" + parseInt(duration/1000)).slice(-2)
+            miliSeconds =("00" + duration%1000).slice(-3)
+
+            return minutes + "m:" + seconds + "s:" + miliSeconds+"ms"
+
+        }
+    }
+
 
 
     function updateValveData()
@@ -47,21 +78,7 @@ Item {
                     + " - valveMode: " + valveModeComboBox.currentIndex)
         //        if(theTimeSlotModel.size !== 0  && root.currentTimeSlotIndex <= theTimeSlotModel.size)
         //        {
-//        console.trace()
-
-        theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveForceRepeat",valveForceRepeatCheckBox.checked)
-        theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveForceRepeatTimes",valveForceRepeatSpinbox.value)
-        theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveMode", valveModeComboBox.currentIndex)
-        theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"FileBinPath", effectFolderModel.get(valveModeComboBox.currentIndex,"filePath"))
-        theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveSpeed",speedValveSpinBox.value)
-        theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveModeName", effectFolderModel.get(valveModeComboBox.currentIndex,"fileName"))
-
-        //        }
-
-        //        refreshModel()
-
-
-        console.log(effectFolderModel.get(valveModeComboBox.currentIndex,"fileSize"))
+        //        console.trace()
 
         if(valveForceRepeatCheckBox.checked)
         {
@@ -76,18 +93,45 @@ Item {
             case 4:
                 var currentFromMs = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"FromMs")
                 var newToMs = effectFolderModel.get(valveModeComboBox.currentIndex,"fileSize") * valveForceRepeatSpinbox.value * 50 *(51- speedValveSpinBox.value) +currentFromMs
-                theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ToMs", newToMs)
+
                 break
             case 2:
             case 5:
-                 currentFromMs = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"FromMs")
-                 newToMs = effectFolderModel.get(valveModeComboBox.currentIndex,"fileSize")/2 * valveForceRepeatSpinbox.value * 50 *(51- speedValveSpinBox.value) +currentFromMs
-                theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ToMs", newToMs)
+                currentFromMs = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"FromMs")
+                newToMs = effectFolderModel.get(valveModeComboBox.currentIndex,"fileSize")/2 * valveForceRepeatSpinbox.value * 50 *(51- speedValveSpinBox.value) +currentFromMs
+
                 break
 
 
             }
 
+            if(newToMs > theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"ToMs"))
+            {
+                messageDialog.title = "Forced Repeat Error"
+                messageDialog.text = "Timeslot out of range! \n Please extend time slot length  to be at least:"+ root.returnDurationString(newToMs - currentFromMs)+" \nor change valve speed, repeat time"
+                messageDialog.icon = MessageDialog.Warning
+                messageDialog.open()
+
+                return
+            }
+
+        }
+
+
+
+
+
+        theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveForceRepeat",valveForceRepeatCheckBox.checked)
+        theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveForceRepeatTimes",valveForceRepeatSpinbox.value)
+        theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveMode", valveModeComboBox.currentIndex)
+        theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"FileBinPath", effectFolderModel.get(valveModeComboBox.currentIndex,"filePath"))
+        theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveSpeed",speedValveSpinBox.value)
+        theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ValveModeName", effectFolderModel.get(valveModeComboBox.currentIndex,"fileName"))
+
+        console.log(effectFolderModel.get(valveModeComboBox.currentIndex,"fileSize"))
+        if(valveForceRepeatCheckBox.checked)
+        {
+            theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ToMs", newToMs)
         }
 
     }
@@ -568,7 +612,7 @@ Item {
                             }
 
                             Text {
-                            anchors.verticalCenter: parent.verticalCenter
+                                anchors.verticalCenter: parent.verticalCenter
                                 text: qsTr("Repeat:")
                             }
 
@@ -579,16 +623,16 @@ Item {
                                 stepSize: 1
                             }
                             Text {
-                            anchors.verticalCenter: parent.verticalCenter
+                                anchors.verticalCenter: parent.verticalCenter
                                 text: qsTr("times")
                             }
 
-//                            TextField{
-//                                id: valveRepeatTimeTextField
-//                                width: 200
-//                                validator: IntValidator{bottom: 0; top: 100000}
+                            //                            TextField{
+                            //                                id: valveRepeatTimeTextField
+                            //                                width: 200
+                            //                                validator: IntValidator{bottom: 0; top: 100000}
 
-//                            }
+                            //                            }
                         }
 
                     }
@@ -694,6 +738,11 @@ Item {
         onRejected: {
 
         }
+    }
+
+    MessageDialog{
+        id: messageDialog
+
     }
 
 

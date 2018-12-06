@@ -312,7 +312,7 @@ ApplicationWindow {
 
         Rectangle{
             id: controlTimeLineBGRec
-            color: "yellow"
+            color: "white"
             width: root.width-500
             height: root.height
 
