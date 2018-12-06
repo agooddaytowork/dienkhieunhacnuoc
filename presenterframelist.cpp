@@ -191,7 +191,7 @@ PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const time
             }
             else
             {
-                mValveEffect_2.setForceRepeat(true,timeSlot.ValveForceRepeatTimes);
+                mValveEffect_2.setForceRepeat(false,timeSlot.ValveForceRepeatTimes);
             }
             mValveEffect_2.setSpeed(timeSlot.ValveSpeed);
 
@@ -208,6 +208,15 @@ PresenterFrame PresenterFrameList::setFramePerGroup(const int &index, const time
 
         if(mValveEffect_3.isEffectValid())
         {
+            if(timeSlot.ValveForceRepeat)
+            {
+                mValveEffect_3.setForceRepeat(true,timeSlot.ValveForceRepeatTimes);
+            }
+            else
+            {
+                mValveEffect_3.setForceRepeat(false,timeSlot.ValveForceRepeatTimes);
+            }
+
             mValveEffect_3.setSpeed(timeSlot.ValveSpeed);
             for(int i = 0; i < timeSlot.ValveChannels; i++)
             {

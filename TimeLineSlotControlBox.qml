@@ -75,6 +75,13 @@ Item {
                 var newToMs = effectFolderModel.get(valveModeComboBox.currentIndex,"fileSize") * valveForceRepeatSpinbox.value * 50 *(51- speedValveSpinBox.value) +currentFromMs
                 theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ToMs", newToMs)
                 break
+            case 2:
+                 currentFromMs = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"FromMs")
+                 newToMs = effectFolderModel.get(valveModeComboBox.currentIndex,"fileSize")/2 * valveForceRepeatSpinbox.value * 50 *(51- speedValveSpinBox.value) +currentFromMs
+                theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ToMs", newToMs)
+                break
+
+
             }
 
         }
