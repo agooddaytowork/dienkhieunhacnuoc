@@ -22,6 +22,7 @@ class LED_BinEffects
     int mRepeatTime;
     int mFrameNo;
     int mLedNo;
+    bool mFilePathJustChanged;
 public:
     LED_BinEffects();
     bool setNewPath( QString filePath, const int &ledNo);

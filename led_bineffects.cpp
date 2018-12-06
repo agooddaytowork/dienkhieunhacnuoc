@@ -1,15 +1,17 @@
 #include "led_bineffects.h"
 #include <QDebug>
-LED_BinEffects::LED_BinEffects():mEffectValid(false), mSpeed(0), mForceRepeat(false), mForceRepeatJustChanged(false),mRepeatTime(0),mFrameNo(0),mLedNo(0)
+LED_BinEffects::LED_BinEffects():mEffectValid(false), mSpeed(0), mForceRepeat(false), mForceRepeatJustChanged(false),mRepeatTime(0),mFrameNo(0),mLedNo(0), mFilePathJustChanged(false)
 {
 
 }
+
 bool LED_BinEffects::setNewPath(QString filePath, const int &ledNo)
 {
     if(mFilePath != filePath || mLedNo != ledNo)
     {
         mFilePath = filePath;
         mLedNo = ledNo;
+        mFilePathJustChanged = true;
         QFile file(mFilePath);
         if(file.open(QIODevice::ReadOnly ))
         {
@@ -26,13 +28,14 @@ bool LED_BinEffects::setNewPath(QString filePath, const int &ledNo)
             }
 
             int ledNo = 0;
-            QColor theColor;
+            QList<QColor> memberList;
             for(int i = 0; i < mEffectBytes.size() / 3; i++)
             {
-                QList<QColor> memberList;
+
 
                 if(ledNo < mLedNo)
                 {
+                    QColor theColor;
                     theColor.setRgb(static_cast<quint8>(mEffectBytes.at(i*3))
                                     ,static_cast<quint8>(mEffectBytes.at((i*3)+1))
                                     ,static_cast<quint8>(mEffectBytes.at((i*3)+2)));
@@ -68,11 +71,12 @@ bool LED_BinEffects::setForceRepeat(const bool &forcedRepeat, const int &repeatT
 {
 
 //    qDebug() <<"force request: " + QString::number(forcedRepeat) + " repeat time: " + QString::number(repeatTime);
-    if(mForceRepeat != forcedRepeat || repeatTime != mRepeatTime)
+    if(mForceRepeat != forcedRepeat || repeatTime != mRepeatTime || mFilePathJustChanged)
     {
 
         mRepeatTime = repeatTime;
         mForceRepeat = forcedRepeat;
+        mFilePathJustChanged = false;
 
         if(mForceRepeat)
         {

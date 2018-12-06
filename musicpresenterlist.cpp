@@ -314,12 +314,41 @@ void MusicPresenterList::frameChangedHandler(const PresenterFrame &frame)
 
         theItem.LedColor = frame.LedColors.at(0);
 
+        switch(theItem.group)
+        {
+        // 1 mau
+        case 0:
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+            theItem.LedColor = frame.LedColors.at(0);
+            break;
+            //2 mau
+        case 5:
+        case 6:
+        case 8:
+            if(theItem.odd)
+            {
+                theItem.LedColor = frame.LedColors.at(0);
+            }
+            else
+            {
+               theItem.LedColor = frame.LedColors.at(1);
+            }
+            break;
+            //8 mau
+        case 7:
+
+            theItem.LedColor = frame.LedColors.at(ii);
+            break;
+        }
+
         mItems[ii] = theItem;
 
     }
 
     emit itemChangedFromBackend();
-
 
 
 
