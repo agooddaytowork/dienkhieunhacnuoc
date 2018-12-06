@@ -67,6 +67,7 @@ bool LED_BinEffects::isEffectValid()
 bool LED_BinEffects::setForceRepeat(const bool &forcedRepeat, const int &repeatTime)
 {
 
+//    qDebug() <<"force request: " + QString::number(forcedRepeat) + " repeat time: " + QString::number(repeatTime);
     if(mForceRepeat != forcedRepeat || repeatTime != mRepeatTime)
     {
 
@@ -86,7 +87,7 @@ bool LED_BinEffects::setForceRepeat(const bool &forcedRepeat, const int &repeatT
         mForceRepeatJustChanged = true;
 
 
-        //        qDebug() << "effectByte with speed size: " + QString::number(mEffectBytesWithSpeed.size());
+//               qDebug() << "forcedColorMatrix size: " + QString::number(forcedColorMatrix.size());
         return true;
 
     }

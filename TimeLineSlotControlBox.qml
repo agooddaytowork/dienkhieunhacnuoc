@@ -259,25 +259,26 @@ Item {
         ledBuiltInEffectsCheckBox.checked = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"UseLedBuiltInEffects")
         if(ledBuiltInEffectsCheckBox.checked)
         {
-             ledModeCombobox.currentIndex = setBuiltInLedMode(theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedModeName"))
+            ledModeCombobox.currentIndex = setBuiltInLedMode(theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedModeName"))
         }
         else
         {
-            ledModeCombobox.currentIndex = setExternalLedMode(theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedModeName"))
+//            ledModeCombobox.currentIndex = setExternalLedMode(theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedModeName"))
+            ledModeCombobox.currentText = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedModeName")
 
         }
 
         ledForceRepeatCheckBox.checked = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedForceRepeat")
         ledForceRepeatTimesSpinbox.value = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedForceRepeatTimes")
 
-//        theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"UseLedBuiltInEffects",ledBuiltInEffectsCheckBox.checked)
+        //        theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"UseLedBuiltInEffects",ledBuiltInEffectsCheckBox.checked)
 
-//        if(!ledBuiltInEffectsCheckBox.checked)
-//        {
-//            theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedBinPath", ledEffectFolderModel.get(ledModeCombobox.currentIndex),"filePath")
-//            theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedForceRepeat",ledForceRepeatCheckBox.checked)
-//            theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedForceRepeatTimes",ledForceRepeatTimesSpinbox.value)
-//        }
+        //        if(!ledBuiltInEffectsCheckBox.checked)
+        //        {
+        //            theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedBinPath", ledEffectFolderModel.get(ledModeCombobox.currentIndex),"filePath")
+        //            theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedForceRepeat",ledForceRepeatCheckBox.checked)
+        //            theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedForceRepeatTimes",ledForceRepeatTimesSpinbox.value)
+        //        }
 
     }
 
@@ -485,13 +486,52 @@ Item {
                             onClicked:{
                                 //                                refreshModel()
                                 console.trace()
-                                console.log("Group: " + root.currentGroupIndex + " - timeslot: " + root.currentTimeSlotIndex
-                                            + " - valveMode: " + valveModeComboBox.currentIndex)
+                                console.log("file LED effect size: " + ledEffectFolderModel.get(ledModeCombobox.currentIndex,"fileSize"))
 
-                                //                                if(theTimeSlotModel.size !== 0 /* && root.currentTimeSlotIndex <= theTimeSlotModel.size*/)
-                                //                                {
-                                console.trace()
 
+
+
+                                if(ledForceRepeatCheckBox.checked)
+                                {
+                                    switch(root.currentGroupIndex)
+                                    {
+                                        // 1 mau`
+                                    case 0:
+                                    case 1:
+                                    case 2:
+                                    case 3:
+                                    case 4:
+                                        var currentFromMs = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"FromMs")
+                                        var newToMs = ledEffectFolderModel.get(ledModeCombobox.currentIndex,"fileSize")/3 * ledForceRepeatTimesSpinbox.value * 50 *(51- ledSpeedSpinBox.value) +currentFromMs
+
+                                        break
+
+                                        // 2 mau
+                                    case 5:
+                                    case 6:
+                                    case 8:
+
+                                        currentFromMs = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"FromMs")
+                                        newToMs = ledEffectFolderModel.get(ledModeCombobox.currentIndex,"fileSize")/6 * ledForceRepeatTimesSpinbox.value * 50 *(51- ledSpeedSpinBox.value) +currentFromMs
+                                        break
+
+                                        //8 mau
+                                    case 7:
+                                        currentFromMs = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"FromMs")
+                                        newToMs = ledEffectFolderModel.get(ledModeCombobox.currentIndex,"fileSize")/24 * ledForceRepeatTimesSpinbox.value * 50 *(51- ledSpeedSpinBox.value) +currentFromMs
+                                        break
+                                    }
+
+                                    if(newToMs > theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"ToMs"))
+                                    {
+                                        messageDialog.title = "LED - Forced Repeat Error"
+                                        messageDialog.text = "Timeslot out of range! \n Please extend time slot length  to be at least:"+ root.returnDurationString(newToMs - currentFromMs)+" \nor change valve speed, repeat time"
+                                        messageDialog.icon = MessageDialog.Warning
+                                        messageDialog.open()
+
+                                        return
+                                    }
+                                }
 
                                 theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LEDValuesList", colorBoxesRepeater.itemAt(0).color +";"+colorBoxesRepeater.itemAt(1).color)
                                 theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedModeName", ledModeCombobox.currentText)
@@ -506,8 +546,18 @@ Item {
                                 if(!ledBuiltInEffectsCheckBox.checked)
                                 {
                                     theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedBinPath", ledEffectFolderModel.get(ledModeCombobox.currentIndex,"filePath"))
-                                    theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedForceRepeat",ledForceRepeatCheckBox.checked)
                                     theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedForceRepeatTimes",ledForceRepeatTimesSpinbox.value)
+                                    theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedForceRepeat",ledForceRepeatCheckBox.checked)
+
+                                }
+                                else
+                                {
+                                    theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedForceRepeat",false)
+                                }
+
+                                if(ledForceRepeatCheckBox.checked)
+                                {
+                                    theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"ToMs",newToMs)
                                 }
 
                             }
@@ -573,8 +623,8 @@ Item {
                         Text {
 
                             text: qsTr("|| Forced Repeat: ")
-                             anchors.verticalCenter: parent.verticalCenter
-                              visible: !ledBuiltInEffectsCheckBox.checked
+                            anchors.verticalCenter: parent.verticalCenter
+                            visible: !ledBuiltInEffectsCheckBox.checked
                         }
                         CheckBox{
                             id: ledForceRepeatCheckBox
@@ -598,8 +648,8 @@ Item {
                         Text {
 
                             text: qsTr("|| Repeat:")
-                             anchors.verticalCenter: parent.verticalCenter
-                              visible: !ledBuiltInEffectsCheckBox.checked
+                            anchors.verticalCenter: parent.verticalCenter
+                            visible: !ledBuiltInEffectsCheckBox.checked
                         }
 
                         SpinBox{
@@ -889,10 +939,10 @@ Item {
 
         onFolderChanged: {
             console.log("Folder count: " + ledEffectFolderModel.count)
-//            valveModeComboBox.model = valveEffectFolderModel
-//            valveModeComboBox.textRole = "fileName"
+            //            valveModeComboBox.model = valveEffectFolderModel
+            //            valveModeComboBox.textRole = "fileName"
 
-//            valveModeComboBox.currentIndex = root.currentValveModeIndex
+            //            valveModeComboBox.currentIndex = root.currentValveModeIndex
 
         }
 
