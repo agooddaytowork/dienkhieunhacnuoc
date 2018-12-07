@@ -18,6 +18,7 @@ class TimeSlotListImporter : public QObject
     timeSlotItem constructTimeSlotItem(const int &group, const QJsonObject &theJsonObject);
 
     QString returnCorrectFileBinPath(const int &group, const QString &fileName);
+    QString returnCorrectLedBinPath(const int &group, const QString &fileName);
 public:
     explicit TimeSlotListImporter(QObject *parent = nullptr);
     void importFile(const QString &filePath);

@@ -33,7 +33,7 @@ timeSlotItem TimeSlotListImporter::constructTimeSlotItem(const int &group, const
     theItem.LedSync = theJsonObject.value("LedSync").toBool();
     theItem.ValveForceRepeat = theJsonObject.value("ValveForceRepeat").toBool();
     theItem.ValveForceRepeatTimes = theJsonObject.value("ValveForceRepeatTimes").toInt();
-    theItem.LedBinPath = theJsonObject.value("LedBinPath").toString("");
+    theItem.LedBinPath = returnCorrectLedBinPath(group,theJsonObject.value("LedModeName").toString(""));
     theItem.UseLedBuiltInEffects = theJsonObject.value("UseLedBuiltInEffects").toBool();
     theItem.LedForceRepeat = theJsonObject.value("LedForceRepeat").toBool();
     theItem.LedForceRepeatTimes = theJsonObject.value("LedForceRepeatTimes").toInt();
@@ -46,6 +46,46 @@ timeSlotItem TimeSlotListImporter::constructTimeSlotItem(const int &group, const
 QString TimeSlotListImporter::returnCorrectFileBinPath(const int &group, const QString &fileName)
 {
     QString groupFolderPath = "/ValveEffects/";
+
+    switch(group)
+    {
+    case 0:
+        groupFolderPath  += "Kieu1/";
+        break;
+
+    case 1:
+        groupFolderPath +="Kieu2/";
+        break;
+    case 2:
+        groupFolderPath +="Kieu3/";
+        break;
+    case 3:
+        groupFolderPath +="Kieu4/";
+        break;
+    case 4:
+        groupFolderPath +="Kieu5/";
+        break;
+    case 5:
+        groupFolderPath +="Kieu6/";
+        break;
+    case 6:
+        groupFolderPath +="Kieu7/";
+        break;
+    case 7:
+        groupFolderPath +="Kieu8/";
+        break;
+    case 8:
+        groupFolderPath +="Kieu9/";
+        break;
+
+    }
+
+    return mRootPath + groupFolderPath + fileName;
+}
+
+QString TimeSlotListImporter::returnCorrectLedBinPath(const int &group, const QString &fileName)
+{
+    QString groupFolderPath = "/LedEffects/";
 
     switch(group)
     {

@@ -214,21 +214,25 @@ void timeSlotList::timeSlotListImportedHandler(const int &group, const QVector<t
     mItems.clear();
     mCurrentIndex = 0;
 
+
     for(int i = 0; i < list.size(); i++)
     {
         emit preItemAppended();
 
         mItems.append(list.at(i));
 
-        if(list.at(i).id > mCurrentIndex)
+
+        if(list.at(i).id >= mCurrentIndex)
         {
-          mCurrentIndex = list.at(i).id + 1;
+          mCurrentIndex = list.at(i).id;
         }
 
 
         emit postItemAppended();
 
     }
+
+    mCurrentIndex++;
 
     emit SIG_NotifyListChanged();
 

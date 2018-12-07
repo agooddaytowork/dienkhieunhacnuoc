@@ -21,13 +21,16 @@ timeSlotItem timeSlotModel::getTimeSlotItemPerId(const int &id)
     timeSlotItem item;
 
 
+
     for(int i =0; i < mList->count(); i++)
     {
+        qDebug() << "current ID in list: " + QString::number(mList->items().at(i).id) ;
         if(mList->items().at(i).id == id)
         {
             return mList->items().at(i);
         }
     }
+    qDebug() << "timeSlot not found in list, group: " + QString::number(mList->mGroup);
 
     return item;
 }
@@ -47,7 +50,7 @@ int timeSlotModel::getIndexPerId(const int &id) const
 }
 QVariant timeSlotModel::getDataPerIndex(const int &index, const QByteArray &RoleString)
 {
-    if(index-1  > mList->count() || !mList || mList->count() ==  0)
+    if(/*index-1  > mList->count() ||*/ !mList || mList->count() ==  0)
     {
         return QVariant();
     }
@@ -204,7 +207,7 @@ QVariant timeSlotModel::data(const QModelIndex &index, int role) const
 
 bool timeSlotModel::setDataPerIndex(const int &index, const QByteArray &RoleString, const QVariant &value)
 {
-    if(index -1 > mList->count() || !mList)
+    if(/*index -1 > mList->count() ||*/ !mList)
     {
         return false;
     }
@@ -468,6 +471,7 @@ void timeSlotModel::setList(timeSlotList *list)
 
         connect(mList, &timeSlotList::preItemRemoved, this, [=](int index) {
             beginRemoveRows(QModelIndex(), index, index);
+
         });
         connect(mList, &timeSlotList::postItemRemoved, this, [=]() {
 

@@ -480,9 +480,9 @@ Item {
                                 //                                refreshModel()
                                 console.trace()
                                 console.log("file LED effect size: " + ledEffectFolderModel.get(ledModeCombobox.currentIndex,"fileSize"))
+                                console.log("Group: " + root.currentGroupIndex + " - timeslot Id: " + root.currentTimeSlotIndex)
 
-
-
+                                theTimeSlotModel.list = returnTimeSlotList()
 
                                 if(ledForceRepeatCheckBox.checked)
                                 {
