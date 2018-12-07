@@ -27,8 +27,8 @@ ApplicationWindow {
     onCurrentSongChanged: {
 
         root.currentSongJustChanged = true
-//        console.log("file:///"+appFilePath+"/Sessions/" + root.currentSong +".bin")
-//        theInterfaceGod.importTimeSlotList("file:///"+appFilePath+"/Sessions/" + root.currentSong +".bin")
+        //        console.log("file:///"+appFilePath+"/Sessions/" + root.currentSong +".bin")
+        //        theInterfaceGod.importTimeSlotList("file:///"+appFilePath+"/Sessions/" + root.currentSong +".bin")
     }
 
     /***** THIS SHIT IS FOR QUITING THE Application after closing the GOODDDAAM THREAD ****/
@@ -66,7 +66,7 @@ ApplicationWindow {
             {
                 root.currentSongJustChanged = false
 
-                 theInterfaceGod.importTimeSlotList("file:///"+appFilePath+"/Sessions/" + root.currentSong +".bin")
+                theInterfaceGod.importTimeSlotList("file:///"+appFilePath+"/Sessions/" + root.currentSong +".bin")
             }
         }
     }
@@ -445,7 +445,7 @@ ApplicationWindow {
                             groupControlPanelRepeater.currentTimeSlotIndex = timeSlotIndex
                             groupControlPanelRepeater.currentGroupIndex = groupControlPanelDelegate.groupIndex
 
-//                            timeLineSlotControlBox.refreshModel()
+                            //                            timeLineSlotControlBox.refreshModel()
 
                         }
 
@@ -587,9 +587,16 @@ ApplicationWindow {
 
 
         onDurationChanged: {
-            // console.log("changed DURATION ASLKDJALSDJSKLAJDKLSAJJD: " + duration)
-            root.duration = duration
-            theInterfaceGod.regenerateFrameList(duration, 50)
+            console.log("changed DURATION ASLKDJALSDJSKLAJDKLSAJJD: " + duration)
+
+
+            if(duration != 0)
+            {
+                 root.duration = duration
+                theInterfaceGod.regenerateFrameList(duration, 50)
+            }
+
+
         }
 
         onPositionChanged: {

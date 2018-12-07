@@ -24,7 +24,7 @@ timeSlotItem timeSlotModel::getTimeSlotItemPerId(const int &id)
 
     for(int i =0; i < mList->count(); i++)
     {
-        qDebug() << "current ID in list: " + QString::number(mList->items().at(i).id) ;
+//        qDebug() << "current ID in list: " + QString::number(mList->items().at(i).id) ;
         if(mList->items().at(i).id == id)
         {
             return mList->items().at(i);
@@ -483,6 +483,7 @@ void timeSlotModel::setList(timeSlotList *list)
 
 //            qDebug() << "list change ne dmmm";
 //             emit dataChanged(createIndex(0,0), createIndex(rowCount()-1,0), QVector<int>());
+
             emit this->listChanged();
         });
     }

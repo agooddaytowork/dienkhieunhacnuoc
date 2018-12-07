@@ -92,14 +92,14 @@ void PresenterFrameList::timeSlotChanged(const timeSlotItem &timeSlot)
 {
 
 
-        qDebug() << "Time SLot Changed";
+//        qDebug() << "Time SLot Changed";
     int fromFrame = findFrameFromMs(timeSlot.fromMs);
     int toFrame = findFrameFromMs(timeSlot.toMs);
 
     int previousFrameIndex = timeSlotExistInList(timeSlot.id);
     if(previousFrameIndex >= 0)
     {
-                 qDebug() << "previous Frame Found";
+//                 qDebug() << "previous Frame Found";
         PreviousFrame thePreviousFrame = timeSlotShortVerList[previousFrameIndex];
 
 

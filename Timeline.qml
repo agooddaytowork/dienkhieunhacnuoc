@@ -134,6 +134,11 @@ Item {
                         var selectedFromMs = (selectRec.x / timelineBG.width * Math.abs(root.toMs - root.fromMs) ) + root.fromMs
                         var selectedToMs = ((selectRec.width + selectRec.x )/ timelineBG.width * Math.abs(root.toMs - root.fromMs) ) + root.fromMs
 
+                        if(selectedToMs - selectedFromMs <50)
+                        {
+                            return
+                        }
+
                         root.newTimeSlot(selectedFromMs,selectedToMs)
                     }
 
