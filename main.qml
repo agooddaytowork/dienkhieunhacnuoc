@@ -593,6 +593,7 @@ ApplicationWindow {
             if(duration != 0)
             {
                  root.duration = duration
+                root.toMs = duration
                 theInterfaceGod.regenerateFrameList(duration, 50)
             }
 

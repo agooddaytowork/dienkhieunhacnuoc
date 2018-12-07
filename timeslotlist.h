@@ -46,6 +46,8 @@ class timeSlotList : public QObject
 
     timeSlotItem getTimeSlotItem(const int &id);
 
+    timeSlotItem timeSlotCollisionAdjust(const timeSlotItem &item);
+
 public:
     int mGroup;
     explicit timeSlotList(QObject *parent = nullptr);

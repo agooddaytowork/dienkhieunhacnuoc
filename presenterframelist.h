@@ -95,6 +95,7 @@ signals:
 
     void SIG_frameListReconstructed();
 
+
 public slots:
     void timeSlotChanged(const timeSlotItem &timeSlot);
     void timeSlotRemoved(const timeSlotItem &timeSlot);

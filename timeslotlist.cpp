@@ -31,7 +31,7 @@ bool timeSlotList::setItemAt(int index, const timeSlotItem &item)
 
 void timeSlotList::copyItem(const int &id, const int &fromMs)
 {
-     emit preItemAppended();
+    emit preItemAppended();
 
     timeSlotItem item;
     for (int i = 0; i < mItems.size(); i++)
@@ -64,8 +64,8 @@ void timeSlotList::appendItem(const quint8 &group, const int &fromMs, const int 
     item.id = mCurrentIndex;
     item.fromMs = fromMs;
     item.toMs = toMs;
-    item.ValveOnOff = true;
-    item.LedOnOff = true;
+    item.ValveOnOff = false;
+    item.LedOnOff = false;
     item.LedMode = 0;
     item.InverterLevel = 0;
     item.Inverter = false;
@@ -117,7 +117,9 @@ void timeSlotList::appendItem(const quint8 &group, const int &fromMs, const int 
         break;
 
     }
-    mItems.append(item);
+
+
+    mItems.append(timeSlotCollisionAdjust(item));
     mCurrentIndex++;
 
     emit postItemAppended();
@@ -183,15 +185,15 @@ int timeSlotList::timeSlotCollisionCheck(const int &id)
     {
         if(mItems.at(i).id != theTimeSlot.id)
         {
-            if(theTimeSlot.fromMs + 50 >= mItems.at(i).fromMs && theTimeSlot.fromMs + 50 <= mItems.at(i).toMs)
+            if(theTimeSlot.fromMs  >= mItems.at(i).fromMs && theTimeSlot.fromMs  <= mItems.at(i).toMs)
             {
                 mCollisionSide = false;
                 return mItems.at(i).toMs;
             }
-            else if(theTimeSlot.toMs -50 >= mItems.at(i).fromMs && theTimeSlot.toMs -50 <= mItems.at(i).toMs)
+            else if(theTimeSlot.toMs  >= mItems.at(i).fromMs && theTimeSlot.toMs  <= mItems.at(i).toMs)
             {
                 mCollisionSide = true;
-                return mItems.at(i).fromMs - (theTimeSlot.toMs -50 - theTimeSlot.fromMs + 50) ;
+                return mItems.at(i).fromMs - (theTimeSlot.toMs  - theTimeSlot.fromMs ) ;
             }
 
         }
@@ -199,6 +201,44 @@ int timeSlotList::timeSlotCollisionCheck(const int &id)
     }
     return 0;
     //    return false;
+}
+
+timeSlotItem timeSlotList::timeSlotCollisionAdjust(const timeSlotItem &item)
+{
+    timeSlotItem tmpItem = item;
+    bool fromChecked =false, toChecked = false;
+
+    for(int i = 0; i < mItems.count(); i++ )
+    {
+        if(mItems.at(i).id != tmpItem.id)
+        {
+            if(tmpItem.fromMs  >= mItems.at(i).fromMs && tmpItem.fromMs  <= mItems.at(i).toMs && !fromChecked)
+            {
+                tmpItem.fromMs = mItems.at(i).toMs+1;
+
+                fromChecked = true;
+
+            }
+            else if(tmpItem.toMs  >= mItems.at(i).fromMs && tmpItem.toMs  <= mItems.at(i).toMs && !toChecked)
+            {
+
+                tmpItem.toMs = mItems.at(i).fromMs -1;
+                toChecked = true;
+
+            }
+
+            if(fromChecked && toChecked)
+            {
+                return tmpItem;
+            }
+
+        }
+
+    }
+
+
+
+    return  tmpItem;
 }
 
 
@@ -224,7 +264,7 @@ void timeSlotList::timeSlotListImportedHandler(const int &group, const QVector<t
 
         if(list.at(i).id >= mCurrentIndex)
         {
-          mCurrentIndex = list.at(i).id;
+            mCurrentIndex = list.at(i).id;
         }
 
 
