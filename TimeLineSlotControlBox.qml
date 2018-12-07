@@ -112,7 +112,7 @@ Item {
             if(newToMs > theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"ToMs"))
             {
                 messageDialog.title = "Valve - Forced Repeat Error"
-                messageDialog.text = "Timeslot out of range! \n Please extend time slot length  to be at least:"+ root.returnDurationString(newToMs - currentFromMs)+" \nor change valve speed, repeat time"
+                messageDialog.text = "Timeslot out of range! \n Please extend time slot until"+ root.returnDurationString(newToMs)+" \n or change valve speed, repeat time"
                 messageDialog.icon = MessageDialog.Warning
                 messageDialog.open()
 
@@ -518,7 +518,7 @@ Item {
                                     if(newToMs > theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"ToMs"))
                                     {
                                         messageDialog.title = "LED - Forced Repeat Error"
-                                        messageDialog.text = "Timeslot out of range! \n Please extend time slot length  to be at least:"+ root.returnDurationString(newToMs - currentFromMs)+" \nor change valve speed, repeat time"
+                                        messageDialog.text = "Timeslot out of range! \n Please extend the time slot until :"+ root.returnDurationString(newToMs)+" \nor change valve speed, repeat time"
                                         messageDialog.icon = MessageDialog.Warning
                                         messageDialog.open()
 
@@ -808,6 +808,7 @@ Item {
                                 id: valveForceRepeatCheckBox
                                 text: "Forced Repeat    || "
 
+
                                 onCheckedChanged: {
                                     if(checked)
                                     {
@@ -832,6 +833,7 @@ Item {
                                 from: 1
                                 to:10000
                                 stepSize: 1
+                                editable: true
                             }
                             Text {
                                 anchors.verticalCenter: parent.verticalCenter

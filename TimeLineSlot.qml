@@ -26,6 +26,12 @@ Item {
     property string ledModeName: "+"
     property int  ledSpeed: 0
     property string ledColorList: "#8e8e8e;#8e8e8e"
+    property bool useBuiltIntLedEffect: false
+    property bool  valveForceRepeat: false
+    property int valveForceRepeatTimes: 0
+    property bool ledForceRepeat: false
+    property int  ledForceRepeatTimes: 0
+
 
 
     onLedColorListChanged: {
@@ -109,36 +115,71 @@ Item {
 
         Rectangle{
             id: infoRec
-            width: 150
+            width: 90
             height: 60
             anchors.top: parent.top
             anchors.left: parent.left
             color: "transparent"
             z:3
-            visible: infoRec.width >= theTimeSlot.width ? false: true
+            visible: inforColumn.width -60 >= theTimeSlot.width ? false: true
             Column{
+                id: inforColumn
                 anchors.fill: parent
-                spacing: 2
+                spacing: 3
+                anchors.topMargin: 3
+                anchors.leftMargin: 2
                 Row
                 {
                     Label{
-                        text: "Valve: "
+                        text: "V: "
+                        visible: inforColumn.width >= theTimeSlot.width ? false: true
                         color: "white"
+
+                        onWidthChanged: {
+                            console.log("width: " + width)
+                        }
                     }
                     Label{
-                        text: root.valveModeName
+                        id: valveNameLabel
+                        text: root.valveModeName.replace(".bin","")
                         color: "white"
+                        wrapMode: Label.WrapAnywhere
+
+                        Connections{
+                            target: root
+                            onWidthChanged:
+                            {
+                               valveNameLabel.width = root.width
+                            }
+                        }
 
                     }
                 }
                 Row
                 {
+                     visible: inforColumn.width >= theTimeSlot.width ? false: true
                     Label{
-                        text: "Valve Speed: "
+                        text: "VS: "
                         color: "white"
                     }
                     Label{
                         text: root.valveSpeed
+                        color: "white"
+                    }
+                    Label{
+                        text: " |FR: "
+                        color: "white"
+                    }
+                    Label{
+                        text: root.valveForceRepeat ? "Y" : "N"
+                        color: "white"
+                    }
+                    Label{
+                        text: " |R: "
+                        color: "white"
+                    }
+                    Label{
+                        text: root.valveForceRepeatTimes
                         color: "white"
                     }
                 }
@@ -147,17 +188,30 @@ Item {
                 {
                     spacing: 2
                     Label{
-                        text: "LED Mode: "
+                        text: "L: "
+                        visible: inforColumn.width >= theTimeSlot.width ? false: true
                         color: "white"
                     }
                     Label{
-                        text: root.ledModeName
+                        id: ledModeNameLabel
+                        text: root.ledModeName.replace(".bin","")
                         color: "white"
+
+                        wrapMode: Label.WrapAnywhere
+
+                        Connections{
+                            target: root
+                            onWidthChanged:
+                            {
+                               ledModeNameLabel.width = root.width
+                            }
+                        }
 
                     }
 
                         Rectangle{
                             id: firstColorRec
+                            visible: root.useBuiltIntLedEffect
                             width: 15
                             height: 15
                             radius: 7.5
@@ -167,6 +221,7 @@ Item {
                         }
                         Rectangle{
                             id: secondColorRec
+                            visible: root.useBuiltIntLedEffect
                             width: 15
                             height: 15
                             radius: 7.5
@@ -178,12 +233,29 @@ Item {
                 }
                 Row
                 {
+                     visible: inforColumn.width >= theTimeSlot.width ? false: true
                     Label{
-                        text: "Led Speed: "
+                        text: "LS: "
                         color: "white"
                     }
                     Label{
                         text: root.ledSpeed
+                        color: "white"
+                    }
+                    Label{
+                        text: " |FR: "
+                        color: "white"
+                    }
+                    Label{
+                        text: root.ledForceRepeat ? "Y":"N"
+                        color: "white"
+                    }
+                    Label{
+                        text: " |R: "
+                        color: "white"
+                    }
+                    Label{
+                        text: root.ledForceRepeatTimes
                         color: "white"
                     }
                 }

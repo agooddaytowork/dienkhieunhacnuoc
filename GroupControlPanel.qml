@@ -195,8 +195,10 @@ Item {
                             theTimeLineSlot.valveModeName = dmModel.getDataPerIndex(theTimeLineSlot.timeSlotIndex, "ValveModeName")
                             theTimeLineSlot.ledColorList = dmModel.getDataPerIndex(theTimeLineSlot.timeSlotIndex,"LEDValuesList")
                             theTimeLineSlot.timeSlotToMs = dmModel.getDataPerIndex(theTimeLineSlot.timeSlotIndex,"ToMs")
-
-
+                            theTimeLineSlot.valveForceRepeat = dmModel.getDataPerIndex(theTimeLineSlot.timeSlotIndex,"ValveForceRepeat")
+                            theTimeLineSlot.valveForceRepeatTimes = dmModel.getDataPerIndex(theTimeLineSlot.timeSlotIndex,"ValveForceRepeatTimes")
+                            theTimeLineSlot.ledForceRepeat = dmModel.getDataPerIndex(theTimeLineSlot.timeSlotIndex,"LedForceRepeat")
+                            theTimeLineSlot.ledForceRepeatTimes = dmModel.getDataPerIndex(theTimeLineSlot.timeSlotIndex,"LedForceRepeatTimes")
 
 
                         }
