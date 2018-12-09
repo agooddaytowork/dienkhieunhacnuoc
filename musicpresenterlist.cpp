@@ -106,21 +106,21 @@ void MusicPresenterList::appendItem(const quint8 &group, int xPos, int yPos)
         item.ValveChannels = 16;
         break;
     case 3:
-        item.LedChannels = 2;
+        item.LedChannels = 1;
         item.Inverter = true;
         item.ValveChannels = 1;
         break;
     case 4:
-        item.LedChannels = 3;
+        item.LedChannels = 1;
         item.ValveChannels = 1;
         break;
     case 5:
-        item.LedChannels = 12;
+        item.LedChannels = 2;
         item.Inverter = true;
         item.ValveChannels = 2;
         break;
     case 6:
-        item.LedChannels = 6;
+        item.LedChannels = 2;
         item.ValveChannels = 2;
         if(mCurrentIndex%2 == 0)
         {
