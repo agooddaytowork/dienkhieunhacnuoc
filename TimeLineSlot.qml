@@ -102,6 +102,7 @@ Item {
         {
             return 0
         }
+//        else if(newPos > root.duration)
         else
         {
             return newPos
@@ -314,6 +315,11 @@ Item {
                     {
                         root.timeSlotFromMs = 0
                     }
+                    if(root.timeSlotFromMs + root.slotDuration > root.duration)
+                    {
+                        root.timeSlotFromMs = root.duration - root.slotDuration
+                    }
+
                     root.timeSlotToMs = root.timeSlotFromMs + root.slotDuration
 
                     root.checkCollision()

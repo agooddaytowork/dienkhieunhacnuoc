@@ -65,7 +65,7 @@ void timeSlotList::appendItem(const quint8 &group, const int &fromMs, const int 
     item.fromMs = fromMs;
     item.toMs = toMs;
     item.ValveOnOff = false;
-    item.LedOnOff = false;
+    item.LedOnOff = true;
     item.LedMode = 0;
     item.InverterLevel = 0;
     item.Inverter = false;
