@@ -112,6 +112,7 @@ int main(int argc, char *argv[])
 
         QObject::connect(&dataList[i],&timeSlotList::timeSlotItemChanged,&presenterFrameLists[i],&PresenterFrameList::timeSlotChanged);
         QObject::connect(&dataList[i],&timeSlotList::timeSlotItemRemoved,&presenterFrameLists[i],&PresenterFrameList::timeSlotRemoved);
+        QObject::connect(&dataList[i],&timeSlotList::SIG_reportError,&theGod,&theInterfaceGod::reportError);
 
         QObject::connect(&theGod,&theInterfaceGod::SIG_regenerateFrameList,&presenterFrameLists[i],&PresenterFrameList::regenerateFrameList);
         QObject::connect(&theGod,&theInterfaceGod::SIG_playFrame, &presenterFrameLists[i],&PresenterFrameList::playFrame);
