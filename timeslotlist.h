@@ -33,6 +33,7 @@ struct timeSlotItem{
     bool UseLedBuiltInEffects = false;
     bool LedForceRepeat = false;
     int  LedForceRepeatTimes = 0;
+    bool valid = true;
 };
 
 

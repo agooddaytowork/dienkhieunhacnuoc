@@ -137,6 +137,13 @@ void timeSlotList::appendItem(const int &group, const int &fromMs, const int &to
     mItems.append(timeSlotCollisionAdjust(item));
     mCurrentIndex++;
 
+
+    if(group <0 || group > 8)
+    {
+
+
+        return;
+    }
     emit postItemAppended();
     //    emit timeSlotItemChanged(item);
 }

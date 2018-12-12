@@ -75,6 +75,7 @@ signals:
     void sizeChanged();
     void listChanged();
     void gui_timeSlotItemChanged();
+    void SIG_reportError(const QString &title, const QString &content);
 
 private:
     timeSlotItem getTimeSlotItemPerId(const int &id);
