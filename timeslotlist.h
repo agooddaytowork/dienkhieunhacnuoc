@@ -34,7 +34,7 @@ struct timeSlotItem{
     bool LedForceRepeat = false;
     int  LedForceRepeatTimes = 0;
     bool valid = true;
-    int ledSyncDelay = 10;
+    int ledSyncDelay = 0;
 };
 
 
