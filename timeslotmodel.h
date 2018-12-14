@@ -40,7 +40,8 @@ public:
         LedBinPath,
         LedBuiltIntEffectRole,
         LedForceRepeatRole,
-        LedForceRepeatTimesRole
+        LedForceRepeatTimesRole,
+        LedSyncDelayRole
     };
 
     // Basic functionality:

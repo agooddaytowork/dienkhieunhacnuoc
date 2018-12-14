@@ -27,6 +27,9 @@ bool MusicPresenterList::setItemAt(int index, const MusicPresenterItem &item)
     return true;
 }
 
+
+
+
 void MusicPresenterList::appenItemGroup6(bool odd, int xPos, int yPos)
 {
     emit preItemAppended();
@@ -186,7 +189,7 @@ void MusicPresenterList::frameChangedHandler(const PresenterFrame &frame)
 
         if(frame.LedSync)
         {
-            if(theItem.InverterLevel == 0)
+            if(theItem.InverterLevel == 0 && !frame.LedSyncDelay.at(0))
             {
                 theItem.LedOnOff = false;
             }
@@ -216,7 +219,7 @@ void MusicPresenterList::frameChangedHandler(const PresenterFrame &frame)
                         status |= 1 << i;
                     }
                 }
-                if(status == 0x0000)
+                if(status == 0x0000 && !frame.LedSyncDelay[0])
                 {
                     theItem.LedOnOff = false;
                 }
@@ -236,9 +239,9 @@ void MusicPresenterList::frameChangedHandler(const PresenterFrame &frame)
         {
             theItem.ValveOnOff = frame.ValveOnOff.at(ii);
 
-            if(frame.LedSync)
+            if(frame.LedSync && !frame.LedSyncDelay[ii] && !theItem.ValveOnOff)
             {
-                theItem.LedOnOff = theItem.ValveOnOff;
+                theItem.LedOnOff = false;
             }
             else
             {
@@ -285,6 +288,7 @@ void MusicPresenterList::frameChangedHandler(const PresenterFrame &frame)
             if(theItem.odd == true)
             {
                 theItem.InverterLevel = frame.InverterLevel;
+
             }
             else if(theItem.odd == false)
             {
@@ -293,14 +297,30 @@ void MusicPresenterList::frameChangedHandler(const PresenterFrame &frame)
 
             if(frame.LedSync)
             {
-                if(theItem.InverterLevel == 0)
+
+                if(theItem.odd)
                 {
-                    theItem.LedOnOff = false;
+                    if(theItem.InverterLevel == 0 && !frame.LedSyncDelay.at(0))
+                    {
+                        theItem.LedOnOff = false;
+                    }
+                    else
+                    {
+                        theItem.LedOnOff = true;
+                    }
                 }
                 else
                 {
-                    theItem.LedOnOff = true;
+                    if(theItem.InverterLevel == 0 && !frame.LedSyncDelay.at(1))
+                    {
+                        theItem.LedOnOff = false;
+                    }
+                    else
+                    {
+                        theItem.LedOnOff = true;
+                    }
                 }
+
             }
             else
             {

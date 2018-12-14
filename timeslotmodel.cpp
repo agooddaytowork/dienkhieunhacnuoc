@@ -116,6 +116,8 @@ QVariant timeSlotModel::getDataPerIndex(const int &index, const QByteArray &Role
             return QVariant(item.LedForceRepeat);
         case LedForceRepeatTimesRole:
             return QVariant(item.LedForceRepeatTimes);
+        case LedSyncDelayRole:
+            return QVariant(item.ledSyncDelay);
 
 
 
@@ -203,6 +205,8 @@ QVariant timeSlotModel::data(const QModelIndex &index, int role) const
         return QVariant(item.LedForceRepeat);
     case LedForceRepeatTimesRole:
         return QVariant(item.LedForceRepeatTimes);
+    case LedSyncDelayRole:
+        return QVariant(item.ledSyncDelay);
 
 
 
@@ -300,6 +304,9 @@ bool timeSlotModel::setDataPerIndex(const int &index, const QByteArray &RoleStri
             break;
         case LedForceRepeatTimesRole:
             item.LedForceRepeatTimes = value.toInt();
+            break;
+        case LedSyncDelayRole:
+            item.ledSyncDelay = value.toInt();
             break;
         }
     }
@@ -401,6 +408,9 @@ bool timeSlotModel::setData(const QModelIndex &index, const QVariant &value, int
     case LedForceRepeatTimesRole:
         item.LedForceRepeatTimes = value.toInt();
         break;
+    case LedSyncDelayRole:
+        item.ledSyncDelay = value.toInt();
+        break;
     }
 
     if (mList->setItemAt(index.row(), item)) {
@@ -447,6 +457,7 @@ QHash<int, QByteArray> timeSlotModel::roleNames() const
     names[LedBuiltIntEffectRole] = "UseLedBuiltInEffects";
     names[LedForceRepeatRole] = "LedForceRepeat";
     names[LedForceRepeatTimesRole] = "LedForceRepeatTimes";
+    names[LedSyncDelayRole] = "LedSyncDelay";
 
 
     return names;
