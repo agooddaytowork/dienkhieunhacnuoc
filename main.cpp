@@ -29,6 +29,9 @@ int main(int argc, char *argv[])
     QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
 
+
+
+
     qmlRegisterType<timeSlotModel>("TimeLine", 1, 0, "TimeSlotModel");
     qmlRegisterUncreatableType<timeSlotList>("TimeLine", 1, 0, "TimeSlotList",
                                              QStringLiteral("ToDoList should not be created in QML"));
@@ -135,6 +138,10 @@ int main(int argc, char *argv[])
 
     QApplication app(argc, argv);
     QQmlApplicationEngine engine;
+
+    app.setOrganizationName("Tam Duong");
+    app.setOrganizationDomain("tamduongs.com");
+    app.setApplicationName("SoanNhacNuoc");
 
     theTimeSlotExporter.setFilePath(QCoreApplication::applicationDirPath() +"/Sessions");
     theTimeSlotImporter.setRoothPath(QCoreApplication::applicationDirPath());
