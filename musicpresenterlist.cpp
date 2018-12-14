@@ -254,27 +254,38 @@ void MusicPresenterList::frameChangedHandler(const PresenterFrame &frame)
             {
                 theItem.ValveOnOff = frame.ValveOnOff.at(0);
 
+                if(frame.LedSync && !frame.LedSyncDelay[0] && !theItem.ValveOnOff)
+                {
+                    theItem.LedOnOff = theItem.ValveOnOff;
+                }
+                else
+                {
+                    theItem.LedOnOff = frame.LedOnOff.at(0);
+                }
             }
             else
             {
                 theItem.ValveOnOff = frame.ValveOnOff.at(1);
+
+                if(frame.LedSync && !frame.LedSyncDelay[1] && !theItem.ValveOnOff)
+                {
+                    theItem.LedOnOff = theItem.ValveOnOff;
+                }
+                else
+                {
+                    theItem.LedOnOff = frame.LedOnOff.at(1);
+                }
             }
 
-            if(frame.LedSync)
-            {
-                theItem.LedOnOff = theItem.ValveOnOff;
-            }
-            else
-            {
-                theItem.LedOnOff = frame.LedOnOff.at(0);
-            }
+
+
 
 
         }
         else if(theItem.group == 4)
         {
             theItem.ValveOnOff = frame.ValveOnOff.at(0);
-            if(frame.LedSync)
+            if(frame.LedSync && !frame.LedSyncDelay[0] && !theItem.ValveOnOff)
             {
                 theItem.LedOnOff = theItem.ValveOnOff;
             }
@@ -354,7 +365,7 @@ void MusicPresenterList::frameChangedHandler(const PresenterFrame &frame)
             }
             else
             {
-               theItem.LedColor = frame.LedColors.at(1);
+                theItem.LedColor = frame.LedColors.at(1);
             }
             break;
             //8 mau
