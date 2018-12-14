@@ -247,6 +247,7 @@ Item {
         root.currentLedColorList = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LEDValuesList")
 
         ledSyncSwitch.checked = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedSync")
+        syndDelaySpinBox.value = theTimeSlotModel.getDataPerIndex(root.currentTimeSlotIndex,"LedSyncDelay")
         valveModeComboBox.currentIndex = root.currentValveModeIndex
 
 
@@ -533,6 +534,7 @@ Item {
                                 //                                    console.log("Led Mode: " + ledModeCombobox.currentIndex)
                                 theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedModeHihi", ledModeCombobox.currentIndex)
                                 theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedSync", ledSyncSwitch.checked)
+                                theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"LedSyncDelay",syndDelaySpinBox.value)
 
                                 theTimeSlotModel.setDataPerIndex(root.currentTimeSlotIndex,"UseLedBuiltInEffects",ledBuiltInEffectsCheckBox.checked)
 
@@ -578,18 +580,29 @@ Item {
                                 }
                             }
                         }
+
+
                     }
 
 
 
                     Row{
-                        spacing: 5
-
-
+                        spacing:2
 
                         Text {
 
-                            text: qsTr("Mode: ")
+                            text: qsTr("Sync:")
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+                        Switch{
+                            id: ledSyncSwitch
+                            text: ""
+
+                        }
+
+                        Text {
+
+                            text: qsTr("| Mode:")
                             anchors.verticalCenter: parent.verticalCenter
 
                         }
@@ -606,7 +619,7 @@ Item {
 
                         Text {
 
-                            text: qsTr("|| Speed:")
+                            text: qsTr(" | Speed:")
                             anchors.verticalCenter: parent.verticalCenter
                         }
                         SpinBox{
@@ -622,20 +635,13 @@ Item {
 
                     Row
                     {
-                        spacing: 5
+                        spacing: 2
+
                         Text {
 
-                            text: qsTr("Sync:")
-                            anchors.verticalCenter: parent.verticalCenter
-                        }
-                        Switch{
-                            id: ledSyncSwitch
-                            text: ""
-
-                        }
-                        Text {
-
-                            text: qsTr("|| Forced Repeat: ")
+                            text: qsTr("Forced Repeat: ")
+                            wrapMode: Text.Wrap
+                            width: 50
                             anchors.verticalCenter: parent.verticalCenter
                             visible: !ledBuiltInEffectsCheckBox.checked
                         }
@@ -643,6 +649,7 @@ Item {
                             id: ledForceRepeatCheckBox
                             text: ""
                             visible: !ledBuiltInEffectsCheckBox.checked
+
 
                             onCheckedChanged: {
                                 if(checked)
@@ -660,7 +667,7 @@ Item {
                         }
                         Text {
 
-                            text: qsTr("|| Repeat:")
+                            text: qsTr(" | Repeat:")
                             anchors.verticalCenter: parent.verticalCenter
                             visible: !ledBuiltInEffectsCheckBox.checked
                         }
@@ -672,6 +679,24 @@ Item {
                             stepSize: 1
                             editable: true
                             visible: !ledBuiltInEffectsCheckBox.checked
+                             width: 110
+                        }
+                        Text {
+
+                            text: qsTr(" | Sync delay:")
+                            anchors.verticalCenter: parent.verticalCenter
+
+                        }
+
+                        SpinBox{
+                            id: syndDelaySpinBox
+                            enabled: ledSyncSwitch.checked
+                            from: 0
+                            to: 10000
+                            stepSize: 1
+                            editable: true
+
+                             width: 110
                         }
 
 
