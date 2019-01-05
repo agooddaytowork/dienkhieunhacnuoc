@@ -15,5 +15,6 @@
         <file>TimeLineSlot.qml</file>
         <file>TimeLineSlotControlBox.qml</file>
         <file>SerialDialog.qml</file>
+        <file>MyComboBox.qml</file>
     </qresource>
 </RCC>

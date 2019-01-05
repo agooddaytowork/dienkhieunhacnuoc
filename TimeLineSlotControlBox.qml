@@ -608,9 +608,48 @@ Item {
                         }
                         ComboBox{
                             id: ledModeCombobox
+                            width: 150
                             model: ledBuiltInEffectsCheckBox.checked? ledModeModel : ledEffectFolderModel
                             textRole: ledBuiltInEffectsCheckBox.checked? "name" : "fileName"
                             anchors.verticalCenter: parent.verticalCenter
+
+
+
+//                            delegate: ItemDelegate{
+//                                width: theledEffectLabel.width + 50
+
+//                                    Label{
+//                                        id: theledEffectLabel
+//                                        text: ledBuiltInEffectsCheckBox.checked? name : fileName
+//                                        anchors.verticalCenter: parent.verticalCenter
+//                                        anchors.left: parent.left
+//                                        anchors.leftMargin: 3
+//                                    }
+
+//                            }
+
+                            popup: Popup {
+                                    y: ledModeCombobox.height - 1
+                                    x: ledModeCombobox.x - 400
+                                    width: ledModeCombobox.width + 400
+                                    implicitHeight: contentItem.implicitHeight
+                                    padding: 1
+
+                                    contentItem: ListView {
+                                        clip: true
+                                        implicitHeight: contentHeight
+                                        model: ledModeCombobox.popup.visible ? ledModeCombobox.delegateModel : null
+                                        currentIndex: ledModeCombobox.highlightedIndex
+
+                                        ScrollIndicator.vertical: ScrollIndicator { }
+                                    }
+
+                                    background: Rectangle {
+                                        border.color: "#21be2b"
+                                        radius: 2
+                                    }
+                                }
+
 
 
 
@@ -807,6 +846,28 @@ Item {
                                         valveControlPane.state = "Default"
                                     }
                                 }
+
+                                popup: Popup {
+                                        y: valveModeComboBox.height - 1
+                                        x: valveModeComboBox.x - 400
+                                        width: valveModeComboBox.width + 400
+                                        implicitHeight: contentItem.implicitHeight
+                                        padding: 1
+
+                                        contentItem: ListView {
+                                            clip: true
+                                            implicitHeight: contentHeight
+                                            model: valveModeComboBox.popup.visible ? valveModeComboBox.delegateModel : null
+                                            currentIndex: valveModeComboBox.highlightedIndex
+
+                                            ScrollIndicator.vertical: ScrollIndicator { }
+                                        }
+
+                                        background: Rectangle {
+                                            border.color: "#21be2b"
+                                            radius: 2
+                                        }
+                                    }
                             }
 
                             Text {

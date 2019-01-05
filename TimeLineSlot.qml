@@ -144,7 +144,7 @@ Item {
                         id: valveNameLabel
                         text: root.valveModeName.replace(".bin","")
                         color: "white"
-                        wrapMode: Label.WrapAnywhere
+                        wrapMode: Label.WrapAtWordBoundaryOrAnywhere
 
                         Connections{
                             target: root
@@ -198,7 +198,7 @@ Item {
                         text: root.ledModeName.replace(".bin","")
                         color: "white"
 
-                        wrapMode: Label.WrapAnywhere
+                        wrapMode: Label.WrapAtWordBoundaryOrAnywhere
 
                         Connections{
                             target: root

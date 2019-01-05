@@ -74,3 +74,7 @@ HEADERS += \
     led_solid.h \
     led_blink.h \
     led_bineffects.h
+
+DISTFILES += \
+    MyComboBox.qml \
+    MyComboBox.qml
