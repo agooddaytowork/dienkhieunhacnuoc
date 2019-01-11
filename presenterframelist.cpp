@@ -109,6 +109,7 @@ bool PresenterFrameList::wasValveOn_kieu_7_8_9(const int &valveOrder, int curren
 void PresenterFrameList::clearList()
 {
     frameList.clear();
+    timeSlotShortVerList.clear();
 
     for(int i = 0; i < mFrameNo; i++)
     {
